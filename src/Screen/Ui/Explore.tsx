@@ -73,6 +73,86 @@ const Explore = () => {
       name: 'Amazing Pools',
       img: require('../../assets/Amazing-pools.png'),
     },
+    {
+      id: 6,
+      name: 'Beach',
+      img: require('../../assets/Beach.png'),
+    },
+    {
+      id: 7,
+      name: 'Bed & Breakfasts',
+      img: require('../../assets/Bed-&-Breakfasts.png'),
+    },
+    {
+      id: 8,
+      name: 'Boats',
+      img: require('../../assets/Boats.png'),
+    },
+    {
+      id: 9,
+      name: 'Camping',
+      img: require('../../assets/Camping.png'),
+    },
+    {
+      id: 10,
+      name: 'Culinary Hub',
+      img: require('../../assets/Chefs-Kitchens.png'),
+    },
+    {
+      id: 11,
+      name: 'Artistic Retreats',
+      img: require('../../assets/Creative-Spaces.png'),
+    },
+    {
+      id: 12,
+      name: 'Design',
+      img: require('../../assets/Design.png'),
+    },
+    {
+      id: 13,
+      name: 'Dome',
+      img: require('../../assets/Dome.png'),
+    },
+    {
+      id: 14,
+      name: 'Golfing',
+      img: require('../../assets/Golfing.png'),
+    },
+    {
+      id: 15,
+      name: 'National Parks',
+      img: require('../../assets/National-Parks.png'),
+    },
+    {
+      id: 16,
+      name: 'New',
+      img: require('../../assets/New.png'),
+    },
+    {
+      id: 17,
+      name: 'Private Rooms',
+      img: require('../../assets/Private-Rooms.png'),
+    },
+    {
+      id: 18,
+      name: 'Top of the world',
+      img: require('../../assets/Top-of-the-world.png'),
+    },
+    {
+      id: 19,
+      name: 'Towers',
+      img: require('../../assets/Towers.png'),
+    },
+    {
+      id: 20,
+      name: 'Treehouses',
+      img: require('../../assets/Treehouses.png'),
+    },
+    {
+      id: 21,
+      name: 'Windmills',
+      img: require('../../assets/Windmills.png'),
+    },
   ];
   return (
     <View style={{flex: 1, padding: 20, backgroundColor: 'white'}}>
@@ -134,13 +214,14 @@ const Explore = () => {
                   }}
                 />
                 <Text
-                  // numberOfLines={1}
+                  numberOfLines={1}
                   style={{
                     color: select === item?.id ? 'black' : 'grey',
                     fontWeight: 'bold',
                     // backgroundColor: 'red',
-                    // width: 70,
+                    width: 70,
                     textAlign: 'center',
+                    // backgroundColor: 'red',
                   }}>
                   {item?.name}
                 </Text>

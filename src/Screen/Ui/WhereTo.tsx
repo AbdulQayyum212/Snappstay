@@ -17,6 +17,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import plus from '../../assets/plusSmall.png';
 import minus from '../../assets/minus.png';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 const WhereTo = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -152,38 +153,43 @@ const WhereTo = () => {
                     righ
                     size={{width: 20, height: 30}}
                     label={'Exact date'}
-                    onPress={e => console.log('pressed', 'Exact date')}
-                    containerStyle={{marginRight: 20}}
+                    onPress={() => console.log('pressed', 'Exact date')}
+                    // containerStyle={{marginRight: 20, borderColor: 'Yellow'}}
+                    containerStyle={{
+                      borderColor: 'lightgrey',
+                      borderBottomRightRadius: 0,
+                      marginRight: 20,
+                    }}
                   />
                   <Chip
                     size={{width: 20, height: 30}}
                     label={'± 1 day'}
                     onPress={() => console.log('pressed')}
-                    containerStyle={{marginRight: 20}}
+                    containerStyle={{marginRight: 20, borderColor: 'lightgrey'}}
                   />
                   <Chip
                     size={{width: 20, height: 30}}
                     label={'± 2 day'}
                     onPress={() => console.log('pressed')}
-                    containerStyle={{marginRight: 20}}
+                    containerStyle={{marginRight: 20, borderColor: 'lightgrey'}}
                   />
                   <Chip
                     size={{width: 20, height: 30}}
                     label={'± 3 day'}
                     onPress={() => console.log('pressed')}
-                    containerStyle={{marginRight: 20}}
+                    containerStyle={{marginRight: 20, borderColor: 'lightgrey'}}
                   />
                   <Chip
                     size={{width: 20, height: 30}}
                     label={'± 4 day'}
                     onPress={() => console.log('pressed')}
-                    containerStyle={{marginRight: 20}}
+                    containerStyle={{marginRight: 20, borderColor: 'lightgrey'}}
                   />
                   <Chip
                     size={{width: 20, height: 30}}
                     label={'± 5 day'}
                     onPress={() => console.log('pressed')}
-                    containerStyle={{marginRight: 20}}
+                    containerStyle={{marginRight: 20, borderColor: 'lightgrey'}}
                   />
                 </View>
               </ScrollView>
@@ -244,18 +250,19 @@ const WhereTo = () => {
                     size={{width: 20, height: 30}}
                     label={'Weekend'}
                     onPress={() => console.log('pressed')}
-                    containerStyle={{marginRight: 20}}
+                    containerStyle={{marginRight: 20, borderColor: 'lightgrey'}}
                   />
                   <Chip
                     size={{width: 20, height: 30}}
                     label={'Week'}
                     onPress={() => console.log('pressed')}
-                    containerStyle={{marginRight: 20}}
+                    containerStyle={{marginRight: 20, borderColor: 'lightgrey'}}
                   />
                   <Chip
                     size={{width: 20, height: 30}}
                     label={'Month'}
                     onPress={() => console.log('pressed')}
+                    containerStyle={{borderColor: 'lightgrey'}}
                   />
                   {/* </ScrollView> */}
                 </View>
@@ -551,12 +558,13 @@ const WhereTo = () => {
               borderRadius: 10,
               paddingHorizontal: 7,
               backgroundColor: '#FBFBFB',
+              overflow: 'hidden',
             }}>
             <Image
               style={{width: 20, height: 20, marginRight: 10}}
               source={require('../../assets/icon.png')}
             />
-            <TextInput
+            {/* <TextInput
               style={{
                 height: 35,
                 width: '92%',
@@ -564,6 +572,28 @@ const WhereTo = () => {
                 borderBottomRightRadius: 20,
               }}
               placeholder="search..."
+            /> */}
+            <GooglePlacesAutocomplete
+              styles={{
+                textInputContainer: {
+                  width: '100%',
+                  backgroundColor: '#FBFBFB',
+                },
+                textInput: {
+                  width: '90%',
+                  height: 38,
+                  backgroundColor: '#FBFBFB',
+                },
+              }}
+              placeholder="Search..."
+              onPress={(data, details = null) => {
+                // 'details' is provided when fetchDetails = true
+                console.log(data, details);
+              }}
+              query={{
+                key: 'google',
+                language: 'en',
+              }}
             />
           </View>
         </View>

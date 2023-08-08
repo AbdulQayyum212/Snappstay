@@ -12,6 +12,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import BottomSheet from 'react-native-simple-bottom-sheet';
 import {useNavigation} from '@react-navigation/native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import MapView, {PROVIDER_GOOGLE, Polyline, Marker} from 'react-native-maps';
 const Map = () => {
   const [select, setSelect] = useState(1);
   const navigation = useNavigation();
@@ -42,6 +43,16 @@ const Map = () => {
       id: 5,
       name: 'Mansions',
       img: require('../../assets/Rectangle.png'),
+    },
+  ];
+  const coordinates = [
+    {
+      latitude: 24.910688,
+      longitude: 67.0310973,
+    },
+    {
+      latitude: 24.910688,
+      longitude: 67.0310973,
     },
   ];
   return (
@@ -130,10 +141,28 @@ const Map = () => {
         </View> */}
       </View>
       <View>
-        <Image
+        {/* <Image
           style={{width: '100%', height: 670}}
           source={require('../../assets/staticmap.png')}
-        />
+        /> */}
+        <MapView
+          provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+          style={{width: '100%', height: 600}}
+          region={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.015,
+            longitudeDelta: 0.0121,
+          }}>
+          <Marker coordinate={coordinates[0]} />
+          <Marker coordinate={coordinates[1]} />
+          <Polyline
+            strokeWidth={2}
+            strokeColor="#000"
+            strokeColors={['black']}
+            coordinates={coordinates}
+          />
+        </MapView>
       </View>
       {/* <View>Your content</View> */}
       {/* <TouchableOpacity onPress={() => panelRef.current.togglePanel()}>
