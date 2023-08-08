@@ -1,0 +1,978 @@
+import {useNavigation} from '@react-navigation/native';
+import React, {useRef, useState} from 'react';
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  Text,
+  FlatList,
+  ScrollView,
+  TextInput,
+  Modal,
+  StyleSheet,
+} from 'react-native';
+import {Calendar} from 'react-native-calendars';
+import {ExpandableSection, Chip, Button} from 'react-native-ui-lib';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import plus from '../../assets/plusSmall.png';
+import minus from '../../assets/minus.png';
+const WhereTo = () => {
+  const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [top, setTop] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [expanded1, setExpanded1] = useState(false);
+  const [selected, setSelected] = useState('');
+  const [conditionState, setConditionState] = useState('Choose dates');
+  const data1 = [
+    {
+      name: "I'm Flexible",
+      img: require('../../assets/bgimage.png'),
+      bgcolor: '#FC6171',
+    },
+    {
+      name: 'Europe',
+      img: require('../../assets/bgimage.png'),
+      bgcolor: '#30BDB2',
+    },
+    {
+      name: 'Japon',
+      img: require('../../assets/bgimage.png'),
+      bgcolor: 'black',
+    },
+  ];
+  const date = [
+    {
+      month: 'Februery',
+      year: 2023,
+    },
+    {
+      month: 'March',
+      year: 2023,
+    },
+    {
+      month: 'April',
+      year: 2023,
+    },
+    {
+      month: 'May',
+      year: 2023,
+    },
+  ];
+  const getBodyElement = () => {
+    return (
+      <View style={{padding: 10}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingHorizontal: 10,
+            paddingVertical: 5,
+            backgroundColor: '#ebebeb',
+            borderRadius: 20,
+            width: '80%',
+            alignSelf: 'center',
+            padding: 5,
+          }}>
+          <TouchableOpacity
+            onPress={() => setConditionState('Choose dates')}
+            style={{
+              backgroundColor:
+                conditionState === 'Choose dates' ? 'white' : null,
+              paddingHorizontal: 10,
+              width: '50%',
+              paddingVertical: 5,
+              borderRadius: 20,
+            }}>
+            <Text
+              style={{
+                color: 'black',
+                textAlign: 'center',
+              }}>
+              Choose dates
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setConditionState('flexible')}
+            style={{
+              backgroundColor:
+                conditionState === 'Choose dates' ? null : 'white',
+              paddingHorizontal: 10,
+              paddingVertical: 5,
+              width: '50%',
+              alignItems: 'center',
+              borderRadius: 20,
+            }}>
+            <Text
+              style={{
+                color: 'black',
+                textAlign: 'center',
+              }}>
+              i'm flexible
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {conditionState === 'Choose dates' ? (
+          <>
+            <Calendar
+              onDayPress={day => {
+                setSelected(day.dateString);
+              }}
+              showWeekNumbers
+              markedDates={{
+                [selected]: {
+                  selected: true,
+                  disableTouchEvent: true,
+                  selectedDotColor: 'orange',
+                },
+              }}
+            />
+            <View
+              style={{
+                borderTopWidth: 1,
+                borderTopColor: 'lightgrey',
+                paddingVertical: 12,
+                marginTop: 10,
+              }}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    paddingVertical: 2,
+                  }}>
+                  <Chip
+                    righ
+                    size={{width: 20, height: 30}}
+                    label={'Exact date'}
+                    onPress={() => console.log('pressed')}
+                    containerStyle={{marginRight: 20}}
+                  />
+                  <Chip
+                    size={{width: 20, height: 30}}
+                    label={'± 1 day'}
+                    onPress={() => console.log('pressed')}
+                    containerStyle={{marginRight: 20}}
+                  />
+                  <Chip
+                    size={{width: 20, height: 30}}
+                    label={'± 2 day'}
+                    onPress={() => console.log('pressed')}
+                    containerStyle={{marginRight: 20}}
+                  />
+                  <Chip
+                    size={{width: 20, height: 30}}
+                    label={'± 3 day'}
+                    onPress={() => console.log('pressed')}
+                    containerStyle={{marginRight: 20}}
+                  />
+                  <Chip
+                    size={{width: 20, height: 30}}
+                    label={'± 4 day'}
+                    onPress={() => console.log('pressed')}
+                    containerStyle={{marginRight: 20}}
+                  />
+                  <Chip
+                    size={{width: 20, height: 30}}
+                    label={'± 5 day'}
+                    onPress={() => console.log('pressed')}
+                    containerStyle={{marginRight: 20}}
+                  />
+                </View>
+              </ScrollView>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                paddingVertical: 8,
+                paddingHorizontal: 20,
+                marginTop: 10,
+                borderTopColor: 'lightgrey',
+                borderTopWidth: 1,
+              }}>
+              <TouchableOpacity onPress={() => setExpanded(false)}>
+                <Text style={{textDecorationLine: 'underline', color: 'black'}}>
+                  Skip
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                // onPress={() => setModalVisible(true)}
+                style={{
+                  backgroundColor: 'black',
+                  paddingVertical: 8,
+                  alignItems: 'center',
+                  borderRadius: 10,
+                  width: 100,
+                  paddingHorizontal: 10,
+                }}>
+                <Text style={{color: 'white'}}>Next</Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        ) : (
+          <>
+            <View style={{padding: 10}}>
+              <View
+                style={{
+                  borderColor: 'lightgrey',
+                  borderWidth: 1,
+                  marginTop: 20,
+                }}
+              />
+              <View style={{padding: 10}}>
+                <Text
+                  style={{
+                    color: 'black',
+                    fontWeight: 'bold',
+                    marginBottom: 10,
+                  }}>
+                  Stay for a week
+                </Text>
+                <View
+                  style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
+                  {/* <ScrollView showsHorizontalScrollIndicator={false} horizontal> */}
+                  <Chip
+                    size={{width: 20, height: 30}}
+                    label={'Weekend'}
+                    onPress={() => console.log('pressed')}
+                    containerStyle={{marginRight: 20}}
+                  />
+                  <Chip
+                    size={{width: 20, height: 30}}
+                    label={'Week'}
+                    onPress={() => console.log('pressed')}
+                    containerStyle={{marginRight: 20}}
+                  />
+                  <Chip
+                    size={{width: 20, height: 30}}
+                    label={'Month'}
+                    onPress={() => console.log('pressed')}
+                  />
+                  {/* </ScrollView> */}
+                </View>
+                <View
+                  style={{
+                    borderColor: 'lightgrey',
+                    borderWidth: 1,
+                    marginTop: 20,
+                  }}
+                />
+                <Text
+                  style={{
+                    color: 'black',
+                    fontWeight: 'bold',
+                    marginTop: 10,
+                    marginBottom: 10,
+                  }}>
+                  Go anyTime
+                </Text>
+                <FlatList
+                  data={date}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  renderItem={({item}) => {
+                    return (
+                      <View
+                        style={{
+                          flex: 1,
+                          width: 100,
+                          height: 100,
+                          borderWidth: 1,
+                          borderColor: 'lightgrey',
+                          borderRadius: 15,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          marginRight: 10,
+                        }}>
+                        <View style={{alignItems: 'center'}}>
+                          <AntDesign name="calendar" size={25} />
+                          <Text
+                            style={{
+                              color: 'black',
+                              fontWeight: 'bold',
+                              marginTop: 5,
+                            }}>
+                            {item.month}
+                          </Text>
+                          <Text>{item.year}</Text>
+                        </View>
+                      </View>
+                    );
+                  }}
+                />
+              </View>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                paddingVertical: 8,
+                paddingHorizontal: 20,
+                borderTopColor: 'lightgrey',
+                borderTopWidth: 1,
+              }}>
+              <TouchableOpacity onPress={() => setExpanded(false)}>
+                <Text style={{textDecorationLine: 'underline', color: 'black'}}>
+                  Skip
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                // onPress={() => setModalVisible(true)}
+                style={{
+                  backgroundColor: 'black',
+                  paddingVertical: 8,
+                  alignItems: 'center',
+                  borderRadius: 10,
+                  width: 100,
+                  paddingHorizontal: 10,
+                }}>
+                <Text style={{color: 'white'}}>Next</Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
+      </View>
+    );
+  };
+  const BodyElement = () => {
+    return (
+      <View style={{padding: 10}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: 10,
+            paddingVertical: 10,
+          }}>
+          <View>
+            <Text style={{color: 'black'}}>Adults</Text>
+            <Text style={{fontSize: 12}}>ages 13 or above</Text>
+          </View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderColor: 'lightgrey',
+                width: 20,
+                height: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 20,
+                marginRight: 10,
+              }}>
+              <Text style={{fontWeight: 'bold', color: 'black'}}>-</Text>
+            </TouchableOpacity>
+            <Text>1</Text>
+            <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderColor: 'lightgrey',
+                width: 20,
+                height: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 20,
+                marginLeft: 10,
+              }}>
+              <Text style={{fontWeight: 'bold', color: 'black'}}>+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: 20,
+            paddingVertical: 10,
+          }}>
+          <View>
+            <Text style={{color: 'black'}}>Children</Text>
+            <Text style={{fontSize: 12}}>ages 2-12</Text>
+          </View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderColor: 'lightgrey',
+                width: 20,
+                height: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 20,
+                marginRight: 10,
+              }}>
+              <Text style={{fontWeight: 'bold', color: 'black'}}>-</Text>
+            </TouchableOpacity>
+            <Text>1</Text>
+            <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderColor: 'lightgrey',
+                width: 20,
+                height: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 20,
+                marginLeft: 10,
+              }}>
+              <Text style={{fontWeight: 'bold', color: 'black'}}>+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: 20,
+            paddingVertical: 10,
+          }}>
+          <View>
+            <Text style={{color: 'black'}}>Infants</Text>
+            <Text style={{fontSize: 12}}>under 2</Text>
+          </View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderColor: 'lightgrey',
+                width: 20,
+                height: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 20,
+                marginRight: 10,
+              }}>
+              <Text style={{fontWeight: 'bold', color: 'black'}}>-</Text>
+            </TouchableOpacity>
+            <Text>1</Text>
+            <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderColor: 'lightgrey',
+                width: 20,
+                height: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 20,
+                marginLeft: 10,
+              }}>
+              <Text style={{fontWeight: 'bold', color: 'black'}}>+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: 20,
+            paddingVertical: 10,
+          }}>
+          <View>
+            <Text style={{color: 'black'}}>Pets</Text>
+            <Text style={{fontSize: 12}}>Bringing a services animal</Text>
+          </View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            {/* <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderColor: 'lightgrey',
+                width: 20,
+                height: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 20,
+                marginRight: 10,
+              }}>
+              <Text style={{fontWeight: 'bold', color: 'black'}}>-</Text>
+            </TouchableOpacity> */}
+            <Button
+              iconSource={plus}
+              outline
+              style={{width: 20, height: 20, marginRight: 5}}
+              outlineColor={'black'}
+            />
+            <Text>1</Text>
+            <Button
+              iconSource={plus}
+              outline
+              style={{width: 20, height: 20, marginLeft: 5}}
+              outlineColor={'black'}
+            />
+          </View>
+        </View>
+      </View>
+    );
+  };
+  return (
+    <View style={{flex: 1, backgroundColor: 'white'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingVertical: 20,
+          paddingHorizontal: 20,
+        }}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{
+            borderWidth: 1,
+            width: 30,
+            height: 30,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 50,
+            borderColor: 'lightgrey',
+          }}>
+          <EvilIcons
+            name={modalVisible ? 'close' : 'chevron-left'}
+            size={20}
+            color="black"
+          />
+        </TouchableOpacity>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity
+            style={{
+              marginRight: 20,
+              borderBottomWidth: 1,
+              paddingVertical: 4,
+            }}>
+            <Text style={{color: 'black'}}>Stays</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{marginRight: 20}}>
+            <Text>Experiences</Text>
+          </TouchableOpacity>
+        </View>
+        <View />
+      </View>
+      <View style={{justifyContent: 'space-between', flex: 1}}>
+        <View style={{flex: 1}}>
+          <ScrollView
+            contentContainerStyle={{padding: 10}}
+            showsVerticalScrollIndicator={false}>
+            <View
+              style={{
+                borderRadius: 10,
+                width: '100%',
+                padding: 20,
+                backgroundColor: 'white',
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+
+                elevation: 5,
+              }}>
+              <Text
+                style={{
+                  color: 'black',
+                  fontSize: 25,
+                  fontWeight: 'bold',
+                  marginBottom: 20,
+                }}>
+                Where To?
+              </Text>
+              <View
+                style={{
+                  width: '100%',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(true)}
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    flex: 1,
+                    height: 38,
+                    borderColor: 'lightgrey',
+                    borderWidth: 1,
+                    borderRadius: 10,
+                    paddingHorizontal: 7,
+                    backgroundColor: '#FBFBFB',
+                  }}>
+                  <Image
+                    style={{width: 20, height: 20, marginRight: 10}}
+                    source={require('../../assets/icon.png')}
+                  />
+                  <TextInput
+                    editable={false}
+                    style={{
+                      height: 35,
+                      width: '92%',
+                      borderTopRightRadius: 20,
+                      borderBottomRightRadius: 20,
+                    }}
+                    placeholder="search..."
+                  />
+                </TouchableOpacity>
+              </View>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={data1}
+                renderItem={({item}) => {
+                  return (
+                    <View style={{}}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('Property')}
+                        style={{
+                          width: 200,
+                          borderRadius: 10,
+                          paddingVertical: 14,
+                        }}>
+                        <Image
+                          resizeMode="cover"
+                          style={{width: 130, height: 130, borderRadius: 10}}
+                          source={item?.img}
+                        />
+                        <Text style={{color: 'black', marginTop: 10}}>
+                          {item?.name}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  );
+                }}
+              />
+            </View>
+            <View
+              style={{
+                borderRadius: 15,
+                marginTop: 10,
+                shadowColor: '#000',
+                backgroundColor: 'white',
+                overflow: 'hidden',
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+              }}>
+              <ExpandableSection
+                top={top}
+                expanded={expanded}
+                sectionHeader={
+                  !expanded ? (
+                    <View
+                      style={{
+                        // borderRadius: 10,
+                        width: '100%',
+                        padding: 10,
+                        backgroundColor: 'white',
+                        shadowRadius: 3.84,
+                        paddingVertical: 20,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingHorizontal: 20,
+                        marginBottom: 10,
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text
+                        style={{
+                          color: 'grey',
+                          //   fontSize: 25,
+                          fontWeight: 'bold',
+                          //   marginBottom: 20,
+                        }}>
+                        When
+                      </Text>
+                      <Text
+                        style={{
+                          color: 'black',
+                          //   fontSize: 25,
+                          fontWeight: 'bold',
+                          //   marginBottom: 20,
+                        }}>
+                        Any week
+                      </Text>
+                    </View>
+                  ) : (
+                    <View
+                      style={{
+                        // borderRadius: 10,
+                        width: '100%',
+                        padding: 10,
+                        backgroundColor: 'white',
+                        shadowRadius: 3.84,
+                        paddingVertical: 20,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingHorizontal: 20,
+                        marginBottom: 10,
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text
+                        style={{
+                          color: 'black',
+                          fontSize: 25,
+                          fontWeight: 'bold',
+                          //   marginBottom: 20,
+                        }}>
+                        When's your trip?
+                      </Text>
+                    </View>
+                  )
+                }
+                onPress={() => {
+                  if (expanded) {
+                    setExpanded(false);
+                  } else {
+                    setExpanded1(false);
+                    setExpanded(true);
+                  }
+                }}>
+                {getBodyElement()}
+              </ExpandableSection>
+            </View>
+            <View
+              style={{
+                borderRadius: 15,
+                marginTop: 10,
+                shadowColor: '#000',
+                backgroundColor: 'white',
+                overflow: 'hidden',
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+              }}>
+              <ExpandableSection
+                top={top}
+                expanded={expanded1}
+                sectionHeader={
+                  !expanded1 ? (
+                    <View
+                      style={{
+                        width: '100%',
+                        padding: 10,
+                        backgroundColor: 'white',
+
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingHorizontal: 20,
+                        marginBottom: 20,
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text
+                        style={{
+                          color: 'grey',
+                          //   fontSize: 25,
+                          fontWeight: 'bold',
+                          //   marginBottom: 20,
+                        }}>
+                        Who
+                      </Text>
+                      <Text
+                        style={{
+                          color: 'black',
+                          //   fontSize: 25,
+                          fontWeight: 'bold',
+                          //   marginBottom: 20,
+                        }}>
+                        Add guest
+                      </Text>
+                    </View>
+                  ) : (
+                    <View
+                      style={{
+                        width: '100%',
+                        padding: 10,
+                        backgroundColor: 'white',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingHorizontal: 20,
+                        marginBottom: 5,
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text
+                        style={{
+                          color: 'black',
+                          //   fontSize: 25,
+                          fontWeight: 'bold',
+                          fontSize: 25,
+                          //   marginBottom: 20,
+                        }}>
+                        Who's coming?
+                      </Text>
+                    </View>
+                  )
+                }
+                onPress={() => {
+                  if (expanded1) {
+                    setExpanded1(false);
+                  } else {
+                    setExpanded(false);
+                    setExpanded1(true);
+                  }
+                }}>
+                {BodyElement()}
+              </ExpandableSection>
+            </View>
+          </ScrollView>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingVertical: 8,
+            paddingHorizontal: 20,
+          }}>
+          <TouchableOpacity>
+            <Text>Clear All</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            // onPress={() => setModalVisible(true)}
+            style={{
+              backgroundColor: 'rgb(183, 43, 95)',
+              paddingVertical: 10,
+              alignItems: 'center',
+              borderRadius: 10,
+              width: 130,
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <EvilIcons
+              name="search"
+              size={20}
+              style={{marginRight: 10}}
+              color="white"
+            />
+            <Text style={{color: 'white'}}>Search</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        // onRequestClose={() => {
+        //   Alert.alert('Modal has been closed.');
+        //   setModalVisible(!modalVisible);
+        // }}
+      >
+        <View style={styles.centeredView}>
+          <TouchableOpacity
+            onPress={() => setModalVisible(false)}
+            style={{
+              borderWidth: 1,
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 50,
+              borderColor: 'lightgrey',
+              alignSelf: 'flex-start',
+              marginLeft: 21,
+              marginBottom: 21,
+            }}>
+            <EvilIcons name={'close'} size={20} color="white" />
+          </TouchableOpacity>
+          <View style={styles.modalView}>
+            <View
+              style={{
+                width: '100%',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  flex: 1,
+                  height: 38,
+                  borderColor: 'lightgrey',
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  paddingHorizontal: 7,
+                  backgroundColor: '#FBFBFB',
+                }}>
+                <Image
+                  style={{width: 20, height: 20, marginRight: 10}}
+                  source={require('../../assets/icon.png')}
+                />
+                <TextInput
+                  style={{
+                    height: 35,
+                    width: '92%',
+                    borderTopRightRadius: 20,
+                    borderBottomRightRadius: 20,
+                  }}
+                  placeholder="search..."
+                />
+              </View>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
+};
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    width: '100%',
+    // padding: 35,
+    height: 500,
+    alignItems: 'center',
+    shadowColor: '#000',
+    padding: 20,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+});
+export default WhereTo;
