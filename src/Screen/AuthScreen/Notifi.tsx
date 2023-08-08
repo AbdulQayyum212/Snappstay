@@ -51,6 +51,7 @@ const Notifi = () => {
       </View>
       <View style={{marginTop: 20}}>
         <TouchableOpacity
+          onPress={() => navigation.navigate('MyTabs')}
           style={{
             backgroundColor: 'rgb(183, 43, 95)',
             paddingVertical: 10,

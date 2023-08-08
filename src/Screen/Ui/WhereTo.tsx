@@ -486,7 +486,7 @@ const WhereTo = () => {
             <Text style={{fontSize: 12}}>Bringing a services animal</Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            {/* <TouchableOpacity
+            <TouchableOpacity
               style={{
                 borderWidth: 1,
                 borderColor: 'lightgrey',
@@ -498,20 +498,33 @@ const WhereTo = () => {
                 marginRight: 10,
               }}>
               <Text style={{fontWeight: 'bold', color: 'black'}}>-</Text>
-            </TouchableOpacity> */}
-            <Button
+            </TouchableOpacity>
+            {/* <Button
               iconSource={plus}
               outline
               style={{width: 20, height: 20, marginRight: 5}}
               outlineColor={'black'}
-            />
+            /> */}
             <Text>1</Text>
-            <Button
+            <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderColor: 'lightgrey',
+                width: 20,
+                height: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 20,
+                marginLeft: 10,
+              }}>
+              <Text style={{fontWeight: 'bold', color: 'black'}}>+</Text>
+            </TouchableOpacity>
+            {/* <Button
               iconSource={plus}
               outline
               style={{width: 20, height: 20, marginLeft: 5}}
               outlineColor={'black'}
-            />
+            /> */}
           </View>
         </View>
       </View>
