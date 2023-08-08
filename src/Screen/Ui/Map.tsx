@@ -71,18 +71,17 @@ const Map = () => {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity
               onPress={() => navigation.goBack()}
-              style={
-                {
-                  // flex: 1,
-                  // borderWidth: 1,
-                  // width: 30,
-                  // height: 30,
-                  // alignItems: 'center',
-                  // justifyContent: 'center',
-                  // borderRadius: 50,
-                  // borderColor: 'lightgrey',
-                }
-              }>
+              style={{
+                marginRight: 5,
+                // flex: 1,
+                // borderWidth: 1,
+                // width: 30,
+                // height: 30,
+                // alignItems: 'center',
+                // justifyContent: 'center',
+                // borderRadius: 50,
+                // borderColor: 'lightgrey',
+              }}>
               <EvilIcons name={'chevron-left'} size={30} color="black" />
             </TouchableOpacity>
             <AntDesign name="search1" size={20} style={{marginRight: 20}} />

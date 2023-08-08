@@ -28,6 +28,24 @@ const Explore = () => {
       title4: 'night',
       price: '$230 USD',
     },
+    {
+      id: 2,
+      img: require('../../assets/Rectangle2.png'),
+      title1: 'Apertment In Houston Texas',
+      title2: 'Amsterdam Lifestyle in Houston',
+      title3: '1 queen bed Individual Host',
+      title4: 'night',
+      price: '$230 USD',
+    },
+    {
+      id: 2,
+      img: require('../../assets/Rectangle2.png'),
+      title1: 'Apertment In Houston Texas',
+      title2: 'Amsterdam Lifestyle in Houston',
+      title3: '1 queen bed Individual Host',
+      title4: 'night',
+      price: '$230 USD',
+    },
   ];
   const FlatListData = [
     {
@@ -88,7 +106,7 @@ const Explore = () => {
         </View>
         <AntDesign name="menu-fold" size={20} />
       </TouchableOpacity>
-      <View style={{paddingHorizontal: 20}}>
+      <View style={{paddingHorizontal: 20, marginBottom: 20}}>
         <FlatList
           horizontal
           data={FlatListData}

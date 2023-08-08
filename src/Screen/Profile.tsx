@@ -249,8 +249,6 @@ const Profile = () => {
             color: 'lightgrey',
             fontSize: 15,
             fontWeight: 'bold',
-            // width: 200,
-            // marginTop: 10,
           }}>
           Log in to start planning your next trip
         </Text>
@@ -266,9 +264,11 @@ const Profile = () => {
           }}>
           <Text style={{color: 'white', fontWeight: 'bold'}}>Log In</Text>
         </TouchableOpacity>
-        <Text style={{marginTop: 30}}>
-          Don't have an account?{' '}
-          <Text
+        <View
+          style={{flexDirection: 'row', alignItems: 'center', marginTop: 30}}>
+          <Text>
+            Don't have an account?
+            {/* <Text
             style={{
               // fontSize: 18,
               fontWeight: 'bold',
@@ -276,8 +276,19 @@ const Profile = () => {
               textDecorationLine: 'underline',
             }}>
             SignUp
+          </Text> */}
           </Text>
-        </Text>
+          <TouchableOpacity>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                color: 'black',
+                textDecorationLine: 'underline',
+              }}>
+              SignUp
+            </Text>
+          </TouchableOpacity>
+        </View>
         <View
           style={{
             shadowColor: '#000',
@@ -307,7 +318,7 @@ const Profile = () => {
             source={require('../assets/Rectangle2.png')}
           />
         </View>
-        <View
+        <TouchableOpacity
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -333,8 +344,8 @@ const Profile = () => {
             color="black"
             style={{marginRight: 10}}
           />
-        </View>
-        <View
+        </TouchableOpacity>
+        <TouchableOpacity
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -360,7 +371,7 @@ const Profile = () => {
             color="black"
             style={{marginRight: 10}}
           />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
