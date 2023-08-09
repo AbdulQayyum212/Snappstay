@@ -1,13 +1,14 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {View, Image} from 'react-native';
 import Home from '../Screen/Home';
 import HotelView from '../Screen/HotelView';
-import {View, Image} from 'react-native';
 // import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SnappCover from '../Screen/SnappCover';
 import Template from '../Screen/Template';
 import Profile from '../Screen/Profile';
 import Explore from '../Screen/Ui/Explore';
 import Login from '../Screen/AuthScreen/login';
+import WishList from '../Screen/Ui/WishList';
 
 const MyTabs = () => {
   const Tab = createBottomTabNavigator();
@@ -15,6 +16,7 @@ const MyTabs = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarActiveTintColor: '#d0364e',
       }}>
       <Tab.Screen
         options={{
@@ -28,7 +30,7 @@ const MyTabs = () => {
                 style={{
                   width: 20,
                   height: 20,
-                  tintColor: focused ? 'black' : 'lightgrey',
+                  tintColor: focused ? '#d0364e' : 'lightgrey',
                 }}
                 source={require('../assets/u_search.png')}
               />
@@ -52,7 +54,7 @@ const MyTabs = () => {
                 style={{
                   width: 20,
                   height: 20,
-                  tintColor: focused ? 'black' : 'lightgrey',
+                  tintColor: focused ? '#d0364e' : 'lightgrey',
                 }}
                 source={require('../assets/likeIcon.png')}
               />
@@ -61,7 +63,7 @@ const MyTabs = () => {
           ),
         }}
         name="Wishlists"
-        component={HotelView}
+        component={WishList}
       />
       <Tab.Screen
         options={{
@@ -76,7 +78,7 @@ const MyTabs = () => {
                 style={{
                   width: 20,
                   height: 20,
-                  tintColor: focused ? 'black' : 'lightgrey',
+                  tintColor: focused ? '#d0364e' : 'lightgrey',
                 }}
                 source={require('../assets/trips.png')}
               />
@@ -100,7 +102,7 @@ const MyTabs = () => {
                 style={{
                   width: 20,
                   height: 20,
-                  tintColor: focused ? 'black' : 'lightgrey',
+                  tintColor: focused ? '#d0364e' : 'lightgrey',
                 }}
                 source={require('../assets/u_comment-alt.png')}
               />
@@ -124,7 +126,7 @@ const MyTabs = () => {
                 style={{
                   width: 20,
                   height: 20,
-                  tintColor: focused ? 'black' : 'lightgrey',
+                  tintColor: focused ? '#d0364e' : 'lightgrey',
                 }}
                 source={require('../assets/u_user-circle.png')}
               />

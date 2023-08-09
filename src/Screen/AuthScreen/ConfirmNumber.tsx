@@ -106,9 +106,10 @@ const ConfirmNumber = () => {
           <TouchableOpacity>
             <Text
               style={{
-                // fontSize: 18,
+                fontSize: 13,
                 fontWeight: 'bold',
                 color: 'black',
+                marginLeft: 5,
                 textDecorationLine: 'underline',
               }}>
               Send again

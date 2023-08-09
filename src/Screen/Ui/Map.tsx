@@ -6,6 +6,7 @@ import {
   Text,
   FlatList,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -13,6 +14,7 @@ import BottomSheet from 'react-native-simple-bottom-sheet';
 import {useNavigation} from '@react-navigation/native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MapView, {PROVIDER_GOOGLE, Polyline, Marker} from 'react-native-maps';
+const height = Dimensions.get('window').height;
 const Map = () => {
   const [select, setSelect] = useState(1);
   const navigation = useNavigation();
@@ -146,8 +148,8 @@ const Map = () => {
           source={require('../../assets/staticmap.png')}
         /> */}
         <MapView
-          provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-          style={{width: '100%', height: 600}}
+          provider={PROVIDER_GOOGLE}
+          style={{width: '100%', height: height}}
           region={{
             latitude: 37.78825,
             longitude: -122.4324,

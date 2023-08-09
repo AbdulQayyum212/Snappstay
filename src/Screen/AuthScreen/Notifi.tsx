@@ -54,7 +54,7 @@ const Notifi = () => {
           onPress={() => navigation.navigate('MyTabs')}
           style={{
             backgroundColor: 'rgb(183, 43, 95)',
-            paddingVertical: 10,
+            paddingVertical: 13,
             alignItems: 'center',
             borderRadius: 10,
             width: 150,
@@ -66,7 +66,7 @@ const Notifi = () => {
           style={{
             // backgroundColor: 'rgb(183, 43, 95)',
             borderWidth: 1,
-            paddingVertical: 10,
+            paddingVertical: 13,
             alignItems: 'center',
             borderRadius: 10,
             width: 100,

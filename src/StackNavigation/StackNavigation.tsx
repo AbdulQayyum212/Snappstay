@@ -26,6 +26,9 @@ import Map from '../Screen/Ui/Map';
 import WhereTo from '../Screen/Ui/WhereTo';
 import SnappCover from '../Screen/SnappCover';
 import ConfirmPay from '../Screen/Ui/ConfirmPay';
+import Guest from '../Screen/Ui/Guest';
+import DateEdit from '../Screen/Ui/DateEdit';
+import ConfirmPaystep2 from '../Screen/Ui/ConfirmPaystep2';
 
 const Stack = createStackNavigator();
 const StackNavigation = () => {
@@ -60,6 +63,9 @@ const StackNavigation = () => {
       <Stack.Screen name="WhereTo" component={WhereTo} />
       <Stack.Screen name="SnappCover" component={SnappCover} />
       <Stack.Screen name="ConfirmPay" component={ConfirmPay} />
+      <Stack.Screen name="Guest" component={Guest} />
+      <Stack.Screen name="DateEdit" component={DateEdit} />
+      <Stack.Screen name="ConfirmPaystep2" component={ConfirmPaystep2} />
     </Stack.Navigator>
   );
 };

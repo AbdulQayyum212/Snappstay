@@ -12,7 +12,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
-import {ExpandableSection, Chip, Button} from 'react-native-ui-lib';
+import {ExpandableSection, Chip, Button, Stepper} from 'react-native-ui-lib';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import plus from '../../assets/plusSmall.png';
@@ -24,7 +24,7 @@ const WhereTo = () => {
   const [top, setTop] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [expanded1, setExpanded1] = useState(false);
-  const [expanded2, setExpanded2] = useState(false);
+  const [expanded2, setExpanded2] = useState(true);
   const [selected, setSelected] = useState('');
   const [conditionState, setConditionState] = useState('Choose dates');
   const data1 = [
@@ -367,33 +367,9 @@ const WhereTo = () => {
             <Text style={{fontSize: 12}}>ages 13 or above</Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                borderColor: 'lightgrey',
-                width: 20,
-                height: 20,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 20,
-                marginRight: 10,
-              }}>
-              <Text style={{fontWeight: 'bold', color: 'black'}}>-</Text>
-            </TouchableOpacity>
-            <Text>1</Text>
-            <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                borderColor: 'lightgrey',
-                width: 20,
-                height: 20,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 20,
-                marginLeft: 10,
-              }}>
-              <Text style={{fontWeight: 'bold', color: 'black'}}>+</Text>
-            </TouchableOpacity>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Stepper minValue={0} small={true} />
+            </View>
           </View>
         </View>
         <View
@@ -409,33 +385,9 @@ const WhereTo = () => {
             <Text style={{fontSize: 12}}>ages 2-12</Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                borderColor: 'lightgrey',
-                width: 20,
-                height: 20,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 20,
-                marginRight: 10,
-              }}>
-              <Text style={{fontWeight: 'bold', color: 'black'}}>-</Text>
-            </TouchableOpacity>
-            <Text>1</Text>
-            <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                borderColor: 'lightgrey',
-                width: 20,
-                height: 20,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 20,
-                marginLeft: 10,
-              }}>
-              <Text style={{fontWeight: 'bold', color: 'black'}}>+</Text>
-            </TouchableOpacity>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Stepper minValue={0} small={true} />
+            </View>
           </View>
         </View>
         <View
@@ -451,33 +403,9 @@ const WhereTo = () => {
             <Text style={{fontSize: 12}}>under 2</Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                borderColor: 'lightgrey',
-                width: 20,
-                height: 20,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 20,
-                marginRight: 10,
-              }}>
-              <Text style={{fontWeight: 'bold', color: 'black'}}>-</Text>
-            </TouchableOpacity>
-            <Text>1</Text>
-            <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                borderColor: 'lightgrey',
-                width: 20,
-                height: 20,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 20,
-                marginLeft: 10,
-              }}>
-              <Text style={{fontWeight: 'bold', color: 'black'}}>+</Text>
-            </TouchableOpacity>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Stepper minValue={0} small={true} />
+            </View>
           </View>
         </View>
         <View
@@ -493,45 +421,7 @@ const WhereTo = () => {
             <Text style={{fontSize: 12}}>Bringing a services animal</Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                borderColor: 'lightgrey',
-                width: 20,
-                height: 20,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 20,
-                marginRight: 10,
-              }}>
-              <Text style={{fontWeight: 'bold', color: 'black'}}>-</Text>
-            </TouchableOpacity>
-            {/* <Button
-              iconSource={plus}
-              outline
-              style={{width: 20, height: 20, marginRight: 5}}
-              outlineColor={'black'}
-            /> */}
-            <Text>1</Text>
-            <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                borderColor: 'lightgrey',
-                width: 20,
-                height: 20,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 20,
-                marginLeft: 10,
-              }}>
-              <Text style={{fontWeight: 'bold', color: 'black'}}>+</Text>
-            </TouchableOpacity>
-            {/* <Button
-              iconSource={plus}
-              outline
-              style={{width: 20, height: 20, marginLeft: 5}}
-              outlineColor={'black'}
-            /> */}
+            <Stepper minValue={0} small={true} />
           </View>
         </View>
       </View>
@@ -539,91 +429,94 @@ const WhereTo = () => {
   };
   const Body = () => {
     return (
-      <View style={styles.modalView}>
-        <View
-          style={{
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
+      <View>
+        <View>
           <View
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              flex: 1,
-              height: 38,
-              borderColor: 'lightgrey',
-              borderWidth: 1,
               borderRadius: 10,
-              paddingHorizontal: 7,
-              backgroundColor: '#FBFBFB',
-              overflow: 'hidden',
-            }}>
-            <Image
-              style={{width: 20, height: 20, marginRight: 10}}
-              source={require('../../assets/icon.png')}
-            />
-            {/* <TextInput
-              style={{
-                height: 35,
-                width: '92%',
-                borderTopRightRadius: 20,
-                borderBottomRightRadius: 20,
-              }}
-              placeholder="search..."
-            /> */}
-            <GooglePlacesAutocomplete
-              styles={{
-                textInputContainer: {
-                  width: '100%',
-                  backgroundColor: '#FBFBFB',
-                },
-                textInput: {
-                  width: '90%',
-                  height: 38,
-                  backgroundColor: '#FBFBFB',
-                },
-              }}
-              placeholder="Search..."
-              onPress={(data, details = null) => {
-                // 'details' is provided when fetchDetails = true
-                console.log(data, details);
-              }}
-              query={{
-                key: 'google',
-                language: 'en',
-              }}
-            />
-          </View>
-        </View>
-        <View style={{marginTop: 20}}>
-          <Text style={{color: 'black', fontWeight: 'bold'}}>
-            Recend searches
-          </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginTop: 20,
+              width: '100%',
+              padding: 20,
+              backgroundColor: 'white',
+              // shadowColor: '#000',
+              // shadowOffset: {
+              //   width: 0,
+              //   height: 2,
+              // },
+              // shadowOpacity: 0.25,
+              // shadowRadius: 3.84,
+
+              // elevation: 5,
             }}>
             <View
               style={{
-                width: 40,
-                height: 40,
-                backgroundColor: '#f1f1f1',
-                borderRadius: 10,
+                width: '100%',
+                flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'space-between',
               }}>
-              <AntDesign name="clockcircleo" size={20} />
+              <TouchableOpacity
+                // disabled={true}
+                onPress={() => setModalVisible(true)}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  flex: 1,
+                  height: 48,
+                  borderColor: 'lightgrey',
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  paddingHorizontal: 12,
+                  backgroundColor: '#FBFBFB',
+                }}>
+                <Image
+                  style={{width: 20, height: 20, marginRight: 10}}
+                  source={require('../../assets/icon.png')}
+                />
+                <TextInput
+                  editable={false}
+                  style={{
+                    height: 35,
+                    width: '92%',
+                    borderTopRightRadius: 20,
+                    borderBottomRightRadius: 20,
+                  }}
+                  placeholder="search..."
+                />
+              </TouchableOpacity>
             </View>
-            <View style={{marginLeft: 10}}>
-              <Text style={{fontSize: 12, color: 'black'}}>
-                Ho chi Minh. stay
-              </Text>
-              <Text style={{fontSize: 12}}>Any week</Text>
-            </View>
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={data1}
+              renderItem={({item}) => {
+                return (
+                  <View style={{}}>
+                    <TouchableOpacity
+                      // onPress={() => navigation.navigate('Property')}
+                      style={{
+                        width: 120,
+                        borderRadius: 10,
+                        paddingVertical: 14,
+                        // backgroundColor: 'red',
+                        marginRight: 20,
+                      }}>
+                      <Image
+                        resizeMode="cover"
+                        style={{
+                          width: 130,
+                          height: 130,
+                          borderRadius: 10,
+                        }}
+                        source={item?.img}
+                      />
+                      <Text style={{color: 'black', marginTop: 10}}>
+                        {item?.name}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              }}
+            />
           </View>
         </View>
       </View>
@@ -783,101 +676,167 @@ const WhereTo = () => {
               <ExpandableSection
                 top={top}
                 expanded={expanded2}
-                sectionHeader={
-                  <View
-                    style={{
-                      borderRadius: 10,
-                      width: '100%',
-                      padding: 20,
-                      backgroundColor: 'white',
-                      // shadowColor: '#000',
-                      // shadowOffset: {
-                      //   width: 0,
-                      //   height: 2,
-                      // },
-                      // shadowOpacity: 0.25,
-                      // shadowRadius: 3.84,
+                // sectionHeader={
+                // <View
+                //   style={{
+                //     borderRadius: 10,
+                //     width: '100%',
+                //     padding: 20,
+                //     backgroundColor: 'white',
+                //     // shadowColor: '#000',
+                //     // shadowOffset: {
+                //     //   width: 0,
+                //     //   height: 2,
+                //     // },
+                //     // shadowOpacity: 0.25,
+                //     // shadowRadius: 3.84,
 
-                      // elevation: 5,
-                    }}>
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontSize: 25,
-                        fontWeight: 'bold',
-                        marginBottom: 20,
-                      }}>
-                      Where To?
-                    </Text>
+                //     // elevation: 5,
+                //   }}>
+                //   <Text
+                //     style={{
+                //       color: 'black',
+                //       fontSize: 25,
+                //       fontWeight: 'bold',
+                //       marginBottom: 20,
+                //     }}>
+                //     Where To?
+                //   </Text>
+                //   <View
+                //     style={{
+                //       width: '100%',
+                //       flexDirection: 'row',
+                //       alignItems: 'center',
+                //       justifyContent: 'space-between',
+                //     }}>
+                //     <TouchableOpacity
+                //       disabled={true}
+                //       // onPress={() => setModalVisible(true)}
+                //       style={{
+                //         flexDirection: 'row',
+                //         alignItems: 'center',
+                //         flex: 1,
+                //         height: 38,
+                //         borderColor: 'lightgrey',
+                //         borderWidth: 1,
+                //         borderRadius: 10,
+                //         paddingHorizontal: 7,
+                //         backgroundColor: '#FBFBFB',
+                //       }}>
+                //       <Image
+                //         style={{width: 20, height: 20, marginRight: 10}}
+                //         source={require('../../assets/icon.png')}
+                //       />
+                //       <TextInput
+                //         editable={false}
+                //         style={{
+                //           height: 35,
+                //           width: '92%',
+                //           borderTopRightRadius: 20,
+                //           borderBottomRightRadius: 20,
+                //         }}
+                //         placeholder="search..."
+                //       />
+                //     </TouchableOpacity>
+                //   </View>
+                //   <FlatList
+                //     horizontal
+                //     showsHorizontalScrollIndicator={false}
+                //     data={data1}
+                //     renderItem={({item}) => {
+                //       return (
+                //         <View style={{}}>
+                //           <TouchableOpacity
+                //             // onPress={() => navigation.navigate('Property')}
+                //             style={{
+                //               width: 130,
+                //               borderRadius: 10,
+                //               paddingVertical: 14,
+                //               // backgroundColor: 'red',
+                //               marginRight: 20,
+                //             }}>
+                //             <Image
+                //               resizeMode="cover"
+                //               style={{
+                //                 width: 130,
+                //                 height: 130,
+                //                 borderRadius: 10,
+                //               }}
+                //               source={item?.img}
+                //             />
+                //             <Text style={{color: 'black', marginTop: 10}}>
+                //               {item?.name}
+                //             </Text>
+                //           </TouchableOpacity>
+                //         </View>
+                //       );
+                //     }}
+                //   />
+                // </View>
+                // }
+                sectionHeader={
+                  !expanded2 ? (
                     <View
                       style={{
+                        // borderRadius: 10,
                         width: '100%',
+                        padding: 10,
+                        backgroundColor: 'white',
+                        shadowRadius: 3.84,
+                        paddingVertical: 20,
                         flexDirection: 'row',
                         alignItems: 'center',
+                        paddingHorizontal: 20,
+                        marginBottom: 10,
                         justifyContent: 'space-between',
                       }}>
-                      <TouchableOpacity
-                        disabled={true}
-                        // onPress={() => setModalVisible(true)}
+                      <Text
                         style={{
+                          color: 'grey',
+                          //   fontSize: 25,
+                          fontWeight: 'bold',
+                          //   marginBottom: 20,
+                        }}>
+                        Where
+                      </Text>
+                      {/* <Text
+                        style={{
+                          color: 'black',
+                          //   fontSize: 25,
+                          fontWeight: 'bold',
+                          //   marginBottom: 20,
+                        }}>
+                        Any week
+                      </Text> */}
+                    </View>
+                  ) : (
+                    <>
+                      <View
+                        style={{
+                          // borderRadius: 10,
+                          width: '100%',
+                          padding: 10,
+                          backgroundColor: 'white',
+                          shadowRadius: 3.84,
+                          paddingVertical: 20,
                           flexDirection: 'row',
                           alignItems: 'center',
-                          flex: 1,
-                          height: 38,
-                          borderColor: 'lightgrey',
-                          borderWidth: 1,
-                          borderRadius: 10,
-                          paddingHorizontal: 7,
-                          backgroundColor: '#FBFBFB',
+                          paddingHorizontal: 20,
+                          marginBottom: 10,
+                          justifyContent: 'space-between',
                         }}>
-                        <Image
-                          style={{width: 20, height: 20, marginRight: 10}}
-                          source={require('../../assets/icon.png')}
-                        />
-                        <TextInput
-                          editable={false}
+                        <Text
                           style={{
-                            height: 35,
-                            width: '92%',
-                            borderTopRightRadius: 20,
-                            borderBottomRightRadius: 20,
-                          }}
-                          placeholder="search..."
-                        />
-                      </TouchableOpacity>
-                    </View>
-                    <FlatList
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      data={data1}
-                      renderItem={({item}) => {
-                        return (
-                          <View style={{}}>
-                            <TouchableOpacity
-                              // onPress={() => navigation.navigate('Property')}
-                              style={{
-                                width: 200,
-                                borderRadius: 10,
-                                paddingVertical: 14,
-                              }}>
-                              <Image
-                                resizeMode="cover"
-                                style={{
-                                  width: 130,
-                                  height: 130,
-                                  borderRadius: 10,
-                                }}
-                                source={item?.img}
-                              />
-                              <Text style={{color: 'black', marginTop: 10}}>
-                                {item?.name}
-                              </Text>
-                            </TouchableOpacity>
-                          </View>
-                        );
-                      }}
-                    />
-                  </View>
+                            color: 'black',
+                            fontSize: 25,
+                            fontWeight: 'bold',
+                            //   marginBottom: 20,
+                          }}>
+                          Where To?
+                        </Text>
+                      </View>
+                    </>
+                  )
                 }
                 onPress={() => {
                   if (expanded2) {
@@ -976,6 +935,7 @@ const WhereTo = () => {
                     setExpanded(false);
                   } else {
                     setExpanded1(false);
+                    setExpanded2(false);
                     setExpanded(true);
                   }
                 }}>
@@ -1063,6 +1023,7 @@ const WhereTo = () => {
                     setExpanded1(false);
                   } else {
                     setExpanded(false);
+                    setExpanded2(false);
                     setExpanded1(true);
                   }
                 }}>
@@ -1105,7 +1066,6 @@ const WhereTo = () => {
           </TouchableOpacity>
         </View>
       </View>
-
       <Modal
         animationType="slide"
         transparent={true}
@@ -1116,22 +1076,47 @@ const WhereTo = () => {
         // }}
       >
         <View style={styles.centeredView}>
-          <TouchableOpacity
-            onPress={() => setModalVisible(false)}
+          <View
             style={{
-              borderWidth: 1,
-              width: 30,
-              height: 30,
+              width: '100%',
+              flexDirection: 'row',
               alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 50,
-              borderColor: 'lightgrey',
-              alignSelf: 'flex-start',
-              marginLeft: 21,
-              marginBottom: 21,
+              justifyContent: 'space-between',
+              paddingVertical: 20,
+              paddingHorizontal: 20,
             }}>
-            <EvilIcons name={'close'} size={20} color="white" />
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={{
+                borderWidth: 1,
+                width: 30,
+                height: 30,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 50,
+                borderColor: 'lightgrey',
+              }}>
+              <EvilIcons
+                name={modalVisible ? 'close' : 'chevron-left'}
+                size={20}
+                color="black"
+              />
+            </TouchableOpacity>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <TouchableOpacity
+                style={{
+                  marginRight: 20,
+                  borderBottomWidth: 1,
+                  paddingVertical: 4,
+                }}>
+                <Text style={{color: 'black'}}>Stays</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{marginRight: 20}}>
+                <Text>Experiences</Text>
+              </TouchableOpacity>
+            </View>
+            <View />
+          </View>
           <View style={styles.modalView}>
             <View
               style={{
@@ -1145,18 +1130,19 @@ const WhereTo = () => {
                   flexDirection: 'row',
                   alignItems: 'center',
                   flex: 1,
-                  height: 38,
+                  // height: 50,
                   borderColor: 'lightgrey',
                   borderWidth: 1,
                   borderRadius: 10,
                   paddingHorizontal: 7,
                   backgroundColor: '#FBFBFB',
+                  overflow: 'hidden',
                 }}>
                 <Image
                   style={{width: 20, height: 20, marginRight: 10}}
                   source={require('../../assets/icon.png')}
                 />
-                <TextInput
+                {/* <TextInput
                   style={{
                     height: 35,
                     width: '92%',
@@ -1164,7 +1150,70 @@ const WhereTo = () => {
                     borderBottomRightRadius: 20,
                   }}
                   placeholder="search..."
+                /> */}
+                <GooglePlacesAutocomplete
+                  fetchDetails={true}
+                  debounce={400}
+                  // renderLeftButton={() => {
+                  //   <Image
+                  //     style={{width: 20, height: 20, marginRight: 10}}
+                  //     source={require('../../assets/icon.png')}
+                  //   />;
+                  // }}
+                  styles={{
+                    textInputContainer: {
+                      width: '100%',
+                      // borderColor: 'lightgrey',
+                      // borderWidth: 1,
+                      borderRadius: 10,
+                    },
+                    textInput: {
+                      width: '90%',
+                      // height: 40,
+                      backgroundColor: '#FBFBFB',
+                      alignItems: 'center',
+                    },
+                  }}
+                  placeholder="Search..."
+                  textInputProps={{autoFocus: true}}
+                  onPress={(data, details = null) => {
+                    // 'details' is provided when fetchDetails = true
+                    console.log(data, details);
+                  }}
+                  query={{
+                    key: 'AIzaSyDamcm6CyN-fiiKEWlv4l_XYu3tv45WYd4',
+                    language: 'en',
+                  }}
                 />
+              </View>
+            </View>
+            <View style={{marginTop: 20}}>
+              <Text style={{color: 'black', fontWeight: 'bold'}}>
+                Recend searches
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: 20,
+                }}>
+                <View
+                  style={{
+                    width: 40,
+                    height: 40,
+                    backgroundColor: '#f1f1f1',
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <AntDesign name="clockcircleo" size={20} />
+                </View>
+                <View style={{marginLeft: 10}}>
+                  <Text style={{fontSize: 12, color: 'black'}}>
+                    Ho chi Minh. stay
+                  </Text>
+                  <Text style={{fontSize: 12}}>Any week</Text>
+                </View>
               </View>
             </View>
           </View>
@@ -1176,19 +1225,29 @@ const WhereTo = () => {
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
-    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+    shadowColor: '#000',
+    backgroundColor: 'white',
   },
   modalView: {
+    flex: 1,
     // margin: 20,
-    backgroundColor: 'white',
     borderRadius: 20,
     width: '100%',
     // padding: 35,
-    // height: 500,
+    height: 500,
     padding: 20,
+    shadowColor: '#000',
+    backgroundColor: 'white',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
     // alignItems: 'center',
     // shadowColor: '#000',
     // padding: 20,

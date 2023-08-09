@@ -29,7 +29,7 @@ const Explore = () => {
       price: '$230 USD',
     },
     {
-      id: 2,
+      id: 3,
       img: require('../../assets/Rectangle2.png'),
       title1: 'Apertment In Houston Texas',
       title2: 'Amsterdam Lifestyle in Houston',
@@ -236,14 +236,15 @@ const Explore = () => {
           data={data}
           renderItem={({item}) => {
             return (
-              <View
+              <TouchableOpacity
+                onPress={() => navigation.navigate('SnappCover')}
                 style={{
                   marginBottom: 10,
                   marginTop: 20,
                   // backgroundColor: 'red',
                 }}>
                 <Carousel
-                  onChangePage={() => console.log('page changed')}
+                  // onChangePage={() => console.log('page changed')}
                   loop
                   pageControlProps={{
                     size: 10,
@@ -322,7 +323,7 @@ const Explore = () => {
                     />
                   </TouchableOpacity>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           }}
         />

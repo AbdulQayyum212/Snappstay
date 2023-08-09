@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">snappstay</string>
-     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">(api key here)</string>
+     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDamcm6CyN-fiiKEWlv4l_XYu3tv45WYd4</string>
 </resources>

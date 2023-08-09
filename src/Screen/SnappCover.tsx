@@ -48,23 +48,27 @@ const SnappCover = () => {
           </View>
         </View> */}
         <Carousel
-          onChangePage={() => console.log('page changed')}
+          // onChangePage={() => console.log('page changed')}
           loop
+          autoplay
+          // animated
+          // counterStyle={{
+          //   position: 'absolute',
+          //   bottom: 10,
+          //   left: 30,
+          // }}
           pageControlProps={{
             size: 10,
             // containerStyle: {
-            //   position: 'absolute',
-            //   bottom: 15,
-            //   left: 10,
+            //   // position: 'absolute',
+            //   // bottom: 15,
+            //   // left: 10,
+            //   backgrountColor: 'red',
             // },
-            pageControlPosition: {
-              position: 'absolute',
-              bottom: 15,
-              right: 10,
-            },
           }}
           pageControlPosition={Carousel.pageControlPositions.OVER}
-          showCounter>
+          // showCounter
+        >
           {new Array(5).fill(null).map((element, index) => (
             <Image
               style={{
