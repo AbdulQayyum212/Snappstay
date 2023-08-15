@@ -29,6 +29,11 @@ import ConfirmPay from '../Screen/Ui/ConfirmPay';
 import Guest from '../Screen/Ui/Guest';
 import DateEdit from '../Screen/Ui/DateEdit';
 import ConfirmPaystep2 from '../Screen/Ui/ConfirmPaystep2';
+import TripDetail from '../Screen/Ui/TripDetail';
+import ProfileStep2 from '../Screen/Ui/ProfileStep2';
+import PersonalInfo from '../Screen/Ui/PersonalInfo';
+import EditPayment from '../Screen/Ui/EditPayment';
+import PrivacyandSharing from '../Screen/Ui/PrivacyandSharing';
 
 const Stack = createStackNavigator();
 const StackNavigation = () => {
@@ -66,6 +71,11 @@ const StackNavigation = () => {
       <Stack.Screen name="Guest" component={Guest} />
       <Stack.Screen name="DateEdit" component={DateEdit} />
       <Stack.Screen name="ConfirmPaystep2" component={ConfirmPaystep2} />
+      <Stack.Screen name="TripDetail" component={TripDetail} />
+      <Stack.Screen name="ProfileStep2" component={ProfileStep2} />
+      <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
+      <Stack.Screen name="EditPayment" component={EditPayment} />
+      <Stack.Screen name="PrivacyandSharing" component={PrivacyandSharing} />
     </Stack.Navigator>
   );
 };

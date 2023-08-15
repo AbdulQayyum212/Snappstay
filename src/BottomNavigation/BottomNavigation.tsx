@@ -9,6 +9,8 @@ import Profile from '../Screen/Profile';
 import Explore from '../Screen/Ui/Explore';
 import Login from '../Screen/AuthScreen/login';
 import WishList from '../Screen/Ui/WishList';
+import Trips from '../Screen/Ui/Trips';
+import Inbox from '../Screen/Ui/Inbox';
 
 const MyTabs = () => {
   const Tab = createBottomTabNavigator();
@@ -87,7 +89,7 @@ const MyTabs = () => {
           ),
         }}
         name="Trips"
-        component={SnappCover}
+        component={Trips}
       />
       <Tab.Screen
         options={{
@@ -111,7 +113,7 @@ const MyTabs = () => {
           ),
         }}
         name="inbox"
-        component={Template}
+        component={Inbox}
       />
       <Tab.Screen
         options={{

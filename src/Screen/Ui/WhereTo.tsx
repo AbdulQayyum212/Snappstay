@@ -46,18 +46,22 @@ const WhereTo = () => {
   ];
   const date = [
     {
+      id: 1,
       month: 'Februery',
       year: 2023,
     },
     {
+      id: 2,
       month: 'March',
       year: 2023,
     },
     {
+      id: 3,
       month: 'April',
       year: 2023,
     },
     {
+      id: 4,
       month: 'May',
       year: 2023,
     },
@@ -82,7 +86,7 @@ const WhereTo = () => {
             onPress={() => setConditionState('Choose dates')}
             style={{
               backgroundColor:
-                conditionState === 'Choose dates' ? 'white' : null,
+                conditionState === 'Choose dates' ? 'white' : '#ebebeb',
               paddingHorizontal: 10,
               width: '50%',
               paddingVertical: 5,
@@ -100,7 +104,7 @@ const WhereTo = () => {
             onPress={() => setConditionState('flexible')}
             style={{
               backgroundColor:
-                conditionState === 'Choose dates' ? null : 'white',
+                conditionState === 'Choose dates' ? '#ebebeb' : 'white',
               paddingHorizontal: 10,
               paddingVertical: 5,
               width: '50%',
@@ -315,6 +319,7 @@ const WhereTo = () => {
                       </View>
                     );
                   }}
+                  keyExtractor={item => item.id.toString()}
                 />
               </View>
             </View>
@@ -530,7 +535,7 @@ const WhereTo = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           paddingVertical: 20,
-          paddingHorizontal: 20,
+          paddingHorizontal: 10,
         }}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}

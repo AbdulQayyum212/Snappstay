@@ -59,7 +59,7 @@ const Map = () => {
   ];
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <View style={{padding: 20}}>
+      <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
         <TouchableOpacity
           onPress={() => navigation.navigate('WhereTo')}
           style={{
@@ -107,40 +107,6 @@ const Map = () => {
           </View>
           <AntDesign name="menu-fold" size={20} />
         </TouchableOpacity>
-        {/* <View>
-          <FlatList
-            horizontal
-            data={FlatListData}
-            showsHorizontalScrollIndicator={false}
-            renderItem={({item}) => {
-              return (
-                <TouchableOpacity
-                  onPress={() => setSelect(item?.id)}
-                  style={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginRight: 20,
-                    marginTop: 20,
-                    borderBottomWidth: select === item?.id ? 2 : null,
-                    paddingVertical: 10,
-                    borderBlockColor: 'black',
-                  }}>
-                  <Image
-                    source={item?.img}
-                    style={{width: 30, height: 30, marginBottom: 6}}
-                  />
-                  <Text
-                    style={{
-                      color: select === item?.id ? 'black' : 'grey',
-                      fontWeight: 'bold',
-                    }}>
-                    {item?.name}
-                  </Text>
-                </TouchableOpacity>
-              );
-            }}
-          />
-        </View> */}
       </View>
       <View>
         {/* <Image
@@ -173,7 +139,7 @@ const Map = () => {
       {condition ? (
         <View
           style={{
-            padding: 20,
+            padding: 10,
             alignItems: 'center',
             position: 'absolute',
             bottom: 50,

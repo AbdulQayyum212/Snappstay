@@ -7,7 +7,7 @@
 
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import {applyMiddleware, createStore} from 'redux';
 import {
   SafeAreaView,
   ScrollView,
@@ -28,12 +28,29 @@ import {
 import StackNavigation from './src/StackNavigation/StackNavigation';
 import StartLogin from './src/Screen/AuthScreen/StartLogin';
 import AuthStack from './src/StackNavigation/AuthStack';
+import {createStoreHook, Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {persistReducer, persistStore} from 'redux-persist';
+import {PersistGate} from 'redux-persist/integration/react';
+import _combineReducers from './src/Redux';
 const App = () => {
+  const persistConfig = {
+    key: 'root',
+    storage: AsyncStorage,
+  };
+  const persistReducers = persistReducer(persistConfig, _combineReducers);
+  const store = createStore(persistReducers, applyMiddleware(thunk));
+  const persistor = persistStore(store);
   return (
-    <NavigationContainer>
-      <StackNavigation />
-      {/* <AuthStack /> */}
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <StackNavigation />
+          {/* <AuthStack /> */}
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 };
 
