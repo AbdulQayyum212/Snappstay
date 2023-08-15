@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   View,
@@ -10,6 +9,7 @@ import {
   StyleSheet,
   TextInput,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Carousel} from 'react-native-ui-lib';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -17,10 +17,10 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 const Explore = () => {
   const navigation = useNavigation();
-  const [select, setSelect] = useState(1);
-  const [heart, setHeart] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [name, setName] = useState('');
+  const [select, setSelect] = useState<number>(1);
+  const [heart, setHeart] = useState<number>();
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [name, setName] = useState<string>('');
   const data = [
     {
       id: 1,
@@ -166,6 +166,18 @@ const Explore = () => {
       img: require('../../assets/Windmills.png'),
     },
   ];
+
+  interface flatlistitem {
+    item: {
+      id: number;
+      title1: string;
+      title2: string;
+      title3: string;
+      title4: string;
+      price: number;
+      img: any;
+    };
+  }
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
@@ -254,7 +266,7 @@ const Explore = () => {
           <FlatList
             showsVerticalScrollIndicator={false}
             data={data}
-            renderItem={({item}) => {
+            renderItem={({item}: flatlistitem) => {
               return (
                 <View
                   style={{
