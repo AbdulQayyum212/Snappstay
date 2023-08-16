@@ -7,6 +7,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Entypo from 'react-native-vector-icons/Entypo';
+import ImagePicker from 'react-native-image-crop-picker';
 const ProfileStep2 = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -14,22 +15,38 @@ const ProfileStep2 = () => {
   const ref = useRef();
   const pickImg = async () => {
     ref.current.close();
-    const res = await launchImageLibrary(
-      {mediaType: 'photo', selectionLimit: 1},
-      value => {
-        setImg(value?.assets[0]);
-        // setImg([...img, value?.assets[0]]);
-      },
-    );
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      setImg(image);
+      console.log('image', image);
+    });
+    // const res = await launchImageLibrary(
+    //   {mediaType: 'photo', selectionLimit: 1},
+    //   value => {
+    //     setImg(value?.assets[0]);
+    //     // setImg([...img, value?.assets[0]]);
+    //   },
+    // );
     console.log('==================================== img', img);
   };
   const openCamera = async () => {
     ref.current.close();
-    const res = await launchCamera({mediaType: 'photo'}, value => {
-      console.log('Camera', value);
-      setImg(value?.assets[0]);
-      // setImg([...img, value?.assets[0]]);
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log('image', image);
+      console.log(image);
     });
+    // const res = await launchCamera({mediaType: 'photo'}, value => {
+    //   console.log('Camera', value);
+    //   setImg(value?.assets[0]);
+    //   // setImg([...img, value?.assets[0]]);
+    // });
   };
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -223,9 +240,7 @@ const ProfileStep2 = () => {
                 <Avatar
                   size={220}
                   source={
-                    img
-                      ? {uri: img[0]?.uri}
-                      : require('../../assets/bgimage.png')
+                    img ? {uri: img?.path} : require('../../assets/bgimage.png')
                   }
                   // label={IT}
                 />

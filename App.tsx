@@ -9,6 +9,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {applyMiddleware, createStore} from 'redux';
 import {
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -34,6 +36,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {persistReducer, persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import _combineReducers from './src/Redux';
+import Toast, {ErrorToast} from 'react-native-toast-message';
 const App = () => {
   const persistConfig = {
     key: 'root',
@@ -43,18 +46,41 @@ const App = () => {
   const store = createStore(persistReducers, applyMiddleware(thunk));
   const persistor = persistStore(store);
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer>
-          <StackNavigation />
-          {/* <AuthStack /> */}
-        </NavigationContainer>
-      </PersistGate>
-    </Provider>
+    <SafeAreaView style={styles.container}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <NavigationContainer>
+            {Platform.OS == 'ios' ? (
+              <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
+                <StackNavigation />
+              </KeyboardAvoidingView>
+            ) : (
+              <StackNavigation />
+            )}
+            {/* <AuthStack /> */}
+          </NavigationContainer>
+        </PersistGate>
+      </Provider>
+      <Toast
+        config={{
+          error: props => (
+            <ErrorToast
+              {...props}
+              text1NumberOfLines={2}
+              text2NumberOfLines={2}
+            />
+          ),
+        }}
+      />
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,

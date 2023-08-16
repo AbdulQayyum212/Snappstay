@@ -42,8 +42,8 @@ const Notifi = () => {
           Get travel deals, personalized recommendation,and more
         </Text>
         <Switch
-          trackColor={{false: '#767577', true: '#81b0ff'}}
-          thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+          trackColor={{false: '#767577', true: '#d0364e'}}
+          thumbColor={isEnabled ? '#d0364e' : '#f4f3f4'}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggleSwitch}
           value={isEnabled}

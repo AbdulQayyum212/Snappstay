@@ -2,6 +2,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
@@ -23,6 +25,6 @@
       </activity>
       <meta-data
      android:name="com.google.android.geo.API_KEY"
-     android:value="AIzaSyDamcm6CyN-fiiKEWlv4l_XYu3tv45WYd4"/>
+     android:value="AIzaSyClYAkI28o4JC8de56LH0xpNWtX-TWIKr4"/>
     </application>
 </manifest>

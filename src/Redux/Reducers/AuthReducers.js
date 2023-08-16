@@ -1,6 +1,5 @@
 const initAuth = {
   userToken: false,
-  loading: false,
 };
 function AuthReducers(state = initAuth, action) {
   switch (action.type) {

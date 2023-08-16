@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Image,
@@ -7,6 +7,7 @@ import {
   FlatList,
   ScrollView,
   Dimensions,
+  useWindowDimensions,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -14,12 +15,109 @@ import BottomSheet from 'react-native-simple-bottom-sheet';
 import {useNavigation} from '@react-navigation/native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MapView, {PROVIDER_GOOGLE, Polyline, Marker} from 'react-native-maps';
+import CustomMarker from '../../components/CustomMarker';
+import PostCarouselItem from '../../components/PostCarouselItem';
 const height = Dimensions.get('window').height;
-const Map = () => {
+const Map = props => {
   const [select, setSelect] = useState(1);
   const navigation = useNavigation();
   const panelRef = useRef(null);
+  const [heart, setHeart] = useState<number>();
   const [condition, setCondition] = useState(true);
+  // const { posts } = props;
+  const posts = [
+    {
+      id: '0',
+      image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/1.jpg',
+      type: 'Private Room',
+      title: 'Bright room in the heart of the city',
+      description:
+        "Lorem Ipsum is simplyLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      bed: 2,
+      bedroom: 3,
+      oldPrice: 25,
+      newPrice: 20,
+      totalPrice: 120,
+      coordinate: {
+        latitude: 28.3915637,
+        longitude: -16.6291304,
+      },
+    },
+    {
+      id: '1',
+      image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/2.jpg',
+      type: 'Entire Flat',
+      title: 'NEW lux. apartment in the center of Santa Cruz',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      bed: 3,
+      bedroom: 2,
+      oldPrice: 76,
+      newPrice: 65,
+      totalPrice: 390,
+      coordinate: {
+        latitude: 28.4815637,
+        longitude: -16.2291304,
+      },
+    },
+    {
+      id: '2',
+      image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/3.jpg',
+      type: 'Private Property',
+      title: 'Green House Santa Cruz',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      bed: 2,
+      bedroom: 1,
+      oldPrice: 64,
+      newPrice: 55,
+      totalPrice: 330,
+      coordinate: {
+        latitude: 28.2515637,
+        longitude: -16.3991304,
+      },
+    },
+    {
+      id: '3',
+      image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/4.jpg',
+      type: 'Entire Flat',
+      title: 'Typical canarian house',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      bed: 4,
+      bedroom: 3,
+      oldPrice: 120,
+      newPrice: 100,
+      totalPrice: 600,
+      coordinate: {
+        latitude: 28.4815637,
+        longitude: -16.2991304,
+      },
+    },
+  ];
+
+  const [selectedPlaceId, setSelectedPlaceId] = useState(null);
+
+  const flatList = useRef();
+  const map = useRef();
+
+  const viewConfig = useRef({itemVisiblePercentThreshold: 70});
+
+  const viewabilityConfigCallbackPairs = useRef([
+    {
+      viewabilityConfig: viewConfig.current,
+      onViewableItemsChanged: onViewableItemsChanged,
+    },
+  ]);
+
+  const onViewableItemsChanged = useRef(({viewableItems}) => {
+    if (viewableItems.length > 0) {
+      const selectedPlace = viewableItems[0].item;
+      setSelectedPlaceId(selectedPlace.id);
+    }
+  });
+
+  const width = useWindowDimensions().width;
   const FlatListData = [
     {
       id: 1,
@@ -57,6 +155,23 @@ const Map = () => {
       longitude: 67.0310973,
     },
   ];
+  useEffect(() => {
+    if (!selectedPlaceId || !flatList) {
+      return;
+    }
+    const index = posts.findIndex(place => place.id === selectedPlaceId);
+    flatList.current.scrollToIndex({index});
+
+    const selectedPlace = posts[index];
+    console.log(selectedPlace);
+    const region = {
+      latitude: selectedPlace.latitude,
+      longitude: selectedPlace.longitude,
+      latitudeDelta: 0.8,
+      longitudeDelta: 0.8,
+    };
+    map.current.animateToRegion(region);
+  }, [selectedPlaceId]);
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
@@ -70,16 +185,16 @@ const Map = () => {
             borderRadius: 50,
             width: '100%',
             paddingVertical: 6,
-            backgroundColor: 'white',
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            backgroundColor: '#f7f7f7',
+            // shadowColor: '#000',
+            // shadowOffset: {
+            //   width: 0,
+            //   height: 2,
+            // },
+            // shadowOpacity: 0.25,
+            // shadowRadius: 3.84,
 
-            elevation: 5,
+            // elevation: 5,
           }}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity
@@ -114,29 +229,55 @@ const Map = () => {
           source={require('../../assets/staticmap.png')}
         /> */}
         <MapView
+          ref={map}
+          style={{width: '100%', height: '100%'}}
           provider={PROVIDER_GOOGLE}
-          style={{width: '100%', height: height}}
-          region={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
+          initialRegion={{
+            latitude: 28.3279822,
+            longitude: -16.5124847,
+            latitudeDelta: 0.8,
+            longitudeDelta: 0.8,
           }}>
-          <Marker coordinate={coordinates[0]} />
-          <Marker coordinate={coordinates[1]} />
-          <Polyline
-            strokeWidth={2}
-            strokeColor="#000"
-            strokeColors={['black']}
-            coordinates={coordinates}
-          />
+          {posts.map(place => (
+            <CustomMarker
+              coordinate={{
+                latitude: place.coordinate.latitude,
+                longitude: place.coordinate.longitude,
+              }}
+              key={place.id}
+              // coordinate={place.coordinate}
+              price={place.newPrice}
+              isSelected={place.id === selectedPlaceId}
+              onPress={() => setSelectedPlaceId(place.id)}
+            />
+          ))}
         </MapView>
       </View>
       {/* <View>Your content</View> */}
       {/* <TouchableOpacity onPress={() => panelRef.current.togglePanel()}>
         <Text>Toggle</Text>
       </TouchableOpacity> */}
-      {condition ? (
+      <View style={{position: 'absolute', bottom: 10}}>
+        <FlatList
+          ref={flatList}
+          data={posts}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <PostCarouselItem post={item} key={item.id} />
+          )}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={width - 60}
+          snapToAlignment={'center'}
+          decelerationRate={'fast'}
+          viewabilityConfigCallbackPairs={
+            viewabilityConfigCallbackPairs.current
+          }
+          // viewabilityConfig={viewConfig.current}
+          // onViewableItemsChanged={onViewChanged.current}
+        />
+      </View>
+      {/* {condition ? (
         <View
           style={{
             padding: 10,
@@ -254,106 +395,96 @@ const Map = () => {
             </TouchableOpacity>
           </TouchableOpacity>
         </View>
-      ) : null}
+      ) : null} */}
       <BottomSheet ref={ref => (panelRef.current = ref)}>
         {onScrollEndDrag => (
-          <ScrollView onScrollEndDrag={onScrollEndDrag}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            onScrollEndDrag={onScrollEndDrag}>
             {/* {[...Array(10)].map((_, index) => (
               <View key={`${index}`} style={styles.listItem}>
                 <Text>{`List Item ${index + 1}`}</Text>
               </View>
             ))} */}
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
-            <Text style={{paddingVertical: 20}}>633 tropical homes</Text>
+            <View style={{flex: 1}}>
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={posts}
+                renderItem={({item}) => {
+                  return (
+                    <View
+                      style={{
+                        marginBottom: 10,
+                        marginTop: 20,
+                        // backgroundColor: 'red',
+                      }}>
+                      <Image
+                        style={{
+                          width: 370,
+                          height: 370,
+                          borderRadius: 20,
+                        }}
+                        source={{uri: item?.image}}
+                      />
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          // alignItems: 'center',
+                          justifyContent: 'space-between',
+                          marginTop: 10,
+                          paddingHorizontal: 10,
+                        }}>
+                        <View>
+                          <Text style={{fontSize: 15, color: 'black'}}>
+                            {item?.title}
+                          </Text>
+                          {/* <Text style={{color: '#999999'}}>{item?.title}</Text> */}
+                          {/* <Text style={{color: '#999999'}}>{item?.title3}</Text> */}
+                          <Text style={{fontSize: 15, fontWeight: 'bold'}}>
+                            {item?.totalPrice}{' '}
+                            {/* <Text style={{color: '#999999'}}>{item?.title4}</Text> */}
+                          </Text>
+                        </View>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            alignSelf: 'flex-start',
+                          }}>
+                          <Image
+                            style={{width: 20, height: 20}}
+                            source={require('../../assets/u_star.png')}
+                          />
+                          <Text>4.94</Text>
+                        </View>
+                      </View>
+                      <View style={{position: 'absolute', top: 20, right: 20}}>
+                        <TouchableOpacity
+                        // onPress={() => {
+                        //   if (heart != item?.id) {
+                        //     setHeart(item?.id);
+                        //   } else {
+                        //     setHeart(item?.id);
+                        //   }
+                        // }}
+                        >
+                          <Entypo
+                            name={
+                              heart === item?.id ? 'heart' : 'heart-outlined'
+                            }
+                            size={20}
+                            color={heart === item?.id ? 'red' : 'white'}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  );
+                }}
+              />
+            </View>
           </ScrollView>
         )}
       </BottomSheet>
-      {/* <View style={{flex: 1}}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={data}
-            renderItem={({item}) => {
-              return (
-                <View
-                  style={{
-                    marginBottom: 10,
-                    marginTop: 20,
-                    // backgroundColor: 'red',
-                  }}>
-                  <Image
-                    style={{
-                      width: 370,
-                      height: 370,
-                      borderRadius: 20,
-                    }}
-                    source={item?.img}
-                  />
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      // alignItems: 'center',
-                      justifyContent: 'space-between',
-                      marginTop: 10,
-                      paddingHorizontal: 10,
-                    }}>
-                    <View>
-                      <Text style={{fontSize: 15, color: 'black'}}>
-                        {item?.title1}
-                      </Text>
-                      <Text style={{color: '#999999'}}>{item?.title2}</Text>
-                      <Text style={{color: '#999999'}}>{item?.title3}</Text>
-                      <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-                        {item?.price}{' '}
-                        <Text style={{color: '#999999'}}>{item?.title4}</Text>
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        alignSelf: 'flex-start',
-                      }}>
-                      <Image
-                        style={{width: 20, height: 20}}
-                        source={require('../../assets/u_star.png')}
-                      />
-                      <Text>4.94</Text>
-                    </View>
-                  </View>
-                  <View style={{position: 'absolute', top: 20, right: 20}}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        if (heart != item?.id) {
-                          setHeart(item?.id);
-                        } else {
-                          setHeart(item?.id);
-                        }
-                      }}>
-                      <Entypo
-                        name={heart === item?.id ? 'heart' : 'heart-outlined'}
-                        size={20}
-                        color={heart === item?.id ? 'red' : 'white'}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              );
-            }}
-          />
-        </View> */}
     </View>
   );
 };

@@ -191,16 +191,7 @@ const Explore = () => {
             borderRadius: 50,
             width: '100%',
             paddingVertical: 6,
-            backgroundColor: 'white',
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-
-            elevation: 5,
+            backgroundColor: '#f7f7f7',
           }}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <AntDesign name="search1" size={20} style={{marginRight: 20}} />

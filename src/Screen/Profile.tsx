@@ -383,7 +383,7 @@ const Profile = ({...props}) => {
             }}>
             <View>
               <Text style={{color: 'black', fontWeight: 'bold'}}>
-                Airbnb your place
+                SnappStay your place
               </Text>
               <Text>it's simple to get set up and start earning</Text>
             </View>
@@ -582,6 +582,65 @@ const Profile = ({...props}) => {
                       style={{marginRight: 10}}
                     />
                     <Text style={{color: 'black'}}>Privacy and sharing</Text>
+                  </View>
+                  <Feather
+                    name="chevron-right"
+                    size={20}
+                    color="black"
+                    style={{marginRight: 10}}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginTop: 20,
+                    paddingVertical: 7,
+                    // borderBottomWidth: 1,
+                    // borderBottomColor: 'lightgrey',
+                    marginBottom: 5,
+                  }}>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Feather
+                      name="settings"
+                      size={20}
+                      color="black"
+                      style={{marginRight: 10}}
+                    />
+                    <Text style={{color: 'black'}}>Setting</Text>
+                  </View>
+                  <Feather
+                    name="chevron-right"
+                    size={20}
+                    color="black"
+                    style={{marginRight: 10}}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginTop: 8,
+                    paddingVertical: 7,
+                    borderTopWidth: 1,
+                    borderTopColor: 'lightgrey',
+                    marginBottom: 20,
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginTop: 10,
+                    }}>
+                    <Feather
+                      name="info"
+                      size={20}
+                      color="black"
+                      style={{marginRight: 10}}
+                    />
+                    <Text style={{color: 'black'}}>Get help</Text>
                   </View>
                   <Feather
                     name="chevron-right"

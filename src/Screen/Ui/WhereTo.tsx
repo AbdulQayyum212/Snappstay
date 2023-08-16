@@ -18,6 +18,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import plus from '../../assets/plusSmall.png';
 import minus from '../../assets/minus.png';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {GOOGLE_API} from '../../Config/apiCaller';
 const WhereTo = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -563,9 +564,9 @@ const WhereTo = () => {
             }}>
             <Text style={{color: 'black'}}>Stays</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{marginRight: 20}}>
+          {/* <TouchableOpacity style={{marginRight: 20}}>
             <Text>Experiences</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View />
       </View>
@@ -1116,9 +1117,9 @@ const WhereTo = () => {
                 }}>
                 <Text style={{color: 'black'}}>Stays</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={{marginRight: 20}}>
+              {/* <TouchableOpacity style={{marginRight: 20}}>
                 <Text>Experiences</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <View />
           </View>
@@ -1134,7 +1135,7 @@ const WhereTo = () => {
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  flex: 1,
+                  // flex: 1,
                   // height: 50,
                   borderColor: 'lightgrey',
                   borderWidth: 1,
@@ -1143,10 +1144,10 @@ const WhereTo = () => {
                   backgroundColor: '#FBFBFB',
                   overflow: 'hidden',
                 }}>
-                <Image
+                {/* <Image
                   style={{width: 20, height: 20, marginRight: 10}}
                   source={require('../../assets/icon.png')}
-                />
+                /> */}
                 {/* <TextInput
                   style={{
                     height: 35,
@@ -1173,7 +1174,7 @@ const WhereTo = () => {
                       borderRadius: 10,
                     },
                     textInput: {
-                      width: '90%',
+                      width: '80%',
                       // height: 40,
                       backgroundColor: '#FBFBFB',
                       alignItems: 'center',
@@ -1186,7 +1187,8 @@ const WhereTo = () => {
                     console.log(data, details);
                   }}
                   query={{
-                    key: 'AIzaSyDamcm6CyN-fiiKEWlv4l_XYu3tv45WYd4',
+                    // key: GOOGLE_API,
+                    key: 'AIzaSyClYAkI28o4JC8de56LH0xpNWtX-TWIKr4',
                     language: 'en',
                   }}
                 />
