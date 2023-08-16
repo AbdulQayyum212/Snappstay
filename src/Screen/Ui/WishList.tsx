@@ -19,7 +19,7 @@ const WishList = () => {
   const data = [
     {
       id: 1,
-      img: require('../../assets/Rectangle.png'),
+      img: require('../../assets/3.jpg'),
       title1: 'Apertment In Houston Texas',
       title2: 'Amsterdam Lifestyle in Houston',
       title3: '1 queen bed Individual Host',

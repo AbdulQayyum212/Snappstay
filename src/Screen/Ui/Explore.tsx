@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Image,
@@ -14,7 +14,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Carousel} from 'react-native-ui-lib';
 import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-
+import {ToastSuccess} from '../../Config/Constants';
+import Toast from 'react-native-toast-message';
 const Explore = () => {
   const navigation = useNavigation();
   const [select, setSelect] = useState<number>(1);
@@ -143,6 +144,9 @@ const Explore = () => {
       img: any;
     };
   }
+  // useEffect(() => {
+  //   Toast.show(ToastSuccess('hello'));
+  // }, []);
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <View style={{paddingHorizontal: 10, paddingVertical: 10}}>

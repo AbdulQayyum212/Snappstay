@@ -51,12 +51,13 @@ const Trips = () => {
                 overflow: 'hidden',
               }}>
               <Image
+                resizeMode="cover"
                 style={{
                   width: '100%',
                   height: 150,
                   // borderRadius: 20,
                 }}
-                source={require('../../assets/Rectangle.png')}
+                source={require('../../assets/1.jpg')}
               />
               <View style={{padding: 20}}>
                 <Text
@@ -116,7 +117,7 @@ const Trips = () => {
                     height: 50,
                     borderRadius: 5,
                   }}
-                  source={require('../../assets/Rectangle.png')}
+                  source={require('../../assets/4.jpg')}
                 />
                 <View style={{marginLeft: 10}}>
                   <Text style={{color: 'black', fontWeight: 'bold'}}>
@@ -137,7 +138,7 @@ const Trips = () => {
                     height: 50,
                     borderRadius: 5,
                   }}
-                  source={require('../../assets/Rectangle.png')}
+                  source={require('../../assets/3.jpg')}
                 />
                 <View style={{marginLeft: 10}}>
                   <Text style={{color: 'black', fontWeight: 'bold'}}>

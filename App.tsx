@@ -28,8 +28,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import StackNavigation from './src/StackNavigation/StackNavigation';
-import StartLogin from './src/Screen/AuthScreen/StartLogin';
-import AuthStack from './src/StackNavigation/AuthStack';
 import {createStoreHook, Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -60,18 +58,18 @@ const App = () => {
             )}
           </NavigationContainer>
         </PersistGate>
+        <Toast
+          config={{
+            error: props => (
+              <ErrorToast
+                {...props}
+                text1NumberOfLines={2}
+                text2NumberOfLines={2}
+              />
+            ),
+          }}
+        />
       </Provider>
-      <Toast
-        config={{
-          error: props => (
-            <ErrorToast
-              {...props}
-              text1NumberOfLines={2}
-              text2NumberOfLines={2}
-            />
-          ),
-        }}
-      />
     </>
     // </SafeAreaView>
   );
