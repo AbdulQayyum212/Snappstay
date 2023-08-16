@@ -46,7 +46,8 @@ const App = () => {
   const store = createStore(persistReducers, applyMiddleware(thunk));
   const persistor = persistStore(store);
   return (
-    <SafeAreaView style={styles.container}>
+    // <SafeAreaView style={styles.container}>
+    <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <NavigationContainer>
@@ -57,7 +58,6 @@ const App = () => {
             ) : (
               <StackNavigation />
             )}
-            {/* <AuthStack /> */}
           </NavigationContainer>
         </PersistGate>
       </Provider>
@@ -72,7 +72,8 @@ const App = () => {
           ),
         }}
       />
-    </SafeAreaView>
+    </>
+    // </SafeAreaView>
   );
 };
 

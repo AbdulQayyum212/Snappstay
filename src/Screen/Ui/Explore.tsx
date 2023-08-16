@@ -24,7 +24,7 @@ const Explore = () => {
   const data = [
     {
       id: 1,
-      img: require('../../assets/Rectangle.png'),
+      img: require('../../assets/2.jpg'),
       title1: 'Apertment In Houston Texas',
       title2: 'Amsterdam Lifestyle in Houston',
       title3: '1 queen bed Individual Host',
@@ -33,7 +33,7 @@ const Explore = () => {
     },
     {
       id: 2,
-      img: require('../../assets/Rectangle2.png'),
+      img: require('../../assets/1.jpg'),
       title1: 'Apertment In Houston Texas',
       title2: 'Amsterdam Lifestyle in Houston',
       title3: '1 queen bed Individual Host',
@@ -42,7 +42,7 @@ const Explore = () => {
     },
     {
       id: 3,
-      img: require('../../assets/Rectangle2.png'),
+      img: require('../../assets/3.jpg'),
       title1: 'Apertment In Houston Texas',
       title2: 'Amsterdam Lifestyle in Houston',
       title3: '1 queen bed Individual Host',
@@ -51,7 +51,7 @@ const Explore = () => {
     },
     {
       id: 2,
-      img: require('../../assets/Rectangle2.png'),
+      img: require('../../assets/4.jpg'),
       title1: 'Apertment In Houston Texas',
       title2: 'Amsterdam Lifestyle in Houston',
       title3: '1 queen bed Individual Host',
@@ -129,41 +129,6 @@ const Explore = () => {
       id: 14,
       name: 'Golfing',
       img: require('../../assets/Golfing.png'),
-    },
-    {
-      id: 15,
-      name: 'National Parks',
-      img: require('../../assets/National-Parks.png'),
-    },
-    {
-      id: 16,
-      name: 'New',
-      img: require('../../assets/New.png'),
-    },
-    {
-      id: 17,
-      name: 'Private Rooms',
-      img: require('../../assets/Private-Rooms.png'),
-    },
-    {
-      id: 18,
-      name: 'Top of the world',
-      img: require('../../assets/Top-of-the-world.png'),
-    },
-    {
-      id: 19,
-      name: 'Towers',
-      img: require('../../assets/Towers.png'),
-    },
-    {
-      id: 20,
-      name: 'Treehouses',
-      img: require('../../assets/Treehouses.png'),
-    },
-    {
-      id: 21,
-      name: 'Windmills',
-      img: require('../../assets/Windmills.png'),
     },
   ];
 
@@ -282,6 +247,7 @@ const Explore = () => {
                       <TouchableOpacity
                         onPress={() => navigation.navigate('SnappCover')}>
                         <Image
+                          resizeMode="cover"
                           style={{
                             width: 390,
                             height: 390,

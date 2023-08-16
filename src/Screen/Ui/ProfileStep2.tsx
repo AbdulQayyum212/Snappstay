@@ -40,7 +40,7 @@ const ProfileStep2 = () => {
       cropping: true,
     }).then(image => {
       console.log('image', image);
-      console.log(image);
+      setImg(image);
     });
     // const res = await launchCamera({mediaType: 'photo'}, value => {
     //   console.log('Camera', value);

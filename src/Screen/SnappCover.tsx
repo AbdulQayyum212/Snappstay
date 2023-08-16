@@ -76,7 +76,7 @@ const SnappCover = () => {
                 height: 300,
                 // borderRadius: 20,
               }}
-              source={require('../assets/Rectangle.png')}
+              source={require('../assets/1.jpg')}
             />
           ))}
         </Carousel>
@@ -145,7 +145,7 @@ const SnappCover = () => {
               <View style={{width: 50, height: 50, borderRadius: 50}}>
                 <Image
                   style={{width: 50, height: 50, borderRadius: 50}}
-                  source={require('../assets/Rectangle.png')}
+                  source={require('../assets/profile.png')}
                 />
               </View>
             </View>
