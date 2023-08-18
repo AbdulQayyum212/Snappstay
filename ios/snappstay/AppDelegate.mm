@@ -7,7 +7,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-  [GMSServices provideAPIKey:@"AIzaSyDamcm6CyN-fiiKEWlv4l_XYu3tv45WYd4"]; // add this line using the api key obtained from Google Console
+  [GMSServices provideAPIKey:@"AIzaSyClYAkI28o4JC8de56LH0xpNWtX-TWIKr4"]; // add this line using the api key obtained from Google Console
 
   self.moduleName = @"snappstay";
   // You can add your custom initial props in the dictionary below.

@@ -10,6 +10,7 @@ import {
   Modal,
   StyleSheet,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import {TabController} from 'react-native-ui-lib';
 import Home from '../Home';
@@ -17,7 +18,7 @@ import InboxTabs from '../../TopTabs/InboxTabs';
 
 const Inbox = () => {
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       {/* <ScrollView
         contentContainerStyle={{padding: 20}}
         showsVerticalScrollIndicator={false}> */}
@@ -29,7 +30,7 @@ const Inbox = () => {
         </View>
         <InboxTabs />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 export default Inbox;

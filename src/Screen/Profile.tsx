@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
   Switch,
+  SafeAreaView,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -30,8 +31,9 @@ const Profile = ({...props}) => {
     }
   };
   return (
-    <View style={{backgroundColor: 'white', flex: 1, padding: 20}}>
-      {/* <View
+    <SafeAreaView style={{height: '100%', backgroundColor: 'white'}}>
+      <View style={{backgroundColor: 'white', flex: 1, padding: 20}}>
+        {/* <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -258,86 +260,88 @@ const Profile = ({...props}) => {
           </View>
         </ScrollView>
       </View> */}
-      <View style={{flex: 1}}>
-        <Text style={{color: 'black', fontSize: 30, fontWeight: 'bold'}}>
-          Profile
-        </Text>
-        <Switch
-          trackColor={{false: '#767577', true: '#d0364e'}}
-          thumbColor={props?.userToken ? '#d0364e' : '#f4f3f4'}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={props?.userToken}
-        />
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {props?.userToken ? null : (
-            <Text
-              style={{
-                color: 'grey',
-                fontSize: 15,
-                fontWeight: 'bold',
-              }}>
-              Log in to start planning your next trip
-            </Text>
-          )}
-          {props?.userToken ? (
-            <View
-              onPress={() => navigation.navigate('ProfileStep2')}
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginTop: 20,
-                paddingVertical: 40,
-                borderBottomWidth: 1,
-                borderBottomColor: 'lightgrey',
-                marginBottom: 5,
-              }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Avatar
-                  size={60}
-                  source={require('../assets/bgimage.png')}
-                  // label={IT}
-                />
-                <View style={{marginLeft: 10}}>
-                  <Text style={{color: 'black', fontSize: 20}}>User Name</Text>
-                  <Text style={{color: 'lightgrey'}}>Show profile</Text>
+        <View style={{flex: 1}}>
+          <Text style={{color: 'black', fontSize: 30, fontWeight: 'bold'}}>
+            Profile
+          </Text>
+          <Switch
+            trackColor={{false: '#767577', true: '#d0364e'}}
+            thumbColor={props?.userToken ? '#d0364e' : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={props?.userToken}
+          />
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {props?.userToken ? null : (
+              <Text
+                style={{
+                  color: 'grey',
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                }}>
+                Log in to start planning your next trip
+              </Text>
+            )}
+            {props?.userToken ? (
+              <View
+                onPress={() => navigation.navigate('ProfileStep2')}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: 20,
+                  paddingVertical: 40,
+                  borderBottomWidth: 1,
+                  borderBottomColor: 'lightgrey',
+                  marginBottom: 5,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Avatar
+                    size={60}
+                    source={require('../assets/bgimage.png')}
+                    // label={IT}
+                  />
+                  <View style={{marginLeft: 10}}>
+                    <Text style={{color: 'black', fontSize: 20}}>
+                      User Name
+                    </Text>
+                    <Text style={{color: 'lightgrey'}}>Show profile</Text>
+                  </View>
                 </View>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('ProfileStep2')}>
+                  <Feather
+                    name="chevron-right"
+                    size={20}
+                    color="black"
+                    style={{marginRight: 10}}
+                  />
+                </TouchableOpacity>
               </View>
+            ) : (
               <TouchableOpacity
-                onPress={() => navigation.navigate('ProfileStep2')}>
-                <Feather
-                  name="chevron-right"
-                  size={20}
-                  color="black"
-                  style={{marginRight: 10}}
-                />
+                onPress={() => navigation.navigate('Login')}
+                style={{
+                  width: '100%',
+                  paddingVertical: 15,
+                  backgroundColor: 'rgb(183, 43, 95)',
+                  borderRadius: 10,
+                  alignItems: 'center',
+                  marginTop: 30,
+                }}>
+                <Text style={{color: 'white', fontWeight: 'bold'}}>Log In</Text>
               </TouchableOpacity>
-            </View>
-          ) : (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Login')}
-              style={{
-                width: '100%',
-                paddingVertical: 15,
-                backgroundColor: 'rgb(183, 43, 95)',
-                borderRadius: 10,
-                alignItems: 'center',
-                marginTop: 30,
-              }}>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>Log In</Text>
-            </TouchableOpacity>
-          )}
-          {props?.userToken ? null : (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: 30,
-              }}>
-              <Text>
-                Don't have an account?
-                {/* <Text
+            )}
+            {props?.userToken ? null : (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: 30,
+                }}>
+                <Text>
+                  Don't have an account?
+                  {/* <Text
             style={{
               // fontSize: 18,
               fontWeight: 'bold',
@@ -346,115 +350,115 @@ const Profile = ({...props}) => {
             }}>
             SignUp
           </Text> */}
-              </Text>
-              <TouchableOpacity>
-                <Text
-                  style={{
-                    fontWeight: 'bold',
-                    color: 'black',
-                    fontSize: 12,
-                    marginLeft: 4,
-                    textDecorationLine: 'underline',
-                  }}>
-                  SignUp
                 </Text>
-              </TouchableOpacity>
-            </View>
-          )}
-          <View
-            style={{
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
+                <TouchableOpacity>
+                  <Text
+                    style={{
+                      fontWeight: 'bold',
+                      color: 'black',
+                      fontSize: 12,
+                      marginLeft: 4,
+                      textDecorationLine: 'underline',
+                    }}>
+                    SignUp
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
+            <View
+              style={{
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
 
-              elevation: 5,
-              backgroundColor: 'white',
-              borderRadius: 10,
-              marginTop: 20,
-              padding: 20,
-              paddingVertical: 30,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <View>
-              <Text style={{color: 'black', fontWeight: 'bold'}}>
-                SnappStay your place
-              </Text>
-              <Text>it's simple to get set up and start earning</Text>
+                elevation: 5,
+                backgroundColor: 'white',
+                borderRadius: 10,
+                marginTop: 20,
+                padding: 20,
+                paddingVertical: 30,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <View>
+                <Text style={{color: 'black', fontWeight: 'bold'}}>
+                  SnappStay your place
+                </Text>
+                <Text>it's simple to get set up and start earning</Text>
+              </View>
+              <Image
+                style={{width: 50, height: 50}}
+                source={require('../assets/Rectangle2.png')}
+              />
             </View>
-            <Image
-              style={{width: 50, height: 50}}
-              source={require('../assets/Rectangle2.png')}
-            />
-          </View>
-          <View style={{marginTop: 20}}>
-            <Text style={{fontSize: 20, color: 'black', fontWeight: 'bold'}}>
-              Account settings
-            </Text>
-            {props?.userToken ? (
-              <>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('PersonalInfo')}
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginTop: 20,
-                    paddingVertical: 7,
-                    // borderBottomWidth: 1,
-                    // borderBottomColor: 'lightgrey',
-                    marginBottom: 5,
-                  }}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Ionicons
-                      name="person-circle-outline"
+            <View style={{marginTop: 20}}>
+              <Text style={{fontSize: 20, color: 'black', fontWeight: 'bold'}}>
+                Account settings
+              </Text>
+              {props?.userToken ? (
+                <>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('PersonalInfo')}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginTop: 20,
+                      paddingVertical: 7,
+                      // borderBottomWidth: 1,
+                      // borderBottomColor: 'lightgrey',
+                      marginBottom: 5,
+                    }}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Ionicons
+                        name="person-circle-outline"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      />
+                      <Text style={{color: 'black'}}>Personal Information</Text>
+                    </View>
+                    <Feather
+                      name="chevron-right"
                       size={20}
                       color="black"
                       style={{marginRight: 10}}
                     />
-                    <Text style={{color: 'black'}}>Personal Information</Text>
-                  </View>
-                  <Feather
-                    name="chevron-right"
-                    size={20}
-                    color="black"
-                    style={{marginRight: 10}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('EditPayment')}
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginTop: 20,
-                    paddingVertical: 7,
-                    // borderBottomWidth: 1,
-                    // borderBottomColor: 'lightgrey',
-                    marginBottom: 5,
-                  }}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <MaterialIcons
-                      name="payments"
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('EditPayment')}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginTop: 20,
+                      paddingVertical: 7,
+                      // borderBottomWidth: 1,
+                      // borderBottomColor: 'lightgrey',
+                      marginBottom: 5,
+                    }}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <MaterialIcons
+                        name="payments"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      />
+                      <Text style={{color: 'black'}}>Payment and payouts</Text>
+                    </View>
+                    <Feather
+                      name="chevron-right"
                       size={20}
                       color="black"
                       style={{marginRight: 10}}
                     />
-                    <Text style={{color: 'black'}}>Payment and payouts</Text>
-                  </View>
-                  <Feather
-                    name="chevron-right"
-                    size={20}
-                    color="black"
-                    style={{marginRight: 10}}
-                  />
-                </TouchableOpacity>
-                {/* <TouchableOpacity
+                  </TouchableOpacity>
+                  {/* <TouchableOpacity
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
@@ -481,7 +485,7 @@ const Profile = ({...props}) => {
                     style={{marginRight: 10}}
                   />
                 </TouchableOpacity> */}
-                {/* <TouchableOpacity
+                  {/* <TouchableOpacity
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
@@ -508,7 +512,7 @@ const Profile = ({...props}) => {
                     style={{marginRight: 10}}
                   />
                 </TouchableOpacity> */}
-                {/* <TouchableOpacity
+                  {/* <TouchableOpacity
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
@@ -562,158 +566,158 @@ const Profile = ({...props}) => {
                     style={{marginRight: 10}}
                   />
                 </TouchableOpacity> */}
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('PrivacyandSharing')}
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginTop: 20,
-                    paddingVertical: 7,
-                    // borderBottomWidth: 1,
-                    // borderBottomColor: 'lightgrey',
-                    marginBottom: 5,
-                  }}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <AntDesign
-                      name="lock1"
-                      size={20}
-                      color="black"
-                      style={{marginRight: 10}}
-                    />
-                    <Text style={{color: 'black'}}>Privacy and sharing</Text>
-                  </View>
-                  <Feather
-                    name="chevron-right"
-                    size={20}
-                    color="black"
-                    style={{marginRight: 10}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginTop: 20,
-                    paddingVertical: 7,
-                    // borderBottomWidth: 1,
-                    // borderBottomColor: 'lightgrey',
-                    marginBottom: 5,
-                  }}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Feather
-                      name="settings"
-                      size={20}
-                      color="black"
-                      style={{marginRight: 10}}
-                    />
-                    <Text style={{color: 'black'}}>Setting</Text>
-                  </View>
-                  <Feather
-                    name="chevron-right"
-                    size={20}
-                    color="black"
-                    style={{marginRight: 10}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginTop: 8,
-                    paddingVertical: 7,
-                    borderTopWidth: 1,
-                    borderTopColor: 'lightgrey',
-                    marginBottom: 20,
-                  }}>
-                  <View
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('PrivacyandSharing')}
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      marginTop: 10,
+                      justifyContent: 'space-between',
+                      marginTop: 20,
+                      paddingVertical: 7,
+                      // borderBottomWidth: 1,
+                      // borderBottomColor: 'lightgrey',
+                      marginBottom: 5,
                     }}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <AntDesign
+                        name="lock1"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      />
+                      <Text style={{color: 'black'}}>Privacy and sharing</Text>
+                    </View>
                     <Feather
-                      name="info"
+                      name="chevron-right"
                       size={20}
                       color="black"
                       style={{marginRight: 10}}
                     />
-                    <Text style={{color: 'black'}}>Get help</Text>
-                  </View>
-                  <Feather
-                    name="chevron-right"
-                    size={20}
-                    color="black"
-                    style={{marginRight: 10}}
-                  />
-                </TouchableOpacity>
-              </>
-            ) : (
-              <>
-                <TouchableOpacity
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginTop: 20,
-                    paddingVertical: 7,
-                    // borderBottomWidth: 1,
-                    // borderBottomColor: 'lightgrey',
-                    marginBottom: 5,
-                  }}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Feather
-                      name="settings"
-                      size={20}
-                      color="black"
-                      style={{marginRight: 10}}
-                    />
-                    <Text style={{color: 'black'}}>Setting</Text>
-                  </View>
-                  <Feather
-                    name="chevron-right"
-                    size={20}
-                    color="black"
-                    style={{marginRight: 10}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginTop: 8,
-                    paddingVertical: 7,
-                    borderTopWidth: 1,
-                    borderTopColor: 'lightgrey',
-                    marginBottom: 20,
-                  }}>
-                  <View
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      marginTop: 10,
+                      justifyContent: 'space-between',
+                      marginTop: 20,
+                      paddingVertical: 7,
+                      // borderBottomWidth: 1,
+                      // borderBottomColor: 'lightgrey',
+                      marginBottom: 5,
                     }}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Feather
+                        name="settings"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      />
+                      <Text style={{color: 'black'}}>Setting</Text>
+                    </View>
                     <Feather
-                      name="info"
+                      name="chevron-right"
                       size={20}
                       color="black"
                       style={{marginRight: 10}}
                     />
-                    <Text style={{color: 'black'}}>Get help</Text>
-                  </View>
-                  <Feather
-                    name="chevron-right"
-                    size={20}
-                    color="black"
-                    style={{marginRight: 10}}
-                  />
-                </TouchableOpacity>
-              </>
-            )}
-            {/* {props?.userToken && (
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginTop: 8,
+                      paddingVertical: 7,
+                      borderTopWidth: 1,
+                      borderTopColor: 'lightgrey',
+                      marginBottom: 20,
+                    }}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginTop: 10,
+                      }}>
+                      <Feather
+                        name="info"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      />
+                      <Text style={{color: 'black'}}>Get help</Text>
+                    </View>
+                    <Feather
+                      name="chevron-right"
+                      size={20}
+                      color="black"
+                      style={{marginRight: 10}}
+                    />
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <>
+                  <TouchableOpacity
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginTop: 20,
+                      paddingVertical: 7,
+                      // borderBottomWidth: 1,
+                      // borderBottomColor: 'lightgrey',
+                      marginBottom: 5,
+                    }}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Feather
+                        name="settings"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      />
+                      <Text style={{color: 'black'}}>Setting</Text>
+                    </View>
+                    <Feather
+                      name="chevron-right"
+                      size={20}
+                      color="black"
+                      style={{marginRight: 10}}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginTop: 8,
+                      paddingVertical: 7,
+                      borderTopWidth: 1,
+                      borderTopColor: 'lightgrey',
+                      marginBottom: 20,
+                    }}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginTop: 10,
+                      }}>
+                      <Feather
+                        name="info"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      />
+                      <Text style={{color: 'black'}}>Get help</Text>
+                    </View>
+                    <Feather
+                      name="chevron-right"
+                      size={20}
+                      color="black"
+                      style={{marginRight: 10}}
+                    />
+                  </TouchableOpacity>
+                </>
+              )}
+              {/* {props?.userToken && (
               <>
                 <View style={{marginTop: 20}}>
                   <Text
@@ -837,22 +841,23 @@ const Profile = ({...props}) => {
                 </View>
               </>
             )} */}
-            {props?.userToken ? (
-              <TouchableOpacity style={{marginTop: 20}}>
-                <Text
-                  style={{
-                    color: 'black',
-                    textDecorationLine: 'underline',
-                    fontWeight: '400',
-                  }}>
-                  Log out
-                </Text>
-              </TouchableOpacity>
-            ) : null}
-          </View>
-        </ScrollView>
+              {props?.userToken ? (
+                <TouchableOpacity style={{marginTop: 20}}>
+                  <Text
+                    style={{
+                      color: 'black',
+                      textDecorationLine: 'underline',
+                      fontWeight: '400',
+                    }}>
+                    Log out
+                  </Text>
+                </TouchableOpacity>
+              ) : null}
+            </View>
+          </ScrollView>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 const mapStateToProps = state => {

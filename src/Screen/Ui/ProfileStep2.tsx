@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Image, Modal, StyleSheet} from 'react-native';
+import {Image, Modal, SafeAreaView, StyleSheet} from 'react-native';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {Avatar, Stepper} from 'react-native-ui-lib';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -49,7 +49,7 @@ const ProfileStep2 = () => {
     // });
   };
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View
         style={{
           flexDirection: 'row',
@@ -405,7 +405,7 @@ const ProfileStep2 = () => {
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
