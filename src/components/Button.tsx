@@ -21,23 +21,26 @@ const Button = ({onPress, style, textStyle, title}: any) => {
     </TouchableOpacity>
   );
 };
-const LeftIconBtn = ({Lefticon, title, onPress}: any) => {
+const LeftIconBtn = ({Lefticon, title, onPress, style, textStyle}: any) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       // onPress={() => setModalVisible(true)}
-      style={{
-        backgroundColor: 'black',
-        paddingVertical: 10,
-        alignItems: 'center',
-        borderRadius: 10,
-        width: 130,
-        flexDirection: 'row',
-        paddingHorizontal: 20,
-      }}>
+      style={[
+        {
+          backgroundColor: 'black',
+          paddingVertical: 10,
+          alignItems: 'center',
+          borderRadius: 10,
+          width: 130,
+          flexDirection: 'row',
+          paddingHorizontal: 20,
+        },
+        style,
+      ]}>
       {Lefticon}
       {/* <Text style={{color: 'white'}}>Search</Text> */}
-      <Text style={{color: 'white'}}>{title}</Text>
+      <Text style={[{color: 'white'}, textStyle]}>{title}</Text>
     </TouchableOpacity>
   );
 };

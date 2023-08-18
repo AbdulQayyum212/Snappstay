@@ -34,6 +34,7 @@ import ProfileStep2 from '../Screen/Ui/ProfileStep2';
 import PersonalInfo from '../Screen/Ui/PersonalInfo';
 import EditPayment from '../Screen/Ui/EditPayment';
 import PrivacyandSharing from '../Screen/Ui/PrivacyandSharing';
+import StartEarning from '../Screen/Ui/StartEarning';
 
 const Stack = createStackNavigator();
 const StackNavigation = () => {
@@ -76,6 +77,7 @@ const StackNavigation = () => {
       <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
       <Stack.Screen name="EditPayment" component={EditPayment} />
       <Stack.Screen name="PrivacyandSharing" component={PrivacyandSharing} />
+      <Stack.Screen name="StartEarning" component={StartEarning} />
     </Stack.Navigator>
   );
 };

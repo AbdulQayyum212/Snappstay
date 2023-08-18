@@ -14,6 +14,11 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Feather from 'react-native-vector-icons/Feather';
 import {Carousel} from 'react-native-ui-lib';
 const width = Dimensions.get('window').width;
 const TripDetail = () => {
@@ -27,7 +32,7 @@ const TripDetail = () => {
     },
   ];
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
+    <View style={{flex: 1}}>
       <View style={{height: 400}}>
         {/* <View
         style={{
@@ -123,160 +128,617 @@ const TripDetail = () => {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{padding: 20}}>
+        // contentContainerStyle={{padding: 20}}
+      >
         <View style={{}}>
-          <View
-            style={{
-              flexDirection: 'row',
-              //   alignItems: 'center',
-              //   justifyContent: 'space-between',
-            }}>
+          <View style={{backgroundColor: 'white', padding: 20}}>
             <View
               style={{
-                borderRightWidth: 1,
-                borderRightColor: 'lightgrey',
-                width: '40%',
+                flexDirection: 'row',
+                //   alignItems: 'center',
+                //   justifyContent: 'space-between',
               }}>
-              <Text style={{color: 'black'}}>Check-in</Text>
-              <Text style={{color: 'black'}}>Fri, Feb 17</Text>
-              <Text>1:00 PM</Text>
+              <View
+                style={{
+                  borderRightWidth: 1,
+                  borderRightColor: 'lightgrey',
+                  width: '40%',
+                }}>
+                <Text style={{color: 'black'}}>Check-in</Text>
+                <Text style={{color: 'black'}}>Fri, Feb 17</Text>
+                <Text>1:00 PM</Text>
+              </View>
+              <View
+                style={{
+                  // borderRightWidth: 1,
+                  // borderRightColor: 'lightgrey',
+                  width: '40%',
+                  marginLeft: 20,
+                }}>
+                <Text style={{color: 'black'}}>Check-out</Text>
+                <Text style={{color: 'black'}}>Sat, Feb 18</Text>
+                <Text>11:00 AM</Text>
+              </View>
+            </View>
+            <View
+              style={{borderWidth: 1, borderColor: '#999999', marginTop: 20}}
+            />
+            <View>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: 8,
+                  paddingVertical: 12,
+                  marginBottom: 20,
+                  borderBottomColor: 'lightgrey',
+                  borderBottomWidth: 1,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    //   marginTop: 10,
+                  }}>
+                  <FontAwesome6
+                    name="location-dot"
+                    size={20}
+                    color="black"
+                    style={{marginRight: 10}}
+                  />
+                  <View style={{marginLeft: 10}}>
+                    <Text style={{color: 'black'}}>Getting there</Text>
+                    <Text style={{color: 'grey'}}>Addrees</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  // marginTop: 8,
+                  paddingVertical: 12,
+                  marginBottom: 20,
+                  borderBottomColor: 'lightgrey',
+                  borderBottomWidth: 1,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    //   marginTop: 10,
+                  }}>
+                  <Octicons
+                    name="book"
+                    size={20}
+                    color="black"
+                    style={{marginRight: 10}}
+                  />
+                  <View style={{marginLeft: 10}}>
+                    <Text style={{color: 'black'}}>Things to know</Text>
+                    <Text style={{color: 'grey'}}>
+                      instructions and house rule
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  // marginTop: 8,
+                  paddingVertical: 12,
+                  marginBottom: 20,
+                  borderBottomColor: 'lightgrey',
+                  borderBottomWidth: 1,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    //   marginTop: 10,
+                  }}>
+                  <MaterialCommunityIcons
+                    name="message-outline"
+                    size={20}
+                    color="black"
+                    style={{marginRight: 10}}
+                  />
+                  <View style={{marginLeft: 10}}>
+                    <Text style={{color: 'black'}}>Message your host</Text>
+                    <Text style={{color: 'grey'}}>stay & fun</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  // marginTop: 8,
+                  paddingVertical: 12,
+                  marginBottom: 20,
+                  borderBottomColor: 'lightgrey',
+                  borderBottomWidth: 1,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    //   marginTop: ,
+                  }}>
+                  <FontAwesome6
+                    name="location-dot"
+                    size={20}
+                    color="black"
+                    style={{marginRight: 10}}
+                  />
+                  <View style={{marginLeft: 10}}>
+                    <Text style={{color: 'black'}}>Your place</Text>
+                    <Text style={{color: 'grey'}}>
+                      Hidden gem at D1 Bui Vien - stay&fun 09
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={{marginTop: 10, backgroundColor: 'white', padding: 20}}>
+            <Text style={{color: 'black', fontSize: 17, fontWeight: '500'}}>
+              Reservation details
+            </Text>
+            <View
+              style={{
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+                paddingVertical: 20,
+              }}>
+              <View
+                style={{
+                  marginTop: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <Text
+                  style={{width: '60%', color: 'black', fontWeight: 'bold'}}>
+                  Who's coming
+                </Text>
+                <View style={{width: 40, height: 40, borderRadius: 50}}>
+                  <Image
+                    style={{width: 40, height: 40, borderRadius: 50}}
+                    source={require('../../assets/profile.png')}
+                  />
+                </View>
+              </View>
+              <Text style={{width: '52%', color: '#999999'}}>1 guests</Text>
             </View>
             <View
               style={{
-                // borderRightWidth: 1,
-                // borderRightColor: 'lightgrey',
-                width: '40%',
-                marginLeft: 20,
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+                paddingVertical: 20,
               }}>
-              <Text style={{color: 'black'}}>Check-out</Text>
-              <Text style={{color: 'black'}}>Sat, Feb 18</Text>
-              <Text>11:00 AM</Text>
+              <View
+                style={{
+                  marginTop: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <Text
+                  style={{width: '60%', color: 'black', fontWeight: 'bold'}}>
+                  Confirmation Code
+                </Text>
+              </View>
+              <Text style={{width: '52%', color: '#999999'}}>*******</Text>
+            </View>
+            <View
+              style={{
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+                paddingVertical: 20,
+              }}>
+              <View
+                style={{
+                  marginTop: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  // justifyContent: 'space-between',
+                }}>
+                <Text style={{color: 'black', fontWeight: 'bold'}}>
+                  Your booking is protected by SnappStay
+                </Text>
+              </View>
+              <Text style={{color: 'black', textDecorationLine: 'underline'}}>
+                Learn more
+              </Text>
+            </View>
+            <View
+              style={{
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+                paddingVertical: 20,
+              }}>
+              <View
+                style={{
+                  marginTop: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  // justifyContent: 'space-between',
+                }}>
+                <Text style={{color: 'black', fontWeight: 'bold'}}>
+                  Cancellation policy
+                </Text>
+              </View>
+              <Text style={{marginTop: 10}}>
+                Free cancellation before 1.00 PM on Feb 12. After that, the
+                reservation is non-refoundable.
+              </Text>
+              <Text
+                style={{
+                  color: 'black',
+                  textDecorationLine: 'underline',
+                  marginTop: 10,
+                }}>
+                Learn more
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: 10,
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+                paddingVertical: 15,
+              }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <MaterialIcons
+                  style={{marginRight: 10, color: 'black'}}
+                  name="manage-history"
+                  size={20}
+                />
+                <Text style={{color: 'black'}}>Manage guest</Text>
+              </View>
+              <Ionicons
+                name="chevron-forward-outline"
+                size={20}
+                style={{color: 'black'}}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: 10,
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+                paddingVertical: 15,
+              }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <MaterialIcons
+                  style={{marginRight: 10, color: 'black'}}
+                  name="edit"
+                  size={20}
+                />
+                <Text style={{color: 'black'}}>Change reservation</Text>
+              </View>
+              <Ionicons
+                name="chevron-forward-outline"
+                size={20}
+                style={{color: 'black'}}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: 10,
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+                paddingVertical: 15,
+              }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <MaterialCommunityIcons
+                  style={{marginRight: 10, color: 'black'}}
+                  name="cancel"
+                  size={20}
+                />
+                <Text style={{color: 'black'}}>Cancel reservation</Text>
+              </View>
+              <Ionicons
+                name="chevron-forward-outline"
+                size={20}
+                style={{color: 'black'}}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: 10,
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+                paddingVertical: 15,
+              }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Entypo
+                  style={{marginRight: 10, color: 'black'}}
+                  name="network"
+                  size={20}
+                />
+                <Text style={{color: 'black'}}>
+                  Get a PDF for visa purposes
+                </Text>
+              </View>
+              <Ionicons
+                name="chevron-forward-outline"
+                size={20}
+                style={{color: 'black'}}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: 10,
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+                paddingVertical: 15,
+              }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Entypo
+                  style={{marginRight: 10, color: 'black'}}
+                  name="wallet"
+                  size={20}
+                />
+                <Text style={{color: 'black'}}>Add to wallet</Text>
+              </View>
+              <Ionicons
+                name="chevron-forward-outline"
+                size={20}
+                style={{color: 'black'}}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: 10,
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+                paddingVertical: 15,
+              }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <FontAwesome5
+                  style={{marginRight: 10, color: 'black'}}
+                  name="receipt"
+                  size={20}
+                />
+                <Text style={{color: 'black'}}>Get receipt</Text>
+              </View>
+              <Ionicons
+                name="chevron-forward-outline"
+                size={20}
+                style={{color: 'black'}}
+              />
             </View>
           </View>
           <View
-            style={{borderWidth: 1, borderColor: '#999999', marginTop: 20}}
-          />
-          <View>
-            <TouchableOpacity
+            style={{
+              marginTop: 10,
+              backgroundColor: 'white',
+              padding: 20,
+            }}>
+            <Text
+              style={{
+                color: 'black',
+                fontSize: 17,
+                fontWeight: '500',
+                marginBottom: 20,
+              }}>
+              Getting there
+            </Text>
+            <Image
+              source={require('../../assets/staticmap.png')}
+              style={{width: '100%', height: 250}}
+              // resizeMode="contain"
+            />
+            <Text
+              style={{
+                color: 'black',
+                fontSize: 17,
+                fontWeight: '500',
+                marginTop: 10,
+                marginBottom: 10,
+              }}>
+              address
+            </Text>
+            <Text
+              style={{
+                color: 'black',
+                fontSize: 17,
+                // fontWeight: '500',
+                marginBottom: 10,
+              }}>
+              207 Bui Vien , Quan1
+            </Text>
+            <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                marginTop: 8,
-                paddingVertical: 12,
-                marginBottom: 20,
+                marginTop: 10,
                 borderBottomColor: 'lightgrey',
                 borderBottomWidth: 1,
+                borderTopColor: 'lightgrey',
+                borderTopWidth: 1,
+                paddingVertical: 15,
               }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  //   marginTop: 10,
-                }}>
-                <FontAwesome6
-                  name="location-dot"
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <FontAwesome5
+                  style={{marginRight: 10, color: 'black'}}
+                  name="copy"
                   size={20}
-                  color="black"
-                  style={{marginRight: 10}}
                 />
-                <View style={{marginLeft: 10}}>
-                  <Text style={{color: 'black'}}>Getting there</Text>
-                  <Text style={{color: 'grey'}}>Addrees</Text>
-                </View>
+                <Text style={{color: 'black'}}>Copy address</Text>
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity
+              <Ionicons
+                name="chevron-forward-outline"
+                size={20}
+                style={{color: 'black'}}
+              />
+            </View>
+            <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                // marginTop: 8,
-                paddingVertical: 12,
-                marginBottom: 20,
+                marginTop: 10,
                 borderBottomColor: 'lightgrey',
                 borderBottomWidth: 1,
+                paddingVertical: 15,
               }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  //   marginTop: 10,
-                }}>
-                <Octicons
-                  name="book"
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <MaterialIcons
+                  style={{marginRight: 10, color: 'black'}}
+                  name="location-on"
                   size={20}
-                  color="black"
-                  style={{marginRight: 10}}
                 />
-                <View style={{marginLeft: 10}}>
-                  <Text style={{color: 'black'}}>Things to know</Text>
-                  <Text style={{color: 'grey'}}>
-                    instructions and house rule
-                  </Text>
-                </View>
+                <Text style={{color: 'black'}}>Get directions</Text>
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity
+              <Ionicons
+                name="chevron-forward-outline"
+                size={20}
+                style={{color: 'black'}}
+              />
+            </View>
+          </View>
+          <View style={{marginTop: 10, backgroundColor: 'white', padding: 20}}>
+            <Text
+              style={{
+                color: 'black',
+                fontSize: 17,
+                fontWeight: '500',
+                marginBottom: 20,
+              }}>
+              Checking in & out
+            </Text>
+            <View
+              style={{
+                marginTop: 10,
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+                paddingVertical: 15,
+              }}>
+              <Text style={{color: 'black', fontWeight: 'bold'}}>
+                Check-in method
+              </Text>
+              <Text style={{color: 'black'}}>Keypad</Text>
+            </View>
+            <View
+              style={{
+                marginTop: 10,
+                paddingVertical: 15,
+              }}>
+              <Text style={{color: 'black', fontWeight: 'bold'}}>
+                How to get inside
+              </Text>
+              <Text style={{color: 'black'}}>
+                You'll find instruction to get inside here 48 hours befor check
+                in
+              </Text>
+            </View>
+          </View>
+          <View style={{padding: 20, backgroundColor: 'white', marginTop: 10}}>
+            <Text
+              style={{
+                color: 'black',
+                fontSize: 17,
+                fontWeight: '500',
+                // marginBottom: 10,
+              }}>
+              Wifi
+            </Text>
+            <View
+              style={{
+                marginTop: 10,
+                paddingVertical: 15,
+              }}>
+              <Text style={{color: 'black'}}>
+                You'll find Wifi login details here 48 hours befor check in
+              </Text>
+            </View>
+          </View>
+          <View style={{padding: 20, backgroundColor: 'white', marginTop: 10}}>
+            <Text
+              style={{
+                color: 'black',
+                fontSize: 17,
+                fontWeight: '500',
+                marginBottom: 10,
+              }}>
+              Where you're staying
+            </Text>
+            <View
+              style={{
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+                paddingVertical: 15,
+              }}>
+              <Text style={{color: 'black', fontWeight: 'bold'}}>
+                House rule
+              </Text>
+              <Text style={{color: 'black'}}>6 guest maximum</Text>
+              <Text style={{color: 'black'}}>No pets</Text>
+              <Text style={{color: 'black'}}>Self check-in with keypad</Text>
+              <Text style={{color: 'black', textDecorationLine: 'underline'}}>
+                Show more
+              </Text>
+            </View>
+            <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                // marginTop: 8,
-                paddingVertical: 12,
-                marginBottom: 20,
-                borderBottomColor: 'lightgrey',
-                borderBottomWidth: 1,
+                marginTop: 10,
+                paddingVertical: 15,
               }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  //   marginTop: 10,
-                }}>
-                <MaterialCommunityIcons
-                  name="message-outline"
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Feather
+                  style={{marginRight: 10, color: 'black'}}
+                  name="monitor"
                   size={20}
-                  color="black"
-                  style={{marginRight: 10}}
                 />
-                <View style={{marginLeft: 10}}>
-                  <Text style={{color: 'black'}}>Message your host</Text>
-                  <Text style={{color: 'grey'}}>stay & fun</Text>
-                </View>
+                <Text style={{color: 'black'}}>Show listing</Text>
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity
+              <Ionicons
+                name="chevron-forward-outline"
+                size={20}
+                style={{color: 'black'}}
+              />
+            </View>
+          </View>
+          <View style={{padding: 20, backgroundColor: 'white', marginTop: 10}}>
+            <Text
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                // marginTop: 8,
-                paddingVertical: 12,
-                marginBottom: 20,
-                borderBottomColor: 'lightgrey',
-                borderBottomWidth: 1,
+                color: 'black',
+                fontSize: 17,
+                fontWeight: '500',
+                marginBottom: 10,
               }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  //   marginTop: ,
-                }}>
-                <FontAwesome6
-                  name="location-dot"
-                  size={20}
-                  color="black"
-                  style={{marginRight: 10}}
-                />
-                <View style={{marginLeft: 10}}>
-                  <Text style={{color: 'black'}}>Your place</Text>
-                  <Text style={{color: 'grey'}}>
-                    Hidden gem at D1 Bui Vien - stay&fun 09
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
+              Find things to do near your stay
+            </Text>
           </View>
         </View>
       </ScrollView>

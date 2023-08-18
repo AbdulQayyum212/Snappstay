@@ -359,7 +359,8 @@ const Profile = ({...props}) => {
                 </TouchableOpacity>
               </View>
             )}
-            <View
+            <TouchableOpacity
+              onPress={() => navigation.navigate('StartEarning')}
               style={{
                 shadowColor: '#000',
                 shadowOffset: {
@@ -389,7 +390,7 @@ const Profile = ({...props}) => {
                 style={{width: 50, height: 50}}
                 source={require('../assets/Rectangle2.png')}
               />
-            </View>
+            </TouchableOpacity>
             <View style={{marginTop: 20}}>
               <Text style={{fontSize: 20, color: 'black', fontWeight: 'bold'}}>
                 Account settings
