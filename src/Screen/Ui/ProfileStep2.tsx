@@ -8,6 +8,7 @@ import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Entypo from 'react-native-vector-icons/Entypo';
 import ImagePicker from 'react-native-image-crop-picker';
+import {Button} from '../../components/Button';
 const ProfileStep2 = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -111,7 +112,7 @@ const ProfileStep2 = () => {
               Show others you'r really you with the identity verification badge.{' '}
             </Text>
           </View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               marginTop: 20,
               borderWidth: 1,
@@ -124,7 +125,12 @@ const ProfileStep2 = () => {
             <Text style={{color: 'black', fontWeight: 'bold'}}>
               Get the badge
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <Button
+            style={{marginTop: 20, width: 170, paddingVertical: 15}}
+            // onPress={() => navigation.navigate('Login')}
+            title={'Get the badge'}
+          />
           <Text style={{marginTop: 10}}>
             Some info is show in it's original language{' '}
           </Text>

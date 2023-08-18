@@ -9,6 +9,7 @@ import {
   Platform,
   Switch,
 } from 'react-native';
+import {Button} from '../../components/Button';
 
 const Notifi = () => {
   const navigation = useNavigation();
@@ -50,7 +51,7 @@ const Notifi = () => {
         />
       </View>
       <View style={{marginTop: 20}}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate('MyTabs')}
           style={{
             backgroundColor: 'rgb(183, 43, 95)',
@@ -60,8 +61,13 @@ const Notifi = () => {
             width: 150,
           }}>
           <Text style={{color: 'white'}}>Yes, Notify me</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableOpacity> */}
+        <Button
+          style={{marginTop: 20, width: 150}}
+          onPress={() => navigation.navigate('MyTabs')}
+          title={'Yes, Notify me'}
+        />
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate('MyTabs')}
           style={{
             // backgroundColor: 'rgb(183, 43, 95)',
@@ -73,7 +79,12 @@ const Notifi = () => {
             marginTop: 20,
           }}>
           <Text style={{color: 'black'}}>Skip</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <Button
+          style={{marginTop: 20, width: 100}}
+          onPress={() => navigation.navigate('MyTabs')}
+          title={'Skip'}
+        />
       </View>
     </View>
   );

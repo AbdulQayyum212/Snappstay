@@ -14,6 +14,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Carousel} from 'react-native-ui-lib';
+import {Button} from '../components/Button';
 const width = Dimensions.get('window').width;
 const SnappCover = () => {
   const navigation = useNavigation();
@@ -296,7 +297,7 @@ const SnappCover = () => {
               <Text>4.94</Text>
             </View>
           </View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => navigation.navigate('ConfirmPay')}
             style={{
               backgroundColor: 'rgb(183, 43, 95)',
@@ -308,7 +309,12 @@ const SnappCover = () => {
               paddingHorizontal: 20,
             }}>
             <Text style={{color: 'white'}}>Check availability</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <Button
+            style={{marginTop: 20, width: 150, paddingVertical: 10}}
+            onPress={() => navigation.navigate('ConfirmPay')}
+            title={'Check availability'}
+          />
         </View>
       </View>
     </SafeAreaView>

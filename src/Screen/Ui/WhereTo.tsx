@@ -13,13 +13,14 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
-import {ExpandableSection, Chip, Button, Stepper} from 'react-native-ui-lib';
+import {ExpandableSection, Chip, Stepper} from 'react-native-ui-lib';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import plus from '../../assets/plusSmall.png';
 import minus from '../../assets/minus.png';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {GOOGLE_API} from '../../Config/apiCaller';
+import {LeftIconBtn, Button} from '../../components/Button';
 const WhereTo = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -216,7 +217,7 @@ const WhereTo = () => {
                   Skip
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 // onPress={() => setModalVisible(true)}
                 style={{
                   backgroundColor: 'black',
@@ -227,7 +228,12 @@ const WhereTo = () => {
                   paddingHorizontal: 10,
                 }}>
                 <Text style={{color: 'white'}}>Next</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
+              <Button
+                // onPress={() => navigation.navigate('MyTabs')}
+                style={{marginTop: 20, paddingVertical: 10, width: 100}}
+                title={'Next'}
+              />
             </View>
           </>
         ) : (
@@ -340,7 +346,7 @@ const WhereTo = () => {
                   Skip
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 // onPress={() => setModalVisible(true)}
                 style={{
                   backgroundColor: 'black',
@@ -351,7 +357,12 @@ const WhereTo = () => {
                   paddingHorizontal: 10,
                 }}>
                 <Text style={{color: 'white'}}>Next</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
+              <Button
+                // onPress={() => navigation.navigate('MyTabs')}
+                style={{marginTop: 20, paddingVertical: 10, width: 100}}
+                title={'Next'}
+              />
             </View>
           </>
         )}
@@ -1052,7 +1063,7 @@ const WhereTo = () => {
               Clear All
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             // onPress={() => setModalVisible(true)}
             style={{
               backgroundColor: 'rgb(183, 43, 95)',
@@ -1070,7 +1081,18 @@ const WhereTo = () => {
               color="white"
             />
             <Text style={{color: 'white'}}>Search</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <LeftIconBtn
+            Lefticon={
+              <EvilIcons
+                name="search"
+                size={20}
+                style={{marginRight: 10}}
+                color="white"
+              />
+            }
+            title={'Search'}
+          />
         </View>
       </View>
       <Modal

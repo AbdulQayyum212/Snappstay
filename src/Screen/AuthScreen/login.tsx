@@ -11,6 +11,7 @@ import {
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SelectDropdown from 'react-native-select-dropdown';
+import {Button} from '../../components/Button';
 
 const Login = () => {
   const countries = ['Egypt', 'Canada', 'Australia', 'Ireland'];
@@ -150,7 +151,7 @@ const Login = () => {
           we'll call or text to confirm your number. standard message and data
           rates apply.
         </Text>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate('ConfirmNumber')}
           style={{
             width: '100%',
@@ -161,7 +162,12 @@ const Login = () => {
             marginTop: 30,
           }}>
           <Text style={{color: 'white', fontWeight: 'bold'}}>Continue</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <Button
+          style={{marginTop: 20}}
+          onPress={() => navigation.navigate('ConfirmNumber')}
+          title={'Continue'}
+        />
 
         <View
           style={{

@@ -10,6 +10,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {Button} from '../../components/Button';
 
 const ConfirmPaystep2 = () => {
   const [dis, setDis] = useState('');
@@ -242,7 +243,7 @@ const ConfirmPaystep2 = () => {
               </Text>
             </View>
           </View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => navigation.navigate('MyTabs')}
             style={{
               backgroundColor: 'rgb(183, 43, 95)',
@@ -255,7 +256,12 @@ const ConfirmPaystep2 = () => {
               paddingHorizontal: 20,
             }}>
             <Text style={{color: 'white'}}>Submit</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <Button
+            onPress={() => navigation.navigate('MyTabs')}
+            style={{marginTop: 20, paddingVertical: 10, width: 100}}
+            title={'Submit'}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

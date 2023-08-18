@@ -8,6 +8,7 @@ import {
   TextInput,
   Platform,
 } from 'react-native';
+import {Button} from '../../components/Button';
 
 const ConfirmNumber = () => {
   const navigation = useNavigation();
@@ -117,7 +118,7 @@ const ConfirmNumber = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => navigation.navigate('Notifi')}
         style={{
           width: '100%',
@@ -128,7 +129,12 @@ const ConfirmNumber = () => {
           marginTop: 30,
         }}>
         <Text style={{color: 'white', fontWeight: 'bold'}}>Continue</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <Button
+        style={{marginTop: 20}}
+        onPress={() => navigation.navigate('Notifi')}
+        title={'Continue'}
+      />
     </View>
   );
 };

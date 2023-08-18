@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Confetti from 'react-native-confetti';
+import {Button} from '../../components/Button';
 const ConfirmPay = () => {
   const navigation = useNavigation();
   const [done, setDone] = useState(false);
@@ -389,7 +390,7 @@ const ConfirmPay = () => {
                   Privacy Policy
                 </Text>
               </Text>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => setDone(true)}
                 style={{
                   backgroundColor: 'rgb(183, 43, 95)',
@@ -402,7 +403,12 @@ const ConfirmPay = () => {
                   marginTop: 20,
                 }}>
                 <Text style={{color: 'white'}}>Confirm and pay</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
+              <Button
+                onPress={() => setDone(true)}
+                style={{marginTop: 20, paddingVertical: 10}}
+                title={'Confirm and pay'}
+              />
             </View>
           </ScrollView>
         </>
