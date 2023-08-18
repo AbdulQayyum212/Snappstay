@@ -10,6 +10,7 @@ import {
   TextInput,
   Modal,
   StyleSheet,
+  SafeAreaView,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import {ExpandableSection, Chip, Button, Stepper} from 'react-native-ui-lib';
@@ -529,7 +530,7 @@ const WhereTo = () => {
     );
   };
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View
         style={{
           flexDirection: 'row',
@@ -1226,7 +1227,7 @@ const WhereTo = () => {
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({

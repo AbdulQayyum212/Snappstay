@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   TextInput,
+  SafeAreaView,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -14,7 +15,7 @@ const ConfirmPaystep2 = () => {
   const [dis, setDis] = useState('');
   const navigation = useNavigation();
   return (
-    <View style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1}}>
       <View
         style={{
           flexDirection: 'row',
@@ -257,7 +258,7 @@ const ConfirmPaystep2 = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 export default ConfirmPaystep2;

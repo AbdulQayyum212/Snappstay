@@ -1,6 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState, useRef, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Confetti from 'react-native-confetti';
 const ConfirmPay = () => {
@@ -18,7 +25,7 @@ const ConfirmPay = () => {
     }, 10000);
   }
   return (
-    <View style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       {done ? (
         <View
           style={{
@@ -400,7 +407,7 @@ const ConfirmPay = () => {
           </ScrollView>
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 export default ConfirmPay;

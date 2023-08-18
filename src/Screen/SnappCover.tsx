@@ -8,6 +8,7 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -25,8 +26,64 @@ const SnappCover = () => {
     },
   ];
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
-      <View style={{height: 300}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+      <View
+        style={{
+          zIndex: 2,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingVertical: 10,
+          paddingHorizontal: 10,
+          // backgroundColor: 'red',
+          width: '100%',
+          // position: 'absolute',
+          // top: 0,
+        }}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{
+            // borderWidth: 1,
+            width: 30,
+            height: 30,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 50,
+            // borderColor: 'lightgrey',
+            backgroundColor: 'white',
+          }}>
+          <EvilIcons name={'chevron-left'} size={20} color="black" />
+        </TouchableOpacity>
+        <View />
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity
+            // onPress={() => navigation.goBack()}
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 50,
+              backgroundColor: 'white',
+              marginRight: 10,
+            }}>
+            <AntDesign name={'upload'} size={15} color={'black'} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            // onPress={() => navigation.goBack()}
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 50,
+              backgroundColor: 'white',
+            }}>
+            <Entypo name={'heart-outlined'} size={15} color={'black'} />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={{height: 400, position: 'absolute', zIndex: 1}}>
         {/* <View
           style={{
             zIndex: 1,
@@ -52,10 +109,10 @@ const SnappCover = () => {
           loop
           autoplay
           // animated
-          // counterStyle={{
+          // counterTextStyle={{
           //   position: 'absolute',
-          //   bottom: 10,
-          //   left: 30,
+          //   // top: '50%',
+          //   // left: 30,
           // }}
           pageControlProps={{
             size: 10,
@@ -67,13 +124,12 @@ const SnappCover = () => {
             // },
           }}
           pageControlPosition={Carousel.pageControlPositions.OVER}
-          // showCounter
-        >
+          showCounter>
           {new Array(5).fill(null).map((element, index) => (
             <Image
               style={{
                 width: width,
-                height: 300,
+                height: width,
                 // borderRadius: 20,
               }}
               source={require('../assets/1.jpg')}
@@ -121,7 +177,7 @@ const SnappCover = () => {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{padding: 20}}>
+        contentContainerStyle={{padding: 20, marginTop: 300}}>
         <View style={{}}>
           <Text style={{color: 'black', fontSize: 20}}>Houston, Taxas</Text>
           <Text style={{color: '#999999', fontSize: 12}}>
@@ -255,62 +311,7 @@ const SnappCover = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingVertical: 10,
-          paddingHorizontal: 10,
-          // backgroundColor: 'red',
-          width: '100%',
-          position: 'absolute',
-          top: 0,
-        }}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{
-            // borderWidth: 1,
-            width: 30,
-            height: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 50,
-            // borderColor: 'lightgrey',
-            backgroundColor: 'white',
-          }}>
-          <EvilIcons name={'chevron-left'} size={20} color="black" />
-        </TouchableOpacity>
-        <View />
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <TouchableOpacity
-            // onPress={() => navigation.goBack()}
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 50,
-              backgroundColor: 'white',
-              marginRight: 10,
-            }}>
-            <AntDesign name={'upload'} size={15} color={'black'} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            // onPress={() => navigation.goBack()}
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 50,
-              backgroundColor: 'white',
-            }}>
-            <Entypo name={'heart-outlined'} size={15} color={'black'} />
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 export default SnappCover;

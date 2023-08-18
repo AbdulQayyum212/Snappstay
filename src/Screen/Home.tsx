@@ -10,6 +10,7 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
@@ -53,7 +54,7 @@ const Home = () => {
     },
   ];
   return (
-    <View style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1}}>
       <View
         style={{
           flexDirection: 'row',
@@ -334,7 +335,7 @@ const Home = () => {
           }}
         />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

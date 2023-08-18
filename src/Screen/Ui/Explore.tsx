@@ -1,21 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import {
-  View,
-  Image,
   TouchableOpacity,
   Text,
   FlatList,
   Modal,
   StyleSheet,
   TextInput,
+  Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Carousel} from 'react-native-ui-lib';
+import {Carousel, View, Image} from 'react-native-ui-lib';
 import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {ToastSuccess} from '../../Config/Constants';
 import Toast from 'react-native-toast-message';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+const width = Dimensions.get('window').width;
 const Explore = () => {
   const navigation = useNavigation();
   const [select, setSelect] = useState<number>(1);
@@ -148,7 +150,7 @@ const Explore = () => {
   //   Toast.show(ToastSuccess('hello'));
   // }, []);
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
         <TouchableOpacity
           onPress={() => navigation.navigate('WhereTo')}
@@ -236,30 +238,38 @@ const Explore = () => {
                   }}>
                   <Carousel
                     // onChangePage={() => console.log('page changed')}
+                    containerStyle={{
+                      height: 300,
+                    }}
                     loop
+                    counter
                     pageControlProps={{
-                      size: 10,
+                      // size: 10,
                       containerStyle: {
                         position: 'absolute',
                         bottom: 15,
-                        left: 10,
+                        left: '40%',
+                        // marginTop:-20
                       },
                     }}
                     pageControlPosition={Carousel.pageControlPositions.OVER}
                     showCounter>
-                    {new Array(5).fill(null).map((element, index) => (
-                      <TouchableOpacity
+                    {new Array(5).fill(null).map((element, i) => (
+                      <TouchableWithoutFeedback
+                        style={{
+                          backgroundColor: 'red',
+                          height: width,
+                          width: width,
+                        }}
                         onPress={() => navigation.navigate('SnappCover')}>
-                        <Image
-                          resizeMode="cover"
-                          style={{
-                            width: 390,
-                            height: 390,
-                            borderRadius: 20,
-                          }}
-                          source={item?.img}
-                        />
-                      </TouchableOpacity>
+                        <View flex centerV key={i}>
+                          <Image
+                            overlayType={Image.overlayTypes.BOTTOM}
+                            style={{flex: 1}}
+                            source={item?.img}
+                          />
+                        </View>
+                      </TouchableWithoutFeedback>
                     ))}
                   </Carousel>
                   {/* <Image
@@ -427,7 +437,7 @@ const Explore = () => {
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
