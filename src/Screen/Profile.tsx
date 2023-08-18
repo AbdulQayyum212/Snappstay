@@ -17,6 +17,7 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import {Avatar} from 'react-native-ui-lib';
 import {connect, useDispatch, useSelector} from 'react-redux';
 import {User_Token} from '../Redux/Actions/AuthAction';
+import Button from '../components/Button';
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const Profile = ({...props}) => {
   const dispatch = useDispatch();
@@ -315,18 +316,11 @@ const Profile = ({...props}) => {
               </TouchableOpacity>
             </View>
           ) : (
-            <TouchableOpacity
+            <Button
+              style={{marginTop: 20}}
               onPress={() => navigation.navigate('Login')}
-              style={{
-                width: '100%',
-                paddingVertical: 15,
-                backgroundColor: 'rgb(183, 43, 95)',
-                borderRadius: 10,
-                alignItems: 'center',
-                marginTop: 30,
-              }}>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>Log In</Text>
-            </TouchableOpacity>
+              title={'Log In'}
+            />
           )}
           {props?.userToken ? null : (
             <View
