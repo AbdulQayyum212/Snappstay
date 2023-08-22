@@ -14,11 +14,12 @@ import Inbox from '../Screen/Ui/Inbox';
 
 const MyTabs = () => {
   const Tab = createBottomTabNavigator();
+  // d0364e
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#d0364e',
+        tabBarActiveTintColor: 'black',
       }}>
       <Tab.Screen
         options={{
@@ -32,7 +33,7 @@ const MyTabs = () => {
                 style={{
                   width: 20,
                   height: 20,
-                  tintColor: focused ? '#d0364e' : 'lightgrey',
+                  tintColor: focused ? 'black' : 'lightgrey',
                 }}
                 source={require('../assets/u_search.png')}
               />
@@ -56,7 +57,7 @@ const MyTabs = () => {
                 style={{
                   width: 20,
                   height: 20,
-                  tintColor: focused ? '#d0364e' : 'lightgrey',
+                  tintColor: focused ? 'black' : 'lightgrey',
                 }}
                 source={require('../assets/likeIcon.png')}
               />
@@ -80,7 +81,7 @@ const MyTabs = () => {
                 style={{
                   width: 20,
                   height: 20,
-                  tintColor: focused ? '#d0364e' : 'lightgrey',
+                  tintColor: focused ? 'black' : 'lightgrey',
                 }}
                 source={require('../assets/trips.png')}
               />
@@ -104,7 +105,7 @@ const MyTabs = () => {
                 style={{
                   width: 20,
                   height: 20,
-                  tintColor: focused ? '#d0364e' : 'lightgrey',
+                  tintColor: focused ? 'black' : 'lightgrey',
                 }}
                 source={require('../assets/u_comment-alt.png')}
               />
@@ -128,7 +129,7 @@ const MyTabs = () => {
                 style={{
                   width: 20,
                   height: 20,
-                  tintColor: focused ? '#d0364e' : 'lightgrey',
+                  tintColor: focused ? 'black' : 'lightgrey',
                 }}
                 source={require('../assets/u_user-circle.png')}
               />

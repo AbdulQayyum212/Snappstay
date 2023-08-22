@@ -28,6 +28,7 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import {Carousel} from 'react-native-ui-lib';
 import {Button} from '../../components/Button';
 import Message from './Message';
+import ReviewsTab from '../../TopTabs/ReviewsTab';
 const width = Dimensions.get('window').width;
 const Max_Header_Height = 200;
 const Min_Header_Height = 70;
@@ -37,8 +38,10 @@ const TripDetail = () => {
   const [gettingThere, setGettingThere] = useState(false);
   const [thingToKnow, setThingToKnow] = useState(false);
   const [messageModal, setMessageModal] = useState(false);
-  const [hostModal, setHostModal] = useState(false);
+  const [hostModal, setHostModal] = useState(true);
   const [whoComing, setWhoComing] = useState(false);
+  const [tabReviews, setTabReviews] = useState('From guests');
+
   let scrollOffsetY = useRef(new Animated.Value(0)).current;
 
   const animateHeaderBackgroundColor = scrollOffsetY.interpolate({
@@ -2089,19 +2092,169 @@ const TripDetail = () => {
                     <View
                       style={{
                         borderBottomColor: 'lightgrey',
-                        borderBottomWidth: 1,
+                        borderBottomWidth: 2,
                         marginTop: 40,
                       }}
                     />
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontSize: 30,
-                        fontWeight: 'bold',
-                        marginTop: 16,
-                      }}>
-                      625 reviews
-                    </Text>
+                    <View>
+                      <Text
+                        style={{
+                          color: 'black',
+                          fontSize: 30,
+                          fontWeight: 'bold',
+                          marginTop: 16,
+                          marginBottom: 10,
+                        }}>
+                        625 reviews
+                      </Text>
+                      <View
+                        style={{
+                          borderBottomColor: 'lightgrey',
+                          borderBottomWidth: 1,
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          paddingHorizontal: 10,
+                          height: 40,
+                          marginTop: 20,
+                        }}>
+                        <TouchableOpacity
+                          onPress={() => setTabReviews('From guests')}
+                          style={{
+                            borderBottomColor: 'black',
+                            borderBottomWidth:
+                              tabReviews == 'From guests' ? 2 : 0,
+                            height: 40,
+                          }}>
+                          <Text
+                            style={{
+                              color:
+                                tabReviews == 'From guests' ? 'black' : 'grey',
+                            }}>
+                            From guests
+                          </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() => setTabReviews('From hots')}
+                          style={{
+                            borderBottomColor: 'black',
+                            borderBottomWidth:
+                              tabReviews == 'From guests' ? 0 : 2,
+                            height: 40,
+                            marginLeft: 40,
+                          }}>
+                          <Text
+                            style={{
+                              color:
+                                tabReviews == 'From guests' ? 'grey' : 'black',
+                            }}>
+                            From hots
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                      {tabReviews == 'From guests' ? (
+                        <View style={{padding: 20}}>
+                          <View>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                              }}>
+                              <View
+                                style={{
+                                  width: 40,
+                                  height: 40,
+                                  borderRadius: 50,
+                                  marginRight: 10,
+                                }}>
+                                <Image
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    borderRadius: 50,
+                                  }}
+                                  source={require('../../assets/profile.png')}
+                                />
+                              </View>
+                              <View>
+                                <Text
+                                  style={{color: 'black', fontWeight: 'bold'}}>
+                                  Aldion,Jakarta,indonesia
+                                </Text>
+                                <Text>January 2015</Text>
+                              </View>
+                            </View>
+                            <Text style={{textAlign: 'justify', marginTop: 20}}>
+                              Lorem ipsum dolor sit, amet consectetur
+                              adipisicing elit. Excepturi dolores ea neque modi
+                              dolorem mollitia eveniet architecto nostrum
+                              placeat dolor? Aspernatur suscipit harum veniam
+                              error explicabo odit ipsam dolores obcaecati!Lorem
+                              ipsum dolor sit, amet consectetur adipisicing
+                              elit. Excepturi dolores ea neque modi dolorem
+                              mollitia eveniet architecto nostrum placeat dolor?
+                              Aspernatur suscipit harum veniam error explicabo
+                              odit ipsam dolores obcaecati! Lorem ipsum dolor
+                              sit, amet consectetur adipisicing elit. Excepturi
+                              dolores ea neque modi dolorem mollitia eveniet
+                              architecto nostrum placeat dolor? Aspernatur
+                              suscipit harum veniam error explicabo odit ipsam
+                              dolores obcaecati!
+                            </Text>
+                          </View>
+                        </View>
+                      ) : (
+                        <View style={{padding: 20}}>
+                          <View>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                              }}>
+                              <View
+                                style={{
+                                  width: 40,
+                                  height: 40,
+                                  borderRadius: 50,
+                                  marginRight: 10,
+                                }}>
+                                <Image
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    borderRadius: 50,
+                                  }}
+                                  source={require('../../assets/profile.png')}
+                                />
+                              </View>
+                              <View>
+                                <Text
+                                  style={{color: 'black', fontWeight: 'bold'}}>
+                                  Aldion,Jakarta,indonesia
+                                </Text>
+                                <Text>January 2015</Text>
+                              </View>
+                            </View>
+                            <Text style={{textAlign: 'justify', marginTop: 20}}>
+                              Lorem ipsum dolor sit, amet consectetur
+                              adipisicing elit. Excepturi dolores ea neque modi
+                              dolorem mollitia eveniet architecto nostrum
+                              placeat dolor? Aspernatur suscipit harum veniam
+                              error explicabo odit ipsam dolores obcaecati!Lorem
+                              ipsum dolor sit, amet consectetur adipisicing
+                              elit. Excepturi dolores ea neque modi dolorem
+                              mollitia eveniet architecto nostrum placeat dolor?
+                              Aspernatur suscipit harum veniam error explicabo
+                              odit ipsam dolores obcaecati! Lorem ipsum dolor
+                              sit, amet consectetur adipisicing elit. Excepturi
+                              dolores ea neque modi dolorem mollitia eveniet
+                              architecto nostrum placeat dolor? Aspernatur
+                              suscipit harum veniam error explicabo odit ipsam
+                              dolores obcaecati!
+                            </Text>
+                          </View>
+                        </View>
+                      )}
+                    </View>
                   </View>
                 </View>
               </View>

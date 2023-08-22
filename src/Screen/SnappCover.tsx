@@ -28,64 +28,12 @@ const SnappCover = () => {
   ];
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <View
-        style={{
-          zIndex: 2,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingVertical: 10,
-          paddingHorizontal: 10,
-          // backgroundColor: 'red',
-          width: '100%',
-          // position: 'absolute',
-          // top: 0,
-        }}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{
-            // borderWidth: 1,
-            width: 30,
-            height: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 50,
-            // borderColor: 'lightgrey',
-            backgroundColor: 'white',
-          }}>
-          <EvilIcons name={'chevron-left'} size={20} color="black" />
-        </TouchableOpacity>
-        <View />
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <TouchableOpacity
-            // onPress={() => navigation.goBack()}
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 50,
-              backgroundColor: 'white',
-              marginRight: 10,
-            }}>
-            <AntDesign name={'upload'} size={15} color={'black'} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            // onPress={() => navigation.goBack()}
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 50,
-              backgroundColor: 'white',
-            }}>
-            <Entypo name={'heart-outlined'} size={15} color={'black'} />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={{height: 400, position: 'absolute', zIndex: 1}}>
-        {/* <View
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        // contentContainerStyle={{}}
+      >
+        <View>
+          {/* <View
           style={{
             zIndex: 1,
             position: 'absolute',
@@ -105,39 +53,40 @@ const SnappCover = () => {
               }}>{`${data?.length - 1}/${data?.length}`}</Text>
           </View>
         </View> */}
-        <Carousel
-          // onChangePage={() => console.log('page changed')}
-          loop
-          autoplay
-          // animated
-          // counterTextStyle={{
-          //   position: 'absolute',
-          //   // top: '50%',
-          //   // left: 30,
-          // }}
-          pageControlProps={{
-            size: 10,
-            // containerStyle: {
-            //   // position: 'absolute',
-            //   // bottom: 15,
-            //   // left: 10,
-            //   backgrountColor: 'red',
-            // },
-          }}
-          pageControlPosition={Carousel.pageControlPositions.OVER}
-          showCounter>
-          {new Array(5).fill(null).map((element, index) => (
-            <Image
-              style={{
-                width: width,
-                height: width,
-                // borderRadius: 20,
-              }}
-              source={require('../assets/1.jpg')}
-            />
-          ))}
-        </Carousel>
-        {/* <FlatList
+          <Carousel
+            // onChangePage={() => console.log('page changed')}
+            loop
+            autoplay
+            // animated
+            // counterTextStyle={{
+            //   position: 'absolute',
+            //   // top: '50%',
+            //   // left: 30,
+            // }}
+            pageControlProps={{
+              size: 10,
+              // containerStyle: {
+              //   // position: 'absolute',
+              //   // bottom: 15,
+              //   // left: 10,
+              //   backgrountColor: 'red',
+              // },
+            }}
+            pageControlPosition={Carousel.pageControlPositions.OVER}
+            // showCounter
+          >
+            {new Array(5).fill(null).map((element, index) => (
+              <Image
+                style={{
+                  width: width,
+                  height: width,
+                  // borderRadius: 20,
+                }}
+                source={require('../assets/1.jpg')}
+              />
+            ))}
+          </Carousel>
+          {/* <FlatList
           data={data}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{height: 300}}
@@ -174,12 +123,8 @@ const SnappCover = () => {
             );
           }}
         /> */}
-      </View>
-
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{padding: 20, marginTop: 300}}>
-        <View style={{}}>
+        </View>
+        <View style={{padding: 20}}>
           <Text style={{color: 'black', fontSize: 20}}>Houston, Taxas</Text>
           <Text style={{color: '#999999', fontSize: 12}}>
             5.0, 105 reviews Supperhot
@@ -315,6 +260,62 @@ const SnappCover = () => {
             onPress={() => navigation.navigate('ConfirmPay')}
             title={'Check availability'}
           />
+        </View>
+      </View>
+      <View
+        style={{
+          // zIndex: 2,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingVertical: 10,
+          paddingHorizontal: 10,
+          // backgroundColor: 'red',
+          width: '100%',
+          position: 'absolute',
+          top: 0,
+        }}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{
+            // borderWidth: 1,
+            width: 30,
+            height: 30,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 50,
+            // borderColor: 'lightgrey',
+            backgroundColor: 'white',
+          }}>
+          <EvilIcons name={'chevron-left'} size={20} color="black" />
+        </TouchableOpacity>
+        <View />
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity
+            // onPress={() => navigation.goBack()}
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 50,
+              backgroundColor: 'white',
+              marginRight: 10,
+            }}>
+            <AntDesign name={'upload'} size={15} color={'black'} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            // onPress={() => navigation.goBack()}
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 50,
+              backgroundColor: 'white',
+            }}>
+            <Entypo name={'heart-outlined'} size={15} color={'black'} />
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -11,9 +11,11 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
+import StarRating from 'react-native-star-rating-widget';
 
 const Trips = () => {
   const navigation = useNavigation();
+  const [rating, setRating] = useState(0);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView
@@ -23,6 +25,7 @@ const Trips = () => {
           <Text style={{color: 'black', fontSize: 25, fontWeight: '700'}}>
             Trips
           </Text>
+          {/* <View>
           <Text
             style={{
               color: 'black',
@@ -152,6 +155,138 @@ const Trips = () => {
             <View
               style={{borderWidth: 1, borderColor: 'lightgrey', marginTop: 30}}
             />
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginTop: 10,
+              }}>
+              <Text>Can't find your reservation here? </Text>
+              <Text
+                style={{
+                  color: 'black',
+                  textDecorationLine: 'underline',
+                  fontWeight: 'bold',
+                }}>
+                Visit the help Center
+              </Text>
+            </View>
+          </View>
+          </View> */}
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Reviews')}
+              style={{
+                marginTop: 50,
+                paddingVertical: 20,
+                borderTopColor: 'lightgrey',
+                borderTopWidth: 1,
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={{
+                    width: 50,
+                    height: 50,
+                    borderRadius: 10,
+                    marginRight: 10,
+                  }}>
+                  <Image
+                    style={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: 10,
+                    }}
+                    source={require('../../assets/Maskgroup.png')}
+                  />
+                </View>
+                <View>
+                  <Text style={{color: 'black', fontWeight: 'bold'}}>
+                    Review your stay
+                  </Text>
+                  <Text>Quan 1 Feb 17 - 18 , 2021</Text>
+                </View>
+              </View>
+              <View
+                style={{
+                  marginTop: 20,
+                  marginLeft: 50,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Image
+                  style={{width: 20, height: 20, marginRight: 10}}
+                  source={require('../../assets/u_star.png')}
+                />
+                <Image
+                  style={{width: 20, height: 20, marginRight: 10}}
+                  source={require('../../assets/u_star.png')}
+                />
+                <Image
+                  style={{width: 20, height: 20, marginRight: 10}}
+                  source={require('../../assets/u_star.png')}
+                />
+                <Image
+                  style={{width: 20, height: 20, marginRight: 10}}
+                  source={require('../../assets/u_star.png')}
+                />
+                <Image
+                  style={{width: 20, height: 20, marginRight: 10}}
+                  source={require('../../assets/u_star.png')}
+                />
+              </View>
+            </TouchableOpacity>
+            <View
+              style={{
+                marginTop: 20,
+                paddingVertical: 20,
+                borderBottomColor: 'lightgrey',
+                borderBottomWidth: 1,
+              }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  color: 'black',
+                  marginBottom: 20,
+                }}>
+                Where you've been
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: 10,
+                    marginRight: 10,
+                  }}>
+                  <Image
+                    style={{
+                      width: 80,
+                      height: 80,
+                      borderRadius: 10,
+                    }}
+                    source={require('../../assets/Maskgroup.png')}
+                  />
+                </View>
+                <View>
+                  <Text style={{color: 'black', fontWeight: 'bold'}}>
+                    Quan 1
+                  </Text>
+                  <Text>Hosted by stay & fun</Text>
+                  <Text>Feb 17 - 18 , 2021</Text>
+                </View>
+              </View>
+            </View>
             <View
               style={{
                 flexDirection: 'row',

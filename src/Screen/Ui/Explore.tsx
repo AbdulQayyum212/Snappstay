@@ -17,6 +17,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {ToastSuccess} from '../../Config/Constants';
 import Toast from 'react-native-toast-message';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {Button} from '../../components/Button';
 const width = Dimensions.get('window').width;
 const Explore = () => {
   const navigation = useNavigation();
@@ -257,7 +258,6 @@ const Explore = () => {
                     {new Array(5).fill(null).map((element, i) => (
                       <TouchableWithoutFeedback
                         style={{
-                          backgroundColor: 'red',
                           height: width,
                           width: width,
                         }}
@@ -372,7 +372,10 @@ const Explore = () => {
                 paddingVertical: 6,
               }}>
               <TouchableOpacity
-                onPress={() => setModalVisible(false)}
+                onPress={() => {
+                  setHeart();
+                  setModalVisible(false);
+                }}
                 style={{
                   width: 30,
                   height: 30,
@@ -422,7 +425,7 @@ const Explore = () => {
             <View
               style={{borderColor: 'lightgrey', borderWidth: 1, marginTop: 20}}
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{
                 width: '100%',
                 alignItems: 'center',
@@ -433,7 +436,12 @@ const Explore = () => {
                 marginTop: 20,
               }}>
               <Text style={{color: 'white', fontWeight: 'bold'}}>Create</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <Button
+              style={{marginTop: 20}}
+              onPress={() => navigation.navigate('Login')}
+              title={'Create'}
+            />
           </View>
         </View>
       </Modal>
