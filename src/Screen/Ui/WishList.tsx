@@ -42,21 +42,31 @@ const WishList = () => {
             <Chip
               size={{width: 20, height: 30}}
               label={'Date'}
+              labelStyle={{color: date ? 'white' : 'grey'}}
               onPress={() => setDate(true)}
-              containerStyle={{marginRight: 20, borderColor: 'lightgrey'}}
+              containerStyle={{
+                marginRight: 20,
+                borderColor: 'lightgrey',
+                backgroundColor: date ? 'black' : 'white',
+              }}
             />
             <Chip
               size={{width: 20, height: 30}}
+              labelStyle={{color: modalVisible ? 'white' : 'grey'}}
               label={'Guest'}
               onPress={() => setModalVisible(true)}
-              containerStyle={{marginRight: 20, borderColor: 'lightgrey'}}
+              containerStyle={{
+                marginRight: 20,
+                borderColor: 'lightgrey',
+                backgroundColor: modalVisible ? 'black' : 'white',
+              }}
             />
           </View>
           <View>
             <FlatList
               showsVerticalScrollIndicator={false}
               data={data}
-              renderItem={({item}) => {
+              renderItem={({item}: any) => {
                 return (
                   <View
                     // onPress={() => navigation.navigate('SnappCover')}

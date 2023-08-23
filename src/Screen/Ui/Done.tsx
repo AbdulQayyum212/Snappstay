@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Button} from '../../components/Button';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Confetti from 'react-native-confetti';
 import {useNavigation} from '@react-navigation/native';
 const Done = () => {
   const navigation = useNavigation();
+  const confetti = useRef();
+  useEffect(() => {
+    confetti.current.startConfetti();
+  }, []);
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
+      <Confetti ref={confetti} />
       <View
         style={{
           flexDirection: 'row',
@@ -21,13 +27,6 @@ const Done = () => {
           onPress={() => navigation.navigate('Trips')}
           style={{
             flex: 1,
-            // borderWidth: 1,
-            // width: 30,
-            // height: 30,
-            // alignItems: 'center',
-            // justifyContent: 'center',
-            // borderRadius: 50,
-            // borderColor: 'lightgrey',
           }}>
           <EvilIcons name={'close'} size={25} color="black" />
         </TouchableOpacity>

@@ -58,7 +58,6 @@ const StartEarning = () => {
             Get answers from an experience superhost near you.
           </Text>
           <Button
-            // onPress={() => navigation.navigate('MyTabs')}
             style={{marginTop: 20, paddingVertical: 10, width: 200}}
             title={'Match with a superhost'}
           />
@@ -83,13 +82,6 @@ const StartEarning = () => {
           onPress={() => navigation.goBack()}
           style={{
             flex: 1,
-            // borderWidth: 1,
-            // width: 30,
-            // height: 30,
-            // alignItems: 'center',
-            // justifyContent: 'center',
-            // borderRadius: 50,
-            // borderColor: 'lightgrey',
           }}>
           <EvilIcons name={'chevron-left'} size={25} color="black" />
         </TouchableOpacity>
@@ -127,7 +119,7 @@ const StartEarning = () => {
             }}>
             $287
           </Text>
-          <ProgressBar progress={55} progressColor={'black'} />
+          <ProgressBar progress={40} progressColor={'black'} />
           <Text
             style={{
               textAlign: 'center',
@@ -138,7 +130,7 @@ const StartEarning = () => {
             Learn how we estiment your earning
           </Text>
           <Image
-            style={{width: '100%', height: 600, marginTop: 20}}
+            style={{width: '100%', height: 500, marginTop: 20}}
             source={require('../../assets/staticmap.png')}
           />
           <Text
@@ -312,7 +304,6 @@ const StartEarning = () => {
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    // backgroundColor: 'red',
                     width: '30%',
                     justifyContent: 'space-between',
                   }}>
@@ -355,7 +346,6 @@ const StartEarning = () => {
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    // backgroundColor: 'red',
                     width: '30%',
                     justifyContent: 'space-between',
                   }}>
@@ -398,7 +388,6 @@ const StartEarning = () => {
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    // backgroundColor: 'red',
                     width: '30%',
                     justifyContent: 'space-between',
                   }}>
@@ -441,7 +430,6 @@ const StartEarning = () => {
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    // backgroundColor: 'red',
                     width: '30%',
                     justifyContent: 'space-between',
                   }}>
@@ -484,7 +472,6 @@ const StartEarning = () => {
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    // backgroundColor: 'red',
                     width: '30%',
                     justifyContent: 'space-between',
                   }}>
@@ -515,7 +502,6 @@ const StartEarning = () => {
                 </Text>
               </Text>
               <Button
-                // onPress={() => navigation.navigate('MyTabs')}
                 style={{marginTop: 20, paddingVertical: 10, width: 120}}
                 title={'Learn more'}
               />
@@ -537,7 +523,6 @@ const StartEarning = () => {
                   sectionHeader={
                     <View
                       style={{
-                        // borderRadius: 10,
                         width: '100%',
                         backgroundColor: 'white',
                         shadowRadius: 3.84,
@@ -552,9 +537,6 @@ const StartEarning = () => {
                       <Text
                         style={{
                           color: 'black',
-                          // fontSize: 20,
-                          // fontWeight: 'bold',
-                          //   marginBottom: 20,
                         }}>
                         Is my place right for snappStay?
                       </Text>
@@ -583,7 +565,6 @@ const StartEarning = () => {
                   sectionHeader={
                     <View
                       style={{
-                        // borderRadius: 10,
                         width: '100%',
                         backgroundColor: 'white',
                         shadowRadius: 3.84,
@@ -598,9 +579,6 @@ const StartEarning = () => {
                       <Text
                         style={{
                           color: 'black',
-                          // fontSize: 20,
-                          // fontWeight: 'bold',
-                          //   marginBottom: 20,
                         }}>
                         Do i have to host all the time?
                       </Text>

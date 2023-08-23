@@ -12,6 +12,7 @@ import {
   StyleSheet,
   TextInput,
   Modal,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
@@ -38,7 +39,7 @@ const TripDetail = () => {
   const [gettingThere, setGettingThere] = useState(false);
   const [thingToKnow, setThingToKnow] = useState(false);
   const [messageModal, setMessageModal] = useState(false);
-  const [hostModal, setHostModal] = useState(true);
+  const [hostModal, setHostModal] = useState(false);
   const [whoComing, setWhoComing] = useState(false);
   const [tabReviews, setTabReviews] = useState('From guests');
 
@@ -236,21 +237,23 @@ const TripDetail = () => {
                   borderBottomColor: 'lightgrey',
                   borderBottomWidth: 1,
                 }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    //   marginTop: 10,
-                  }}>
-                  <FontAwesome6
-                    name="location-dot"
-                    size={20}
-                    color="black"
-                    style={{marginRight: 10}}
-                  />
-                  <View style={{marginLeft: 10}}>
-                    <Text style={{color: 'black'}}>Getting there</Text>
-                    <Text style={{color: 'grey'}}>Addrees</Text>
+                <View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      //   marginTop: 10,
+                    }}>
+                    <FontAwesome6
+                      name="location-dot"
+                      size={20}
+                      color="black"
+                      style={{marginRight: 10}}
+                    />
+                    <View style={{marginLeft: 10}}>
+                      <Text style={{color: 'black'}}>Getting there</Text>
+                      <Text style={{color: 'grey'}}>Addrees</Text>
+                    </View>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -887,113 +890,117 @@ const TripDetail = () => {
               </View>
             </View>
           </View>
-          <View style={{padding: 20, backgroundColor: 'white', marginTop: 10}}>
+          <TouchableWithoutFeedback onPress={() => setHostModal(true)}>
             <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-              <Text
+              style={{padding: 20, backgroundColor: 'white', marginTop: 10}}>
+              <View
                 style={{
-                  color: 'black',
-                  fontSize: 17,
-                  fontWeight: '500',
-                  marginBottom: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
                 }}>
-                Hosted by Stay & Fun
-              </Text>
-              <View style={{width: 40, height: 40, borderRadius: 50}}>
-                <Image
-                  style={{width: 40, height: 40, borderRadius: 50}}
-                  source={require('../../assets/profile.png')}
-                />
-              </View>
-            </View>
-            <View
-              style={{
-                borderBottomColor: 'lightgrey',
-                borderBottomWidth: 1,
-                paddingVertical: 15,
-              }}>
-              <Text style={{color: 'black', fontWeight: 'bold'}}>
-                About your host
-              </Text>
-              <Text
-                style={{color: 'black', fontSize: 16, textAlign: 'justify'}}>
-                we're a team of 5 who hyave good sence of art and are good at
-                taking care of people so doing SnappStay is just the perfect
-                business for as to do the thing....
-              </Text>
-              <Text
-                style={{
-                  color: 'black',
-                  textDecorationLine: 'underline',
-                  fontWeight: 'bold',
-                }}>
-                Show more
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginTop: 10,
-                paddingVertical: 15,
-              }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <View>
-                  <Text style={{color: 'black'}}>Co-host</Text>
-                  <Text style={{color: 'black'}}>Oanh,Long</Text>
-                </View>
-              </View>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text
+                  style={{
+                    color: 'black',
+                    fontSize: 17,
+                    fontWeight: '500',
+                    marginBottom: 10,
+                  }}>
+                  Hosted by Stay & Fun
+                </Text>
                 <View style={{width: 40, height: 40, borderRadius: 50}}>
                   <Image
                     style={{width: 40, height: 40, borderRadius: 50}}
                     source={require('../../assets/profile.png')}
                   />
                 </View>
-                <View
+              </View>
+              <View
+                style={{
+                  borderBottomColor: 'lightgrey',
+                  borderBottomWidth: 1,
+                  paddingVertical: 15,
+                }}>
+                <Text style={{color: 'black', fontWeight: 'bold'}}>
+                  About your host
+                </Text>
+                <Text
+                  style={{color: 'black', fontSize: 16, textAlign: 'justify'}}>
+                  we're a team of 5 who hyave good sence of art and are good at
+                  taking care of people so doing SnappStay is just the perfect
+                  business for as to do the thing....
+                </Text>
+                <Text
                   style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 100,
-                    marginLeft: -20,
-                    borderWidth: 2,
-                    borderColor: 'white',
+                    color: 'black',
+                    textDecorationLine: 'underline',
+                    fontWeight: 'bold',
                   }}>
-                  <Image
-                    style={{width: 40, height: 40, borderRadius: 50}}
-                    source={require('../../assets/profile.png')}
-                  />
+                  Show more
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: 10,
+                  paddingVertical: 15,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <View>
+                    <Text style={{color: 'black'}}>Co-host</Text>
+                    <Text style={{color: 'black'}}>Oanh,Long</Text>
+                  </View>
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <View style={{width: 40, height: 40, borderRadius: 50}}>
+                    <Image
+                      style={{width: 40, height: 40, borderRadius: 50}}
+                      source={require('../../assets/profile.png')}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: 100,
+                      marginLeft: -20,
+                      borderWidth: 2,
+                      borderColor: 'white',
+                    }}>
+                    <Image
+                      style={{width: 40, height: 40, borderRadius: 50}}
+                      source={require('../../assets/profile.png')}
+                    />
+                  </View>
                 </View>
               </View>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginTop: 10,
-                paddingVertical: 15,
-              }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Entypo
-                  style={{marginRight: 10, color: 'black'}}
-                  name="calculator"
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: 10,
+                  paddingVertical: 15,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Entypo
+                    style={{marginRight: 10, color: 'black'}}
+                    name="calculator"
+                    size={20}
+                  />
+                  <Text style={{color: 'black'}}>Call Host</Text>
+                </View>
+                <Ionicons
+                  name="chevron-forward-outline"
                   size={20}
+                  style={{color: 'black'}}
                 />
-                <Text style={{color: 'black'}}>Call Host</Text>
               </View>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={20}
-                style={{color: 'black'}}
-              />
             </View>
-          </View>
+          </TouchableWithoutFeedback>
+
           <View style={{padding: 20, backgroundColor: 'white', marginTop: 10}}>
             <Text
               style={{

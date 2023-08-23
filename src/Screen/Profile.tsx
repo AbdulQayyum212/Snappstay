@@ -9,7 +9,9 @@ import {
   View,
   Switch,
   SafeAreaView,
+  TouchableWithoutFeedback,
 } from 'react-native';
+import tw from 'twrnc';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -359,38 +361,40 @@ const Profile = ({...props}) => {
                 </TouchableOpacity>
               </View>
             )}
-            <TouchableOpacity
-              onPress={() => navigation.navigate('StartEarning')}
-              style={{
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate('StartEarning')}>
+              <View
+                style={{
+                  shadowColor: '#000',
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
 
-                elevation: 5,
-                backgroundColor: 'white',
-                borderRadius: 10,
-                marginTop: 20,
-                padding: 20,
-                paddingVertical: 30,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-              <View>
-                <Text style={{color: 'black', fontWeight: 'bold'}}>
-                  SnappStay your place
-                </Text>
-                <Text>it's simple to get set up and start earning</Text>
+                  elevation: 5,
+                  backgroundColor: 'white',
+                  borderRadius: 10,
+                  marginTop: 20,
+                  padding: 20,
+                  paddingVertical: 30,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <View>
+                  <Text style={{color: 'black', fontWeight: 'bold'}}>
+                    SnappStay your place
+                  </Text>
+                  <Text>it's simple to get set up and start earning</Text>
+                </View>
+                <Image
+                  style={{width: 50, height: 50}}
+                  source={require('../assets/Rectangle2.png')}
+                />
               </View>
-              <Image
-                style={{width: 50, height: 50}}
-                source={require('../assets/Rectangle2.png')}
-              />
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
             <View style={{marginTop: 20}}>
               <Text style={{fontSize: 20, color: 'black', fontWeight: 'bold'}}>
                 Account settings
@@ -623,8 +627,8 @@ const Profile = ({...props}) => {
                       justifyContent: 'space-between',
                       marginTop: 8,
                       paddingVertical: 7,
-                      borderTopWidth: 1,
-                      borderTopColor: 'lightgrey',
+                      // borderTopWidth: 1,
+                      // borderTopColor: 'lightgrey',
                       marginBottom: 20,
                     }}>
                     <View
@@ -862,4 +866,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, null)(Profile);
-// export default Profile;

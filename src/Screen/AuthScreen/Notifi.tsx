@@ -18,7 +18,7 @@ const Notifi = () => {
   return (
     <View style={{flex: 1, backgroundColor: 'white', padding: 20}}>
       <Image
-        style={{width: 70, height: 70, tintColor: 'red'}}
+        style={{width: 70, height: 70, tintColor: 'black'}}
         source={require('../../assets/notifications.png')}
       />
       <Text
@@ -43,8 +43,8 @@ const Notifi = () => {
           Get travel deals, personalized recommendation,and more
         </Text>
         <Switch
-          trackColor={{false: '#767577', true: '#d0364e'}}
-          thumbColor={isEnabled ? '#d0364e' : '#f4f3f4'}
+          trackColor={{false: '#767577', true: 'black'}}
+          thumbColor={isEnabled ? 'black' : '#f4f3f4'}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggleSwitch}
           value={isEnabled}

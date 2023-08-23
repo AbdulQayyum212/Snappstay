@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   Image,
   ScrollView,
@@ -9,6 +9,8 @@ import {
   Dimensions,
   TouchableOpacity,
   SafeAreaView,
+  Animated,
+  StyleSheet,
 } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -16,8 +18,23 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Carousel} from 'react-native-ui-lib';
 import {Button} from '../components/Button';
 const width = Dimensions.get('window').width;
+const Max_Header_Height = 200;
+const Min_Header_Height = 70;
+const Scroll_Distance = Max_Header_Height - Min_Header_Height;
 const SnappCover = () => {
   const navigation = useNavigation();
+  let scrollOffsetY = useRef(new Animated.Value(0)).current;
+
+  const animateHeaderBackgroundColor = scrollOffsetY.interpolate({
+    inputRange: [0, 200 - 70],
+    outputRange: ['transparent', 'white'],
+    extrapolate: 'clamp',
+  });
+  const animatedHeaderHeight = scrollOffsetY.interpolate({
+    inputRange: [0, Scroll_Distance],
+    outputRange: [200, 70],
+    extrapolate: 'clamp',
+  });
   const data = [
     {
       img: require('../assets/Rectangle.png'),
@@ -29,9 +46,12 @@ const SnappCover = () => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView
-        showsVerticalScrollIndicator={false}
-        // contentContainerStyle={{}}
-      >
+        scrollEventThrottle={16}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollOffsetY}}}],
+          {useNativeDriver: false},
+        )}
+        showsVerticalScrollIndicator={false}>
         <View>
           {/* <View
           style={{
@@ -54,33 +74,17 @@ const SnappCover = () => {
           </View>
         </View> */}
           <Carousel
-            // onChangePage={() => console.log('page changed')}
             loop
             autoplay
-            // animated
-            // counterTextStyle={{
-            //   position: 'absolute',
-            //   // top: '50%',
-            //   // left: 30,
-            // }}
             pageControlProps={{
               size: 10,
-              // containerStyle: {
-              //   // position: 'absolute',
-              //   // bottom: 15,
-              //   // left: 10,
-              //   backgrountColor: 'red',
-              // },
             }}
-            pageControlPosition={Carousel.pageControlPositions.OVER}
-            // showCounter
-          >
+            pageControlPosition={Carousel.pageControlPositions.OVER}>
             {new Array(5).fill(null).map((element, index) => (
               <Image
                 style={{
                   width: width,
                   height: width,
-                  // borderRadius: 20,
                 }}
                 source={require('../assets/1.jpg')}
               />
@@ -169,7 +173,12 @@ const SnappCover = () => {
                 }}
                 source={require('../assets/Vectors.png')}
               />
-              <Text style={{color: 'black'}}>Self Check-in</Text>
+              <View>
+                <Text style={{color: 'black'}}>Self Check-in</Text>
+                <Text style={{color: '#999999'}}>
+                  Check yourself in with the keypad
+                </Text>
+              </View>
             </View>
             <View style={{flexDirection: 'row', marginTop: 20}}>
               <Image
@@ -242,19 +251,6 @@ const SnappCover = () => {
               <Text>4.94</Text>
             </View>
           </View>
-          {/* <TouchableOpacity
-            onPress={() => navigation.navigate('ConfirmPay')}
-            style={{
-              backgroundColor: 'rgb(183, 43, 95)',
-              paddingVertical: 10,
-              alignItems: 'center',
-              borderRadius: 10,
-              width: 150,
-              flexDirection: 'row',
-              paddingHorizontal: 20,
-            }}>
-            <Text style={{color: 'white'}}>Check availability</Text>
-          </TouchableOpacity> */}
           <Button
             style={{marginTop: 20, width: 150, paddingVertical: 10}}
             onPress={() => navigation.navigate('ConfirmPay')}
@@ -262,29 +258,21 @@ const SnappCover = () => {
           />
         </View>
       </View>
-      <View
-        style={{
-          // zIndex: 2,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingVertical: 10,
-          paddingHorizontal: 10,
-          // backgroundColor: 'red',
-          width: '100%',
-          position: 'absolute',
-          top: 0,
-        }}>
+      <Animated.View
+        style={[
+          style.AnimatedView,
+          {
+            backgroundColor: animateHeaderBackgroundColor,
+          },
+        ]}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={{
-            // borderWidth: 1,
             width: 30,
             height: 30,
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 50,
-            // borderColor: 'lightgrey',
             backgroundColor: 'white',
           }}>
           <EvilIcons name={'chevron-left'} size={20} color="black" />
@@ -292,7 +280,6 @@ const SnappCover = () => {
         <View />
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TouchableOpacity
-            // onPress={() => navigation.goBack()}
             style={{
               width: 30,
               height: 30,
@@ -305,7 +292,6 @@ const SnappCover = () => {
             <AntDesign name={'upload'} size={15} color={'black'} />
           </TouchableOpacity>
           <TouchableOpacity
-            // onPress={() => navigation.goBack()}
             style={{
               width: 30,
               height: 30,
@@ -317,8 +303,21 @@ const SnappCover = () => {
             <Entypo name={'heart-outlined'} size={15} color={'black'} />
           </TouchableOpacity>
         </View>
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 };
+const style = StyleSheet.create({
+  AnimatedView: {
+    // zIndex: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    width: '100%',
+    position: 'absolute',
+    top: 0,
+  },
+});
 export default SnappCover;

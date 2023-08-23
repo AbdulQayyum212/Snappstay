@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   TouchableOpacity,
   Text,
@@ -25,6 +25,22 @@ const Explore = () => {
   const [heart, setHeart] = useState<number>();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
+  const [selectedPlaceId, setSelectedPlaceId] = useState(null);
+  const viewConfig = useRef({itemVisiblePercentThreshold: 70});
+
+  const viewabilityConfigCallbackPairs = useRef([
+    {
+      viewabilityConfig: viewConfig.current,
+      onViewableItemsChanged: onViewableItemsChanged,
+    },
+  ]);
+
+  const onViewableItemsChanged = useRef(({viewableItems}: any) => {
+    if (viewableItems.length > 0) {
+      const selectedPlace = viewableItems[0].item;
+      setSelectedPlaceId(selectedPlace.id);
+    }
+  });
   const data = [
     {
       id: 1,
@@ -144,82 +160,84 @@ const Explore = () => {
       title3: string;
       title4: string;
       price: number;
-      img: any;
+      img: object;
     };
   }
-  // useEffect(() => {
-  //   Toast.show(ToastSuccess('hello'));
-  // }, []);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('WhereTo')}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingHorizontal: 13,
-            borderRadius: 50,
-            width: '100%',
-            paddingVertical: 6,
-            backgroundColor: '#f7f7f7',
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <AntDesign name="search1" size={20} style={{marginRight: 20}} />
-            <View>
-              <Text style={{fontWeight: 'bold', color: 'black'}}>
-                Where to?
-              </Text>
-              <Text>AnyWhere , AnyWhere , Add guest </Text>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate('WhereTo')}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingHorizontal: 13,
+              borderRadius: 50,
+              width: '100%',
+              paddingVertical: 6,
+              backgroundColor: '#f7f7f7',
+            }}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <AntDesign name="search1" size={20} style={{marginRight: 20}} />
+              <View>
+                <Text style={{fontWeight: 'bold', color: 'black'}}>
+                  Where to?
+                </Text>
+                <Text>AnyWhere , AnyWhere , Add guest </Text>
+              </View>
             </View>
+            <AntDesign name="menu-fold" size={20} />
           </View>
-          <AntDesign name="menu-fold" size={20} />
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       </View>
       <View style={{flex: 1, padding: 10, backgroundColor: 'white'}}>
         <View style={{paddingHorizontal: 10, marginBottom: 20}}>
           <FlatList
             horizontal
             data={FlatListData}
+            snapToAlignment={'center'}
+            decelerationRate={'fast'}
             showsHorizontalScrollIndicator={false}
-            renderItem={({item}) => {
+            renderItem={({item, i}: any) => {
               return (
-                <TouchableOpacity
+                <TouchableWithoutFeedback
                   onPress={() => {
                     setSelect(item?.id);
-                  }}
-                  style={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginRight: 20,
-                    marginTop: -10,
-                    borderBottomWidth: select === item?.id ? 2 : 0,
-                    paddingVertical: 10,
-                    borderBlockColor: 'black',
                   }}>
-                  <Image
-                    source={item?.img}
+                  <View
                     style={{
-                      width: 30,
-                      height: 30,
-                      marginBottom: 6,
-                      tintColor: 'black',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginRight: 20,
+                      marginTop: -10,
+                      borderBottomWidth: select === item?.id ? 2 : 0,
+                      paddingVertical: 10,
+                      borderBlockColor: 'black',
                     }}
-                  />
-                  <Text
-                    numberOfLines={1}
-                    style={{
-                      color: select === item?.id ? 'black' : 'grey',
-                      fontWeight: 'bold',
-                      // backgroundColor: 'red',
-                      width: 70,
-                      textAlign: 'center',
-                      // backgroundColor: 'red',
-                    }}>
-                    {item?.name}
-                  </Text>
-                </TouchableOpacity>
+                    key={i}>
+                    <Image
+                      source={item?.img}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        marginBottom: 6,
+                        tintColor: 'black',
+                      }}
+                    />
+                    <Text
+                      numberOfLines={1}
+                      style={{
+                        color: select === item?.id ? 'black' : 'grey',
+                        fontWeight: 'bold',
+                        width: 70,
+                        textAlign: 'center',
+                      }}>
+                      {item?.name}
+                    </Text>
+                  </View>
+                </TouchableWithoutFeedback>
               );
             }}
             keyExtractor={item => item.id.toString()}
@@ -229,28 +247,24 @@ const Explore = () => {
           <FlatList
             showsVerticalScrollIndicator={false}
             data={data}
-            renderItem={({item}: flatlistitem) => {
+            renderItem={({item}: any) => {
               return (
                 <View
                   style={{
                     marginBottom: 10,
                     marginTop: 20,
-                    // backgroundColor: 'red',
                   }}>
                   <Carousel
-                    // onChangePage={() => console.log('page changed')}
                     containerStyle={{
                       height: 300,
                     }}
                     loop
                     counter
                     pageControlProps={{
-                      // size: 10,
                       containerStyle: {
                         position: 'absolute',
                         bottom: 15,
                         left: '40%',
-                        // marginTop:-20
                       },
                     }}
                     pageControlPosition={Carousel.pageControlPositions.OVER}
@@ -272,18 +286,9 @@ const Explore = () => {
                       </TouchableWithoutFeedback>
                     ))}
                   </Carousel>
-                  {/* <Image
-                  style={{
-                    width: 370,
-                    height: 370,
-                    borderRadius: 20,
-                  }}
-                  source={item?.img}
-                /> */}
                   <View
                     style={{
                       flexDirection: 'row',
-                      // alignItems: 'center',
                       justifyContent: 'space-between',
                       marginTop: 10,
                       paddingHorizontal: 10,
@@ -312,7 +317,7 @@ const Explore = () => {
                       <Text>4.94</Text>
                     </View>
                   </View>
-                  <View style={{position: 'absolute', top: 20, left: 20}}>
+                  <View style={{position: 'absolute', top: 10, left: 10}}>
                     <TouchableOpacity
                       onPress={() => {
                         if (heart != item?.id) {
@@ -351,15 +356,7 @@ const Explore = () => {
           <Text style={{color: 'white'}}>Map</Text>
         </TouchableOpacity>
       </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        // onRequestClose={() => {
-        //   Alert.alert('Modal has been closed.');
-        //   setModalVisible(!modalVisible);
-        // }}
-      >
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View
@@ -371,28 +368,30 @@ const Explore = () => {
                 borderBottomWidth: 1,
                 paddingVertical: 6,
               }}>
-              <TouchableOpacity
-                onPress={() => {
-                  setHeart();
-                  setModalVisible(false);
-                }}
-                style={{
-                  width: 30,
-                  height: 30,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 50,
-                }}>
-                <EvilIcons
-                  name={modalVisible ? 'close' : 'chevron-left'}
-                  size={20}
-                  color="black"
-                />
-              </TouchableOpacity>
+              <View style={{width: '20%'}}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setHeart();
+                    setModalVisible(false);
+                  }}
+                  style={{
+                    width: 30,
+                    height: 30,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 50,
+                  }}>
+                  <EvilIcons
+                    name={modalVisible ? 'close' : 'chevron-left'}
+                    size={20}
+                    color="black"
+                  />
+                </TouchableOpacity>
+              </View>
               <Text style={{color: 'black', fontWeight: 'bold'}}>
                 Name this wishlist
               </Text>
-              <View />
+              <View style={{width: '20%'}} />
             </View>
             <View
               style={{
@@ -403,15 +402,15 @@ const Explore = () => {
                   borderWidth: 1,
                   borderColor: 'lightgrey',
                   width: '100%',
-                  marginTop: 10,
+                  marginTop: 20,
                   borderRadius: 10,
                 }}>
-                {name && (
+                {/* {name && (
                   <Text
                     style={{marginLeft: 10, marginBottom: -15, marginTop: 5}}>
                     Name
                   </Text>
-                )}
+                )} */}
                 <TextInput
                   onChangeText={e => setName(e)}
                   placeholder="Name"
@@ -425,18 +424,6 @@ const Explore = () => {
             <View
               style={{borderColor: 'lightgrey', borderWidth: 1, marginTop: 20}}
             />
-            {/* <TouchableOpacity
-              style={{
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 10,
-                paddingVertical: 15,
-                backgroundColor: 'rgb(183, 43, 95)',
-                marginTop: 20,
-              }}>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>Create</Text>
-            </TouchableOpacity> */}
             <Button
               style={{marginTop: 20}}
               onPress={() => navigation.navigate('Login')}
