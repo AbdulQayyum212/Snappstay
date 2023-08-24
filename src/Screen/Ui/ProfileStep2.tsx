@@ -228,7 +228,8 @@ const ProfileStep2 = () => {
               </Text>
               <View style={{width: '20%', alignItems: 'center'}}>
                 <TouchableOpacity
-                // onPress={() => setModalVisible(true)}
+                  onPress={() => setModalVisible(false)}
+                  // onPress={() => setModalVisible(true)}
                 >
                   <Text
                     style={{

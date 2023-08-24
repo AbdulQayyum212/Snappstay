@@ -9,6 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import {Button} from '../../components/Button';
+import {ChipsInput, NumberInput} from 'react-native-ui-lib';
 
 const ConfirmNumber = () => {
   const navigation = useNavigation();

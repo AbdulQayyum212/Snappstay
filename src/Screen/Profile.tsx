@@ -511,60 +511,62 @@ const Profile = ({...props}) => {
                     style={{marginRight: 10}}
                   />
                 </TouchableOpacity> */}
-                  {/* <TouchableOpacity
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginTop: 20,
-                    paddingVertical: 7,
-                    // borderBottomWidth: 1,
-                    // borderBottomColor: 'lightgrey',
-                    marginBottom: 5,
-                  }}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <MaterialIcons
-                      name="translate"
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('Translation')}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginTop: 20,
+                      paddingVertical: 7,
+                      // borderBottomWidth: 1,
+                      // borderBottomColor: 'lightgrey',
+                      marginBottom: 5,
+                    }}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <MaterialIcons
+                        name="translate"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      />
+                      <Text style={{color: 'black'}}>Translation</Text>
+                    </View>
+                    <Feather
+                      name="chevron-right"
                       size={20}
                       color="black"
                       style={{marginRight: 10}}
                     />
-                    <Text style={{color: 'black'}}>Translation</Text>
-                  </View>
-                  <Feather
-                    name="chevron-right"
-                    size={20}
-                    color="black"
-                    style={{marginRight: 10}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginTop: 20,
-                    paddingVertical: 7,
-                    // borderBottomWidth: 1,
-                    // borderBottomColor: 'lightgrey',
-                    marginBottom: 5,
-                  }}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Ionicons
-                      name="notifications-outline"
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('Notifications')}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginTop: 20,
+                      paddingVertical: 7,
+                      // borderBottomWidth: 1,
+                      // borderBottomColor: 'lightgrey',
+                      marginBottom: 5,
+                    }}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Ionicons
+                        name="notifications-outline"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      />
+                      <Text style={{color: 'black'}}>Notifications</Text>
+                    </View>
+                    <Feather
+                      name="chevron-right"
                       size={20}
                       color="black"
                       style={{marginRight: 10}}
                     />
-                    <Text style={{color: 'black'}}>Notifications</Text>
-                  </View>
-                  <Feather
-                    name="chevron-right"
-                    size={20}
-                    color="black"
-                    style={{marginRight: 10}}
-                  />
-                </TouchableOpacity> */}
+                  </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => navigation.navigate('PrivacyandSharing')}
                     style={{
@@ -593,7 +595,7 @@ const Profile = ({...props}) => {
                       style={{marginRight: 10}}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
@@ -619,8 +621,9 @@ const Profile = ({...props}) => {
                       color="black"
                       style={{marginRight: 10}}
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   <TouchableOpacity
+                    onPress={() => navigation.navigate('HelpCenter')}
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
@@ -655,7 +658,7 @@ const Profile = ({...props}) => {
                 </>
               ) : (
                 <>
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
@@ -681,8 +684,9 @@ const Profile = ({...props}) => {
                       color="black"
                       style={{marginRight: 10}}
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   <TouchableOpacity
+                    onPress={() => navigation.navigate('HelpCenter')}
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',

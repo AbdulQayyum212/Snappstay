@@ -37,6 +37,9 @@ import PrivacyandSharing from '../Screen/Ui/PrivacyandSharing';
 import StartEarning from '../Screen/Ui/StartEarning';
 import Reviews from '../Screen/Ui/Reviews';
 import Done from '../Screen/Ui/Done';
+import Translation from '../Screen/Ui/Translation';
+import Notifications from '../Screen/Ui/Notifications';
+import HelpCenter from '../Screen/Ui/HelpCenter';
 
 const Stack = createStackNavigator();
 const StackNavigation = () => {
@@ -82,6 +85,9 @@ const StackNavigation = () => {
       <Stack.Screen name="StartEarning" component={StartEarning} />
       <Stack.Screen name="Reviews" component={Reviews} />
       <Stack.Screen name="Done" component={Done} />
+      <Stack.Screen name="Translation" component={Translation} />
+      <Stack.Screen name="Notifications" component={Notifications} />
+      <Stack.Screen name="HelpCenter" component={HelpCenter} />
     </Stack.Navigator>
   );
 };

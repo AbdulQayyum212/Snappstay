@@ -34,7 +34,7 @@ const Trips = () => {
                 fontWeight: '400',
                 marginTop: 30,
               }}>
-              Upcomming reservations
+              Upcoming reservations
             </Text>
             <View style={{marginTop: 20}}>
               <TouchableWithoutFeedback

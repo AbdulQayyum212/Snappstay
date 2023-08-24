@@ -55,7 +55,7 @@ const PrivacyandSharing = () => {
           }}>
           <View>
             <Text style={{color: 'black'}}>Request your personal data</Text>
-            <Text style={{color: 'grey', width: '95%'}}>
+            <Text style={{color: 'grey', width: 300}}>
               we'll create a file for your to download your personal data.
             </Text>
           </View>
