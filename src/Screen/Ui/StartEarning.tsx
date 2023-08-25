@@ -13,6 +13,7 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Button, LeftIconBtn} from '../../components/Button';
 import {useState} from 'react';
+import {Header} from '../../components/Header';
 const StartEarning = () => {
   const navigation = useNavigation();
   const [expanded, setExpanded] = useState(false);
@@ -67,27 +68,7 @@ const StartEarning = () => {
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: 20,
-          paddingVertical: 15,
-          borderBottomWidth: 1,
-          borderBottomColor: 'lightgrey',
-          backgroundColor: 'white',
-        }}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{
-            flex: 1,
-          }}>
-          <EvilIcons name={'chevron-left'} size={25} color="black" />
-        </TouchableOpacity>
-        <View style={{flex: 1}} />
-        <View style={{flex: 1}} />
-      </View>
+      <Header onPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{padding: 20}}>
           <Text

@@ -17,6 +17,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Carousel} from 'react-native-ui-lib';
 import {Button} from '../components/Button';
+import {Share} from 'react-native';
 const width = Dimensions.get('window').width;
 const Max_Header_Height = 200;
 const Min_Header_Height = 70;
@@ -43,6 +44,28 @@ const SnappCover = () => {
       img: require('../assets/Rectangle.png'),
     },
   ];
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        // title: productDetails?.title,
+        url: '',
+        // message: `https://realbazar.pk/product/${id}`,
+        // message: `app://appLinging`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log('Shared', result);
+        } else {
+          // shared
+          console.log('Shared Else');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log('Dismissed');
+      }
+    } catch (error) {
+      console.log('error.message', error.message);
+    }
+  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView
@@ -280,6 +303,7 @@ const SnappCover = () => {
         <View />
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TouchableOpacity
+            onPress={onShare}
             style={{
               width: 30,
               height: 30,

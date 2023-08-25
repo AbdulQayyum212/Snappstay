@@ -87,6 +87,28 @@ const TripDetail = () => {
       img: require('../../assets/3.jpg'),
     },
   ];
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        // title: productDetails?.title,
+        url: '',
+        // message: `https://realbazar.pk/product/${id}`,
+        // message: `app://appLinging`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log('Shared', result);
+        } else {
+          // shared
+          console.log('Shared Else');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log('Dismissed');
+      }
+    } catch (error) {
+      console.log('error.message', error.message);
+    }
+  };
   return (
     <View style={{flex: 1}}>
       <ScrollView
@@ -1166,7 +1188,7 @@ const TripDetail = () => {
         <View />
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TouchableOpacity
-            // onPress={() => navigation.goBack()}
+            onPress={onShare}
             style={{
               width: 30,
               height: 30,

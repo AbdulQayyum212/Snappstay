@@ -3,35 +3,13 @@ import React from 'react';
 import {View, TouchableOpacity, Text, TextInput, Image} from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Feather from 'react-native-vector-icons/Feather';
+import {Header} from '../../components/Header';
 
 const PrivacyandSharing = () => {
   const navigation = useNavigation();
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingVertical: 10,
-          paddingHorizontal: 10,
-          borderBottomWidth: 1,
-          borderBottomColor: 'lightgrey',
-        }}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{
-            // borderWidth: 1,
-            // width: 30,
-            // height: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 50,
-            // borderColor: 'lightgrey',
-          }}>
-          <EvilIcons name={'chevron-left'} size={30} color="black" />
-        </TouchableOpacity>
-      </View>
+      <Header onPress={() => navigation.goBack()} />
       <View style={{flex: 1, padding: 20}}>
         <Text
           style={{

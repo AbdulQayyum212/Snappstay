@@ -9,6 +9,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import Entypo from 'react-native-vector-icons/Entypo';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Button} from '../../components/Button';
+import {Header, ModalHeader} from '../../components/Header';
 const ProfileStep2 = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -51,7 +52,12 @@ const ProfileStep2 = () => {
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <View
+      <Header
+        rightOnPress={() => setModalVisible(true)}
+        rightText="Edit"
+        onPress={() => navigation.goBack()}
+      />
+      {/* <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -84,7 +90,7 @@ const ProfileStep2 = () => {
             Edit
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <View style={{flex: 1, padding: 20}}>
         <View style={{}}>
           <Avatar
@@ -191,7 +197,15 @@ const ProfileStep2 = () => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <View
+            <ModalHeader
+              // style={{paddingHorizontal: 10}}
+              modalVisible
+              CenterText="Edit Profile"
+              rightText="Save"
+              rightOnPress={() => setModalVisible(false)}
+              leftOnPress={() => setModalVisible(false)}
+            />
+            {/* <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -241,7 +255,7 @@ const ProfileStep2 = () => {
                   </Text>
                 </TouchableOpacity>
               </View>
-            </View>
+            </View> */}
             <View>
               <View style={{padding: 20, alignItems: 'center'}}>
                 <Avatar

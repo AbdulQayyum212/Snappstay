@@ -18,6 +18,7 @@ import {ToastSuccess} from '../../Config/Constants';
 import Toast from 'react-native-toast-message';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {Button} from '../../components/Button';
+import {ModalHeader} from '../../components/Header';
 const width = Dimensions.get('window').width;
 const Explore = () => {
   const navigation = useNavigation();
@@ -359,7 +360,15 @@ const Explore = () => {
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <View
+            <ModalHeader
+              modalVisible
+              CenterText="Name this wishlist"
+              leftOnPress={() => {
+                setHeart();
+                setModalVisible(false);
+              }}
+            />
+            {/* <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -392,7 +401,7 @@ const Explore = () => {
                 Name this wishlist
               </Text>
               <View style={{width: '20%'}} />
-            </View>
+            </View> */}
             <View
               style={{
                 width: '100%',

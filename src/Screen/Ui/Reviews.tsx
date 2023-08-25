@@ -13,6 +13,7 @@ import {Button} from '../../components/Button';
 import StarRating from 'react-native-star-rating-widget';
 import {Chip, ProgressBar} from 'react-native-ui-lib';
 import Feather from 'react-native-vector-icons/Feather';
+import {Header} from '../../components/Header';
 const Reviews = () => {
   const navigation = useNavigation();
   const [condition, setCondition] = useState('start');
@@ -20,7 +21,8 @@ const Reviews = () => {
   const [progress, setProgress] = useState(0);
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <View
+      <Header onPress={() => navigation.goBack()} />
+      {/* <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -53,9 +55,9 @@ const Reviews = () => {
               fontSize: 17,
             }}>
             Save & exit
-          </Text> */}
+          </Text> 
         </View>
-      </View>
+      </View> */}
       <ScrollView>
         {condition == 'start' ? (
           <View style={{padding: 20}}>

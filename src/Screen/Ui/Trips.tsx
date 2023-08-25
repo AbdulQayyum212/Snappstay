@@ -26,7 +26,7 @@ const Trips = () => {
           <Text style={{color: 'black', fontSize: 25, fontWeight: '700'}}>
             Trips
           </Text>
-          <View>
+          {/* <View>
             <Text
               style={{
                 color: 'black',
@@ -185,8 +185,8 @@ const Trips = () => {
                 </Text>
               </View>
             </View>
-          </View>
-          {/* <View>
+          </View> */}
+          <View>
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate('Reviews')}>
               <View
@@ -318,7 +318,7 @@ const Trips = () => {
                 Visit the help Center
               </Text>
             </View>
-          </View> */}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
