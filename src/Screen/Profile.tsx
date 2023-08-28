@@ -35,7 +35,7 @@ const Profile = ({...props}) => {
   };
   return (
     <SafeAreaView style={{height: '100%', backgroundColor: 'white'}}>
-      <View style={{backgroundColor: 'white', flex: 1, padding: 20}}>
+      <View style={{backgroundColor: 'white', flex: 1, padding: 10}}>
         {/* <View
         style={{
           flexDirection: 'row',
@@ -375,6 +375,8 @@ const Profile = ({...props}) => {
 
                   elevation: 5,
                   backgroundColor: 'white',
+                  paddingHorizontal: 20,
+                  width: '100%',
                   borderRadius: 10,
                   marginTop: 20,
                   padding: 20,
@@ -387,7 +389,9 @@ const Profile = ({...props}) => {
                   <Text style={{color: 'black', fontWeight: 'bold'}}>
                     SnappStay your place
                   </Text>
-                  <Text>it's simple to get set up and start earning</Text>
+                  <Text style={{width: '80%'}}>
+                    it's simple to get set up and start earning
+                  </Text>
                 </View>
                 <Image
                   style={{width: 50, height: 50}}
