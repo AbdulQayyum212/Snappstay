@@ -414,12 +414,6 @@ const Explore = () => {
                   marginTop: 20,
                   borderRadius: 10,
                 }}>
-                {/* {name && (
-                  <Text
-                    style={{marginLeft: 10, marginBottom: -15, marginTop: 5}}>
-                    Name
-                  </Text>
-                )} */}
                 <TextInput
                   onChangeText={e => setName(e)}
                   placeholder="Name"
@@ -449,17 +443,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // marginTop: 22,
     shadowColor: '#000',
     padding: 10,
     backgroundColor: ' rgba(52, 52, 52, 0.8)',
   },
   modalView: {
-    // flex: 1,
-    // margin: 20,
     borderRadius: 20,
     width: '100%',
-    // padding: 35,
     height: 270,
     padding: 20,
     shadowColor: '#000',
@@ -471,16 +461,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    // alignItems: 'center',
-    // shadowColor: '#000',
-    // padding: 20,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 4,
-    // elevation: 5,
   },
   button: {
     borderRadius: 20,

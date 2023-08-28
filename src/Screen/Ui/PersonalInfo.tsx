@@ -53,7 +53,7 @@ const PersonalInfo = () => {
           </Text>
           <TextInput placeholder="Last Name" />
         </View>
-        <TouchableOpacity
+        <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -68,9 +68,7 @@ const PersonalInfo = () => {
             <Text style={{color: 'black'}}>Email</Text>
             <Text style={{color: 'grey', marginTop: 5}}>i****b@gmail.com</Text>
           </View>
-          <TouchableOpacity
-          //   onPress={() => setModalVisible(true)}
-          >
+          <TouchableOpacity>
             <Text
               style={{
                 color: 'black',
@@ -80,8 +78,8 @@ const PersonalInfo = () => {
               Edit
             </Text>
           </TouchableOpacity>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </View>
+        <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -99,9 +97,7 @@ const PersonalInfo = () => {
             </Text>
             <Text style={{color: 'grey', marginTop: 20}}>+92*********22</Text>
           </View>
-          <TouchableOpacity
-          //   onPress={() => setModalVisible(true)}
-          >
+          <TouchableOpacity>
             <Text
               style={{
                 color: 'black',
@@ -111,8 +107,8 @@ const PersonalInfo = () => {
               Edit
             </Text>
           </TouchableOpacity>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </View>
+        <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -127,9 +123,7 @@ const PersonalInfo = () => {
             <Text style={{color: 'black'}}>Government ID</Text>
             <Text style={{color: 'grey', marginTop: 5}}>Not provided</Text>
           </View>
-          <TouchableOpacity
-          //   onPress={() => setModalVisible(true)}
-          >
+          <TouchableOpacity>
             <Text
               style={{
                 color: 'black',
@@ -139,8 +133,8 @@ const PersonalInfo = () => {
               Add
             </Text>
           </TouchableOpacity>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </View>
+        <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -154,9 +148,7 @@ const PersonalInfo = () => {
           <View>
             <Text style={{color: 'black'}}>Emergency</Text>
           </View>
-          <TouchableOpacity
-          //   onPress={() => setModalVisible(true)}
-          >
+          <TouchableOpacity>
             <Text
               style={{
                 color: 'black',
@@ -166,7 +158,7 @@ const PersonalInfo = () => {
               Edit
             </Text>
           </TouchableOpacity>
-        </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

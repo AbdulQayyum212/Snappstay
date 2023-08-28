@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
-
+import {Text, TouchableOpacity, View} from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
 const Button = ({onPress, style, textStyle, title, disabled}: any) => {
   return (
     <TouchableOpacity
@@ -45,4 +45,37 @@ const LeftIconBtn = ({Lefticon, title, onPress, style, textStyle}: any) => {
     </TouchableOpacity>
   );
 };
-export {LeftIconBtn, Button};
+const CustomBtn = ({centerText, onPress, rightIcon}: any) => {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: 20,
+        paddingVertical: 7,
+        // borderBottomWidth: 1,
+        // borderBottomColor: 'lightgrey',
+        marginBottom: 5,
+      }}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        {rightIcon}
+        {/* <Ionicons
+                        name="person-circle-outline"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      /> */}
+        <Text style={{color: 'black'}}>{centerText}</Text>
+      </View>
+      <Feather
+        name="chevron-right"
+        size={20}
+        color="black"
+        style={{marginRight: 10}}
+      />
+    </TouchableOpacity>
+  );
+};
+export {CustomBtn, LeftIconBtn, Button};

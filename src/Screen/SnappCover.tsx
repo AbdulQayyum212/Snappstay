@@ -76,26 +76,6 @@ const SnappCover = () => {
         )}
         showsVerticalScrollIndicator={false}>
         <View>
-          {/* <View
-          style={{
-            zIndex: 1,
-            position: 'absolute',
-            bottom: 10,
-            right: 10,
-          }}>
-          <View
-            style={{
-              paddingHorizontal: 10,
-              borderRadius: 10,
-              backgroundColor: 'black',
-            }}>
-            <Text
-              style={{
-                color: 'white',
-                fontWeight: 'bold',
-              }}>{`${data?.length - 1}/${data?.length}`}</Text>
-          </View>
-        </View> */}
           <Carousel
             loop
             autoplay
@@ -113,43 +93,6 @@ const SnappCover = () => {
               />
             ))}
           </Carousel>
-          {/* <FlatList
-          data={data}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{height: 300}}
-          horizontal
-          renderItem={({item}) => {
-            return (
-              <>
-                <Carousel
-                  onChangePage={() => console.log('page changed')}
-                  loop
-                  pageControlProps={{
-                    size: 10,
-                    containerStyle: {
-                      position: 'absolute',
-                      bottom: 15,
-                      left: 10,
-                    },
-                  }}
-                  pageControlPosition={Carousel.pageControlPositions.OVER}
-                  showCounter>
-                  {new Array(5).fill(null).map((element, index) => (
-                    <Image
-                      style={{
-                        width: width,
-                        height: 300,
-                        borderRadius: 20,
-                      }}
-                      source={item?.img}
-                    />
-                  ))}
-                </Carousel>
-                <Image style={{width: width, height: 300}} source={item?.img} />
-              </>
-            );
-          }}
-        /> */}
         </View>
         <View style={{padding: 20}}>
           <Text style={{color: 'black', fontSize: 20}}>Houston, Taxas</Text>
@@ -333,7 +276,6 @@ const SnappCover = () => {
 };
 const style = StyleSheet.create({
   AnimatedView: {
-    // zIndex: 2,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

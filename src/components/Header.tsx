@@ -92,10 +92,7 @@ const ModalHeader = ({
       </Text>
       <View style={{width: '20%', alignItems: 'center'}}>
         {rightText && (
-          <TouchableOpacity
-            onPress={rightOnPress}
-            // onPress={() => setModalVisible(true)}
-          >
+          <TouchableOpacity onPress={rightOnPress}>
             <Text
               style={{
                 color: 'black',
