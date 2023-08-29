@@ -1,5 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Image,
@@ -8,76 +7,23 @@ import {
   TextInput,
   Platform,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SelectDropdown from 'react-native-select-dropdown';
 import {Button} from '../../components/Button';
 
 const Login = () => {
-  const countries = ['Egypt', 'Canada', 'Australia', 'Ireland'];
+  const countries = [
+    'Pakistan (+92)',
+    'Usa (+1)',
+    'Australia (+61)',
+    'Ireland (+353)',
+  ];
   const navigation = useNavigation();
+  const [selectCode, setSelectCode] = useState('Pakistan (+92)');
   return (
     <View style={{flex: 1, backgroundColor: 'white', padding: 20}}>
-      {/* <Image
-        style={{width: '100%', height: 500}}
-        source={require('../../assets/Maskgroup.png')}
-      />
-      <View style={{flex: 1, padding: 20}}>
-        <Text style={{color: 'black', fontWeight: 'bold', fontSize: 18}}>
-          Snapp <Text style={{color: '#A3A3A3', fontSize: 18}}>Stay!</Text>
-        </Text>
-        <Text style={{fontSize: 30}}>Book Your</Text>
-        <Text style={{fontSize: 30}}>Next Stay With Ease</Text>
-        <Text style={{color: '#2E2E2ECC'}}>Your Key To Comfortable Travel</Text>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'flex-end',
-          }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('StackNavigation')}
-            style={{
-              width: '100%',
-              paddingVertical: 13,
-              alignItems: 'center',
-              backgroundColor: 'black',
-              borderRadius: 10,
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-
-              elevation: 5,
-            }}>
-            <Text style={{color: 'white', fontSize: 20}}>Sign In</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('StackNavigation')}
-            style={{
-              width: '100%',
-              paddingVertical: 13,
-              marginTop: 20,
-              alignItems: 'center',
-              backgroundColor: 'white',
-              borderRadius: 10,
-              borderWidth: 2,
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-
-              elevation: 5,
-            }}>
-            <Text style={{color: 'black', fontSize: 20}}>Register</Text>
-          </TouchableOpacity>
-        </View>
-      </View> */}
       <View>
         <Text style={{color: 'black', fontSize: 35, fontWeight: 'bold'}}>
           Log In
@@ -96,7 +42,7 @@ const Login = () => {
                   }}>
                   <View>
                     <Text style={{fontSize: 10}}>Country/Region</Text>
-                    <Text style={{color: 'black'}}>Pakistan (+92)</Text>
+                    <Text style={{color: 'black'}}>{selectCode}</Text>
                   </View>
                   <Feather name="chevron-down" size={20} />
                 </View>
@@ -111,9 +57,11 @@ const Login = () => {
               borderTopRightRadius: 10,
               marginTop: 10,
             }}
+            dropdownStyle={{borderRadius: 10}}
             buttonTextStyle={{color: 'lightgrey'}}
             onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
+              setSelectCode(selectedItem);
+              console.log(selectedItem, 'selectedItem');
             }}
             buttonTextAfterSelection={(selectedItem, index) => {
               return selectedItem;
@@ -127,7 +75,6 @@ const Login = () => {
               width: '100%',
               borderWidth: 1,
               borderColor: 'lightgrey',
-              // paddingVertical: 5,
               backgroundColor: 'white',
               borderBottomLeftRadius: 10,
               borderBottomRightRadius: 10,
@@ -142,7 +89,6 @@ const Login = () => {
                 height: 35,
                 fontSize: 10,
                 marginLeft: -2,
-                // backgroundColor: 'red',
               }}
             />
           </View>
@@ -189,7 +135,6 @@ const Login = () => {
           style={{
             width: '100%',
             paddingVertical: 13,
-            // backgroundColor: 'rgb(183, 43, 95)',
             borderWidth: 1,
             borderRadius: 10,
             alignItems: 'center',
@@ -209,7 +154,6 @@ const Login = () => {
             style={{
               width: '100%',
               paddingVertical: 13,
-              // backgroundColor: 'rgb(183, 43, 95)',
               borderWidth: 1,
               borderRadius: 10,
               alignItems: 'center',
@@ -229,7 +173,6 @@ const Login = () => {
           style={{
             width: '100%',
             paddingVertical: 13,
-            // backgroundColor: 'rgb(183, 43, 95)',
             borderWidth: 1,
             borderRadius: 10,
             alignItems: 'center',
@@ -251,7 +194,6 @@ const Login = () => {
           style={{
             width: '100%',
             paddingVertical: 13,
-            // backgroundColor: 'rgb(183, 43, 95)',
             borderWidth: 1,
             borderRadius: 10,
             alignItems: 'center',

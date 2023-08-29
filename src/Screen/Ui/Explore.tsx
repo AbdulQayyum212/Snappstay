@@ -344,7 +344,7 @@ const Explore = () => {
         <TouchableOpacity
           onPress={() => navigation.navigate('Map')}
           style={{
-            width: 70,
+            width: 90,
             height: 40,
             borderRadius: 20,
             alignItems: 'center',
@@ -353,7 +353,14 @@ const Explore = () => {
             position: 'absolute',
             bottom: 15,
             alignSelf: 'center',
+            flexDirection: 'row',
           }}>
+          <Entypo
+            name={'map'}
+            style={{marginRight: 10}}
+            size={20}
+            color={'white'}
+          />
           <Text style={{color: 'white'}}>Map</Text>
         </TouchableOpacity>
       </View>

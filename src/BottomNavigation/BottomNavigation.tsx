@@ -37,7 +37,6 @@ const MyTabs = () => {
                 }}
                 source={require('../assets/u_search.png')}
               />
-              {/* <MaterialCommunityIcons name="home" size={20} /> */}
             </View>
           ),
         }}
@@ -61,7 +60,6 @@ const MyTabs = () => {
                 }}
                 source={require('../assets/likeIcon.png')}
               />
-              {/* <MaterialCommunityIcons name="home" size={20} /> */}
             </View>
           ),
         }}
@@ -85,7 +83,6 @@ const MyTabs = () => {
                 }}
                 source={require('../assets/trips.png')}
               />
-              {/* <MaterialCommunityIcons name="home" size={20} /> */}
             </View>
           ),
         }}
@@ -109,7 +106,6 @@ const MyTabs = () => {
                 }}
                 source={require('../assets/u_comment-alt.png')}
               />
-              {/* <MaterialCommunityIcons name="home" size={20} /> */}
             </View>
           ),
         }}
@@ -133,7 +129,6 @@ const MyTabs = () => {
                 }}
                 source={require('../assets/u_user-circle.png')}
               />
-              {/* <MaterialCommunityIcons name="home" size={20} /> */}
             </View>
           ),
         }}

@@ -17,7 +17,7 @@ const PostCarouselItem = props => {
   const navigation = useNavigation();
 
   const goToPostPage = () => {
-    navigation.navigate('Post', {post: post});
+    navigation.navigate('SnappCover');
   };
   return (
     // <Text>hello</Text>

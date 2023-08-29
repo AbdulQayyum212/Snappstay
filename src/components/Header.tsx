@@ -10,7 +10,7 @@ const Header = ({onPress, rightText, rightOnPress}: any) => {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 10,
+        paddingHorizontal: 5,
         paddingVertical: 10,
         borderBottomWidth: 1,
         borderBottomColor: 'lightgrey',

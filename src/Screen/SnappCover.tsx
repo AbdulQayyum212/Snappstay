@@ -47,10 +47,7 @@ const SnappCover = () => {
   const onShare = async () => {
     try {
       const result = await Share.share({
-        // title: productDetails?.title,
         url: '',
-        // message: `https://realbazar.pk/product/${id}`,
-        // message: `app://appLinging`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {

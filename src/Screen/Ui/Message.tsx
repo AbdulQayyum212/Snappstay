@@ -8,7 +8,6 @@ const Message = () => {
           <View>
             <View
               style={{
-                //   backgroundColor: 'red',
                 width: 50,
                 height: 50,
                 borderRadius: 50,
@@ -23,7 +22,7 @@ const Message = () => {
             </View>
             <View
               style={{
-                backgroundColor: 'rgba(52, 52, 52, 0.8)',
+                backgroundColor: 'rgba(52, 52, 52, 0.9)',
                 width: 40,
                 height: 40,
                 position: 'absolute',
