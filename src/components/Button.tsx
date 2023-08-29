@@ -55,25 +55,17 @@ const CustomBtn = ({centerText, onPress, rightIcon}: any) => {
         justifyContent: 'space-between',
         marginTop: 20,
         paddingVertical: 7,
-        // borderBottomWidth: 1,
-        // borderBottomColor: 'lightgrey',
         marginBottom: 5,
       }}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         {rightIcon}
-        {/* <Ionicons
-                        name="person-circle-outline"
-                        size={20}
-                        color="black"
-                        style={{marginRight: 10}}
-                      /> */}
         <Text style={{color: 'black'}}>{centerText}</Text>
       </View>
       <Feather
         name="chevron-right"
         size={20}
         color="black"
-        style={{marginRight: 10}}
+        style={{marginRight: 5}}
       />
     </TouchableOpacity>
   );
