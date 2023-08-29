@@ -22,7 +22,7 @@ const ConfirmPaystep2 = () => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          paddingHorizontal: 20,
+          paddingHorizontal: 5,
           paddingVertical: 15,
           borderBottomWidth: 1,
           borderBottomColor: 'lightgrey',

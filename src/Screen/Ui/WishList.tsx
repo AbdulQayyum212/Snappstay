@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import react, {useState} from 'react';
 import {
   View,
@@ -9,6 +10,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Dimensions,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import {Carousel, Chip, Stepper} from 'react-native-ui-lib';
@@ -16,10 +18,11 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 const width = Dimensions.get('window').width;
 
-const WishList = () => {
+const WishList = ({}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selected, setSelected] = useState('');
   const [date, setDate] = useState(false);
+  const navigation = useNavigation();
   const data = [
     {
       id: 1,
@@ -68,41 +71,43 @@ const WishList = () => {
               data={data}
               renderItem={({item}: any) => {
                 return (
-                  <View
-                    // onPress={() => navigation.navigate('SnappCover')}
-                    style={{
-                      marginBottom: 10,
-                      marginTop: 20,
-                      // backgroundColor: 'red',
-                    }}>
-                    <Carousel
-                      containerStyle={{
-                        height: 300,
-                      }}
-                      // onChangePage={() => console.log('page changed')}
-                      loop
-                      pageControlProps={{
-                        size: 10,
-                        containerStyle: {
-                          position: 'absolute',
-                          bottom: 15,
-                          left: '35%',
-                        },
-                      }}
-                      pageControlPosition={Carousel.pageControlPositions.OVER}
-                      showCounter>
-                      {new Array(5).fill(null).map((element, index) => (
-                        <Image
-                          style={{
-                            width: width,
-                            height: 300,
-                            // borderRadius: 20,
-                          }}
-                          source={item?.img}
-                        />
-                      ))}
-                    </Carousel>
-                    {/* <Image
+                  <TouchableWithoutFeedback
+                    onPress={() => navigation.navigate('SnappCover')}>
+                    <View
+                      // onPress={() => navigation.navigate('SnappCover')}
+                      style={{
+                        marginBottom: 10,
+                        marginTop: 20,
+                        // backgroundColor: 'red',
+                      }}>
+                      <Carousel
+                        containerStyle={{
+                          height: 300,
+                        }}
+                        // onChangePage={() => console.log('page changed')}
+                        loop
+                        pageControlProps={{
+                          size: 10,
+                          containerStyle: {
+                            position: 'absolute',
+                            bottom: 15,
+                            left: '35%',
+                          },
+                        }}
+                        pageControlPosition={Carousel.pageControlPositions.OVER}
+                        showCounter>
+                        {new Array(5).fill(null).map((element, index) => (
+                          <Image
+                            style={{
+                              width: width,
+                              height: 300,
+                              // borderRadius: 20,
+                            }}
+                            source={item?.img}
+                          />
+                        ))}
+                      </Carousel>
+                      {/* <Image
                   style={{
                     width: 370,
                     height: 370,
@@ -110,59 +115,62 @@ const WishList = () => {
                   }}
                   source={item?.img}
                 /> */}
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        // alignItems: 'center',
-                        justifyContent: 'space-between',
-                        marginTop: 10,
-                        paddingHorizontal: 10,
-                      }}>
-                      <View>
-                        <Text style={{fontSize: 15, color: 'black'}}>
-                          {item?.title1}
-                        </Text>
-                        <Text style={{color: '#999999'}}>{item?.title2}</Text>
-                        <Text style={{color: '#999999'}}>{item?.title3}</Text>
-                        <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-                          {item?.price}{' '}
-                          <Text style={{color: '#999999'}}>{item?.title4}</Text>
-                        </Text>
-                      </View>
                       <View
                         style={{
                           flexDirection: 'row',
-                          alignItems: 'center',
-                          alignSelf: 'flex-start',
+                          // alignItems: 'center',
+                          justifyContent: 'space-between',
+                          marginTop: 10,
+                          paddingHorizontal: 10,
                         }}>
-                        <Image
-                          style={{width: 20, height: 20}}
-                          source={require('../../assets/u_star.png')}
-                        />
-                        <Text>4.94</Text>
+                        <View>
+                          <Text style={{fontSize: 15, color: 'black'}}>
+                            {item?.title1}
+                          </Text>
+                          <Text style={{color: '#999999'}}>{item?.title2}</Text>
+                          <Text style={{color: '#999999'}}>{item?.title3}</Text>
+                          <Text style={{fontSize: 15, fontWeight: 'bold'}}>
+                            {item?.price}{' '}
+                            <Text style={{color: '#999999'}}>
+                              {item?.title4}
+                            </Text>
+                          </Text>
+                        </View>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            alignSelf: 'flex-start',
+                          }}>
+                          <Image
+                            style={{width: 20, height: 20}}
+                            source={require('../../assets/u_star.png')}
+                          />
+                          <Text>4.94</Text>
+                        </View>
+                      </View>
+                      <View style={{position: 'absolute', top: 20, left: 20}}>
+                        <TouchableOpacity
+                        // onPress={() => {
+                        //   if (heart != item?.id) {
+                        //     setHeart(item?.id);
+                        //     setModalVisible(true);
+                        //   } else {
+                        //     setHeart(item?.id);
+                        //   }
+                        // }}
+                        >
+                          <Entypo
+                            name={'heart-outlined'}
+                            // name={heart === item?.id ? 'heart' : 'heart-outlined'}
+                            size={20}
+                            color={'white'}
+                            // color={heart === item?.id ? 'red' : 'white'}
+                          />
+                        </TouchableOpacity>
                       </View>
                     </View>
-                    <View style={{position: 'absolute', top: 20, left: 20}}>
-                      <TouchableOpacity
-                      // onPress={() => {
-                      //   if (heart != item?.id) {
-                      //     setHeart(item?.id);
-                      //     setModalVisible(true);
-                      //   } else {
-                      //     setHeart(item?.id);
-                      //   }
-                      // }}
-                      >
-                        <Entypo
-                          name={'heart-outlined'}
-                          // name={heart === item?.id ? 'heart' : 'heart-outlined'}
-                          size={20}
-                          color={'white'}
-                          // color={heart === item?.id ? 'red' : 'white'}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
+                  </TouchableWithoutFeedback>
                 );
               }}
               keyExtractor={item => item.id.toString()}
