@@ -587,6 +587,7 @@ const StartEarning = () => {
       </ScrollView>
       <View style={{width: '100%', padding: 10}}>
         <LeftIconBtn
+          onPress={() => navigation.navigate('AddListing')}
           style={{
             width: '100%',
             alignItems: 'center',

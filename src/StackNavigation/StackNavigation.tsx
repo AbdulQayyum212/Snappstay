@@ -40,6 +40,7 @@ import Done from '../Screen/Ui/Done';
 import Translation from '../Screen/Ui/Translation';
 import Notifications from '../Screen/Ui/Notifications';
 import HelpCenter from '../Screen/Ui/HelpCenter';
+import AddListing from '../Screen/Ui/AddListing';
 
 const Stack = createStackNavigator();
 const StackNavigation = () => {
@@ -88,6 +89,7 @@ const StackNavigation = () => {
       <Stack.Screen name="Translation" component={Translation} />
       <Stack.Screen name="Notifications" component={Notifications} />
       <Stack.Screen name="HelpCenter" component={HelpCenter} />
+      <Stack.Screen name="AddListing" component={AddListing} />
     </Stack.Navigator>
   );
 };
