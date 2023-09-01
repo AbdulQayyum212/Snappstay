@@ -36,7 +36,7 @@ const StartEarning = () => {
           </Text>
           <Button
             // onPress={() => navigation.navigate('MyTabs')}
-            style={{marginTop: 20, paddingVertical: 10, width: 200}}
+            style={{marginTop: 20, paddingVertical: 12, width: 200}}
             title={'Match with a superhost'}
           />
         </View>
@@ -59,7 +59,7 @@ const StartEarning = () => {
             Get answers from an experience superhost near you.
           </Text>
           <Button
-            style={{marginTop: 20, paddingVertical: 10, width: 200}}
+            style={{marginTop: 20, paddingVertical: 12, width: 200}}
             title={'Match with a superhost'}
           />
         </View>

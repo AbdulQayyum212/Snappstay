@@ -21,6 +21,7 @@ const width = Dimensions.get('window').width;
 const WishList = ({}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selected, setSelected] = useState('');
+  const [adults, setAdults] = useState(0);
   const [date, setDate] = useState(false);
   const navigation = useNavigation();
   const data = [
@@ -45,23 +46,23 @@ const WishList = ({}) => {
             <Chip
               size={{width: 20, height: 30}}
               label={'Date'}
-              labelStyle={{color: date ? 'white' : 'grey'}}
+              labelStyle={{color: selected ? 'white' : 'grey'}}
               onPress={() => setDate(true)}
               containerStyle={{
                 marginRight: 20,
                 borderColor: 'lightgrey',
-                backgroundColor: date ? 'black' : 'white',
+                backgroundColor: selected ? 'black' : 'white',
               }}
             />
             <Chip
               size={{width: 20, height: 30}}
-              labelStyle={{color: modalVisible ? 'white' : 'grey'}}
+              labelStyle={{color: adults ? 'white' : 'grey'}}
               label={'Guest'}
               onPress={() => setModalVisible(true)}
               containerStyle={{
                 marginRight: 20,
                 borderColor: 'lightgrey',
-                backgroundColor: modalVisible ? 'black' : 'white',
+                backgroundColor: adults ? 'black' : 'white',
               }}
             />
           </View>
@@ -253,7 +254,15 @@ const WishList = ({}) => {
                   </View>
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                      <Stepper minValue={0} small={true} />
+                      <Stepper
+                        onValueChange={v => {
+                          console.log('Stepper', v);
+                          setAdults(v);
+                        }}
+                        value={adults}
+                        minValue={0}
+                        small={true}
+                      />
                     </View>
                   </View>
                 </View>
@@ -338,6 +347,7 @@ const WishList = ({}) => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                  onPress={() => setModalVisible(false)}
                   // onPress={() => setModalVisible(true)}
                   style={{
                     backgroundColor: 'black',
@@ -440,6 +450,7 @@ const WishList = ({}) => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                  onPress={() => setDate(false)}
                   // onPress={() => setModalVisible(true)}
                   style={{
                     backgroundColor: 'black',

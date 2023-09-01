@@ -26,6 +26,8 @@ import {FlatList} from 'react-native';
 import {Image} from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {Calendar} from 'react-native-calendars';
+import RadioBtn from '../../components/RadioBtn';
+import CheckBoxBtn from '../../components/CheckBoxBtn';
 const AddListing = () => {
   const countries = [
     'None',
@@ -59,7 +61,47 @@ const AddListing = () => {
   const [progress, setProgress] = useState(0);
   //   const [condition, setCondition] = useState('');
   const [condition, setCondition] = useState('information');
-  const [image, setImage] = useState([]);
+  // const [image, setImage] = useState([]);
+  const [input, setInput] = useState({
+    title: '',
+    description: '',
+    bedrooms: '',
+    guest: '',
+    beds: '',
+    bathrooms: '',
+    room: '',
+    size: '',
+    unitOfMeasure: '',
+    booking: '',
+    name: '',
+    price: '',
+    additionalGuest: '',
+    noOfGuest: '',
+    CleaningFee: '',
+    cityFee: '',
+    securityDeposit: '',
+    startDate: '',
+    EndDate: '',
+    nightly: '',
+    additionalGuest2: '',
+    weekEnds: '',
+    image: [],
+    address: '',
+    aptSuite: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    area: '',
+    country: '',
+    bedroomName: '',
+    numberOfGuest: '',
+    numberOfBed: '',
+    bedType: '',
+    minimumDayOfABooking: '',
+    maximumDayOfABooking: '',
+    additionalRulesInformation: '',
+    calender: '',
+  });
   const map = useRef();
   const pickImg = async () => {
     // ref.current.close();
@@ -68,7 +110,12 @@ const AddListing = () => {
       height: 400,
       multiple: true,
     }).then(Img => {
-      setImage([...image, ...Img]);
+      const myState = {...input};
+
+      [...input?.image, (myState.image = Img)];
+
+      setInput(myState);
+      // setImage([...input?.image, ...Img]);
     });
   };
   return (
@@ -83,23 +130,17 @@ const AddListing = () => {
                   style={{color: 'black', fontWeight: '500', marginBottom: 20}}>
                   What kind of place do you want to list?
                 </Text>
-                <RadioButton
+                <RadioBtn
                   containerStyle={{marginBottom: 10}}
-                  value={null}
-                  color="lightgrey"
-                  label={'Entire Place'}
+                  label="Entire Place"
                 />
-                <RadioButton
+                <RadioBtn
                   containerStyle={{marginBottom: 10}}
-                  value={null}
-                  color="lightgrey"
-                  label={'Private Room'}
+                  label="Private Room"
                 />
-                <RadioButton
+                <RadioBtn
                   containerStyle={{marginBottom: 10}}
-                  value={null}
-                  color="lightgrey"
-                  label={'Shared Room'}
+                  label="Shared Room"
                 />
               </View>
               <View>
@@ -120,7 +161,18 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Title" />
+                  <TextInput
+                    value={input?.title}
+                    onChangeText={t => {
+                      console.log('text', t);
+                      const myState = {...input};
+                      {
+                        myState.title = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Title"
+                  />
                 </View>
               </View>
               <View>
@@ -142,7 +194,18 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 200,
                   }}>
-                  <TextInput multiline placeholder="Description" />
+                  <TextInput
+                    value={input.description}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.description = t;
+                      }
+                      setInput(myState);
+                    }}
+                    multiline
+                    placeholder="Description"
+                  />
                 </View>
               </View>
               <View>
@@ -223,7 +286,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter Number of bedrooms" />
+                    <TextInput
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.bedrooms = t;
+                        }
+                        setInput(myState);
+                      }}
+                      value={input?.bedrooms}
+                      placeholder="Enter Number of bedrooms"
+                    />
                   </View>
                 </View>
                 <View>
@@ -244,7 +317,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter Number of guest" />
+                    <TextInput
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.guest = t;
+                        }
+                        setInput(myState);
+                      }}
+                      value={input?.guest}
+                      placeholder="Enter Number of guest"
+                    />
                   </View>
                 </View>
                 <View>
@@ -265,7 +348,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter Number of beds" />
+                    <TextInput
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.beds = t;
+                        }
+                        setInput(myState);
+                      }}
+                      value={input?.beds}
+                      placeholder="Enter Number of beds"
+                    />
                   </View>
                 </View>
                 <View>
@@ -286,7 +379,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter Number of bathrooms" />
+                    <TextInput
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.bathrooms = t;
+                        }
+                        setInput(myState);
+                      }}
+                      value={input?.bathrooms}
+                      placeholder="Enter Number of bathrooms"
+                    />
                   </View>
                 </View>
                 <View>
@@ -307,7 +410,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter Number of Room" />
+                    <TextInput
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.room = t;
+                        }
+                        setInput(myState);
+                      }}
+                      value={input?.room}
+                      placeholder="Enter Number of Room"
+                    />
                   </View>
                 </View>
                 <View>
@@ -328,7 +441,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter the Size:Only number" />
+                    <TextInput
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.size = t;
+                        }
+                        setInput(myState);
+                      }}
+                      value={input?.size}
+                      placeholder="Enter the Size:Only number"
+                    />
                   </View>
                 </View>
                 <View>
@@ -349,7 +472,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter the Unit of measure, Ex:SqFt" />
+                    <TextInput
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.unitOfMeasure = t;
+                        }
+                        setInput(myState);
+                      }}
+                      value={input?.unitOfMeasure}
+                      placeholder="Enter the Unit of measure, Ex:SqFt"
+                    />
                   </View>
                 </View>
                 <View>
@@ -370,7 +503,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter Affiliate Booking Link" />
+                    <TextInput
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.booking = t;
+                        }
+                        setInput(myState);
+                      }}
+                      value={input?.booking}
+                      placeholder="Enter Affiliate Booking Link"
+                    />
                   </View>
                 </View>
               </View>
@@ -382,12 +525,16 @@ const AddListing = () => {
                   style={{color: 'black', fontWeight: '500', marginBottom: 20}}>
                   Instance booking
                 </Text>
-                <Checkbox
+                <RadioBtn
+                  containerStyle={{marginBottom: 10}}
+                  label="Allow instant booking for this place."
+                />
+                {/* <Checkbox
                   label={'Allow instant booking for this place.'}
                   value={false}
                   color="lightgrey"
                   onValueChange={() => console.log('value changed')}
-                />
+                /> */}
               </View>
               <View>
                 <Text
@@ -594,7 +741,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter service name" />
+                    <TextInput
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.name = t;
+                        }
+                        setInput(myState);
+                      }}
+                      value={input?.name}
+                      placeholder="Enter service name"
+                    />
                   </View>
                 </View>
                 <View>
@@ -615,7 +772,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter price - only digits" />
+                    <TextInput
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.price = t;
+                        }
+                        setInput(myState);
+                      }}
+                      value={input?.price}
+                      placeholder="Enter price - only digits"
+                    />
                   </View>
                 </View>
                 <View>
@@ -706,7 +873,12 @@ const AddListing = () => {
                       flexDirection: 'row',
                       alignItems: 'center',
                     }}>
-                    <RadioButton
+                    <RadioBtn
+                      containerStyle={{marginBottom: 10, marginRight: 10}}
+                      label="Yes"
+                    />
+                    <RadioBtn containerStyle={{marginBottom: 10}} label="No" />
+                    {/* <RadioButton
                       containerStyle={{marginBottom: 10, marginRight: 10}}
                       value={null}
                       color="lightgrey"
@@ -717,7 +889,7 @@ const AddListing = () => {
                       value={null}
                       color="lightgrey"
                       label={'No'}
-                    />
+                    /> */}
                   </View>
                 </View>
                 <View>
@@ -738,7 +910,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter the price for 1 additional guest" />
+                    <TextInput
+                      value={input?.additionalGuest}
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.additionalGuest = t;
+                        }
+                        setInput(myState);
+                      }}
+                      placeholder="Enter the price for 1 additional guest"
+                    />
                   </View>
                 </View>
                 <View>
@@ -759,7 +941,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Number of additional guests allowed" />
+                    <TextInput
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.noOfGuest = t;
+                        }
+                        setInput(myState);
+                      }}
+                      value={input?.noOfGuest}
+                      placeholder="Number of additional guests allowed"
+                    />
                   </View>
                 </View>
                 <View>
@@ -780,7 +972,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter the price for cleaning fee" />
+                    <TextInput
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.CleaningFee = t;
+                        }
+                        setInput(myState);
+                      }}
+                      value={input?.CleaningFee}
+                      placeholder="Enter the price for cleaning fee"
+                    />
                   </View>
                 </View>
                 <View
@@ -789,7 +991,15 @@ const AddListing = () => {
                     alignItems: 'center',
                     marginTop: 10,
                   }}>
-                  <RadioButton
+                  <RadioBtn
+                    containerStyle={{marginBottom: 10, marginRight: 10}}
+                    label="Daily"
+                  />
+                  <RadioBtn
+                    containerStyle={{marginBottom: 10}}
+                    label="Per stay"
+                  />
+                  {/* <RadioButton
                     containerStyle={{marginBottom: 10, marginRight: 10}}
                     value={null}
                     color="lightgrey"
@@ -800,7 +1010,7 @@ const AddListing = () => {
                     value={null}
                     color="lightgrey"
                     label={'Per stay'}
-                  />
+                  /> */}
                 </View>
                 <View>
                   <Text
@@ -820,7 +1030,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter the price for city fee" />
+                    <TextInput
+                      value={input?.cityFee}
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.cityFee = t;
+                        }
+                        setInput(myState);
+                      }}
+                      placeholder="Enter the price for city fee"
+                    />
                   </View>
                 </View>
                 <View
@@ -829,17 +1049,13 @@ const AddListing = () => {
                     alignItems: 'center',
                     marginTop: 10,
                   }}>
-                  <RadioButton
+                  <RadioBtn
                     containerStyle={{marginBottom: 10, marginRight: 10}}
-                    value={null}
-                    color="lightgrey"
-                    label={'Daily'}
+                    label="Daily"
                   />
-                  <RadioButton
+                  <RadioBtn
                     containerStyle={{marginBottom: 10}}
-                    value={null}
-                    color="lightgrey"
-                    label={'Per stay'}
+                    label="Per stay"
                   />
                 </View>
                 <View>
@@ -860,7 +1076,17 @@ const AddListing = () => {
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}>
-                    <TextInput placeholder="Enter price for security deposit" />
+                    <TextInput
+                      value={input?.securityDeposit}
+                      onChangeText={t => {
+                        const myState = {...input};
+                        {
+                          myState.securityDeposit = t;
+                        }
+                        setInput(myState);
+                      }}
+                      placeholder="Enter price for security deposit"
+                    />
                   </View>
                 </View>
                 <View>
@@ -945,7 +1171,17 @@ const AddListing = () => {
                         paddingHorizontal: 10,
                         borderRadius: 10,
                       }}>
-                      <TextInput placeholder="Enter price for 1 night" />
+                      <TextInput
+                        value={input?.nightly}
+                        onChangeText={t => {
+                          const myState = {...input};
+                          {
+                            myState.nightly = t;
+                          }
+                          setInput(myState);
+                        }}
+                        placeholder="Enter price for 1 night"
+                      />
                     </View>
                   </View>
                   <View>
@@ -966,7 +1202,17 @@ const AddListing = () => {
                         paddingHorizontal: 10,
                         borderRadius: 10,
                       }}>
-                      <TextInput placeholder="Enter the price for 1 additional guest" />
+                      <TextInput
+                        value={input?.additionalGuest2}
+                        onChangeText={t => {
+                          const myState = {...input};
+                          {
+                            myState.additionalGuest2 = t;
+                          }
+                          setInput(myState);
+                        }}
+                        placeholder="Enter the price for 1 additional guest"
+                      />
                     </View>
                   </View>
                   <View>
@@ -987,7 +1233,17 @@ const AddListing = () => {
                         paddingHorizontal: 10,
                         borderRadius: 10,
                       }}>
-                      <TextInput placeholder="Enter the unit price for a single day" />
+                      <TextInput
+                        value={input?.weekEnds}
+                        onChangeText={t => {
+                          const myState = {...input};
+                          {
+                            myState.weekEnds = t;
+                          }
+                          setInput(myState);
+                        }}
+                        placeholder="Enter the unit price for a single day"
+                      />
                     </View>
                   </View>
                 </View>
@@ -1032,7 +1288,7 @@ const AddListing = () => {
               </View>
               <FlatList
                 numColumns={3}
-                data={image}
+                data={input?.image}
                 renderItem={({item, index}) => {
                   return (
                     <View
@@ -1052,10 +1308,15 @@ const AddListing = () => {
                       />
                       <TouchableOpacity
                         onPress={() => {
-                          const img = image.filter(function (item, i) {
+                          const img = input.image.filter(function (item, i) {
                             return i !== index;
                           });
-                          setImage(img);
+                          const myState = {...input};
+
+                          [...input?.image, (myState.image = img)];
+
+                          setInput(myState);
+                          // setImage(img);
                         }}
                         style={{
                           position: 'absolute',
@@ -1088,19 +1349,46 @@ const AddListing = () => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     paddingHorizontal: 5,
+                    marginBottom: 10,
                   }}>
-                  <Checkbox
-                    label={'Air Conditioning'}
-                    value={false}
-                    color="lightgrey"
-                    onValueChange={() => console.log('value changed')}
-                  />
-                  <Checkbox
-                    label={'Barbecue Area'}
-                    value={false}
-                    color="lightgrey"
-                    onValueChange={() => console.log('value changed')}
-                  />
+                  <CheckBoxBtn label="Air Conditioning" />
+                  <CheckBoxBtn label="Barbecue Area" />
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingHorizontal: 5,
+                    marginTop: 10,
+                    marginBottom: 10,
+                  }}>
+                  <CheckBoxBtn label="Dishwasher" />
+                  <CheckBoxBtn label="Gym" />
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingHorizontal: 5,
+                    marginTop: 10,
+                    marginBottom: 10,
+                  }}>
+                  <CheckBoxBtn label="Laundry" />
+                  <CheckBoxBtn label="Microwave" />
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingHorizontal: 5,
+                    marginTop: 10,
+                    marginBottom: 10,
+                  }}>
+                  <CheckBoxBtn label="Sauna" />
+                  <CheckBoxBtn label="Swimming Pool" />
                 </View>
                 <View
                   style={{
@@ -1110,89 +1398,8 @@ const AddListing = () => {
                     paddingHorizontal: 5,
                     marginTop: 10,
                   }}>
-                  <Checkbox
-                    label={'Dishwasher'}
-                    value={false}
-                    color="lightgrey"
-                    onValueChange={() => console.log('value changed')}
-                  />
-                  <View style={{width: '35%'}}>
-                    <Checkbox
-                      label={'Gym'}
-                      value={false}
-                      color="lightgrey"
-                      onValueChange={() => console.log('value changed')}
-                    />
-                  </View>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingHorizontal: 5,
-                    marginTop: 10,
-                  }}>
-                  <Checkbox
-                    label={'Laundry'}
-                    value={false}
-                    color="lightgrey"
-                    onValueChange={() => console.log('value changed')}
-                  />
-                  <View style={{width: '35%'}}>
-                    <Checkbox
-                      label={'Microwave'}
-                      value={false}
-                      color="lightgrey"
-                      onValueChange={() => console.log('value changed')}
-                    />
-                  </View>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingHorizontal: 5,
-                    marginTop: 10,
-                  }}>
-                  <Checkbox
-                    label={'Sauna'}
-                    value={false}
-                    color="lightgrey"
-                    onValueChange={() => console.log('value changed')}
-                  />
-                  <View style={{width: '35%'}}>
-                    <Checkbox
-                      label={'Swimming Pool'}
-                      value={false}
-                      color="lightgrey"
-                      onValueChange={() => console.log('value changed')}
-                    />
-                  </View>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingHorizontal: 5,
-                    marginTop: 10,
-                  }}>
-                  <Checkbox
-                    label={'TV Cable'}
-                    value={false}
-                    color="lightgrey"
-                    onValueChange={() => console.log('value changed')}
-                  />
-                  <View style={{width: '35%'}}>
-                    <Checkbox
-                      label={'Wi-Fi'}
-                      value={false}
-                      color="lightgrey"
-                      onValueChange={() => console.log('value changed')}
-                    />
-                  </View>
+                  <CheckBoxBtn label="TV Cable" />
+                  <CheckBoxBtn label="Wi-Fi" />
                 </View>
               </View>
               <View style={{marginTop: 20}}>
@@ -1206,21 +1413,10 @@ const AddListing = () => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     paddingHorizontal: 5,
+                    marginBottom: 10,
                   }}>
-                  <Checkbox
-                    label={'Beachside'}
-                    value={false}
-                    color="lightgrey"
-                    onValueChange={() => console.log('value changed')}
-                  />
-                  <View style={{width: '35%'}}>
-                    <Checkbox
-                      label={'Farmacy'}
-                      value={false}
-                      color="lightgrey"
-                      onValueChange={() => console.log('value changed')}
-                    />
-                  </View>
+                  <CheckBoxBtn label="Beachside" />
+                  <CheckBoxBtn label="Farmacy" />
                 </View>
                 <View
                   style={{
@@ -1229,21 +1425,10 @@ const AddListing = () => {
                     justifyContent: 'space-between',
                     paddingHorizontal: 5,
                     marginTop: 10,
+                    marginBottom: 10,
                   }}>
-                  <Checkbox
-                    label={'Free Parking'}
-                    value={false}
-                    color="lightgrey"
-                    onValueChange={() => console.log('value changed')}
-                  />
-                  <View style={{width: '35%'}}>
-                    <Checkbox
-                      label={'Markets'}
-                      value={false}
-                      color="lightgrey"
-                      onValueChange={() => console.log('value changed')}
-                    />
-                  </View>
+                  <CheckBoxBtn label="Free Parking" />
+                  <CheckBoxBtn label="Markets" />
                 </View>
                 <View
                   style={{
@@ -1252,21 +1437,10 @@ const AddListing = () => {
                     justifyContent: 'space-between',
                     paddingHorizontal: 5,
                     marginTop: 10,
+                    marginBottom: 10,
                   }}>
-                  <Checkbox
-                    label={'Playground'}
-                    value={false}
-                    color="lightgrey"
-                    onValueChange={() => console.log('value changed')}
-                  />
-                  <View style={{width: '35%'}}>
-                    <Checkbox
-                      label={'Reception'}
-                      value={false}
-                      color="lightgrey"
-                      onValueChange={() => console.log('value changed')}
-                    />
-                  </View>
+                  <CheckBoxBtn label="Playground" />
+                  <CheckBoxBtn label="Reception" />
                 </View>
                 <View
                   style={{
@@ -1276,12 +1450,7 @@ const AddListing = () => {
                     paddingHorizontal: 5,
                     marginTop: 10,
                   }}>
-                  <Checkbox
-                    label={'Security'}
-                    value={false}
-                    color="lightgrey"
-                    onValueChange={() => console.log('value changed')}
-                  />
+                  <CheckBoxBtn label="Security" />
                 </View>
               </View>
             </View>
@@ -1305,7 +1474,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Enter the listing address" />
+                  <TextInput
+                    value={input?.address}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.address = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Enter the listing address"
+                  />
                 </View>
               </View>
               <View>
@@ -1326,7 +1505,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Ex. #123" />
+                  <TextInput
+                    value={input?.aptSuite}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.aptSuite = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Ex. #123"
+                  />
                 </View>
               </View>
               <View>
@@ -1347,7 +1536,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Enter the City" />
+                  <TextInput
+                    value={input?.city}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.city = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Enter the City"
+                  />
                 </View>
               </View>
               <View>
@@ -1368,7 +1567,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Enter the State" />
+                  <TextInput
+                    value={input?.state}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.state = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Enter the State"
+                  />
                 </View>
               </View>
               <View>
@@ -1389,7 +1598,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Enter your Zip Code" />
+                  <TextInput
+                    value={input?.zipCode}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.zipCode = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Enter your Zip Code"
+                  />
                 </View>
               </View>
               <View>
@@ -1410,7 +1629,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Enter the Area" />
+                  <TextInput
+                    value={input?.area}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.area = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Enter the Area"
+                  />
                 </View>
               </View>
               <View>
@@ -1431,7 +1660,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Enter the Country" />
+                  <TextInput
+                    value={input?.country}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.country = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Enter the Country"
+                  />
                 </View>
               </View>
               <View>
@@ -1499,7 +1738,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Ex. Master Room or Room 1" />
+                  <TextInput
+                    value={input?.bedroomName}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.bedroomName = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Ex. Master Room or Room 1"
+                  />
                 </View>
               </View>
               <View>
@@ -1520,7 +1769,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Enter the number of guests for this room" />
+                  <TextInput
+                    value={input?.numberOfGuest}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.numberOfGuest = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Enter the number of guests for this room"
+                  />
                 </View>
               </View>
               <View>
@@ -1541,7 +1800,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Enter the number of beds" />
+                  <TextInput
+                    value={input?.numberOfBed}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.numberOfBed = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Enter the number of beds"
+                  />
                 </View>
               </View>
               <View>
@@ -1562,7 +1831,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Enter the bed type" />
+                  <TextInput
+                    value={input?.bedType}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.bedType = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Enter the bed type"
+                  />
                 </View>
               </View>
             </View>
@@ -1647,7 +1926,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Enter the minimum days of a booking (Only number)" />
+                  <TextInput
+                    value={input?.minimumDayOfABooking}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.minimumDayOfABooking = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Enter the minimum days of a booking (Only number)"
+                  />
                 </View>
               </View>
               <View>
@@ -1668,7 +1957,17 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Enter the maximum days of booking (Only number)" />
+                  <TextInput
+                    value={input?.maximumDayOfABooking}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.maximumDayOfABooking = t;
+                      }
+                      setInput(myState);
+                    }}
+                    placeholder="Enter the maximum days of booking (Only number)"
+                  />
                 </View>
               </View>
               <View>
@@ -1686,7 +1985,12 @@ const AddListing = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <RadioButton
+                  <RadioBtn
+                    containerStyle={{marginBottom: 10, marginRight: 10}}
+                    label="Yes"
+                  />
+                  <RadioBtn containerStyle={{marginBottom: 10}} label="No" />
+                  {/* <RadioButton
                     containerStyle={{marginBottom: 10, marginRight: 10}}
                     value={null}
                     color="lightgrey"
@@ -1697,7 +2001,7 @@ const AddListing = () => {
                     value={null}
                     color="lightgrey"
                     label={'No'}
-                  />
+                  /> */}
                 </View>
               </View>
               <View>
@@ -1715,18 +2019,23 @@ const AddListing = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <RadioButton
+                  <RadioBtn
+                    containerStyle={{marginBottom: 10, marginRight: 10}}
+                    label="Yes"
+                  />
+                  <RadioBtn containerStyle={{marginBottom: 10}} label="No" />
+                  {/* <RadioButton
                     containerStyle={{marginBottom: 10, marginRight: 10}}
                     value={null}
                     color="lightgrey"
-                    label={'Yes'}
+                    label={'No'}
                   />
                   <RadioButton
                     containerStyle={{marginBottom: 10}}
                     value={null}
                     color="lightgrey"
                     label={'No'}
-                  />
+                  /> */}
                 </View>
               </View>
               <View>
@@ -1744,7 +2053,12 @@ const AddListing = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <RadioButton
+                  <RadioBtn
+                    containerStyle={{marginBottom: 10, marginRight: 10}}
+                    label="Yes"
+                  />
+                  <RadioBtn containerStyle={{marginBottom: 10}} label="No" />
+                  {/* <RadioButton
                     containerStyle={{marginBottom: 10, marginRight: 10}}
                     value={null}
                     color="lightgrey"
@@ -1755,7 +2069,7 @@ const AddListing = () => {
                     value={null}
                     color="lightgrey"
                     label={'No'}
-                  />
+                  /> */}
                 </View>
               </View>
               <View>
@@ -1773,7 +2087,12 @@ const AddListing = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <RadioButton
+                  <RadioBtn
+                    containerStyle={{marginBottom: 10, marginRight: 10}}
+                    label="Yes"
+                  />
+                  <RadioBtn containerStyle={{marginBottom: 10}} label="No" />
+                  {/* <RadioButton
                     containerStyle={{marginBottom: 10, marginRight: 10}}
                     value={null}
                     color="lightgrey"
@@ -1784,7 +2103,7 @@ const AddListing = () => {
                     value={null}
                     color="lightgrey"
                     label={'No'}
-                  />
+                  /> */}
                 </View>
               </View>
               <View>
@@ -1807,6 +2126,14 @@ const AddListing = () => {
                     height: 200,
                   }}>
                   <TextInput
+                    value={input?.additionalRulesInformation}
+                    onChangeText={t => {
+                      const myState = {...input};
+                      {
+                        myState.additionalRulesInformation = t;
+                      }
+                      setInput(myState);
+                    }}
                     multiline
                     placeholder="Additional rules information (Optional)"
                   />
@@ -1822,10 +2149,15 @@ const AddListing = () => {
                     day.dateString,
                   );
                   setSelected(day.dateString);
+                  const myState = {...input};
+                  {
+                    myState.calender = day.dateString;
+                  }
+                  setInput(myState);
                 }}
                 showWeekNumbers
                 markedDates={{
-                  [selected]: {
+                  [input?.calender]: {
                     selected: true,
                     disableTouchEvent: true,
                     selectedDotColor: 'orange',
@@ -1870,7 +2202,8 @@ const AddListing = () => {
                 setProgress(100);
                 setCondition('');
               } else {
-                navigation.goBack();
+                console.log(input);
+                // navigation.goBack();
               }
             }}
             title={'Continue'}

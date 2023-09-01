@@ -26,7 +26,7 @@ const Trips = () => {
           <Text style={{color: 'black', fontSize: 25, fontWeight: '700'}}>
             Trips
           </Text>
-          {/* <View>
+          <View>
             <Text
               style={{
                 color: 'black',
@@ -175,18 +175,20 @@ const Trips = () => {
                   marginTop: 10,
                 }}>
                 <Text>Can't find your reservation here? </Text>
-                <Text
-                  style={{
-                    color: 'black',
-                    textDecorationLine: 'underline',
-                    fontWeight: 'bold',
-                  }}>
-                  Visit the help Center
-                </Text>
+                <TouchableOpacity>
+                  <Text
+                    style={{
+                      color: 'black',
+                      textDecorationLine: 'underline',
+                      fontWeight: 'bold',
+                    }}>
+                    Visit the help Center
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
-          </View> */}
-          <View>
+          </View>
+          {/* <View>
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate('Reviews')}>
               <View
@@ -318,7 +320,7 @@ const Trips = () => {
                 Visit the help Center
               </Text>
             </View>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>
