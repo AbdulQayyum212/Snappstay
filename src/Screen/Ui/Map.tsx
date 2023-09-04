@@ -566,7 +566,7 @@ const Map = props => {
                   );
                 })}
               </BottomSheetScrollView> */}
-              <FlatList
+              <BottomSheetFlatList
                 // showsVerticalScrollIndicator={false}
                 data={posts}
                 renderItem={({item}) => {
