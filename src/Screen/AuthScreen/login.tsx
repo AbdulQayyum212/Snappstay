@@ -4,7 +4,6 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  TextInput,
   Platform,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -12,7 +11,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SelectDropdown from 'react-native-select-dropdown';
 import {Button} from '../../components/Button';
-
+import { TextField } from 'react-native-ui-lib';
 const Login = () => {
   const countries = [
     'Pakistan (+92)',
@@ -82,7 +81,7 @@ const Login = () => {
               marginTop: -2,
             }}>
             <Text style={{fontSize: 10, marginTop: 10}}>Phone number</Text>
-            <TextInput
+            <TextField
               placeholder="Phone number"
               style={{
                 width: '100%',

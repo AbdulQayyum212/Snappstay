@@ -4,13 +4,11 @@ import {
   View,
   Image,
   Text,
-  TouchableOpacity,
-  TextInput,
-  Platform,
+  TouchableOpacity,  Platform,
 } from 'react-native';
 import {Button} from '../../components/Button';
 import {ChipsInput, NumberInput} from 'react-native-ui-lib';
-
+import { TextField } from 'react-native-ui-lib';
 const ConfirmNumber = () => {
   const navigation = useNavigation();
   return (
@@ -35,7 +33,7 @@ const ConfirmNumber = () => {
             justifyContent: 'space-between',
             paddingHorizontal: 10,
           }}>
-          <TextInput
+          <TextField
             placeholder="1"
             placeholderTextColor={'black'}
             style={{
@@ -46,7 +44,7 @@ const ConfirmNumber = () => {
               fontSize: 20,
             }}
           />
-          <TextInput
+          <TextField
             placeholder="2"
             placeholderTextColor={'black'}
             style={{
@@ -57,7 +55,7 @@ const ConfirmNumber = () => {
               fontSize: 20,
             }}
           />
-          <TextInput
+          <TextField
             placeholder="3"
             placeholderTextColor={'black'}
             style={{
@@ -68,7 +66,7 @@ const ConfirmNumber = () => {
               fontSize: 20,
             }}
           />
-          <TextInput
+          <TextField
             placeholder="4"
             placeholderTextColor={'black'}
             style={{
@@ -79,7 +77,7 @@ const ConfirmNumber = () => {
               fontSize: 20,
             }}
           />
-          <TextInput
+          <TextField
             placeholder="5"
             placeholderTextColor={'black'}
             style={{
@@ -90,7 +88,7 @@ const ConfirmNumber = () => {
               fontSize: 20,
             }}
           />
-          <TextInput
+          <TextField
             placeholder="6"
             placeholderTextColor={'black'}
             style={{

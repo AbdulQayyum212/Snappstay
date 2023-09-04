@@ -5,7 +5,6 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  TextInput,
   Platform,
   Switch,
 } from 'react-native';

@@ -5,7 +5,7 @@ import {
   FlatList,
   Modal,
   StyleSheet,
-  TextInput,
+  TextField,
   Dimensions,
   SafeAreaView,
 } from 'react-native';
@@ -421,7 +421,7 @@ const Explore = () => {
                   marginTop: 20,
                   borderRadius: 10,
                 }}>
-                <TextInput
+                <TextField
                   onChangeText={e => setName(e)}
                   placeholder="Name"
                   style={{paddingLeft: 10}}

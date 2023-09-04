@@ -3,12 +3,11 @@ import {
   Image,
   StyleSheet,
   Text,
-  TextInput,
   View,
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-
+import { TextField } from 'react-native-ui-lib';
 const Template = () => {
   const data = [
     {
@@ -63,7 +62,7 @@ const Template = () => {
                 style={{width: 20, height: 20, marginRight: 10}}
                 source={require('../assets/icon.png')}
               />
-              <TextInput
+              <TextField
                 style={{
                   height: 35,
                   width: '94%',

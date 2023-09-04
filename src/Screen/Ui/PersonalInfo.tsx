@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {View, TouchableOpacity, Text, TextInput} from 'react-native';
+import {View, TouchableOpacity, Text} from 'react-native';
+import {TextField} from 'react-native-ui-lib';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {Header} from '../../components/Header';
 
@@ -31,7 +32,7 @@ const PersonalInfo = () => {
             }}>
             First Name
           </Text>
-          <TextInput style={{height: 50}} placeholder="First Name" />
+          <TextField style={{height: 50}} placeholder="First Name" />
         </View>
         <View
           style={{
@@ -51,7 +52,7 @@ const PersonalInfo = () => {
             }}>
             Last Name
           </Text>
-          <TextInput style={{height: 50}} placeholder="Last Name" />
+          <TextField style={{height: 50}} placeholder="Last Name" />
         </View>
         <View
           style={{

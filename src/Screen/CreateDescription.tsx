@@ -5,11 +5,10 @@ import {
   Image,
   ScrollView,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-
+import { TextField } from 'react-native-ui-lib';
 const CreateDescription = () => {
   const navigation = useNavigation();
   return (
@@ -39,7 +38,7 @@ const CreateDescription = () => {
               height: 300,
               // borderRadius: 20,
             }}>
-            <TextInput placeholder="Relax with the whole family at this peaceful place to stay" />
+            <TextField placeholder="Relax with the whole family at this peaceful place to stay" />
           </View> */}
           <View
             style={{
@@ -51,7 +50,7 @@ const CreateDescription = () => {
               marginBottom: 10,
               height: 300,
             }}>
-            <TextInput
+            <TextField
               style={{justifyContent: 'flex-start'}}
               multiline={true}
               numberOfLines={10}

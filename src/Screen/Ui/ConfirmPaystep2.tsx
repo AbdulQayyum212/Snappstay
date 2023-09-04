@@ -6,10 +6,10 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  TextInput,
   SafeAreaView,
   Platform,
 } from 'react-native';
+import {TextField} from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Button} from '../../components/Button';
 
@@ -132,7 +132,7 @@ const ConfirmPaystep2 = () => {
                 borderRadius: 10,
                 paddingHorizontal: 10,
               }}>
-              <TextInput
+              <TextField
                 style={{marginTop: Platform.OS === 'ios' ? 10 : 0}}
                 onChangeText={e => setDis(e)}
                 placeholder="Hi Saty & Fun I'll be visiting Question"
@@ -179,7 +179,7 @@ const ConfirmPaystep2 = () => {
                 paddingHorizontal: 10,
                 marginBottom: 10,
               }}>
-              <TextInput style={{height: 50}} placeholder="Add First Name" />
+              <TextField style={{height: 50}} placeholder="Add First Name" />
             </View>
             <View
               style={{
@@ -191,7 +191,7 @@ const ConfirmPaystep2 = () => {
                 paddingHorizontal: 10,
                 marginBottom: 10,
               }}>
-              <TextInput style={{height: 50}} placeholder="Add Last Name" />
+              <TextField style={{height: 50}} placeholder="Add Last Name" />
             </View>
             <View
               style={{
@@ -204,7 +204,7 @@ const ConfirmPaystep2 = () => {
                 marginBottom: 10,
                 justifyContent: 'center',
               }}>
-              <TextInput
+              <TextField
                 style={{height: 50}}
                 keyboardType="numeric"
                 placeholder="Add Phone Number"
@@ -220,7 +220,7 @@ const ConfirmPaystep2 = () => {
                 paddingHorizontal: 10,
                 marginBottom: 10,
               }}>
-              <TextInput style={{height: 50}} placeholder="Add Email Addrees" />
+              <TextField style={{height: 50}} placeholder="Add Email Addrees" />
             </View>
           </View>
         </View>

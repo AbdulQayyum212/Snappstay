@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   Animated,
   StyleSheet,
-  TextInput,
+
   Modal,
   TouchableWithoutFeedback,
 } from 'react-native';
@@ -28,6 +28,7 @@ import FontAwesome5Brands from 'react-native-vector-icons/FontAwesome5Pro';
 import Foundation from 'react-native-vector-icons/Foundation';
 import {Carousel} from 'react-native-ui-lib';
 import {Button} from '../../components/Button';
+import { TextField } from 'react-native-ui-lib';
 import Message from './Message';
 import ReviewsTab from '../../TopTabs/ReviewsTab';
 import {Share} from 'react-native';
@@ -1684,7 +1685,7 @@ const TripDetail = () => {
                   borderColor: 'lightgrey',
                   borderWidth: 1,
                 }}>
-                <TextInput placeholder="Write a message" />
+                <TextField placeholder="Write a message" />
               </View>
             </View>
           </View>
@@ -1771,7 +1772,7 @@ const TripDetail = () => {
                     borderColor: 'lightgrey',
                     borderWidth: 1,
                   }}>
-                  <TextInput placeholder="Ex:clara smith, jim smith" />
+                  <TextField placeholder="Ex:clara smith, jim smith" />
                 </View>
               </View>
             </ScrollView>

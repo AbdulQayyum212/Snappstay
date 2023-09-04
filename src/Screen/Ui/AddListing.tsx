@@ -3,7 +3,6 @@ import {
   SafeAreaView,
   ScrollView,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -16,6 +15,7 @@ import {
   RadioButton,
   Stepper,
   Wizard,
+  TextField,
 } from 'react-native-ui-lib';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -159,7 +159,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.title}
                     onChangeText={t => {
@@ -193,7 +193,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 200,
                   }}>
-                  <TextInput
+                  <TextField
                     value={input.description}
                     onChangeText={t => {
                       const myState = {...input};
@@ -286,7 +286,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
@@ -319,7 +319,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
@@ -352,7 +352,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
@@ -385,7 +385,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
@@ -418,7 +418,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
@@ -451,7 +451,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
@@ -484,7 +484,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
@@ -517,7 +517,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
@@ -570,7 +570,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     placeholder="Enter price for 1 night"
                   />
@@ -595,7 +595,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     placeholder="Enter after price label Eg: Night/Hr"
                   />
@@ -620,7 +620,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     placeholder="Enter the unit price for a single day"
                   />
@@ -717,7 +717,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       placeholder="Enter the unit price for a single day"
                     />
@@ -742,7 +742,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       placeholder="Enter the unit price for a single day"
                     />
@@ -777,7 +777,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
@@ -810,7 +810,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
@@ -950,7 +950,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       value={input?.additionalGuest}
                       onChangeText={t => {
@@ -983,7 +983,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
@@ -1016,7 +1016,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
@@ -1076,7 +1076,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       value={input?.cityFee}
                       onChangeText={t => {
@@ -1124,7 +1124,7 @@ const AddListing = () => {
                       borderRadius: 10,
                       height: 50,
                     }}>
-                    <TextInput
+                    <TextField
                       style={{height: 50}}
                       value={input?.securityDeposit}
                       onChangeText={t => {
@@ -1221,7 +1221,7 @@ const AddListing = () => {
                         borderRadius: 10,
                         height: 50,
                       }}>
-                      <TextInput
+                      <TextField
                         style={{height: 50}}
                         value={input?.nightly}
                         onChangeText={t => {
@@ -1254,7 +1254,7 @@ const AddListing = () => {
                         borderRadius: 10,
                         height: 50,
                       }}>
-                      <TextInput
+                      <TextField
                         style={{height: 50}}
                         value={input?.additionalGuest2}
                         onChangeText={t => {
@@ -1287,7 +1287,7 @@ const AddListing = () => {
                         borderRadius: 10,
                         height: 50,
                       }}>
-                      <TextInput
+                      <TextField
                         style={{height: 50}}
                         value={input?.weekEnds}
                         onChangeText={t => {
@@ -1530,7 +1530,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.address}
                     onChangeText={t => {
@@ -1563,7 +1563,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.aptSuite}
                     onChangeText={t => {
@@ -1596,7 +1596,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.city}
                     onChangeText={t => {
@@ -1629,7 +1629,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.state}
                     onChangeText={t => {
@@ -1662,7 +1662,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.zipCode}
                     onChangeText={t => {
@@ -1695,7 +1695,7 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.area}
                     onChangeText={t => {
@@ -1728,7 +1728,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.country}
                     onChangeText={t => {
@@ -1783,7 +1783,7 @@ const AddListing = () => {
                     paddingHorizontal: 10,
                     borderRadius: 10,
                   }}>
-                  <TextInput placeholder="Enter the Country" />
+                  <TextField placeholder="Enter the Country" />
                 </View> */}
               </View>
             </View>
@@ -1808,7 +1808,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.bedroomName}
                     onChangeText={t => {
@@ -1841,7 +1841,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.numberOfGuest}
                     onChangeText={t => {
@@ -1874,7 +1874,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.numberOfBed}
                     onChangeText={t => {
@@ -1907,7 +1907,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.bedType}
                     onChangeText={t => {
@@ -2004,7 +2004,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.minimumDayOfABooking}
                     onChangeText={t => {
@@ -2037,7 +2037,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 50,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{height: 50}}
                     value={input?.maximumDayOfABooking}
                     onChangeText={t => {
@@ -2206,7 +2206,7 @@ const AddListing = () => {
                     borderRadius: 10,
                     height: 200,
                   }}>
-                  <TextInput
+                  <TextField
                     value={input?.additionalRulesInformation}
                     onChangeText={t => {
                       const myState = {...input};

@@ -6,14 +6,13 @@ import {
   Text,
   View,
   Image,
-  TextInput,
   FlatList,
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-
+import { TextField } from 'react-native-ui-lib';
 const Home = () => {
   const navigation = useNavigation();
   const [checkIn, setCheckIn] = useState(null);
@@ -126,7 +125,7 @@ const Home = () => {
                   style={{width: 20, height: 20, marginRight: 10}}
                   source={require('../assets/icon.png')}
                 />
-                <TextInput
+                <TextField
                   style={{
                     height: 35,
                     width: '92%',

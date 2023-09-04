@@ -7,7 +7,6 @@ import {
   Text,
   FlatList,
   ScrollView,
-  TextInput,
   Modal,
   StyleSheet,
   SafeAreaView,
@@ -17,6 +16,7 @@ import {ExpandableSection, Chip, Stepper} from 'react-native-ui-lib';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import plus from '../../assets/plusSmall.png';
+import { TextField } from 'react-native-ui-lib';
 import minus from '../../assets/minus.png';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {GOOGLE_API} from '../../Config/apiCaller';
@@ -490,7 +490,7 @@ const WhereTo = () => {
                   style={{width: 20, height: 20, marginRight: 10}}
                   source={require('../../assets/icon.png')}
                 />
-                <TextInput
+                <TextField
                   editable={false}
                   style={{
                     height: 35,
@@ -636,7 +636,7 @@ const WhereTo = () => {
                     style={{width: 20, height: 20, marginRight: 10}}
                     source={require('../../assets/icon.png')}
                   />
-                  <TextInput
+                  <TextField
                     editable={false}
                     style={{
                       height: 35,
@@ -745,7 +745,7 @@ const WhereTo = () => {
                 //         style={{width: 20, height: 20, marginRight: 10}}
                 //         source={require('../../assets/icon.png')}
                 //       />
-                //       <TextInput
+                //       <TextField
                 //         editable={false}
                 //         style={{
                 //           height: 35,
@@ -1171,7 +1171,7 @@ const WhereTo = () => {
                   style={{width: 20, height: 20, marginRight: 10}}
                   source={require('../../assets/icon.png')}
                 /> */}
-                {/* <TextInput
+                {/* <TextField
                   style={{
                     height: 35,
                     width: '92%',
@@ -1190,13 +1190,13 @@ const WhereTo = () => {
                   //   />;
                   // }}
                   styles={{
-                    textInputContainer: {
+                    TextFieldContainer: {
                       width: '100%',
                       // borderColor: 'lightgrey',
                       // borderWidth: 1,
                       borderRadius: 10,
                     },
-                    textInput: {
+                    TextField: {
                       width: '80%',
                       // height: 40,
                       backgroundColor: '#FBFBFB',
@@ -1204,7 +1204,7 @@ const WhereTo = () => {
                     },
                   }}
                   placeholder="Search..."
-                  textInputProps={{autoFocus: true}}
+                  TextFieldProps={{autoFocus: true}}
                   onPress={(data, details = null) => {
                     // 'details' is provided when fetchDetails = true
                     console.log(data, details);

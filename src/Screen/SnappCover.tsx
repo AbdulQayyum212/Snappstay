@@ -26,16 +26,16 @@ const SnappCover = () => {
   const navigation = useNavigation();
   let scrollOffsetY = useRef(new Animated.Value(0)).current;
 
-  const animateHeaderBackgroundColor = scrollOffsetY.interpolate({
-    inputRange: [0, 200 - 70],
-    outputRange: ['transparent', 'white'],
-    extrapolate: 'clamp',
-  });
-  const animatedHeaderHeight = scrollOffsetY.interpolate({
-    inputRange: [0, Scroll_Distance],
-    outputRange: [200, 70],
-    extrapolate: 'clamp',
-  });
+  // const animateHeaderBackgroundColor = scrollOffsetY.interpolate({
+  //   inputRange: [0, 200 - 70],
+  //   outputRange: ['transparent', 'white'],
+  //   extrapolate: 'clamp',
+  // });
+  // const animatedHeaderHeight = scrollOffsetY.interpolate({
+  //   inputRange: [0, Scroll_Distance],
+  //   outputRange: [200, 70],
+  //   extrapolate: 'clamp',
+  // });
   const data = [
     {
       img: require('../assets/Rectangle.png'),
@@ -68,9 +68,9 @@ const SnappCover = () => {
       <Animated.View
         style={[
           style.AnimatedView,
-          {
-            backgroundColor: animateHeaderBackgroundColor,
-          },
+          // {
+          //   backgroundColor: animateHeaderBackgroundColor,
+          // },
         ]}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}

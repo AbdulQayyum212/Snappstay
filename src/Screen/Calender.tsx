@@ -5,10 +5,10 @@ import {
   Image,
   ScrollView,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
+import { TextField } from 'react-native-ui-lib';
 import SelectDropdown from 'react-native-select-dropdown';
 const Calender = () => {
   const navigation = useNavigation();
@@ -56,7 +56,7 @@ const Calender = () => {
                       marginTop: 10,
                       paddingHorizontal: 10,
                     }}>
-                    <TextInput placeholder="1 night" />
+                    <TextField placeholder="1 night" />
                   </View>
                 </View>
                 <View style={{marginBottom: 20}}>
@@ -70,7 +70,7 @@ const Calender = () => {
                       marginTop: 10,
                       paddingHorizontal: 10,
                     }}>
-                    <TextInput placeholder="365 nights" />
+                    <TextField placeholder="365 nights" />
                   </View>
                 </View>
                 <View style={{marginBottom: 20}}>

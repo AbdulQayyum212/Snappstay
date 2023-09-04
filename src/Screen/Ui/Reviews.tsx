@@ -5,7 +5,6 @@ import {
   Text,
   ScrollView,
   Image,
-  TextInput,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -14,6 +13,7 @@ import StarRating from 'react-native-star-rating-widget';
 import {Chip, ProgressBar} from 'react-native-ui-lib';
 import Feather from 'react-native-vector-icons/Feather';
 import {Header} from '../../components/Header';
+import { TextField } from 'react-native-ui-lib';
 const Reviews = () => {
   const navigation = useNavigation();
   const [condition, setCondition] = useState('start');
@@ -278,7 +278,7 @@ const Reviews = () => {
                 height: 300,
                 paddingHorizontal: 10,
               }}>
-              <TextInput placeholder="Write a public review" />
+              <TextField placeholder="Write a public review" />
             </View>
           </View>
         ) : (
@@ -313,7 +313,7 @@ const Reviews = () => {
                 height: 300,
                 paddingHorizontal: 10,
               }}>
-              <TextInput placeholder="Write a private note" />
+              <TextField placeholder="Write a private note" />
             </View>
           </View>
         )}

@@ -4,7 +4,6 @@ import {
   Image,
   ScrollView,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Switch,
@@ -68,7 +67,7 @@ const Profile = ({...props}) => {
             style={{width: 20, height: 20, marginRight: 10}}
             source={require('../assets/icon.png')}
           />
-          <TextInput
+          <TextField
             style={{
               height: 35,
               width: '89%',
@@ -200,7 +199,7 @@ const Profile = ({...props}) => {
                     borderColor: '#EAEAEA',
                     marginBottom: 10,
                   }}>
-                  <TextInput placeholder="User Name" />
+                  <TextField placeholder="User Name" />
                 </View>
               </View>
               <View>
@@ -217,7 +216,7 @@ const Profile = ({...props}) => {
                     borderColor: '#EAEAEA',
                     marginBottom: 10,
                   }}>
-                  <TextInput placeholder="Your Name" />
+                  <TextField placeholder="Your Name" />
                 </View>
               </View>
               <View>
@@ -234,7 +233,7 @@ const Profile = ({...props}) => {
                     borderColor: '#EAEAEA',
                     marginBottom: 10,
                   }}>
-                  <TextInput
+                  <TextField
                     style={{justifyContent: 'flex-start'}}
                     multiline={true}
                     numberOfLines={10}
@@ -256,7 +255,7 @@ const Profile = ({...props}) => {
                     borderColor: '#EAEAEA',
                     marginBottom: 10,
                   }}>
-                  <TextInput placeholder="Email Address" />
+                  <TextField placeholder="Email Address" />
                 </View>
               </View>
             </View>

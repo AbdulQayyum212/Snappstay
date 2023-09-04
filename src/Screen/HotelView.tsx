@@ -5,11 +5,10 @@ import {
   Image,
   ScrollView,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-
+import { TextField } from 'react-native-ui-lib';
 const HotelView = () => {
   const data = [
     {
@@ -84,7 +83,7 @@ const HotelView = () => {
                 style={{width: 20, height: 20, marginRight: 10}}
                 source={require('../assets/icon.png')}
               />
-              <TextInput
+              <TextField
                 style={{
                   height: 35,
                   width: '93%',
