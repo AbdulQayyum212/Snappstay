@@ -60,7 +60,7 @@ const AddListing = () => {
   const [selected, setSelected] = useState('');
   const [progress, setProgress] = useState(0);
   //   const [condition, setCondition] = useState('');
-  const [condition, setCondition] = useState('information');
+  const [condition, setCondition] = useState('Information');
   // const [image, setImage] = useState([]);
   const [input, setInput] = useState({
     title: '',
@@ -104,26 +104,23 @@ const AddListing = () => {
   });
   const map = useRef();
   const pickImg = async () => {
-    // ref.current.close();
     ImagePicker.openPicker({
       width: 300,
       height: 400,
       multiple: true,
     }).then(Img => {
       const myState = {...input};
-
       [...input?.image, (myState.image = Img)];
-
       setInput(myState);
       // setImage([...input?.image, ...Img]);
     });
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <Header onPress={() => navigation.goBack()} />
+      <Header centerText={condition} onPress={() => navigation.goBack()} />
       <ScrollView>
         <View>
-          {condition == 'information' ? (
+          {condition == 'Information' ? (
             <View style={{padding: 20}}>
               <View>
                 <Text
@@ -160,8 +157,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.title}
                     onChangeText={t => {
                       console.log('text', t);
@@ -285,8 +284,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
                         {
@@ -316,8 +317,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
                         {
@@ -347,8 +350,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
                         {
@@ -378,8 +383,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
                         {
@@ -409,8 +416,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
                         {
@@ -440,8 +449,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
                         {
@@ -471,8 +482,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
                         {
@@ -502,8 +515,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
                         {
@@ -518,7 +533,7 @@ const AddListing = () => {
                 </View>
               </View>
             </View>
-          ) : condition == 'pricing' ? (
+          ) : condition == 'Pricing' ? (
             <View style={{padding: 20}}>
               <View>
                 <Text
@@ -553,8 +568,12 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
-                  <TextInput placeholder="Enter price for 1 night" />
+                  <TextInput
+                    style={{height: 50}}
+                    placeholder="Enter price for 1 night"
+                  />
                 </View>
               </View>
               <View>
@@ -574,8 +593,12 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
-                  <TextInput placeholder="Enter after price label Eg: Night/Hr" />
+                  <TextInput
+                    style={{height: 50}}
+                    placeholder="Enter after price label Eg: Night/Hr"
+                  />
                 </View>
               </View>
               <View>
@@ -595,8 +618,12 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
-                  <TextInput placeholder="Enter the unit price for a single day" />
+                  <TextInput
+                    style={{height: 50}}
+                    placeholder="Enter the unit price for a single day"
+                  />
                 </View>
               </View>
               <View>
@@ -688,8 +715,12 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
-                    <TextInput placeholder="Enter the unit price for a single day" />
+                    <TextInput
+                      style={{height: 50}}
+                      placeholder="Enter the unit price for a single day"
+                    />
                   </View>
                 </View>
                 <View>
@@ -709,8 +740,12 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
-                    <TextInput placeholder="Enter the unit price for a single day" />
+                    <TextInput
+                      style={{height: 50}}
+                      placeholder="Enter the unit price for a single day"
+                    />
                   </View>
                 </View>
                 <View>
@@ -740,8 +775,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
                         {
@@ -771,8 +808,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
                         {
@@ -909,8 +948,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       value={input?.additionalGuest}
                       onChangeText={t => {
                         const myState = {...input};
@@ -940,8 +981,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
                         {
@@ -971,8 +1014,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       onChangeText={t => {
                         const myState = {...input};
                         {
@@ -1029,8 +1074,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       value={input?.cityFee}
                       onChangeText={t => {
                         const myState = {...input};
@@ -1075,8 +1122,10 @@ const AddListing = () => {
                       width: '100%',
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      height: 50,
                     }}>
                     <TextInput
+                      style={{height: 50}}
                       value={input?.securityDeposit}
                       onChangeText={t => {
                         const myState = {...input};
@@ -1170,8 +1219,10 @@ const AddListing = () => {
                         width: '100%',
                         paddingHorizontal: 10,
                         borderRadius: 10,
+                        height: 50,
                       }}>
                       <TextInput
+                        style={{height: 50}}
                         value={input?.nightly}
                         onChangeText={t => {
                           const myState = {...input};
@@ -1201,8 +1252,10 @@ const AddListing = () => {
                         width: '100%',
                         paddingHorizontal: 10,
                         borderRadius: 10,
+                        height: 50,
                       }}>
                       <TextInput
+                        style={{height: 50}}
                         value={input?.additionalGuest2}
                         onChangeText={t => {
                           const myState = {...input};
@@ -1232,8 +1285,10 @@ const AddListing = () => {
                         width: '100%',
                         paddingHorizontal: 10,
                         borderRadius: 10,
+                        height: 50,
                       }}>
                       <TextInput
+                        style={{height: 50}}
                         value={input?.weekEnds}
                         onChangeText={t => {
                           const myState = {...input};
@@ -1249,7 +1304,7 @@ const AddListing = () => {
                 </View>
               </View>
             </View>
-          ) : condition == 'media' ? (
+          ) : condition == 'Media' ? (
             <View style={{padding: 20}}>
               <View
                 style={{
@@ -1336,7 +1391,7 @@ const AddListing = () => {
                 }}
               />
             </View>
-          ) : condition == 'features' ? (
+          ) : condition == 'Features' ? (
             <View style={{padding: 20}}>
               <View>
                 <Text
@@ -1454,7 +1509,7 @@ const AddListing = () => {
                 </View>
               </View>
             </View>
-          ) : condition == 'location' ? (
+          ) : condition == 'Location' ? (
             <View style={{padding: 20}}>
               <View>
                 <Text
@@ -1473,8 +1528,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.address}
                     onChangeText={t => {
                       const myState = {...input};
@@ -1504,8 +1561,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.aptSuite}
                     onChangeText={t => {
                       const myState = {...input};
@@ -1535,8 +1594,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.city}
                     onChangeText={t => {
                       const myState = {...input};
@@ -1566,8 +1627,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.state}
                     onChangeText={t => {
                       const myState = {...input};
@@ -1597,8 +1660,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.zipCode}
                     onChangeText={t => {
                       const myState = {...input};
@@ -1623,6 +1688,7 @@ const AddListing = () => {
                 </Text>
                 <View
                   style={{
+                    height: 50,
                     borderWidth: 1,
                     borderColor: 'lightgrey',
                     width: '100%',
@@ -1630,6 +1696,7 @@ const AddListing = () => {
                     borderRadius: 10,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.area}
                     onChangeText={t => {
                       const myState = {...input};
@@ -1659,8 +1726,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.country}
                     onChangeText={t => {
                       const myState = {...input};
@@ -1681,7 +1750,7 @@ const AddListing = () => {
                     marginBottom: 20,
                     marginTop: 10,
                   }}>
-                  Drag and drop the pin on map to find exact location
+                  Drag and drop the pin on map to find exact Location
                 </Text>
                 <MapView
                   ref={map}
@@ -1718,7 +1787,7 @@ const AddListing = () => {
                 </View> */}
               </View>
             </View>
-          ) : condition == 'bedroom' ? (
+          ) : condition == 'Bedroom' ? (
             <View style={{padding: 20}}>
               <View>
                 <Text
@@ -1737,8 +1806,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.bedroomName}
                     onChangeText={t => {
                       const myState = {...input};
@@ -1768,8 +1839,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.numberOfGuest}
                     onChangeText={t => {
                       const myState = {...input};
@@ -1799,8 +1872,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.numberOfBed}
                     onChangeText={t => {
                       const myState = {...input};
@@ -1830,8 +1905,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.bedType}
                     onChangeText={t => {
                       const myState = {...input};
@@ -1925,8 +2002,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.minimumDayOfABooking}
                     onChangeText={t => {
                       const myState = {...input};
@@ -1956,8 +2035,10 @@ const AddListing = () => {
                     width: '100%',
                     paddingHorizontal: 10,
                     borderRadius: 10,
+                    height: 50,
                   }}>
                   <TextInput
+                    style={{height: 50}}
                     value={input?.maximumDayOfABooking}
                     onChangeText={t => {
                       const myState = {...input};
@@ -2140,7 +2221,7 @@ const AddListing = () => {
                 </View>
               </View>
             </View>
-          ) : (
+          ) : condition === 'Calender' ? (
             <View style={{padding: 20}}>
               <Calendar
                 onDayPress={day => {
@@ -2165,7 +2246,7 @@ const AddListing = () => {
                 }}
               />
             </View>
-          )}
+          ) : null}
         </View>
       </ScrollView>
       <View>
@@ -2180,30 +2261,30 @@ const AddListing = () => {
           }}>
           <Button
             onPress={() => {
-              if (condition === 'information') {
+              if (condition === 'Information') {
                 setProgress(5);
-                setCondition('pricing');
-              } else if (condition === 'pricing') {
+                setCondition('Pricing');
+              } else if (condition === 'Pricing') {
                 setProgress(10);
-                setCondition('media');
-              } else if (condition === 'media') {
+                setCondition('Media');
+              } else if (condition === 'Media') {
                 setProgress(20);
-                setCondition('features');
-              } else if (condition === 'features') {
+                setCondition('Features');
+              } else if (condition === 'Features') {
                 setProgress(40);
-                setCondition('location');
-              } else if (condition === 'location') {
+                setCondition('Location');
+              } else if (condition === 'Location') {
                 setProgress(80);
-                setCondition('bedroom');
-              } else if (condition === 'bedroom') {
+                setCondition('Bedroom');
+              } else if (condition === 'Bedroom') {
                 setProgress(90);
                 setCondition('Terms&rules');
               } else if (condition === 'Terms&rules') {
                 setProgress(100);
-                setCondition('');
+                setCondition('Calender');
               } else {
-                console.log(input);
-                // navigation.goBack();
+                // console.log(input);
+                navigation.goBack();
               }
             }}
             title={'Continue'}

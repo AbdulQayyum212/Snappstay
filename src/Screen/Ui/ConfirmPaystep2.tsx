@@ -8,6 +8,7 @@ import {
   Image,
   TextInput,
   SafeAreaView,
+  Platform,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Button} from '../../components/Button';
@@ -132,6 +133,7 @@ const ConfirmPaystep2 = () => {
                 paddingHorizontal: 10,
               }}>
               <TextInput
+                style={{marginTop: Platform.OS === 'ios' ? 10 : 0}}
                 onChangeText={e => setDis(e)}
                 placeholder="Hi Saty & Fun I'll be visiting Question"
               />
@@ -177,7 +179,7 @@ const ConfirmPaystep2 = () => {
                 paddingHorizontal: 10,
                 marginBottom: 10,
               }}>
-              <TextInput placeholder="Add First Name" />
+              <TextInput style={{height: 50}} placeholder="Add First Name" />
             </View>
             <View
               style={{
@@ -189,7 +191,7 @@ const ConfirmPaystep2 = () => {
                 paddingHorizontal: 10,
                 marginBottom: 10,
               }}>
-              <TextInput placeholder="Add Last Name" />
+              <TextInput style={{height: 50}} placeholder="Add Last Name" />
             </View>
             <View
               style={{
@@ -200,8 +202,10 @@ const ConfirmPaystep2 = () => {
                 borderRadius: 10,
                 paddingHorizontal: 10,
                 marginBottom: 10,
+                justifyContent: 'center',
               }}>
               <TextInput
+                style={{height: 50}}
                 keyboardType="numeric"
                 placeholder="Add Phone Number"
               />
@@ -216,7 +220,7 @@ const ConfirmPaystep2 = () => {
                 paddingHorizontal: 10,
                 marginBottom: 10,
               }}>
-              <TextInput placeholder="Add Email Addrees" />
+              <TextInput style={{height: 50}} placeholder="Add Email Addrees" />
             </View>
           </View>
         </View>

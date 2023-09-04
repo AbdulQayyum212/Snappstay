@@ -267,13 +267,15 @@ const Profile = ({...props}) => {
           <Text style={{color: 'black', fontSize: 30, fontWeight: 'bold'}}>
             Profile
           </Text>
-          <Switch
-            trackColor={{false: '#767577', true: 'black'}}
-            thumbColor={props?.userToken ? '#fff' : '#f4f3f4'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={props?.userToken}
-          />
+          <View style={{alignItems: 'flex-end', marginTop: 5, marginBottom: 5}}>
+            <Switch
+              trackColor={{false: '#767577', true: 'black'}}
+              thumbColor={props?.userToken ? '#fff' : '#f4f3f4'}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={props?.userToken}
+            />
+          </View>
           <ScrollView showsVerticalScrollIndicator={false}>
             {props?.userToken ? null : (
               <Text

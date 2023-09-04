@@ -31,7 +31,7 @@ const PersonalInfo = () => {
             }}>
             First Name
           </Text>
-          <TextInput placeholder="First Name" />
+          <TextInput style={{height: 50}} placeholder="First Name" />
         </View>
         <View
           style={{
@@ -51,7 +51,7 @@ const PersonalInfo = () => {
             }}>
             Last Name
           </Text>
-          <TextInput placeholder="Last Name" />
+          <TextInput style={{height: 50}} placeholder="Last Name" />
         </View>
         <View
           style={{

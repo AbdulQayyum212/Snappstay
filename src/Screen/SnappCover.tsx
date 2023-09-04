@@ -65,6 +65,53 @@ const SnappCover = () => {
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+      <Animated.View
+        style={[
+          style.AnimatedView,
+          {
+            backgroundColor: animateHeaderBackgroundColor,
+          },
+        ]}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{
+            width: 30,
+            height: 30,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 50,
+            backgroundColor: 'white',
+          }}>
+          <EvilIcons name={'chevron-left'} size={20} color="black" />
+        </TouchableOpacity>
+        <View />
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity
+            onPress={onShare}
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 50,
+              backgroundColor: 'white',
+              marginRight: 10,
+            }}>
+            <AntDesign name={'upload'} size={15} color={'black'} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 50,
+              backgroundColor: 'white',
+            }}>
+            <Entypo name={'heart-outlined'} size={15} color={'black'} />
+          </TouchableOpacity>
+        </View>
+      </Animated.View>
       <ScrollView
         scrollEventThrottle={16}
         onScroll={Animated.event(
@@ -221,53 +268,6 @@ const SnappCover = () => {
           />
         </View>
       </View>
-      <Animated.View
-        style={[
-          style.AnimatedView,
-          {
-            backgroundColor: animateHeaderBackgroundColor,
-          },
-        ]}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{
-            width: 30,
-            height: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 50,
-            backgroundColor: 'white',
-          }}>
-          <EvilIcons name={'chevron-left'} size={20} color="black" />
-        </TouchableOpacity>
-        <View />
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <TouchableOpacity
-            onPress={onShare}
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 50,
-              backgroundColor: 'white',
-              marginRight: 10,
-            }}>
-            <AntDesign name={'upload'} size={15} color={'black'} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 50,
-              backgroundColor: 'white',
-            }}>
-            <Entypo name={'heart-outlined'} size={15} color={'black'} />
-          </TouchableOpacity>
-        </View>
-      </Animated.View>
     </SafeAreaView>
   );
 };
@@ -279,7 +279,7 @@ const style = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10,
     width: '100%',
-    position: 'absolute',
+    // position: 'absolute',
     top: 0,
   },
 });

@@ -3,7 +3,7 @@ import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-const Header = ({onPress, rightText, rightOnPress}: any) => {
+const Header = ({onPress, rightText, centerText, rightOnPress}: any) => {
   return (
     <View
       style={{
@@ -23,8 +23,22 @@ const Header = ({onPress, rightText, rightOnPress}: any) => {
         }}>
         <EvilIcons name={'chevron-left'} size={25} color="black" />
       </TouchableOpacity>
-      <View style={{flex: 1}} />
-      <View>
+      <View style={{flex: centerText ? 0 : 1}}>
+        {centerText && (
+          <TouchableOpacity onPress={rightOnPress}>
+            <Text
+              style={{
+                color: 'black',
+                textAlign: 'center',
+                fontWeight: 'bold',
+                // textDecorationLine: 'underline',
+              }}>
+              {centerText}
+            </Text>
+          </TouchableOpacity>
+        )}
+      </View>
+      <View style={{flex: rightText ? 0 : 1}}>
         {rightText && (
           <TouchableOpacity onPress={rightOnPress}>
             <Text
