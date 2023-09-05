@@ -6,7 +6,7 @@
  */
 
 import {NavigationContainer} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {applyMiddleware, createStore} from 'redux';
 import {
   KeyboardAvoidingView,
@@ -36,6 +36,8 @@ import {PersistGate} from 'redux-persist/integration/react';
 import _combineReducers from './src/Redux';
 import Toast, {ErrorToast} from 'react-native-toast-message';
 import {Image} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+
 const App = () => {
   const persistConfig = {
     key: 'root',
@@ -45,13 +47,17 @@ const App = () => {
   const store = createStore(persistReducers, applyMiddleware(thunk));
   const persistor = persistStore(store);
   const [condition, setCondition] = useState(true);
-  setTimeout(() => {
-    setCondition(false);
-  }, 2000);
+  // setTimeout(() => {
+  //   setCondition(false);
+  // }, 2000);
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   return (
     // <SafeAreaView style={styles.container}>
     <>
-      {condition ? (
+      {/* {condition ? (
         <View
           style={{
             flex: 1,
@@ -65,32 +71,32 @@ const App = () => {
             source={require('./src/assets/snappstaylogo.png')}
           />
         </View>
-      ) : (
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <NavigationContainer>
-              {Platform.OS == 'ios' ? (
-                <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
-                  <StackNavigation />
-                </KeyboardAvoidingView>
-              ) : (
+      ) : ( */}
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <NavigationContainer>
+            {Platform.OS == 'ios' ? (
+              <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
                 <StackNavigation />
-              )}
-            </NavigationContainer>
-          </PersistGate>
-          <Toast
-            config={{
-              error: props => (
-                <ErrorToast
-                  {...props}
-                  text1NumberOfLines={2}
-                  text2NumberOfLines={2}
-                />
-              ),
-            }}
-          />
-        </Provider>
-      )}
+              </KeyboardAvoidingView>
+            ) : (
+              <StackNavigation />
+            )}
+          </NavigationContainer>
+        </PersistGate>
+        <Toast
+          config={{
+            error: props => (
+              <ErrorToast
+                {...props}
+                text1NumberOfLines={2}
+                text2NumberOfLines={2}
+              />
+            ),
+          }}
+        />
+      </Provider>
+      {/* )} */}
     </>
     // </SafeAreaView>
   );
