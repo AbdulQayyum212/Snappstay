@@ -43,6 +43,7 @@
     "react-native-simple-bottom-sheet": "^1.0.4",
     "react-native-simple-radio-button": "^2.7.4",
     "react-native-simple-toast": "^3.0.1",
+    "react-native-splash-screen": "^3.3.0",
     "react-native-star-rating-widget": "^1.7.2",
     "react-native-svg": "^13.12.0",
     "react-native-tab-view": "^3.5.2",

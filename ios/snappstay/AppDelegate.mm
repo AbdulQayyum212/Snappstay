@@ -1,11 +1,13 @@
 #import "AppDelegate.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <React/RCTBundleURLProvider.h>
-
+#import "RNSplashScreen.h" s
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+[RNSplashScreen show];
 
   [GMSServices provideAPIKey:@"AIzaSyClYAkI28o4JC8de56LH0xpNWtX-TWIKr4"]; // add this line using the api key obtained from Google Console
 

@@ -6260,6 +6260,11 @@ react-native-simple-toast@^3.0.1:
   resolved "https://registry.yarnpkg.com/react-native-simple-toast/-/react-native-simple-toast-3.0.1.tgz#9bd1afd965147cc235d29a84f39847c02c3ea00c"
   integrity sha512-G1iUHqvhA4Obacol+fz1MKTeHDGyDFGXvnmAxYrUNBkTOA9/yaVpZBjoWfpnYXIlYtrCOcz6ll/B8nUJg4PPDA==
 
+react-native-splash-screen@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.3.0.tgz#3af71ed17afe50fee69590a45aec399d071ead02"
+  integrity sha512-rGjt6HkoSXxMqH4SQUJ1gnPQlPJV8+J47+4yhgTIan4bVvAwJhEeJH7wWt9hXSdH4+VfwTS0GTaflj1Tw83IhA==
+
 react-native-star-rating-widget@^1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/react-native-star-rating-widget/-/react-native-star-rating-widget-1.7.2.tgz#d082bd6a0b5276462f0e161ce7c7a70eaf84bdd9"
