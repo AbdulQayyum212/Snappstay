@@ -14,7 +14,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 const ConfirmPay = () => {
   const navigation = useNavigation();
   const [done, setDone] = useState(false);
-  const confetti = useRef();
+  const confetti = useRef<Confetti>(null);
   useEffect(() => {
     if (done) {
       confetti.current?.startConfetti();

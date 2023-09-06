@@ -7,9 +7,10 @@ import Inbox from '@screens/Ui/Inbox';
 import Trips from '@screens/Ui/Trips';
 import WishList from '@screens/Ui/WishList';
 import React from 'react';
+import {MyTabParamList} from '@type/navigation';
 
 const MyTabs = () => {
-  const Tab = createBottomTabNavigator();
+  const Tab = createBottomTabNavigator<MyTabParamList>();
   // d0364e
   return (
     <Tab.Navigator

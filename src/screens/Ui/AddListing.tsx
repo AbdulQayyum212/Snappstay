@@ -14,7 +14,7 @@ import {
   View,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
-import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker, {ImageOrVideo} from 'react-native-image-crop-picker';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import SelectDropdown from 'react-native-select-dropdown';
 import {ProgressBar, TextField} from 'react-native-ui-lib';
@@ -54,7 +54,46 @@ const AddListing = () => {
   //   const [condition, setCondition] = useState('');
   const [condition, setCondition] = useState('Information');
   // const [image, setImage] = useState([]);
-  const [input, setInput] = useState({
+  const [input, setInput] = useState<{
+    title: string;
+    description: string;
+    bedrooms: string;
+    guest: string;
+    beds: string;
+    bathrooms: string;
+    room: string;
+    size: string;
+    unitOfMeasure: string;
+    booking: string;
+    name: string;
+    price: string;
+    additionalGuest: string;
+    noOfGuest: string;
+    CleaningFee: string;
+    cityFee: string;
+    securityDeposit: string;
+    startDate: string;
+    EndDate: string;
+    nightly: string;
+    additionalGuest2: string;
+    weekEnds: string;
+    image: ImageOrVideo[];
+    address: string;
+    aptSuite: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    area: string;
+    country: string;
+    bedroomName: string;
+    numberOfGuest: string;
+    numberOfBed: string;
+    bedType: string;
+    minimumDayOfABooking: string;
+    maximumDayOfABooking: string;
+    additionalRulesInformation: string;
+    calender: string;
+  }>({
     title: '',
     description: '',
     bedrooms: '',
@@ -101,10 +140,7 @@ const AddListing = () => {
       height: 400,
       multiple: true,
     }).then(Img => {
-      const myState = {...input};
-      [...input?.image, (myState.image = Img)];
-      setInput(myState);
-      // setImage([...input?.image, ...Img]);
+      setInput(prev => ({...prev, image: [...prev.image, ...Img]}));
     });
   };
   return (

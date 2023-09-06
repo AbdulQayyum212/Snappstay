@@ -9,7 +9,7 @@ export type RootStackParamList = {
   Home: NavigatorScreenParams<HomeTabParamList>;
   PostDetails: {id: string};
   NotFound: undefined;
-  MyTabs: undefined;
+  MyTabs: NavigatorScreenParams<MyTabParamList>;
   Property: undefined;
   MapScreen: undefined;
   PrivatePlace: undefined;
@@ -63,6 +63,19 @@ export type HomeTabParamList = {
 export type HomeTabScreenProps<T extends keyof HomeTabParamList> =
   CompositeScreenProps<
     BottomTabScreenProps<HomeTabParamList, T>,
+    RootStackScreenProps<keyof RootStackParamList>
+  >;
+export type MyTabParamList = {
+  Trips: undefined;
+  Explore: undefined;
+  Wishlists: undefined;
+  inbox: undefined;
+  'Log In': undefined;
+};
+
+export type MyTabScreenProps<T extends keyof MyTabParamList> =
+  CompositeScreenProps<
+    BottomTabScreenProps<MyTabParamList, T>,
     RootStackScreenProps<keyof RootStackParamList>
   >;
 

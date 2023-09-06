@@ -1,12 +1,13 @@
 import {Button} from '@components/Button';
 import {useNavigation} from '@react-navigation/native';
+import {MyTabScreenProps, RootStackScreenProps} from '@type/navigation';
 import React, {useEffect, useRef} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import Confetti from 'react-native-confetti';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 const Done = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<MyTabScreenProps<'Explore'>['navigation']>();
   const confetti = useRef<Confetti>(null);
   useEffect(() => {
     confetti.current?.startConfetti();

@@ -247,20 +247,6 @@ const ConfirmPaystep2 = () => {
               </Text>
             </View>
           </View>
-          {/* <TouchableOpacity
-            onPress={() => navigation.navigate('MyTabs')}
-            style={{
-              backgroundColor: 'rgb(183, 43, 95)',
-              paddingVertical: 10,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 10,
-              width: 100,
-              flexDirection: 'row',
-              paddingHorizontal: 20,
-            }}>
-            <Text style={{color: 'white'}}>Submit</Text>
-          </TouchableOpacity> */}
           <Button
             onPress={() => navigation.navigate('MyTabs')}
             style={{marginTop: 20, paddingVertical: 10, width: 100}}
