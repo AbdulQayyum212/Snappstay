@@ -1,7 +1,7 @@
 {
-  "cSpell.words": ["Snapp"],
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  }
+  "cSpell.words": ["Snapp", "viewability"]
+  // "editor.formatOnSave": true
+  // "editor.codeActionsOnSave": {
+  //   "source.organizeImports": true
+  // }
 }

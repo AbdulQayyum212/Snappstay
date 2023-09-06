@@ -1,27 +1,29 @@
 import CustomMarker from '@components/CustomMarker';
 import PostCarouselItem from '@components/PostCarouselItem';
-import BottomSheet, {
-  BottomSheetFlatList,
-  BottomSheetScrollView,
-} from '@gorhom/bottom-sheet';
+import BottomSheet, {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   Dimensions,
   FlatList,
   Image,
+  SafeAreaView,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
+  ViewabilityConfigCallbackPairs,
   useWindowDimensions,
 } from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import {FlatListPropsWithLayout} from 'react-native-reanimated';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-const height = Dimensions.get('window').height;
-const Map = props => {
+import tw from 'twrnc';
+const {width, height} = Dimensions.get('window');
+
+const Map = () => {
   const [select, setSelect] = useState(1);
   const navigation = useNavigation();
   const panelRef = useRef(null);
@@ -100,32 +102,38 @@ const Map = props => {
   ];
 
   // variables
-  const snapPoints = useMemo(() => ['8%', '50%'], []);
+  const snapPoints = useMemo(() => ['8%', '90%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
   }, []);
-  const [selectedPlaceId, setSelectedPlaceId] = useState(null);
+  const [selectedPlaceId, setSelectedPlaceId] = useState<string>(null);
 
-  const flatList = useRef();
-  const map = useRef();
+  const flatList = useRef<FlatList>(null);
+  const map = useRef<MapView>(null);
 
-  const viewConfig = useRef({itemVisiblePercentThreshold: 70});
+  const viewConfig = useRef({
+    // minimumViewTime: 500,
+    itemVisiblePercentThreshold: 70,
+  });
 
-  const viewabilityConfigCallbackPairs = useRef([
-    {
-      viewabilityConfig: viewConfig.current,
-      onViewableItemsChanged: onViewableItemsChanged,
-    },
-  ]);
-
-  const onViewableItemsChanged = useRef(({viewableItems}) => {
+  const onViewableItemsChanged = useCallback(({viewableItems}: any) => {
+    console.log('onViewCallBack', viewableItems);
     if (viewableItems.length > 0) {
       const selectedPlace = viewableItems[0].item;
       setSelectedPlaceId(selectedPlace.id);
     }
-  });
+  }, []);
+
+  const viewabilityConfigCallbackPairs = useRef<ViewabilityConfigCallbackPairs>(
+    [
+      {
+        viewabilityConfig: viewConfig.current,
+        onViewableItemsChanged: onViewableItemsChanged,
+      },
+    ],
+  );
 
   const width = useWindowDimensions().width;
   const FlatListData = [
@@ -166,7 +174,7 @@ const Map = props => {
     },
   ];
   useEffect(() => {
-    if (!selectedPlaceId || !flatList) {
+    if (!selectedPlaceId || !flatList.current) {
       return;
     }
     const index = posts.findIndex(place => place.id === selectedPlaceId);
@@ -175,53 +183,53 @@ const Map = props => {
     const selectedPlace = posts[index];
     console.log(selectedPlace);
     const region = {
-      latitude: selectedPlace.latitude,
-      longitude: selectedPlace.longitude,
+      latitude: selectedPlace.coordinate.latitude,
+      longitude: selectedPlace.coordinate.longitude,
       latitudeDelta: 0.8,
       longitudeDelta: 0.8,
     };
-    map.current.animateToRegion(region);
+    map.current?.animateToRegion(region);
   }, [selectedPlaceId]);
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
-      <View
-        style={{
-          paddingHorizontal: 10,
-          paddingVertical: 10,
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
+    <SafeAreaView style={tw`h-full bg-white`}>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
+        <View
           style={{
-            marginRight: 5,
-          }}>
-          <EvilIcons name={'chevron-left'} size={30} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('WhereTo')}
-          style={{
+            paddingHorizontal: 10,
+            paddingVertical: 10,
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingHorizontal: 13,
-            borderRadius: 50,
-            width: '90%',
-            paddingVertical: 6,
-            backgroundColor: '#f7f7f7',
           }}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <AntDesign name="search1" size={20} style={{marginRight: 20}} />
-            <View>
-              <Text style={{fontWeight: 'bold', color: 'black'}}>
-                Where to?
-              </Text>
-              <Text>AnyWhere , AnyWhere , Add guest </Text>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{
+              marginRight: 5,
+            }}>
+            <EvilIcons name={'chevron-left'} size={30} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('WhereTo')}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingHorizontal: 13,
+              borderRadius: 50,
+              width: '90%',
+              paddingVertical: 6,
+              backgroundColor: '#f7f7f7',
+            }}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <AntDesign name="search1" size={20} style={{marginRight: 20}} />
+              <View>
+                <Text style={{fontWeight: 'bold', color: 'black'}}>
+                  Where to?
+                </Text>
+                <Text>AnyWhere , AnyWhere , Add guest </Text>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View>
+          </TouchableOpacity>
+        </View>
         <MapView
           ref={map}
           style={{width: '100%', height: '100%'}}
@@ -245,181 +253,55 @@ const Map = props => {
             />
           ))}
         </MapView>
-      </View>
-      <View style={{position: 'absolute', bottom: 30}}>
-        <FlatList
-          ref={flatList}
-          data={posts}
-          keyExtractor={item => item.id}
-          renderItem={({item}: any) => (
-            <PostCarouselItem post={item} key={item.id} />
-          )}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={width - 60}
-          snapToAlignment={'center'}
-          decelerationRate={'fast'}
-          viewabilityConfigCallbackPairs={
-            viewabilityConfigCallbackPairs.current
-          }
-          // viewabilityConfig={viewConfig.current}
-          // onViewableItemsChanged={onViewChanged.current}
-        />
-      </View>
-      {/* {condition ? (
-        <View
-          style={{
-            padding: 10,
-            alignItems: 'center',
-            position: 'absolute',
-            bottom: 50,
-          }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('SnappCover')}
-            style={{
-              width: '100%',
-              height: 110,
-              backgroundColor: 'white',
-              borderRadius: 15,
-              // position: 'absolute',
-              overflow: 'hidden',
-              flexDirection: 'row',
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-
-              elevation: 5,
-              // alignItems: 'center',
-            }}>
-            <Image
-              resizeMode="cover"
-              style={{width: 110, height: 110}}
-              source={require('@assets/Rectangle2.png')}
-            />
-            <View
-              style={{
-                paddingHorizontal: 10,
-                paddingVertical: 10,
-                width: '71%',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={{color: 'black', fontWeight: 'bold'}}>
-                  Private room in Quan 3{' '}
-                </Text>
-                <View>
-                  <TouchableOpacity
-                  // onPress={() => {
-                  //   if (heart != item?.id) {
-                  //     setHeart(item?.id);
-                  //   } else {
-                  //     setHeart(item?.id);
-                  //   }
-                  // }}
-                  >
-                    <Entypo
-                      // name={heart === item?.id ? 'heart' : 'heart-outlined'}
-                      name={'heart-outlined'}
-                      size={20}
-                      // color={heart === item?.id ? 'red' : 'white'}
-                      color={'black'}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <Text style={{}}>Studio Apartment in M Village </Text>
-              <Text style={{}}>1 bed </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginTop: 12,
-                }}>
-                <Text style={{color: 'black', fontWeight: 'bold'}}>
-                  $50 <Text style={{color: 'grey'}}>night</Text>
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    alignSelf: 'flex-start',
-                  }}>
-                  <Image
-                    style={{width: 20, height: 20}}
-                    source={require('@assets/u_star.png')}
-                  />
-                  <Text>4.94</Text>
-                </View>
-              </View>
-            </View>
-            <TouchableOpacity
-              onPress={() => setCondition(false)}
-              style={{
-                borderWidth: 1,
-                width: 25,
-                height: 25,
-                alignItems: 'center',
-                position: 'absolute',
-                top: 10,
-                justifyContent: 'center',
-                left: 10,
-                borderRadius: 20,
-                // borderRadius: 50,
-                // borderColor: 'lightgrey',
-                // alignSelf: 'flex-start',
-                // marginLeft: 21,
-                // marginBottom: 21,
-                backgroundColor: 'rgba(52, 52, 52, 0.8)',
-              }}>
-              <EvilIcons name={'close'} size={20} color="white" />
-            </TouchableOpacity>
-          </TouchableOpacity>
+        <View style={{position: 'absolute', bottom: 30}}>
+          <FlatList
+            ref={flatList}
+            data={posts}
+            keyExtractor={item => item.id}
+            renderItem={({item}: any) => (
+              <PostCarouselItem post={item} key={item.id} />
+            )}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            snapToInterval={width - 60}
+            snapToAlignment={'center'}
+            decelerationRate={'fast'}
+            viewabilityConfigCallbackPairs={
+              viewabilityConfigCallbackPairs.current
+            }
+            // viewabilityConfig={viewConfig.current}
+            // onViewableItemsChanged={onViewChanged.current}
+          />
         </View>
-      ) : null} */}
+        <BottomSheet
+          // animateOnMount={false}
+          ref={panelRef}
+          index={0}
+          snapPoints={snapPoints}
+          onChange={handleSheetChanges}>
+          <View style={{flex: 1}}>
+            <Text
+              style={{
+                color: 'black',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                marginBottom: 20,
+                fontSize: 18,
+              }}>
+              {`${posts?.length} Tropical Homes`}
+            </Text>
 
-      {/* <BottomSheet ref={ref => (panelRef.current = ref)}>
-        {onScrollEndDrag => (
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            onScrollEndDrag={onScrollEndDrag}>
-             {[...Array(10)].map((_, index) => (
-              <View key={`${index}`} style={styles.listItem}>
-                <Text>{`List Item ${index + 1}`}</Text>
-              </View>
-            ))} 
-            <View style={{flex: 1}}>
-              <Text
-                style={{
-                  color: 'black',
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                  marginBottom: '20',
-                }}>
-                {`${posts.length} Tropical Homes`}
-              </Text>
-              <FlatList
-                showsVerticalScrollIndicator={false}
-                data={posts}
-                renderItem={({item}) => {
-                  return (
+            <BottomSheetFlatList
+              data={posts}
+              renderItem={({item}) => {
+                return (
+                  <TouchableWithoutFeedback
+                    onPress={() => navigation.navigate('SnappCover')}>
                     <View
-                      style={{
-                        marginBottom: 10,
-                        marginTop: 20,
-                        // backgroundColor: 'red',
-                      }}>
+                      style={tw`w-full my-5 flex justify-center items-center bg-white shadow-md rounded-lg`}>
                       <Image
                         style={{
-                          width: 370,
+                          width: width - 20,
                           height: 370,
                           borderRadius: 20,
                         }}
@@ -427,8 +309,8 @@ const Map = props => {
                       />
                       <View
                         style={{
+                          width: '100%',
                           flexDirection: 'row',
-                          // alignItems: 'center',
                           justifyContent: 'space-between',
                           marginTop: 10,
                           paddingHorizontal: 10,
@@ -455,15 +337,7 @@ const Map = props => {
                         </View>
                       </View>
                       <View style={{position: 'absolute', top: 20, right: 20}}>
-                        <TouchableOpacity
-                        // onPress={() => {
-                        //   if (heart != item?.id) {
-                        //     setHeart(item?.id);
-                        //   } else {
-                        //     setHeart(item?.id);
-                        //   }
-                        // }}
-                        >
+                        <TouchableOpacity>
                           <Entypo
                             name={
                               heart === item?.id ? 'heart' : 'heart-outlined'
@@ -474,167 +348,15 @@ const Map = props => {
                         </TouchableOpacity>
                       </View>
                     </View>
-                  );
-                }}
-              />
-            </View>
-          </ScrollView>
-        )}
-      </BottomSheet> */}
-      <BottomSheet
-        ref={panelRef}
-        index={1}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}>
-        <View style={{flex: 1}}>
-          <Text
-            style={{
-              color: 'black',
-              fontWeight: 'bold',
-              textAlign: 'center',
-              marginBottom: 20,
-              fontSize: 18,
-            }}>
-            {`${posts?.length} Tropical Homes`}
-          </Text>
-          <BottomSheetScrollView
-          // showsVerticalScrollIndicator={false}
-          >
-            <View style={{flex: 1, paddingHorizontal: 20}}>
-              {/* <BottomSheetScrollView>
-                {posts.map(item => {
-                  console.log('item', item);
-                  return (
-                    <TouchableWithoutFeedback
-                      onPress={() => navigation.navigate('SnappCover')}>
-                      <View
-                        style={{
-                          marginBottom: 10,
-                          marginTop: 20,
-                        }}>
-                        <Image
-                          style={{
-                            width: 370,
-                            height: 370,
-                            borderRadius: 20,
-                          }}
-                          source={{uri: item?.image}}
-                        />
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginTop: 10,
-                            paddingHorizontal: 10,
-                          }}>
-                          <View>
-                            <Text style={{fontSize: 15, color: 'black'}}>
-                              {item?.title}
-                            </Text>
-                            <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-                              {item?.totalPrice}{' '}
-                            </Text>
-                          </View>
-                          <View
-                            style={{
-                              flexDirection: 'row',
-                              alignItems: 'center',
-                              alignSelf: 'flex-start',
-                            }}>
-                            <Image
-                              style={{width: 20, height: 20}}
-                              source={require('@assets/u_star.png')}
-                            />
-                            <Text>4.94</Text>
-                          </View>
-                        </View>
-                        <View
-                          style={{position: 'absolute', top: 20, right: 20}}>
-                          <TouchableOpacity>
-                            <Entypo
-                              name={
-                                heart === item?.id ? 'heart' : 'heart-outlined'
-                              }
-                              size={20}
-                              color={heart === item?.id ? 'red' : 'white'}
-                            />
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </TouchableWithoutFeedback>
-                  );
-                })}
-              </BottomSheetScrollView> */}
-              <BottomSheetFlatList
-                // showsVerticalScrollIndicator={false}
-                data={posts}
-                renderItem={({item}) => {
-                  return (
-                    <TouchableWithoutFeedback
-                      onPress={() => navigation.navigate('SnappCover')}>
-                      <View
-                        style={{
-                          marginBottom: 10,
-                          marginTop: 20,
-                        }}>
-                        <Image
-                          style={{
-                            width: 370,
-                            height: 370,
-                            borderRadius: 20,
-                          }}
-                          source={{uri: item?.image}}
-                        />
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginTop: 10,
-                            paddingHorizontal: 10,
-                          }}>
-                          <View>
-                            <Text style={{fontSize: 15, color: 'black'}}>
-                              {item?.title}
-                            </Text>
-                            <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-                              {item?.totalPrice}{' '}
-                            </Text>
-                          </View>
-                          <View
-                            style={{
-                              flexDirection: 'row',
-                              alignItems: 'center',
-                              alignSelf: 'flex-start',
-                            }}>
-                            <Image
-                              style={{width: 20, height: 20}}
-                              source={require('@assets/u_star.png')}
-                            />
-                            <Text>4.94</Text>
-                          </View>
-                        </View>
-                        <View
-                          style={{position: 'absolute', top: 20, right: 20}}>
-                          <TouchableOpacity>
-                            <Entypo
-                              name={
-                                heart === item?.id ? 'heart' : 'heart-outlined'
-                              }
-                              size={20}
-                              color={heart === item?.id ? 'red' : 'white'}
-                            />
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </TouchableWithoutFeedback>
-                  );
-                }}
-              />
-            </View>
-          </BottomSheetScrollView>
-        </View>
-      </BottomSheet>
-    </View>
+                  </TouchableWithoutFeedback>
+                );
+              }}
+            />
+            {/* </View> */}
+          </View>
+        </BottomSheet>
+      </View>
+    </SafeAreaView>
   );
 };
 export default Map;
