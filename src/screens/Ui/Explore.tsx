@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useRef, useState } from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useRef, useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -10,12 +10,12 @@ import {
   TextField,
   TouchableOpacity,
 } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { Carousel, Image, View } from 'react-native-ui-lib';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {Carousel, Image, View} from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { Button } from '../../components/Button';
-import { ModalHeader } from '../../components/Header';
+import {Button} from '../../components/Button';
+import {ModalHeader} from '../../components/Header';
 const width = Dimensions.get('window').width;
 const Explore = () => {
   const navigation = useNavigation();
@@ -310,7 +310,7 @@ const Explore = () => {
                       }}>
                       <Image
                         style={{width: 20, height: 20}}
-                        source={require('../@assets/u_star.png')}
+                        source={require('@assets/u_star.png')}
                       />
                       <Text>4.94</Text>
                     </View>

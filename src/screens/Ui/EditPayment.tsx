@@ -32,7 +32,7 @@ const EditPayment = () => {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
               style={{width: 30, height: 30, marginRight: 10}}
-              source={require('../@assets/masterLogo.png')}
+              source={require('@assets/masterLogo.png')}
             />
             <Text style={{color: 'black'}}>Visa</Text>
           </View>
@@ -56,7 +56,7 @@ const EditPayment = () => {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
               style={{width: 30, height: 30, marginRight: 10}}
-              source={require('../@assets/masterLogo.png')}
+              source={require('@assets/masterLogo.png')}
             />
             <Text style={{color: 'black'}}>Mestercard</Text>
           </View>

@@ -13,6 +13,7 @@ import {applyMiddleware, createStore} from 'redux';
 import StackNavigation from '@navigation/StackNavigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import _combineReducers from '@stores/index';
+import SplashScreen from 'react-native-splash-screen';
 import Toast, {ErrorToast} from 'react-native-toast-message';
 import {Provider} from 'react-redux';
 import {persistReducer, persistStore} from 'redux-persist';

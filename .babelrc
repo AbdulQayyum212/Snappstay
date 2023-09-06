@@ -12,7 +12,7 @@
           "@stores": "./src/stores",
           "@utils": "./src/utils",
           "@services": "./src/services",
-          "@assets": "./assets",
+          "@assets": "./src/assets",
           "@constants": "./src/constants",
           "@type": "./src/types",
           "@hooks": "./src/hooks"

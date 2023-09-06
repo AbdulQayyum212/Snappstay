@@ -1,123 +1,118 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {
-  View,
-  Image,
-  Text,
-  TouchableOpacity,  Platform,
-} from 'react-native';
+import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import {TextField} from 'react-native-ui-lib';
 import {Button} from '../../components/Button';
-import {ChipsInput, NumberInput} from 'react-native-ui-lib';
-import { TextField } from 'react-native-ui-lib';
 const ConfirmNumber = () => {
   const navigation = useNavigation();
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'white',
-        padding: 20,
-        justifyContent: 'space-between',
-      }}>
-      <View>
-        <Text>Enter the code we send over SMS to *******23</Text>
-        <View
-          style={{
-            borderWidth: 1,
-            width: 200,
-            marginTop: 20,
-            borderRadius: 10,
-            paddingVertical: 2,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingHorizontal: 10,
-          }}>
-          <TextField
-            placeholder="1"
-            placeholderTextColor={'black'}
+    <SafeAreaView style={{height: '100%', backgroundColor: 'white'}}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: 'white',
+          padding: 20,
+          justifyContent: 'space-between',
+        }}>
+        <View>
+          <Text>Enter the code we send over SMS to *******23</Text>
+          <View
             style={{
-              // backgroundColor: 'red',
-              width: 30,
-              height: 43,
+              borderWidth: 1,
+              width: 200,
+              marginTop: 20,
+              borderRadius: 10,
+              paddingVertical: 2,
+              flexDirection: 'row',
               alignItems: 'center',
-              fontSize: 20,
-            }}
-          />
-          <TextField
-            placeholder="2"
-            placeholderTextColor={'black'}
-            style={{
-              // backgroundColor: 'red',
-              width: 30,
-              height: 43,
-              alignItems: 'center',
-              fontSize: 20,
-            }}
-          />
-          <TextField
-            placeholder="3"
-            placeholderTextColor={'black'}
-            style={{
-              // backgroundColor: 'red',
-              width: 30,
-              height: 43,
-              alignItems: 'center',
-              fontSize: 20,
-            }}
-          />
-          <TextField
-            placeholder="4"
-            placeholderTextColor={'black'}
-            style={{
-              // backgroundColor: 'red',
-              width: 30,
-              height: 43,
-              alignItems: 'center',
-              fontSize: 20,
-            }}
-          />
-          <TextField
-            placeholder="5"
-            placeholderTextColor={'black'}
-            style={{
-              // backgroundColor: 'red',
-              width: 30,
-              height: 43,
-              alignItems: 'center',
-              fontSize: 20,
-            }}
-          />
-          <TextField
-            placeholder="6"
-            placeholderTextColor={'black'}
-            style={{
-              // backgroundColor: 'red',
-              width: 30,
-              height: 43,
-              alignItems: 'center',
-              fontSize: 20,
-            }}
-          />
-        </View>
-        <View
-          style={{marginTop: 20, flexDirection: 'row', alignItems: 'center'}}>
-          <Text>Didn't get an SMS?</Text>
-          <TouchableOpacity>
-            <Text
+              justifyContent: 'space-between',
+              paddingHorizontal: 10,
+            }}>
+            <TextField
+              placeholder="1"
+              placeholderTextColor={'black'}
               style={{
-                fontSize: 13,
-                fontWeight: 'bold',
-                color: 'black',
-                marginLeft: 5,
-                textDecorationLine: 'underline',
-              }}>
-              Send again
-            </Text>
-          </TouchableOpacity>
+                // backgroundColor: 'red',
+                width: 30,
+                height: 43,
+                alignItems: 'center',
+                fontSize: 20,
+              }}
+            />
+            <TextField
+              placeholder="2"
+              placeholderTextColor={'black'}
+              style={{
+                // backgroundColor: 'red',
+                width: 30,
+                height: 43,
+                alignItems: 'center',
+                fontSize: 20,
+              }}
+            />
+            <TextField
+              placeholder="3"
+              placeholderTextColor={'black'}
+              style={{
+                // backgroundColor: 'red',
+                width: 30,
+                height: 43,
+                alignItems: 'center',
+                fontSize: 20,
+              }}
+            />
+            <TextField
+              placeholder="4"
+              placeholderTextColor={'black'}
+              style={{
+                // backgroundColor: 'red',
+                width: 30,
+                height: 43,
+                alignItems: 'center',
+                fontSize: 20,
+              }}
+            />
+            <TextField
+              placeholder="5"
+              placeholderTextColor={'black'}
+              style={{
+                // backgroundColor: 'red',
+                width: 30,
+                height: 43,
+                alignItems: 'center',
+                fontSize: 20,
+              }}
+            />
+            <TextField
+              placeholder="6"
+              placeholderTextColor={'black'}
+              style={{
+                // backgroundColor: 'red',
+                width: 30,
+                height: 43,
+                alignItems: 'center',
+                fontSize: 20,
+              }}
+            />
+          </View>
+          <View
+            style={{marginTop: 20, flexDirection: 'row', alignItems: 'center'}}>
+            <Text>Didn't get an SMS?</Text>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 13,
+                  fontWeight: 'bold',
+                  color: 'black',
+                  marginLeft: 5,
+                  textDecorationLine: 'underline',
+                }}>
+                Send again
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      {/* <TouchableOpacity
+        {/* <TouchableOpacity
         onPress={() => navigation.navigate('Notifi')}
         style={{
           width: '100%',
@@ -129,12 +124,13 @@ const ConfirmNumber = () => {
         }}>
         <Text style={{color: 'white', fontWeight: 'bold'}}>Continue</Text>
       </TouchableOpacity> */}
-      <Button
-        style={{marginTop: 20}}
-        onPress={() => navigation.navigate('Notifi')}
-        title={'Continue'}
-      />
-    </View>
+        <Button
+          style={{marginTop: 20}}
+          onPress={() => navigation.navigate('Notifi')}
+          title={'Continue'}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 export default ConfirmNumber;
