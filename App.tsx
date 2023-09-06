@@ -18,6 +18,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Image,
 } from 'react-native';
 
 import {
@@ -27,15 +28,14 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import StackNavigation from './src/StackNavigation/StackNavigation';
+import StackNavigation from '@navigation/StackNavigation';
 import {createStoreHook, Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {persistReducer, persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
-import _combineReducers from './src/Redux';
+import _combineReducers from '@stores/index';
 import Toast, {ErrorToast} from 'react-native-toast-message';
-import {Image} from 'react-native';
 const App = () => {
   const persistConfig = {
     key: 'root',
