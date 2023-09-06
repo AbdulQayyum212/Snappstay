@@ -17,6 +17,8 @@ import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 import {Chip, ExpandableSection, Stepper, TextField} from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import tw from 'twrnc';
+
 const WhereTo = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -583,237 +585,25 @@ const WhereTo = () => {
           <ScrollView
             contentContainerStyle={{padding: 10}}
             showsVerticalScrollIndicator={false}>
-            {/* <View
-              style={{
-                borderRadius: 10,
-                width: '100%',
-                padding: 20,
-                backgroundColor: 'white',
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-
-                elevation: 5,
-              }}>
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 25,
-                  fontWeight: 'bold',
-                  marginBottom: 20,
-                }}>
-                Where To?
-              </Text>
-              <View
-                style={{
-                  width: '100%',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}>
-                <TouchableOpacity
-                  onPress={() => setModalVisible(true)}
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    flex: 1,
-                    height: 38,
-                    borderColor: 'lightgrey',
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    paddingHorizontal: 7,
-                    backgroundColor: '#FBFBFB',
-                  }}>
-                  <Image
-                    style={{width: 20, height: 20, marginRight: 10}}
-                    source={require('@assets/icon.png')}
-                  />
-                  <TextField
-                    editable={false}
-                    style={{
-                      height: 35,
-                      width: '92%',
-                      borderTopRightRadius: 20,
-                      borderBottomRightRadius: 20,
-                    }}
-                    placeholder="search..."
-                  />
-                </TouchableOpacity>
-              </View>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={data1}
-                renderItem={({item}) => {
-                  return (
-                    <View style={{}}>
-                      <TouchableOpacity
-                        onPress={() => navigation.navigate('Property')}
-                        style={{
-                          width: 200,
-                          borderRadius: 10,
-                          paddingVertical: 14,
-                        }}>
-                        <Image
-                          resizeMode="cover"
-                          style={{width: 130, height: 130, borderRadius: 10}}
-                          source={item?.img}
-                        />
-                        <Text style={{color: 'black', marginTop: 10}}>
-                          {item?.name}
+            <View style={tw`gap-4`}>
+              <View style={tw`shadow-lg  bg-white rounded-lg`}>
+                <ExpandableSection
+                  top={top}
+                  expanded={expanded2}
+                  sectionHeader={
+                    !expanded2 ? (
+                      <View
+                        style={tw`w-full flex-row items-center justify-between p-6`}>
+                        <Text
+                          style={{
+                            color: 'grey',
+                            //   fontSize: 25,
+                            fontWeight: 'bold',
+                            //   marginBottom: 20,
+                          }}>
+                          Where
                         </Text>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                }}
-              />
-            </View> */}
-            <View
-              style={{
-                borderRadius: 15,
-                marginTop: 10,
-                shadowColor: '#000',
-                backgroundColor: 'white',
-                overflow: 'hidden',
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}>
-              <ExpandableSection
-                top={top}
-                expanded={expanded2}
-                // sectionHeader={
-                // <View
-                //   style={{
-                //     borderRadius: 10,
-                //     width: '100%',
-                //     padding: 20,
-                //     backgroundColor: 'white',
-                //     // shadowColor: '#000',
-                //     // shadowOffset: {
-                //     //   width: 0,
-                //     //   height: 2,
-                //     // },
-                //     // shadowOpacity: 0.25,
-                //     // shadowRadius: 3.84,
-
-                //     // elevation: 5,
-                //   }}>
-                //   <Text
-                //     style={{
-                //       color: 'black',
-                //       fontSize: 25,
-                //       fontWeight: 'bold',
-                //       marginBottom: 20,
-                //     }}>
-                //     Where To?
-                //   </Text>
-                //   <View
-                //     style={{
-                //       width: '100%',
-                //       flexDirection: 'row',
-                //       alignItems: 'center',
-                //       justifyContent: 'space-between',
-                //     }}>
-                //     <TouchableOpacity
-                //       disabled={true}
-                //       // onPress={() => setModalVisible(true)}
-                //       style={{
-                //         flexDirection: 'row',
-                //         alignItems: 'center',
-                //         flex: 1,
-                //         height: 38,
-                //         borderColor: 'lightgrey',
-                //         borderWidth: 1,
-                //         borderRadius: 10,
-                //         paddingHorizontal: 7,
-                //         backgroundColor: '#FBFBFB',
-                //       }}>
-                //       <Image
-                //         style={{width: 20, height: 20, marginRight: 10}}
-                //         source={require('@assets/icon.png')}
-                //       />
-                //       <TextField
-                //         editable={false}
-                //         style={{
-                //           height: 35,
-                //           width: '92%',
-                //           borderTopRightRadius: 20,
-                //           borderBottomRightRadius: 20,
-                //         }}
-                //         placeholder="search..."
-                //       />
-                //     </TouchableOpacity>
-                //   </View>
-                //   <FlatList
-                //     horizontal
-                //     showsHorizontalScrollIndicator={false}
-                //     data={data1}
-                //     renderItem={({item}) => {
-                //       return (
-                //         <View style={{}}>
-                //           <TouchableOpacity
-                //             // onPress={() => navigation.navigate('Property')}
-                //             style={{
-                //               width: 130,
-                //               borderRadius: 10,
-                //               paddingVertical: 14,
-                //               // backgroundColor: 'red',
-                //               marginRight: 20,
-                //             }}>
-                //             <Image
-                //               resizeMode="cover"
-                //               style={{
-                //                 width: 130,
-                //                 height: 130,
-                //                 borderRadius: 10,
-                //               }}
-                //               source={item?.img}
-                //             />
-                //             <Text style={{color: 'black', marginTop: 10}}>
-                //               {item?.name}
-                //             </Text>
-                //           </TouchableOpacity>
-                //         </View>
-                //       );
-                //     }}
-                //   />
-                // </View>
-                // }
-                sectionHeader={
-                  !expanded2 ? (
-                    <View
-                      style={{
-                        // borderRadius: 10,
-                        width: '100%',
-                        padding: 10,
-                        backgroundColor: 'white',
-                        shadowRadius: 3.84,
-                        paddingVertical: 20,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        paddingHorizontal: 20,
-                        marginBottom: 10,
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: 'grey',
-                          //   fontSize: 25,
-                          fontWeight: 'bold',
-                          //   marginBottom: 20,
-                        }}>
-                        Where
-                      </Text>
-                      {/* <Text
+                        {/* <Text
                         style={{
                           color: 'black',
                           //   fontSize: 25,
@@ -822,9 +612,76 @@ const WhereTo = () => {
                         }}>
                         Any week
                       </Text> */}
-                    </View>
-                  ) : (
-                    <>
+                      </View>
+                    ) : (
+                      <>
+                        <View
+                          style={{
+                            // borderRadius: 10,
+                            width: '100%',
+                            padding: 10,
+                            backgroundColor: 'white',
+                            shadowRadius: 3.84,
+                            paddingVertical: 20,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            paddingHorizontal: 20,
+                            marginBottom: 10,
+                            justifyContent: 'space-between',
+                          }}>
+                          <Text
+                            style={{
+                              color: 'black',
+                              fontSize: 25,
+                              fontWeight: 'bold',
+                              //   marginBottom: 20,
+                            }}>
+                            Where To?
+                          </Text>
+                        </View>
+                      </>
+                    )
+                  }
+                  onPress={() => {
+                    if (expanded2) {
+                      setExpanded2(false);
+                    } else {
+                      setExpanded1(false);
+                      setExpanded(false);
+                      setExpanded2(true);
+                    }
+                  }}>
+                  {Body()}
+                </ExpandableSection>
+              </View>
+              <View style={tw`shadow-lg  bg-white rounded-lg`}>
+                <ExpandableSection
+                  top={top}
+                  expanded={expanded}
+                  sectionHeader={
+                    !expanded ? (
+                      <View
+                        style={tw`w-full flex-row items-center justify-between p-6`}>
+                        <Text
+                          style={{
+                            color: 'grey',
+                            //   fontSize: 25,
+                            fontWeight: 'bold',
+                            //   marginBottom: 20,
+                          }}>
+                          When
+                        </Text>
+                        <Text
+                          style={{
+                            color: 'black',
+                            //   fontSize: 25,
+                            fontWeight: 'bold',
+                            //   marginBottom: 20,
+                          }}>
+                          Any week
+                        </Text>
+                      </View>
+                    ) : (
                       <View
                         style={{
                           // borderRadius: 10,
@@ -846,203 +703,87 @@ const WhereTo = () => {
                             fontWeight: 'bold',
                             //   marginBottom: 20,
                           }}>
-                          Where To?
+                          When's your trip?
                         </Text>
                       </View>
-                    </>
-                  )
-                }
-                onPress={() => {
-                  if (expanded2) {
-                    setExpanded2(false);
-                  } else {
-                    setExpanded1(false);
-                    setExpanded(false);
-                    setExpanded2(true);
+                    )
                   }
-                }}>
-                {Body()}
-              </ExpandableSection>
-            </View>
-            <View
-              style={{
-                borderRadius: 15,
-                marginTop: 10,
-                shadowColor: '#000',
-                backgroundColor: 'white',
-                overflow: 'hidden',
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}>
-              <ExpandableSection
-                top={top}
-                expanded={expanded}
-                sectionHeader={
-                  !expanded ? (
-                    <View
-                      style={{
-                        // borderRadius: 10,
-                        width: '100%',
-                        padding: 10,
-                        backgroundColor: 'white',
-                        shadowRadius: 3.84,
-                        paddingVertical: 20,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        paddingHorizontal: 20,
-                        marginBottom: 10,
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
+                  onPress={() => {
+                    if (expanded) {
+                      setExpanded(false);
+                    } else {
+                      setExpanded1(false);
+                      setExpanded2(false);
+                      setExpanded(true);
+                    }
+                  }}>
+                  {getBodyElement()}
+                </ExpandableSection>
+              </View>
+              <View style={tw`shadow-lg  bg-white rounded-lg`}>
+                <ExpandableSection
+                  top={top}
+                  expanded={expanded1}
+                  sectionHeader={
+                    !expanded1 ? (
+                      <View
+                        style={tw`w-full flex-row items-center justify-between p-6`}>
+                        <Text
+                          style={{
+                            color: 'grey',
+                            //   fontSize: 25,
+                            fontWeight: 'bold',
+                            //   marginBottom: 20,
+                          }}>
+                          Who
+                        </Text>
+                        <Text
+                          style={{
+                            color: 'black',
+                            //   fontSize: 25,
+                            fontWeight: 'bold',
+                            //   marginBottom: 20,
+                          }}>
+                          Add guest
+                        </Text>
+                      </View>
+                    ) : (
+                      <View
                         style={{
-                          color: 'grey',
-                          //   fontSize: 25,
-                          fontWeight: 'bold',
-                          //   marginBottom: 20,
+                          width: '100%',
+                          padding: 10,
+                          backgroundColor: 'white',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          paddingHorizontal: 20,
+                          marginBottom: 5,
+                          justifyContent: 'space-between',
                         }}>
-                        When
-                      </Text>
-                      <Text
-                        style={{
-                          color: 'black',
-                          //   fontSize: 25,
-                          fontWeight: 'bold',
-                          //   marginBottom: 20,
-                        }}>
-                        Any week
-                      </Text>
-                    </View>
-                  ) : (
-                    <View
-                      style={{
-                        // borderRadius: 10,
-                        width: '100%',
-                        padding: 10,
-                        backgroundColor: 'white',
-                        shadowRadius: 3.84,
-                        paddingVertical: 20,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        paddingHorizontal: 20,
-                        marginBottom: 10,
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: 'black',
-                          fontSize: 25,
-                          fontWeight: 'bold',
-                          //   marginBottom: 20,
-                        }}>
-                        When's your trip?
-                      </Text>
-                    </View>
-                  )
-                }
-                onPress={() => {
-                  if (expanded) {
-                    setExpanded(false);
-                  } else {
-                    setExpanded1(false);
-                    setExpanded2(false);
-                    setExpanded(true);
+                        <Text
+                          style={{
+                            color: 'black',
+                            //   fontSize: 25,
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                            //   marginBottom: 20,
+                          }}>
+                          Who's coming?
+                        </Text>
+                      </View>
+                    )
                   }
-                }}>
-                {getBodyElement()}
-              </ExpandableSection>
-            </View>
-            <View
-              style={{
-                borderRadius: 15,
-                marginTop: 10,
-                shadowColor: '#000',
-                backgroundColor: 'white',
-                overflow: 'hidden',
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}>
-              <ExpandableSection
-                top={top}
-                expanded={expanded1}
-                sectionHeader={
-                  !expanded1 ? (
-                    <View
-                      style={{
-                        width: '100%',
-                        padding: 10,
-                        backgroundColor: 'white',
-
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        paddingHorizontal: 20,
-                        marginBottom: 20,
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: 'grey',
-                          //   fontSize: 25,
-                          fontWeight: 'bold',
-                          //   marginBottom: 20,
-                        }}>
-                        Who
-                      </Text>
-                      <Text
-                        style={{
-                          color: 'black',
-                          //   fontSize: 25,
-                          fontWeight: 'bold',
-                          //   marginBottom: 20,
-                        }}>
-                        Add guest
-                      </Text>
-                    </View>
-                  ) : (
-                    <View
-                      style={{
-                        width: '100%',
-                        padding: 10,
-                        backgroundColor: 'white',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        paddingHorizontal: 20,
-                        marginBottom: 5,
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: 'black',
-                          //   fontSize: 25,
-                          fontWeight: 'bold',
-                          fontSize: 25,
-                          //   marginBottom: 20,
-                        }}>
-                        Who's coming?
-                      </Text>
-                    </View>
-                  )
-                }
-                onPress={() => {
-                  if (expanded1) {
-                    setExpanded1(false);
-                  } else {
-                    setExpanded(false);
-                    setExpanded2(false);
-                    setExpanded1(true);
-                  }
-                }}>
-                {BodyElement()}
-              </ExpandableSection>
+                  onPress={() => {
+                    if (expanded1) {
+                      setExpanded1(false);
+                    } else {
+                      setExpanded(false);
+                      setExpanded2(false);
+                      setExpanded1(true);
+                    }
+                  }}>
+                  {BodyElement()}
+                </ExpandableSection>
+              </View>
             </View>
           </ScrollView>
         </View>

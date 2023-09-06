@@ -10,7 +10,7 @@ import ChooseReservation from '@screens/ChooseReservation';
 import CreateDescription from '@screens/CreateDescription';
 import CreatePrice from '@screens/CreatePrice';
 import Describe from '@screens/Describe';
-import GuestPlaceoffer from '@screens/GuestPlaceoffer';
+import GuestPlaceholder from '@screens/GuestPlaceOffer';
 import HouseRules from '@screens/HouseRules';
 import LastStep from '@screens/LastStep';
 import MapScreen from '@screens/MapScreen';
@@ -31,7 +31,7 @@ import HelpCenter from '@screens/Ui/HelpCenter';
 import Map from '@screens/Ui/Map';
 import Notifications from '@screens/Ui/Notifications';
 import PersonalInfo from '@screens/Ui/PersonalInfo';
-import PrivacyandSharing from '@screens/Ui/PrivacyandSharing';
+import PrivacyAndSharing from '@screens/Ui/PrivacyAndSharing';
 import ProfileStep2 from '@screens/Ui/ProfileStep2';
 import Reviews from '@screens/Ui/Reviews';
 import StartEarning from '@screens/Ui/StartEarning';
@@ -41,8 +41,9 @@ import WhereTo from '@screens/Ui/WhereTo';
 import Welcome from '@screens/Welcom';
 import React from 'react';
 import MyTabs from './BottomNavigation';
+import {RootStackParamList} from '@type/navigation';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 const StackNavigation = () => {
   return (
     <Stack.Navigator
@@ -54,10 +55,10 @@ const StackNavigation = () => {
       <Stack.Screen name="MapScreen" component={MapScreen} />
       <Stack.Screen name="PrivatePlace" component={PrivatePlace} />
       <Stack.Screen name="SharePlace" component={SharePlace} />
-      <Stack.Screen name="GuestPlaceoffer" component={GuestPlaceoffer} />
+      <Stack.Screen name="GuestPlaceOffer" component={GuestPlaceholder} />
       <Stack.Screen name="AddHouse" component={AddHouse} />
       <Stack.Screen name="AddHouseTitle" component={AddHouseTitle} />
-      <Stack.Screen name="Desribe" component={Describe} />
+      <Stack.Screen name="Describe" component={Describe} />
       <Stack.Screen name="CreateDescription" component={CreateDescription} />
       <Stack.Screen name="ChooseReservation" component={ChooseReservation} />
       <Stack.Screen name="CreatePrice" component={CreatePrice} />
@@ -82,7 +83,7 @@ const StackNavigation = () => {
       <Stack.Screen name="ProfileStep2" component={ProfileStep2} />
       <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
       <Stack.Screen name="EditPayment" component={EditPayment} />
-      <Stack.Screen name="PrivacyandSharing" component={PrivacyandSharing} />
+      <Stack.Screen name="PrivacyAndSharing" component={PrivacyAndSharing} />
       <Stack.Screen name="StartEarning" component={StartEarning} />
       <Stack.Screen name="Reviews" component={Reviews} />
       <Stack.Screen name="Done" component={Done} />

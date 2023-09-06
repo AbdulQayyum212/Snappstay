@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -7,11 +7,10 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  TextField,
   TouchableOpacity,
 } from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import {Carousel, Image, View} from 'react-native-ui-lib';
+import {Carousel, Image, TextField, View} from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Button} from '../../components/Button';
@@ -21,11 +20,17 @@ const Explore = () => {
   const navigation = useNavigation();
   const [select, setSelect] = useState<number>(1);
   const [heart, setHeart] = useState<number>();
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState<string>('');
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
   const viewConfig = useRef({itemVisiblePercentThreshold: 70});
 
+  const onViewableItemsChanged = useCallback(({viewableItems}: any) => {
+    if (viewableItems.length > 0) {
+      const selectedPlace = viewableItems[0].item;
+      setSelectedPlaceId(selectedPlace.id);
+    }
+  }, []);
   const viewabilityConfigCallbackPairs = useRef([
     {
       viewabilityConfig: viewConfig.current,
@@ -33,17 +38,11 @@ const Explore = () => {
     },
   ]);
 
-  const onViewableItemsChanged = useRef(({viewableItems}: any) => {
-    if (viewableItems.length > 0) {
-      const selectedPlace = viewableItems[0].item;
-      setSelectedPlaceId(selectedPlace.id);
-    }
-  });
   const data = [
     {
       id: 1,
       img: require('@assets/2.jpg'),
-      title1: 'Apertment In Houston Texas',
+      title1: 'Apartment In Houston Texas',
       title2: 'Amsterdam Lifestyle in Houston',
       title3: '1 queen bed Individual Host',
       title4: 'night',
@@ -52,7 +51,7 @@ const Explore = () => {
     {
       id: 2,
       img: require('@assets/1.jpg'),
-      title1: 'Apertment In Houston Texas',
+      title1: 'Apartment In Houston Texas',
       title2: 'Amsterdam Lifestyle in Houston',
       title3: '1 queen bed Individual Host',
       title4: 'night',
@@ -61,7 +60,7 @@ const Explore = () => {
     {
       id: 3,
       img: require('@assets/3.jpg'),
-      title1: 'Apertment In Houston Texas',
+      title1: 'Apartment In Houston Texas',
       title2: 'Amsterdam Lifestyle in Houston',
       title3: '1 queen bed Individual Host',
       title4: 'night',
@@ -70,7 +69,7 @@ const Explore = () => {
     {
       id: 2,
       img: require('@assets/4.jpg'),
-      title1: 'Apertment In Houston Texas',
+      title1: 'Apartment In Houston Texas',
       title2: 'Amsterdam Lifestyle in Houston',
       title3: '1 queen bed Individual Host',
       title4: 'night',
@@ -368,7 +367,7 @@ const Explore = () => {
               modalVisible
               CenterText="Name this wishlist"
               leftOnPress={() => {
-                setHeart();
+                // setHeart();
                 setModalVisible(false);
               }}
             />
@@ -417,11 +416,12 @@ const Explore = () => {
                   width: '100%',
                   marginTop: 20,
                   borderRadius: 10,
+                  height: 50,
                 }}>
                 <TextField
                   onChangeText={e => setName(e)}
                   placeholder="Name"
-                  style={{paddingLeft: 10}}
+                  style={{paddingLeft: 10, height: 50}}
                 />
               </View>
               <Text style={{color: 'black', marginTop: 10}}>

@@ -20,19 +20,6 @@ const CreateDescription = () => {
           </Text>
         </View>
         <View>
-          {/* <View
-            style={{
-              width: '100%',
-              borderWidth: 1,
-              borderColor: 'lightgrey',
-              //   justifyContent: 'center',
-              //   alignItems: 'center',
-              //   paddingVertical: 50,
-              height: 300,
-              // borderRadius: 20,
-            }}>
-            <TextField placeholder="Relax with the whole family at this peaceful place to stay" />
-          </View> */}
           <View
             style={{
               width: '100%',

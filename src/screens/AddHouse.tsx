@@ -1,16 +1,16 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {Asset, launchImageLibrary} from 'react-native-image-picker';
 
 const AddHouse = () => {
   const navigation = useNavigation();
-  const [img, setImg] = useState([]);
+  const [img, setImg] = useState<Asset[]>([]);
   const pickImg = async () => {
     const res = await launchImageLibrary(
       {mediaType: 'photo', selectionLimit: 5},
       value => {
-        setImg([...img, value?.assets[0]]);
+        if (value.assets != undefined) setImg([...img, value.assets[0]]);
       },
     );
     console.log('==================================== img', res);

@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 
-const GuestPlaceoffer = () => {
+const GuestPlaceholder = () => {
   const data = [
     {
       img: require('@assets/wifi.png'),
@@ -120,4 +120,4 @@ const GuestPlaceoffer = () => {
     </View>
   );
 };
-export default GuestPlaceoffer;
+export default GuestPlaceholder;

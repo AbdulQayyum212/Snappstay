@@ -286,7 +286,7 @@ const Profile = ({...props}) => {
             )}
             {props?.userToken ? (
               <View
-                onPress={() => navigation.navigate('ProfileStep2')}
+                // onPress={() => navigation.navigate('ProfileStep2')}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
@@ -446,7 +446,7 @@ const Profile = ({...props}) => {
                         style={{marginRight: 10}}
                       />
                     }
-                    onPress={() => navigation.navigate('PrivacyandSharing')}
+                    onPress={() => navigation.navigate('PrivacyAndSharing')}
                     centerText="Privacy and sharing"
                   />
                   <CustomBtn

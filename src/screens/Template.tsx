@@ -12,7 +12,7 @@ const Template = () => {
   const data = [
     {
       img: require('@assets/Rectangle.png'),
-      title1: 'Apertment In Houston Texas',
+      title1: 'Apartment In Houston Texas',
       title2: 'Amsterdam Lifestyle in Houston',
       title3: '1 queen bed Individual Host',
       title4: 'night',
@@ -20,7 +20,7 @@ const Template = () => {
     },
     {
       img: require('@assets/Rectangle2.png'),
-      title1: 'Apertment In Houston Texas',
+      title1: 'Apartment In Houston Texas',
       title2: 'Amsterdam Lifestyle in Houston',
       title3: '1 queen bed Individual Host',
       title4: 'night',

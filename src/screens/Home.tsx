@@ -15,8 +15,8 @@ import DatePicker from 'react-native-date-picker';
 import {TextField} from 'react-native-ui-lib';
 const Home = () => {
   const navigation = useNavigation();
-  const [checkIn, setCheckIn] = useState(null);
-  const [checkOut, setCheckOut] = useState(null);
+  const [checkIn, setCheckIn] = useState<string>('');
+  const [checkOut, setCheckOut] = useState<string>('');
   const [open, setOpen] = useState(false);
   const data = [
     {

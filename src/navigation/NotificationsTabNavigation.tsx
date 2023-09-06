@@ -7,11 +7,19 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {
+  MaterialTopTabBarProps,
+  createMaterialTopTabNavigator,
+} from '@react-navigation/material-top-tabs';
 import OffersAndUpdates from '@screens/OffersAndUpdates';
 import Account from '@screens/Account';
 
-function MyTabBar({state, descriptors, navigation, position}) {
+function MyTabBar({
+  state,
+  descriptors,
+  navigation,
+  position,
+}: MaterialTopTabBarProps) {
   return (
     <View
       style={{
@@ -82,7 +90,7 @@ function MyTabBar({state, descriptors, navigation, position}) {
                 fontWeight: '400',
                 marginBottom: 10,
               }}>
-              {label}
+              <>{label}</>
             </Animated.Text>
           </TouchableOpacity>
         );

@@ -208,7 +208,7 @@ const SharePlace = () => {
             <Text style={{color: 'black'}}>Back</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('GuestPlaceoffer')}
+            onPress={() => navigation.navigate('GuestPlaceOffer')}
             style={{
               backgroundColor: 'black',
               paddingHorizontal: 5,

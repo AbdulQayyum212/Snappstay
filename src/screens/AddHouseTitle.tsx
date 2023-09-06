@@ -57,7 +57,7 @@ const AddHouseTitle = () => {
             <Text style={{color: 'black'}}>Back</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Desribe')}
+            onPress={() => navigation.navigate('Describe')}
             style={{
               backgroundColor: 'black',
               paddingHorizontal: 5,

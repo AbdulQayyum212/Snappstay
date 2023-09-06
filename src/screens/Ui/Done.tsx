@@ -7,9 +7,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 const Done = () => {
   const navigation = useNavigation();
-  const confetti = useRef();
+  const confetti = useRef<Confetti>(null);
   useEffect(() => {
-    confetti.current.startConfetti();
+    confetti.current?.startConfetti();
   }, []);
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>

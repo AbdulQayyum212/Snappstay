@@ -1,11 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {View, TouchableOpacity, Text,  Image} from 'react-native';
+import {View, TouchableOpacity, Text, Image} from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import {Header} from '../../components/Header';
 
-const PrivacyandSharing = () => {
+const PrivacyAndSharing = () => {
   const navigation = useNavigation();
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -122,4 +122,4 @@ const PrivacyandSharing = () => {
     </View>
   );
 };
-export default PrivacyandSharing;
+export default PrivacyAndSharing;

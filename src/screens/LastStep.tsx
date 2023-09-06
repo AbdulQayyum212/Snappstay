@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 
 const LastStep = () => {
-  const [toggleCheckBox, setToggleCheckBox] = useState('');
+  const [toggleCheckBox, setToggleCheckBox] = useState<number>(0);
   const navigation = useNavigation();
   const data = [
     {

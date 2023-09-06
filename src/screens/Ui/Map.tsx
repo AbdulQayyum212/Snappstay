@@ -191,7 +191,7 @@ const Map = () => {
     map.current?.animateToRegion(region);
   }, [selectedPlaceId]);
   return (
-    <SafeAreaView style={tw`h-full bg-white`}>
+    <SafeAreaView style={tw`flex-1 bg-white`}>
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <View
           style={{
@@ -232,7 +232,7 @@ const Map = () => {
         </View>
         <MapView
           ref={map}
-          style={{width: '100%', height: '100%'}}
+          style={{flex: 1}}
           provider={PROVIDER_GOOGLE}
           initialRegion={{
             latitude: 28.3279822,
