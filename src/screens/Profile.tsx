@@ -497,9 +497,11 @@ const Profile = ({...props}) => {
     </SafeAreaView>
   );
 };
-const mapStateToProps = state => {
+const mapStateToProps = (
+  state: {AuthReducers: {userToken: boolean}} | undefined,
+) => {
   return {
-    userToken: state?.AuthReducers?.userToken,
+    userToken: state?.AuthReducers.userToken,
   };
 };
 

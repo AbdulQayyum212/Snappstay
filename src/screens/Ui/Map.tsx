@@ -108,7 +108,7 @@ const Map = () => {
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
   }, []);
-  const [selectedPlaceId, setSelectedPlaceId] = useState<string>(null);
+  const [selectedPlaceId, setSelectedPlaceId] = useState<string>('');
 
   const flatList = useRef<FlatList>(null);
   const map = useRef<MapView>(null);
@@ -279,7 +279,7 @@ const Map = () => {
           index={0}
           snapPoints={snapPoints}
           onChange={handleSheetChanges}>
-          <View style={{flex: 1}}>
+          {/* <View style={{flex: 1}}>
             <Text
               style={{
                 color: 'black',
@@ -289,71 +289,81 @@ const Map = () => {
                 fontSize: 18,
               }}>
               {`${posts?.length} Tropical Homes`}
-            </Text>
+            </Text> */}
 
-            <BottomSheetFlatList
-              data={posts}
-              renderItem={({item}) => {
-                return (
-                  <TouchableWithoutFeedback
-                    onPress={() => navigation.navigate('SnappCover')}>
+          <BottomSheetFlatList
+            ListHeaderComponent={
+              <Text
+                style={{
+                  color: 'black',
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  marginBottom: 20,
+                  fontSize: 18,
+                }}>
+                {`${posts?.length} Tropical Homes`}
+              </Text>
+            }
+            data={posts}
+            renderItem={({item}: any) => {
+              return (
+                <TouchableWithoutFeedback
+                  onPress={() => navigation.navigate('SnappCover')}>
+                  <View
+                    style={tw`w-full my-5 flex justify-center items-center bg-white shadow-md rounded-lg`}>
+                    <Image
+                      style={{
+                        width: width - 20,
+                        height: 370,
+                        borderRadius: 20,
+                      }}
+                      source={{uri: item?.image}}
+                    />
                     <View
-                      style={tw`w-full my-5 flex justify-center items-center bg-white shadow-md rounded-lg`}>
-                      <Image
-                        style={{
-                          width: width - 20,
-                          height: 370,
-                          borderRadius: 20,
-                        }}
-                        source={{uri: item?.image}}
-                      />
+                      style={{
+                        width: '100%',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        marginTop: 10,
+                        paddingHorizontal: 10,
+                      }}>
+                      <View>
+                        <Text style={{fontSize: 15, color: 'black'}}>
+                          {item?.title}
+                        </Text>
+                        <Text style={{fontSize: 15, fontWeight: 'bold'}}>
+                          {item?.totalPrice}{' '}
+                        </Text>
+                      </View>
                       <View
                         style={{
-                          width: '100%',
                           flexDirection: 'row',
-                          justifyContent: 'space-between',
-                          marginTop: 10,
-                          paddingHorizontal: 10,
+                          alignItems: 'center',
+                          alignSelf: 'flex-start',
                         }}>
-                        <View>
-                          <Text style={{fontSize: 15, color: 'black'}}>
-                            {item?.title}
-                          </Text>
-                          <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-                            {item?.totalPrice}{' '}
-                          </Text>
-                        </View>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            alignSelf: 'flex-start',
-                          }}>
-                          <Image
-                            style={{width: 20, height: 20}}
-                            source={require('@assets/u_star.png')}
-                          />
-                          <Text>4.94</Text>
-                        </View>
-                      </View>
-                      <View style={{position: 'absolute', top: 20, right: 20}}>
-                        <TouchableOpacity>
-                          <Entypo
-                            name={
-                              heart === item?.id ? 'heart' : 'heart-outlined'
-                            }
-                            size={20}
-                            color={heart === item?.id ? 'red' : 'white'}
-                          />
-                        </TouchableOpacity>
+                        <Image
+                          style={{width: 20, height: 20}}
+                          source={require('@assets/u_star.png')}
+                        />
+                        <Text>4.94</Text>
                       </View>
                     </View>
-                  </TouchableWithoutFeedback>
-                );
-              }}
-            />
-            {/* </View> */}
-          </View>
+                    <View style={{position: 'absolute', top: 20, right: 20}}>
+                      <TouchableOpacity>
+                        <Entypo
+                          name={heart === item?.id ? 'heart' : 'heart-outlined'}
+                          size={20}
+                          color={heart === item?.id ? 'red' : 'white'}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
+              );
+            }}
+          />
+          {/* </View> */}
+          {/* </View> */}
         </BottomSheet>
       </View>
     </SafeAreaView>

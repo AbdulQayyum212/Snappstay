@@ -18,10 +18,10 @@ import Entypo from 'react-native-vector-icons/Entypo';
 const ProfileStep2 = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
-  const [img, setImg] = useState('');
-  const ref = useRef();
+  const [img, setImg] = useState<any>({});
+  const ref = useRef<any>(null);
   const pickImg = async () => {
-    ref.current.close();
+    ref?.current.close();
     ImagePicker.openPicker({
       width: 300,
       height: 400,
@@ -417,7 +417,7 @@ const ProfileStep2 = () => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => ref.current.close()}
+                  onPress={() => ref?.current.close()}
                   style={{
                     width: '100%',
                     paddingVertical: 10,
