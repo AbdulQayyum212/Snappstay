@@ -12,25 +12,14 @@ import {applyMiddleware, createStore} from 'redux';
 
 import StackNavigation from '@navigation/StackNavigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import _combineReducers from '@stores/index';
 import SplashScreen from 'react-native-splash-screen';
 import Toast, {ErrorToast} from 'react-native-toast-message';
 import {Provider} from 'react-redux';
 import {persistReducer, persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import thunk from 'redux-thunk';
+import {persistor, store} from '@stores/store';
 const App = () => {
-  const persistConfig = {
-    key: 'root',
-    storage: AsyncStorage,
-  };
-  const persistReducers = persistReducer(persistConfig, _combineReducers);
-  const store = createStore(persistReducers, applyMiddleware(thunk));
-  const persistor = persistStore(store);
-  const [condition, setCondition] = useState(true);
-  // setTimeout(() => {
-  //   setCondition(false);
-  // }, 2000);
   useEffect(() => {
     SplashScreen.hide();
   }, []);

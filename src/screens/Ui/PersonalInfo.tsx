@@ -1,60 +1,265 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
 import {TextField} from 'react-native-ui-lib';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {Header} from '../../components/Header';
-
+import {selectAuthState} from '@stores/store';
+import {useSelector} from 'react-redux';
+import {User} from '@type/user';
 const PersonalInfo = () => {
+  const {isAuthenticated, user, error, isLoggingIn} =
+    useSelector(selectAuthState);
   const navigation = useNavigation();
+  const [credentials, setCredentials] = useState<User | null>(user);
+
+  if (credentials == null) return navigation.goBack();
+
+  var maskid = credentials.email.replace(
+    /^(.)(.*)(.@.*)$/,
+    (_, a, b, c) => a + b.replace(/./g, '*') + c,
+  );
+  var maskedNumber = credentials.phone
+    .replace(/\D/g, '')
+    .replace(/(^[^5])/, '')
+    .replace(/(\d{3})(\d)/, '$1 $2')
+    .replace(/(\d{3}\s\d{3})(\d{1,2})/, '$1 $2')
+    .replace(/(\d{3}\s\d{3}\s\d{2})(\d{1,2})/, '$1 $2')
+    .replace(/(\d{3}\s\d{3}\s\d{2}\s\d{2})\d+?$/, '$1');
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Header onPress={() => navigation.goBack()} />
-      <View style={{flex: 1, padding: 20}}>
-        <Text style={{color: 'black', fontSize: 30, fontWeight: 'bold'}}>
-          Edit Personal Info
-        </Text>
-        <View
-          style={{
-            width: '100%',
-            borderWidth: 1,
-            borderRadius: 10,
-            borderColor: 'lightgrey',
-            paddingHorizontal: 10,
-            marginTop: 30,
-          }}>
-          <Text
-            style={{
-              marginBottom: -10,
-              marginLeft: 3,
-              marginTop: 10,
-              fontSize: 12,
-            }}>
-            First Name
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+      <ScrollView>
+        <Header onPress={() => navigation.goBack()} />
+        <View style={{flex: 1, padding: 20}}>
+          <Text style={{color: 'black', fontSize: 30, fontWeight: 'bold'}}>
+            Edit Personal Info
           </Text>
-          <TextField style={{height: 50}} placeholder="First Name" />
-        </View>
-        <View
-          style={{
-            width: '100%',
-            borderWidth: 1,
-            borderRadius: 10,
-            borderColor: 'lightgrey',
-            marginTop: 10,
-            paddingHorizontal: 10,
-          }}>
-          <Text
+          <View
             style={{
-              marginBottom: -10,
-              marginLeft: 3,
-              marginTop: 10,
-              fontSize: 12,
+              width: '100%',
+              borderWidth: 1,
+              borderRadius: 10,
+              borderColor: 'lightgrey',
+              paddingHorizontal: 10,
+              marginTop: 30,
             }}>
-            Last Name
-          </Text>
-          <TextField style={{height: 50}} placeholder="Last Name" />
-        </View>
-        <View
+            <Text
+              style={{
+                marginBottom: -10,
+                marginLeft: 3,
+                marginTop: 10,
+                fontSize: 12,
+              }}>
+              First Name
+            </Text>
+            <TextField
+              style={{height: 50}}
+              placeholder="First Name"
+              value={credentials.first_name}
+              onChangeText={text =>
+                setCredentials({...credentials, first_name: text})
+              }
+            />
+          </View>
+          <View
+            style={{
+              width: '100%',
+              borderWidth: 1,
+              borderRadius: 10,
+              borderColor: 'lightgrey',
+              marginTop: 10,
+              paddingHorizontal: 10,
+            }}>
+            <Text
+              style={{
+                marginBottom: -10,
+                marginLeft: 3,
+                marginTop: 10,
+                fontSize: 12,
+              }}>
+              Last Name
+            </Text>
+            <TextField
+              style={{height: 50}}
+              placeholder="Last Name"
+              value={credentials.last_name}
+              onChangeText={text =>
+                setCredentials({...credentials, last_name: text})
+              }
+            />
+          </View>
+          <View
+            style={{
+              width: '100%',
+              borderWidth: 1,
+              borderRadius: 10,
+              borderColor: 'lightgrey',
+              marginTop: 10,
+              paddingHorizontal: 10,
+            }}>
+            <Text
+              style={{
+                marginBottom: -10,
+                marginLeft: 3,
+                marginTop: 10,
+                fontSize: 12,
+              }}>
+              User Name
+            </Text>
+            <TextField
+              style={{height: 50}}
+              placeholder="User Name"
+              value={credentials.user_name}
+              onChangeText={text =>
+                setCredentials({...credentials, user_name: text})
+              }
+            />
+          </View>
+          <View
+            style={{
+              width: '100%',
+              borderWidth: 1,
+              borderRadius: 10,
+              borderColor: 'lightgrey',
+              marginTop: 10,
+              paddingHorizontal: 10,
+            }}>
+            <Text
+              style={{
+                marginBottom: -10,
+                marginLeft: 3,
+                marginTop: 10,
+                fontSize: 12,
+              }}>
+              Bio (About)
+            </Text>
+            <TextField
+              style={{height: 50}}
+              placeholder="Bio (About)"
+              value={credentials.bio}
+              onChangeText={text => setCredentials({...credentials, bio: text})}
+            />
+          </View>
+          <View
+            style={{
+              width: '100%',
+              borderWidth: 1,
+              borderRadius: 10,
+              borderColor: 'lightgrey',
+              marginTop: 10,
+              paddingHorizontal: 10,
+            }}>
+            <Text
+              style={{
+                marginBottom: -10,
+                marginLeft: 3,
+                marginTop: 10,
+                fontSize: 12,
+              }}>
+              Bio (About)
+            </Text>
+            <TextField
+              style={{height: 50}}
+              placeholder="Bio (About)"
+              value={credentials.bio}
+              onChangeText={text => setCredentials({...credentials, bio: text})}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingHorizontal: 20,
+              borderTopColor: 'lightgrey',
+              borderTopWidth: 1,
+              paddingVertical: 20,
+              marginTop: 20,
+            }}>
+            <View>
+              <Text style={{color: 'black'}}>Email</Text>
+              <Text style={{color: 'grey', marginTop: 5}}>{maskid}</Text>
+            </View>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  color: 'black',
+                  fontWeight: 'bold',
+                  textDecorationLine: 'underline',
+                }}>
+                Edit
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingHorizontal: 20,
+              borderTopColor: 'lightgrey',
+              borderTopWidth: 1,
+              paddingVertical: 5,
+              marginTop: 20,
+            }}>
+            <View>
+              <Text style={{color: 'black'}}>Phone Number</Text>
+              <Text style={{color: 'grey', marginTop: 5}}>
+                For notification, reminders, and help logging in.
+              </Text>
+              <Text style={{color: 'grey', marginTop: 20}}>{maskedNumber}</Text>
+            </View>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  color: 'black',
+                  fontWeight: 'bold',
+                  textDecorationLine: 'underline',
+                }}>
+                Edit
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingHorizontal: 20,
+              borderTopColor: 'lightgrey',
+              borderTopWidth: 1,
+              paddingVertical: 20,
+              marginTop: 20,
+            }}>
+            <View>
+              <Text style={{color: 'black'}}>Address</Text>
+              <View>
+                <Text style={{color: 'grey', marginTop: 5}}>
+                  Full Address {credentials.full_address || 'Not Provided'}
+                </Text>
+                <Text style={{color: 'grey', marginTop: 5}}>
+                  Mail Address {credentials.mailing_address || 'Not Provided'}
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  color: 'black',
+                  fontWeight: 'bold',
+                  textDecorationLine: 'underline',
+                }}>
+                Add
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {/* <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -66,8 +271,7 @@ const PersonalInfo = () => {
             marginTop: 20,
           }}>
           <View>
-            <Text style={{color: 'black'}}>Email</Text>
-            <Text style={{color: 'grey', marginTop: 5}}>i****b@gmail.com</Text>
+            <Text style={{color: 'black'}}>Address</Text>
           </View>
           <TouchableOpacity>
             <Text
@@ -79,89 +283,10 @@ const PersonalInfo = () => {
               Edit
             </Text>
           </TouchableOpacity>
+        </View> */}
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingHorizontal: 20,
-            borderTopColor: 'lightgrey',
-            borderTopWidth: 1,
-            paddingVertical: 5,
-            marginTop: 20,
-          }}>
-          <View>
-            <Text style={{color: 'black'}}>Phone Number</Text>
-            <Text style={{color: 'grey', marginTop: 5}}>
-              For notification, reminders, and help logging in.
-            </Text>
-            <Text style={{color: 'grey', marginTop: 20}}>+92*********22</Text>
-          </View>
-          <TouchableOpacity>
-            <Text
-              style={{
-                color: 'black',
-                fontWeight: 'bold',
-                textDecorationLine: 'underline',
-              }}>
-              Edit
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingHorizontal: 20,
-            borderTopColor: 'lightgrey',
-            borderTopWidth: 1,
-            paddingVertical: 20,
-            marginTop: 20,
-          }}>
-          <View>
-            <Text style={{color: 'black'}}>Government ID</Text>
-            <Text style={{color: 'grey', marginTop: 5}}>Not provided</Text>
-          </View>
-          <TouchableOpacity>
-            <Text
-              style={{
-                color: 'black',
-                fontWeight: 'bold',
-                textDecorationLine: 'underline',
-              }}>
-              Add
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingHorizontal: 20,
-            borderTopColor: 'lightgrey',
-            borderTopWidth: 1,
-            paddingVertical: 20,
-            marginTop: 20,
-          }}>
-          <View>
-            <Text style={{color: 'black'}}>Emergency</Text>
-          </View>
-          <TouchableOpacity>
-            <Text
-              style={{
-                color: 'black',
-                fontWeight: 'bold',
-                textDecorationLine: 'underline',
-              }}>
-              Edit
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 export default PersonalInfo;

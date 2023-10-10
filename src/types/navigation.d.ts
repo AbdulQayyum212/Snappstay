@@ -29,6 +29,7 @@ export type RootStackParamList = {
   Policy: undefined;
   Welcome: undefined;
   Login: undefined;
+  Signup: undefined;
   ConfirmNumber: undefined;
   Notifi: undefined;
   Map: undefined;

@@ -1,16 +1,18 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
+import {Button as UIButton} from 'react-native-ui-lib';
 import Feather from 'react-native-vector-icons/Feather';
 const Button = ({onPress, style, textStyle, title, disabled}: any) => {
   return (
-    <TouchableOpacity
+    <UIButton
       disabled={disabled}
       onPress={onPress}
+      backgroundColor={'black'}
       style={[
         {
           width: '100%',
           paddingVertical: 15,
-          backgroundColor: 'black',
+          // backgroundColor: 'black',
           borderRadius: 10,
           alignItems: 'center',
         },
@@ -19,7 +21,7 @@ const Button = ({onPress, style, textStyle, title, disabled}: any) => {
       <Text style={[{color: 'white', fontWeight: 'bold'}, textStyle]}>
         {title}
       </Text>
-    </TouchableOpacity>
+    </UIButton>
   );
 };
 const LeftIconBtn = ({Lefticon, title, onPress, style, textStyle}: any) => {

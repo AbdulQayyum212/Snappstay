@@ -1,6 +1,7 @@
 import {Button, CustomBtn} from '@components/Button';
 import {useNavigation} from '@react-navigation/native';
-import {User_Token} from '@stores/Actions/AuthAction';
+import {selectAuthState} from '@stores/store';
+// import {User_Token} from '@stores/Actions/AuthAction';
 import React, {useState} from 'react';
 import {
   Image,
@@ -17,19 +18,25 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {connect, useDispatch} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
+import {logout} from '@stores/auth/authActions';
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-const Profile = ({...props}) => {
+const Profile = () => {
+  const {isAuthenticated, user, error, isLoggingIn} =
+    useSelector(selectAuthState);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [user, setUser] = useState(false);
   const toggleSwitch = () => {
-    if (props?.userToken) {
-      dispatch(User_Token(false));
+    if (isAuthenticated) {
+      // dispatch(User_Token(false));
     } else {
-      dispatch(User_Token(true));
+      // dispatch(User_Token(true));
     }
   };
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <SafeAreaView style={{height: '100%', backgroundColor: 'white'}}>
       <View style={{backgroundColor: 'white', flex: 1, padding: 10}}>
@@ -264,17 +271,17 @@ const Profile = ({...props}) => {
           <Text style={{color: 'black', fontSize: 30, fontWeight: 'bold'}}>
             Profile
           </Text>
-          <View style={{alignItems: 'flex-end', marginTop: 5, marginBottom: 5}}>
+          {/* <View style={{alignItems: 'flex-end', marginTop: 5, marginBottom: 5}}>
             <Switch
               trackColor={{false: '#767577', true: 'black'}}
-              thumbColor={props?.userToken ? '#fff' : '#f4f3f4'}
+              thumbColor={isAuthenticated ? '#fff' : '#f4f3f4'}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
-              value={props?.userToken}
+              value={isAuthenticated}
             />
-          </View>
+          </View> */}
           <ScrollView showsVerticalScrollIndicator={false}>
-            {props?.userToken ? null : (
+            {isAuthenticated ? null : (
               <Text
                 style={{
                   color: 'grey',
@@ -284,7 +291,7 @@ const Profile = ({...props}) => {
                 Log in to start planning your next trip
               </Text>
             )}
-            {props?.userToken ? (
+            {isAuthenticated ? (
               <View
                 // onPress={() => navigation.navigate('ProfileStep2')}
                 style={{
@@ -301,7 +308,7 @@ const Profile = ({...props}) => {
                   <Avatar size={60} source={require('@assets/bgimage.png')} />
                   <View style={{marginLeft: 10}}>
                     <Text style={{color: 'black', fontSize: 20}}>
-                      User Name
+                      {user?.first_name}
                     </Text>
                     <Text style={{color: 'lightgrey'}}>Show profile</Text>
                   </View>
@@ -323,7 +330,7 @@ const Profile = ({...props}) => {
                 title={'Log In'}
               />
             )}
-            {props?.userToken ? null : (
+            {isAuthenticated ? null : (
               <View
                 style={{
                   flexDirection: 'row',
@@ -331,7 +338,7 @@ const Profile = ({...props}) => {
                   marginTop: 30,
                 }}>
                 <Text>Don't have an account?</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
                   <Text
                     style={{
                       fontWeight: 'bold',
@@ -387,7 +394,7 @@ const Profile = ({...props}) => {
               <Text style={{fontSize: 20, color: 'black', fontWeight: 'bold'}}>
                 Account settings
               </Text>
-              {props?.userToken ? (
+              {isAuthenticated ? (
                 <>
                   <CustomBtn
                     rightIcon={
@@ -399,7 +406,7 @@ const Profile = ({...props}) => {
                       />
                     }
                     onPress={() => navigation.navigate('PersonalInfo')}
-                    centerText="Personal Informatio"
+                    centerText="Personal Information"
                   />
                   <CustomBtn
                     rightIcon={
@@ -478,8 +485,10 @@ const Profile = ({...props}) => {
                   />
                 </>
               )}
-              {props?.userToken ? (
-                <TouchableOpacity style={{marginTop: 20}}>
+              {isAuthenticated ? (
+                <TouchableOpacity
+                  style={{marginTop: 20}}
+                  onPress={handleLogout}>
                   <Text
                     style={{
                       color: 'black',
@@ -497,12 +506,4 @@ const Profile = ({...props}) => {
     </SafeAreaView>
   );
 };
-const mapStateToProps = (
-  state: {AuthReducers: {userToken: boolean}} | undefined,
-) => {
-  return {
-    userToken: state?.AuthReducers.userToken,
-  };
-};
-
-export default connect(mapStateToProps, null)(Profile);
+export default Profile;

@@ -1,0 +1,32 @@
+export interface User {
+  id: number;
+  type: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  email: string;
+  conf_password: string;
+  email_verified_at: null;
+  created_at: Date;
+  updated_at: Date;
+  facebook_id: null;
+  google_id: null;
+  user_name: string;
+  bio: string;
+  photo: null;
+  cover: null;
+  status: number;
+  verification_status: null;
+  active_status: number;
+  avatar: string;
+  dark_mode: number;
+  messenger_color: null;
+  photo_front: null;
+  photo_back: null;
+  full_address: null;
+  mailing_address: null;
+  utility: null;
+  ssn: null;
+  tax_id: null;
+  dob: null;
+}

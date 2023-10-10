@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
+  ActivityIndicator,
   Image,
   Platform,
   SafeAreaView,
@@ -13,6 +14,16 @@ import {TextField} from 'react-native-ui-lib';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Button} from '../../components/Button';
+import tw from 'twrnc';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectAuthState} from '@stores/store';
+import {login} from '@stores/auth/authActions';
+
+const data = {
+  email: 'ubaid@snapp.com',
+  password: '123456',
+};
+
 const Login = () => {
   const countries = [
     'Pakistan (+92)',
@@ -22,15 +33,30 @@ const Login = () => {
   ];
   const navigation = useNavigation();
   const [selectCode, setSelectCode] = useState('Pakistan (+92)');
+  const dispatch = useDispatch();
+  const {isAuthenticated, user, error, isLoggingIn} =
+    useSelector(selectAuthState);
+
+  const [credentials, setCredentials] = useState<{
+    email: string;
+    password: string;
+  }>({
+    email: 'ubaid@snapp.com',
+    password: '123456',
+  });
+
+  const handleLogin = () => {
+    dispatch(login(credentials));
+  };
   return (
     <SafeAreaView style={{height: '100%', backgroundColor: 'white'}}>
       <View style={{flex: 1, backgroundColor: 'white', padding: 20}}>
         <View>
-          <Text style={{color: 'black', fontSize: 35, fontWeight: 'bold'}}>
-            Log In
-          </Text>
-          <View>
-            <SelectDropdown
+          <View style={tw`gap-2`}>
+            <Text style={{color: 'black', fontSize: 35, fontWeight: 'bold'}}>
+              Log In
+            </Text>
+            {/* <SelectDropdown
               data={countries}
               renderCustomizedButtonChild={() => {
                 return (
@@ -70,7 +96,7 @@ const Login = () => {
               rowTextForSelection={(item, index) => {
                 return item;
               }}
-            />
+            /> */}
             <View
               style={{
                 width: '100%',
@@ -82,9 +108,39 @@ const Login = () => {
                 paddingHorizontal: 10,
                 marginTop: -2,
               }}>
-              <Text style={{fontSize: 10, marginTop: 10}}>Phone number</Text>
+              <Text style={{fontSize: 10, marginTop: 10}}>Email</Text>
               <TextField
-                placeholder="Phone number"
+                value={credentials.email}
+                onChangeText={text =>
+                  setCredentials({...credentials, email: text})
+                }
+                placeholder="Email"
+                style={{
+                  width: '100%',
+                  height: 35,
+                  fontSize: 10,
+                  marginLeft: -2,
+                }}
+              />
+            </View>
+            <View
+              style={{
+                width: '100%',
+                borderWidth: 1,
+                borderColor: 'lightgrey',
+                backgroundColor: 'white',
+                borderBottomLeftRadius: 10,
+                borderBottomRightRadius: 10,
+                paddingHorizontal: 10,
+                marginTop: -2,
+              }}>
+              <Text style={{fontSize: 10, marginTop: 10}}>Password</Text>
+              <TextField
+                value={credentials.password}
+                onChangeText={text =>
+                  setCredentials({...credentials, password: text})
+                }
+                placeholder="Password"
                 style={{
                   width: '100%',
                   height: 35,
@@ -94,9 +150,12 @@ const Login = () => {
               />
             </View>
           </View>
-          <Text style={{marginTop: 30}}>
+          {/* <Text style={{marginTop: 30}}>
             we'll call or text to confirm your number. standard message and data
             rates apply.
+          </Text> */}
+          <Text style={{marginTop: 30}}>
+            By Clicking Login you agree to our Terms of Service and Privacy
           </Text>
           {/* <TouchableOpacity
           onPress={() => navigation.navigate('ConfirmNumber')}
@@ -110,12 +169,20 @@ const Login = () => {
           }}>
           <Text style={{color: 'white', fontWeight: 'bold'}}>Continue</Text>
         </TouchableOpacity> */}
-          <Button
+          {/* <Button
             style={{marginTop: 20}}
             onPress={() => navigation.navigate('ConfirmNumber')}
             title={'Continue'}
+          /> */}
+          <Button
+            style={{marginTop: 20}}
+            onPress={handleLogin}
+            disabled={isLoggingIn}
+            title={'Login'}
           />
-
+          {isLoggingIn && <ActivityIndicator />}
+          {user && <Text>{user.id}</Text>}
+          {error && <Text style={{color: 'red'}}>{JSON.stringify(error)}</Text>}
           <View
             style={{
               flexDirection: 'row',

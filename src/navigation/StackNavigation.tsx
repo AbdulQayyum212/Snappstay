@@ -42,14 +42,26 @@ import Welcome from '@screens/Welcom';
 import React from 'react';
 import MyTabs from './BottomNavigation';
 import {RootStackParamList} from '@type/navigation';
+import SignupScreen from '@screens/SignupScreen';
+import {useSelector} from 'react-redux';
+import {selectAuthState} from '@stores/store';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const StackNavigation = () => {
+  const {isAuthenticated, user, error, isLoggingIn} =
+    useSelector(selectAuthState);
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}>
+      {isAuthenticated || (
+        <Stack.Group>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
+        </Stack.Group>
+      )}
+
       <Stack.Screen name="MyTabs" component={MyTabs} />
       <Stack.Screen name="Property" component={Property} />
       <Stack.Screen name="MapScreen" component={MapScreen} />
@@ -69,7 +81,7 @@ const StackNavigation = () => {
       <Stack.Screen name="Calender" component={Calender} />
       <Stack.Screen name="Policy" component={Policy} />
       <Stack.Screen name="Welcome" component={Welcome} />
-      <Stack.Screen name="Login" component={Login} />
+
       <Stack.Screen name="ConfirmNumber" component={ConfirmNumber} />
       <Stack.Screen name="Notifi" component={Notifi} />
       <Stack.Screen name="Map" component={Map} />
