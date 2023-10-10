@@ -6,6 +6,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT,
+  SET_USER,
 } from './authReducer'; // Import action types
 import {LoginResponse} from '@type/login';
 import {User} from '@type/user';
@@ -25,6 +26,11 @@ export const loginFailure = (error: string) => ({
 });
 export const logout = () => ({
   type: LOGOUT,
+});
+
+export const setUser = (user: User) => ({
+  type: SET_USER,
+  payload: user,
 });
 
 export const login = (credentials: {username: string; password: string}) => {

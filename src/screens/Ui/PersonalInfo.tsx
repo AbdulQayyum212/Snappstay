@@ -6,16 +6,21 @@ import {
   Text,
   SafeAreaView,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import {TextField} from 'react-native-ui-lib';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {Header} from '../../components/Header';
-import {selectAuthState} from '@stores/store';
-import {useSelector} from 'react-redux';
+import {selectAuthState, selectProfileState} from '@stores/store';
+import {useDispatch, useSelector} from 'react-redux';
 import {User} from '@type/user';
+import {Button} from '@components/Button';
+import {updateProfile} from '@stores/auth/profileActions';
 const PersonalInfo = () => {
-  const {isAuthenticated, user, error, isLoggingIn} =
-    useSelector(selectAuthState);
+  const dispatch = useDispatch();
+
+  const {user} = useSelector(selectAuthState);
+  const {error, isUpdatingProfile} = useSelector(selectProfileState);
   const navigation = useNavigation();
   const [credentials, setCredentials] = useState<User | null>(user);
 
@@ -32,6 +37,10 @@ const PersonalInfo = () => {
     .replace(/(\d{3}\s\d{3})(\d{1,2})/, '$1 $2')
     .replace(/(\d{3}\s\d{3}\s\d{2})(\d{1,2})/, '$1 $2')
     .replace(/(\d{3}\s\d{3}\s\d{2}\s\d{2})\d+?$/, '$1');
+
+  const handleProfileInfo = () => {
+    dispatch(updateProfile(credentials));
+  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView>
@@ -119,31 +128,6 @@ const PersonalInfo = () => {
               onChangeText={text =>
                 setCredentials({...credentials, user_name: text})
               }
-            />
-          </View>
-          <View
-            style={{
-              width: '100%',
-              borderWidth: 1,
-              borderRadius: 10,
-              borderColor: 'lightgrey',
-              marginTop: 10,
-              paddingHorizontal: 10,
-            }}>
-            <Text
-              style={{
-                marginBottom: -10,
-                marginLeft: 3,
-                marginTop: 10,
-                fontSize: 12,
-              }}>
-              Bio (About)
-            </Text>
-            <TextField
-              style={{height: 50}}
-              placeholder="Bio (About)"
-              value={credentials.bio}
-              onChangeText={text => setCredentials({...credentials, bio: text})}
             />
           </View>
           <View
@@ -284,6 +268,15 @@ const PersonalInfo = () => {
             </Text>
           </TouchableOpacity>
         </View> */}
+
+          <Button
+            style={{marginTop: 20}}
+            onPress={handleProfileInfo}
+            disabled={isUpdatingProfile}
+            title={'Update Profile'}
+          />
+          {isUpdatingProfile && <ActivityIndicator />}
+          {error && <Text style={{color: 'red'}}>{JSON.stringify(error)}</Text>}
         </View>
       </ScrollView>
     </SafeAreaView>

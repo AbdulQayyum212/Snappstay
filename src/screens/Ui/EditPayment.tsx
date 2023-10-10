@@ -1,13 +1,13 @@
 import {Header} from '@components/Header';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 
 const EditPayment = () => {
   const navigation = useNavigation();
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <Header onPress={() => navigation.goBack()} />
       <View style={{flex: 1, padding: 20}}>
         <Text
@@ -58,7 +58,7 @@ const EditPayment = () => {
               style={{width: 30, height: 30, marginRight: 10}}
               source={require('@assets/masterLogo.png')}
             />
-            <Text style={{color: 'black'}}>Mestercard</Text>
+            <Text style={{color: 'black'}}>Mastercard</Text>
           </View>
           <Feather
             name="chevron-right"
@@ -71,7 +71,7 @@ const EditPayment = () => {
           <Text style={{color: 'black'}}>Add payment methods</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 export default EditPayment;

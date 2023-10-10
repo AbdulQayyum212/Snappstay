@@ -19,6 +19,7 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
+export const SET_USER = 'SET_USER';
 
 interface LoginRequestAction {
   type: typeof LOGIN_REQUEST;
@@ -36,11 +37,16 @@ interface LoginFailureAction {
 interface LogoutAction {
   type: typeof LOGOUT;
 }
+interface SetUserAction {
+  type: typeof SET_USER;
+  payload: User;
+}
 
 export type AuthActionTypes =
   | LoginRequestAction
   | LoginSuccessAction
   | LoginFailureAction
+  | SetUserAction
   | LogoutAction;
 
 const authReducer = (
@@ -76,6 +82,11 @@ const authReducer = (
         isAuthenticated: false,
         user: null,
         error: null, // Reset error on logout
+      };
+    case SET_USER:
+      return {
+        ...state,
+        user: action.payload,
       };
     default:
       return state;

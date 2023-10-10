@@ -9,6 +9,7 @@ import rootReducer, {RootState} from './reducers';
 
 const selectAuthState = (state: RootState) => state.auth;
 const selectSignupState = (state: RootState) => state.signup;
+const selectProfileState = (state: RootState) => state.profile;
 
 const persistConfig = {
   key: 'root',
@@ -21,4 +22,10 @@ const store = createStore(persistedReducer, applyMiddleware(thunk));
 
 const persistor = persistStore(store);
 
-export {store, persistor, selectAuthState, selectSignupState};
+export {
+  store,
+  persistor,
+  selectAuthState,
+  selectSignupState,
+  selectProfileState,
+};

@@ -292,8 +292,8 @@ const Profile = () => {
               </Text>
             )}
             {isAuthenticated ? (
-              <View
-                // onPress={() => navigation.navigate('ProfileStep2')}
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ProfileStep2')}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
@@ -308,21 +308,18 @@ const Profile = () => {
                   <Avatar size={60} source={require('@assets/bgimage.png')} />
                   <View style={{marginLeft: 10}}>
                     <Text style={{color: 'black', fontSize: 20}}>
-                      {user?.first_name}
+                      {user?.first_name} ({user?.email})
                     </Text>
                     <Text style={{color: 'lightgrey'}}>Show profile</Text>
                   </View>
                 </View>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('ProfileStep2')}>
-                  <Feather
-                    name="chevron-right"
-                    size={20}
-                    color="black"
-                    style={{marginRight: 10}}
-                  />
-                </TouchableOpacity>
-              </View>
+                <Feather
+                  name="chevron-right"
+                  size={20}
+                  color="black"
+                  style={{marginRight: 10}}
+                />
+              </TouchableOpacity>
             ) : (
               <Button
                 style={{marginTop: 20}}
