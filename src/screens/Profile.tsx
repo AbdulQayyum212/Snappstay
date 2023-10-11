@@ -308,7 +308,7 @@ const Profile = () => {
                   <Avatar size={60} source={require('@assets/bgimage.png')} />
                   <View style={{marginLeft: 10}}>
                     <Text style={{color: 'black', fontSize: 20}}>
-                      {user?.first_name} ({user?.email})
+                      {user?.first_name} {user?.last_name}
                     </Text>
                     <Text style={{color: 'lightgrey'}}>Show profile</Text>
                   </View>

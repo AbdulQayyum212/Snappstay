@@ -13,8 +13,11 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {Carousel, Image, TextField, View} from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {Button} from '../../components/Button';
-import {ModalHeader} from '../../components/Header';
+import {Button} from '@components/Button';
+import {ModalHeader} from '@components/Header';
+import useGetRequest from '@hooks/useGetRequest';
+import {PropertyListResponse} from '@type/properyListResponse';
+import ListItem from '@components/ListItem';
 const width = Dimensions.get('window').width;
 const Explore = () => {
   const navigation = useNavigation();
@@ -38,44 +41,10 @@ const Explore = () => {
     },
   ]);
 
-  const data = [
-    {
-      id: 1,
-      img: require('@assets/2.jpg'),
-      title1: 'Apartment In Houston Texas',
-      title2: 'Amsterdam Lifestyle in Houston',
-      title3: '1 queen bed Individual Host',
-      title4: 'night',
-      price: '$230 USD',
-    },
-    {
-      id: 2,
-      img: require('@assets/1.jpg'),
-      title1: 'Apartment In Houston Texas',
-      title2: 'Amsterdam Lifestyle in Houston',
-      title3: '1 queen bed Individual Host',
-      title4: 'night',
-      price: '$230 USD',
-    },
-    {
-      id: 3,
-      img: require('@assets/3.jpg'),
-      title1: 'Apartment In Houston Texas',
-      title2: 'Amsterdam Lifestyle in Houston',
-      title3: '1 queen bed Individual Host',
-      title4: 'night',
-      price: '$230 USD',
-    },
-    {
-      id: 2,
-      img: require('@assets/4.jpg'),
-      title1: 'Apartment In Houston Texas',
-      title2: 'Amsterdam Lifestyle in Houston',
-      title3: '1 queen bed Individual Host',
-      title4: 'night',
-      price: '$230 USD',
-    },
-  ];
+  const {data, loading, error} = useGetRequest<PropertyListResponse>({
+    url: 'https://www.snappstay.com/api/all/properties',
+  });
+
   const FlatListData = [
     {
       id: 1,
@@ -241,204 +210,50 @@ const Explore = () => {
           />
         </View>
         <View style={{flex: 1}}>
+          {loading && <Text>Loading...</Text>}
+          {error && <Text>Error: {error.message}</Text>}
+          {/* {data && (
+            <View>
+              <Text>Response Data:</Text>
+              <Text>{JSON.stringify(data)}</Text>
+            </View>
+          )} */}
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={data}
-            renderItem={({item}: any) => {
-              return (
-                <View
-                  style={{
-                    marginBottom: 10,
-                    marginTop: 20,
-                  }}>
-                  <Carousel
-                    containerStyle={{
-                      height: 300,
-                    }}
-                    loop
-                    counter
-                    pageControlProps={{
-                      containerStyle: {
-                        position: 'absolute',
-                        bottom: 15,
-                        left: '40%',
-                      },
-                    }}
-                    pageControlPosition={Carousel.pageControlPositions.OVER}
-                    showCounter>
-                    {new Array(5).fill(null).map((element, i) => (
-                      <TouchableWithoutFeedback
-                        style={{
-                          height: width,
-                          width: width,
-                        }}
-                        onPress={() => navigation.navigate('SnappCover')}>
-                        <View flex centerV key={i}>
-                          <Image
-                            overlayType={Image.overlayTypes.BOTTOM}
-                            style={{flex: 1}}
-                            source={item?.img}
-                          />
-                        </View>
-                      </TouchableWithoutFeedback>
-                    ))}
-                  </Carousel>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      marginTop: 10,
-                      paddingHorizontal: 10,
-                    }}>
-                    <View>
-                      <Text style={{fontSize: 15, color: 'black'}}>
-                        {item?.title1}
-                      </Text>
-                      <Text style={{color: '#999999'}}>{item?.title2}</Text>
-                      <Text style={{color: '#999999'}}>{item?.title3}</Text>
-                      <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-                        {item?.price}{' '}
-                        <Text style={{color: '#999999'}}>{item?.title4}</Text>
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        alignSelf: 'flex-start',
-                      }}>
-                      <Image
-                        style={{width: 20, height: 20}}
-                        source={require('@assets/u_star.png')}
-                      />
-                      <Text>4.94</Text>
-                    </View>
-                  </View>
-                  <View style={{position: 'absolute', top: 10, left: 10}}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        if (heart != item?.id) {
-                          setHeart(item?.id);
-                          setModalVisible(true);
-                        } else {
-                          setHeart(item?.id);
-                        }
-                      }}>
-                      <Entypo
-                        name={heart === item?.id ? 'heart' : 'heart-outlined'}
-                        size={20}
-                        color={heart === item?.id ? 'red' : 'white'}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              );
+            data={data?.properties?.data}
+            renderItem={({item}) => {
+              return <ListItem item={item} />;
             }}
             keyExtractor={item => item.id.toString()}
           />
         </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Map')}
-          style={{
-            width: 90,
-            height: 40,
-            borderRadius: 20,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgb(34, 34, 34)',
-            position: 'absolute',
-            bottom: 15,
-            alignSelf: 'center',
-            flexDirection: 'row',
-          }}>
-          <Entypo
-            name={'map'}
-            style={{marginRight: 10}}
-            size={20}
-            color={'white'}
-          />
-          <Text style={{color: 'white'}}>Map</Text>
-        </TouchableOpacity>
+        {data && (
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Map', {posts: data.properties.data})
+            }
+            style={{
+              width: 90,
+              height: 40,
+              borderRadius: 20,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'rgb(34, 34, 34)',
+              position: 'absolute',
+              bottom: 15,
+              alignSelf: 'center',
+              flexDirection: 'row',
+            }}>
+            <Entypo
+              name={'map'}
+              style={{marginRight: 10}}
+              size={20}
+              color={'white'}
+            />
+            <Text style={{color: 'white'}}>Map</Text>
+          </TouchableOpacity>
+        )}
       </View>
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <ModalHeader
-              modalVisible
-              CenterText="Name this wishlist"
-              leftOnPress={() => {
-                // setHeart();
-                setModalVisible(false);
-              }}
-            />
-            {/* <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                borderBottomColor: 'lightgrey',
-                borderBottomWidth: 1,
-                paddingVertical: 6,
-              }}>
-              <View style={{width: '20%'}}>
-                <TouchableOpacity
-                  onPress={() => {
-                    setHeart();
-                    setModalVisible(false);
-                  }}
-                  style={{
-                    width: 30,
-                    height: 30,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 50,
-                  }}>
-                  <EvilIcons
-                    name={modalVisible ? 'close' : 'chevron-left'}
-                    size={20}
-                    color="black"
-                  />
-                </TouchableOpacity>
-              </View>
-              <Text style={{color: 'black', fontWeight: 'bold'}}>
-                Name this wishlist
-              </Text>
-              <View style={{width: '20%'}} />
-            </View> */}
-            <View
-              style={{
-                width: '100%',
-              }}>
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: 'lightgrey',
-                  width: '100%',
-                  marginTop: 20,
-                  borderRadius: 10,
-                  height: 50,
-                }}>
-                <TextField
-                  onChangeText={e => setName(e)}
-                  placeholder="Name"
-                  style={{paddingLeft: 10, height: 50}}
-                />
-              </View>
-              <Text style={{color: 'black', marginTop: 10}}>
-                50 characters maximum
-              </Text>
-            </View>
-            <View
-              style={{borderColor: 'lightgrey', borderWidth: 1, marginTop: 20}}
-            />
-            <Button
-              style={{marginTop: 20}}
-              onPress={() => navigation.navigate('Login')}
-              title={'Create'}
-            />
-          </View>
-        </View>
-      </Modal>
     </SafeAreaView>
   );
 };

@@ -3,7 +3,7 @@
   "compilerOptions": {
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
-    "jsx": "react-native",
+    // "jsx": "react-native",
     "baseUrl": ".",
     "paths": {
       "@components/*": ["./src/components/*"],
@@ -15,7 +15,7 @@
       "@assets/*": ["./src/assets/*"],
       "@constants/*": ["./src/constants/*"],
       "@type/*": ["./src/types/*"],
-      "@hooks/*": ["./src/hooks"]
+      "@hooks/*": ["./src/hooks/*"]
     }
   }
 }
