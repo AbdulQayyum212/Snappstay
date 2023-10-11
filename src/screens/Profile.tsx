@@ -20,6 +20,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {connect, useDispatch, useSelector} from 'react-redux';
 import {logout} from '@stores/auth/authActions';
+import {ClearUser} from '@stores/auth/userActions';
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const Profile = () => {
   const {isAuthenticated, user, error, isLoggingIn} =
@@ -35,6 +36,7 @@ const Profile = () => {
   };
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(ClearUser());
   };
 
   return (

@@ -6,31 +6,66 @@ import {TextField} from 'react-native-ui-lib';
 import {ModalHeader} from './Header';
 import {Button} from './Button';
 import {useNavigation} from '@react-navigation/native';
+import usePostRequest from '@hooks/usePostRequest';
+import {useSelector} from 'react-redux';
+import {selectAuthState, selectUserState} from '@stores/store';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+interface PostData {
+  user_id: number;
+  property_id: string;
+}
 
 export default function AddToFavorite({item}: {item: Property}) {
+  const {user} = useSelector(selectAuthState);
+  const {userData} = useSelector(selectUserState);
   const navigation = useNavigation();
-  const [heart, setHeart] = useState<number>();
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState<string>('');
+
+  const {responseData, loading, error, makePostRequest} = usePostRequest<{
+    favorited: boolean;
+  }>({
+    url: 'https://www.snappstay.com/api/add/wishlist',
+  });
+
+  const handlePostRequest = () => {
+    if (!user) return;
+    // Call makePostRequest when the button is pressed to send the POST request
+
+    console.log(user.id);
+    const formData = new FormData();
+    formData.append('user_id', user.id);
+    formData.append('property_id', item.id);
+
+    makePostRequest(formData);
+  };
   return (
-    <View>
-      <View style={{position: 'absolute', top: 10, left: 10}}>
-        <TouchableOpacity
-          onPress={() => {
-            if (heart != item?.id) {
-              setHeart(item?.id);
-              setModalVisible(true);
-            } else {
-              setHeart(item?.id);
-            }
-          }}>
-          <Entypo
-            name={heart === item?.id ? 'heart' : 'heart-outlined'}
-            size={20}
-            color={heart === item?.id ? 'red' : 'white'}
-          />
-        </TouchableOpacity>
-      </View>
+    <>
+      <TouchableOpacity disabled={loading} onPress={handlePostRequest}>
+        <MaterialCommunityIcons
+          name={
+            userData?.userFavourites.find(x => x.property_id == item.id)
+              ? 'cards-heart'
+              : 'cards-heart-outline'
+          }
+          size={20}
+          color={
+            userData?.userFavourites.find(x => x.property_id == item.id)
+              ? 'red'
+              : 'black'
+          }
+        />
+      </TouchableOpacity>
+      {/* {loading && <Text>Loading...</Text>}
+      {error && <Text>Error: {error.message}</Text>}
+      {responseData && (
+        <View>
+          <Text>Response Data:</Text>
+          <Text>{JSON.stringify(responseData)}</Text>
+        </View>
+      )} */}
 
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.centeredView}>
@@ -111,7 +146,7 @@ export default function AddToFavorite({item}: {item: Property}) {
           </View>
         </View>
       </Modal>
-    </View>
+    </>
   );
 }
 const styles = StyleSheet.create({

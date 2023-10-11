@@ -38,9 +38,11 @@ export default function ListItem({item}: {item: Property}) {
       key={item.id + 'list-item'}
       style={tw`shadow-xl bg-white border border-gray-200 rounded-xl  my-2 overflow-hidden`}>
       <Carousel
-        containerStyle={{
-          height: 300,
-        }}
+        containerStyle={
+          {
+            // height: 300,
+          }
+        }
         loop
         counter
         pageControlProps={{
@@ -52,18 +54,16 @@ export default function ListItem({item}: {item: Property}) {
         }}
         pageControlPosition={Carousel.pageControlPositions.OVER}
         showCounter>
-        {item.property_photos.map((element, i) => (
+        {item.property_photos?.map((element, i) => (
           <TouchableWithoutFeedback
-            style={{
-              height: width,
-              //   width: width,
-            }}
-            onPress={() => navigation.navigate('SnappCover')}>
+            key={element.id + 'image'}
+            onPress={() => navigation.navigate('SnappCover', {property: item})}>
             <View flex centerV key={i}>
-              <Image
+              <AnimatedImage
+                style={{height: 300}}
                 loader={<ActivityIndicator />}
                 overlayType={Image.overlayTypes.BOTTOM}
-                style={{flex: 1}}
+                // style={{flex: 1}}
                 source={{
                   uri:
                     'https://www.snappstay.com/public/images/' + element.photo,
@@ -111,7 +111,9 @@ export default function ListItem({item}: {item: Property}) {
           <Text>4.94</Text>
         </View>
       </View>
-      <AddToFavorite item={item} />
+      <View style={{position: 'absolute', top: 10, left: 10}}>
+        <AddToFavorite item={item} />
+      </View>
     </View>
   );
 }

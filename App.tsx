@@ -14,16 +14,12 @@ import StackNavigation from '@navigation/StackNavigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import Toast, {ErrorToast} from 'react-native-toast-message';
-import {Provider} from 'react-redux';
+import {Provider, useDispatch, useSelector} from 'react-redux';
 import {persistReducer, persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import thunk from 'redux-thunk';
 import {persistor, store} from '@stores/store';
 const App = () => {
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
-
   return (
     // <SafeAreaView style={styles.container}>
     <>
