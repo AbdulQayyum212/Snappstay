@@ -10,17 +10,20 @@ import {User} from '@type/user';
 import {UpdateUserResponse} from '@type/updateUser';
 import {setUser} from './authActions';
 
-export const updateProfileRequest = () => ({
+export const updateProfileRequest = (): ProfileActionTypes => ({
   type: UPDATE_PROFILE_REQUEST,
 });
 
-export const updateProfileSuccess = (user: User, message: string) => ({
+export const updateProfileSuccess = (
+  user: User,
+  message: string,
+): ProfileActionTypes => ({
   type: UPDATE_PROFILE_SUCCESS,
   payload: user,
   message: message,
 });
 
-export const updateProfileFailure = (error: string) => ({
+export const updateProfileFailure = (error: string): ProfileActionTypes => ({
   type: UPDATE_PROFILE_FAILURE,
   payload: error,
 });

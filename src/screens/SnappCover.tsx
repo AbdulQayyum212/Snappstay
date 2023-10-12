@@ -154,7 +154,7 @@ const SnappCover = () => {
             <View style={tw`flex-row items-center justify-between`}>
               <View style={tw`flex-1 gap-2`}>
                 <Text style={tw`font-bold text-black`}>
-                  {`Room in boutique hotel hosted by  ${property.user_details.first_name} ${property.user_details.last_name}`}
+                  {`Room in boutique hotel hosted by  ${property.user_details?.first_name} ${property.user_details?.last_name}`}
                 </Text>
                 <Text style={{color: '#999999'}}>
                   {property.guests} guests · {property.bedrooms} bedrooms ·{' '}

@@ -26,6 +26,7 @@ interface UpdateUserRequestAction {
 interface UpdateUserSuccessAction {
   type: typeof UPDATE_USER_SUCCESS;
   payload: UserData;
+  message: string;
 }
 
 interface UpdateUserFailureAction {

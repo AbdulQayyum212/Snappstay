@@ -249,8 +249,8 @@ const Map = () => {
           {posts.map(place => (
             <CustomMarker
               coordinate={{
-                latitude: place.lat,
-                longitude: place.long,
+                latitude: parseFloat(place.lat),
+                longitude: parseFloat(place.long),
               }}
               key={place.id}
               price={place.price}

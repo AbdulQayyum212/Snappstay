@@ -10,25 +10,26 @@ import {
 } from './authReducer'; // Import action types
 import {LoginResponse} from '@type/login';
 import {User} from '@type/user';
+import {ProfileActionTypes} from './profileReducer';
 
-export const loginRequest = () => ({
+export const loginRequest = (): AuthActionTypes => ({
   type: LOGIN_REQUEST,
 });
 
-export const loginSuccess = (user: User) => ({
+export const loginSuccess = (user: User): AuthActionTypes => ({
   type: LOGIN_SUCCESS,
   payload: user,
 });
 
-export const loginFailure = (error: string) => ({
+export const loginFailure = (error: string): AuthActionTypes => ({
   type: LOGIN_FAILURE,
   payload: error,
 });
-export const logout = () => ({
+export const logout = (): AuthActionTypes => ({
   type: LOGOUT,
 });
 
-export const setUser = (user: User) => ({
+export const setUser = (user: User): AuthActionTypes | ProfileActionTypes => ({
   type: SET_USER,
   payload: user,
 });
