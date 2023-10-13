@@ -30,18 +30,6 @@ const WishList = ({}) => {
   const [date, setDate] = useState(false);
   const navigation = useNavigation();
 
-  console.log(userData);
-  const data = [
-    {
-      id: 1,
-      img: require('@assets/3.jpg'),
-      title1: 'Apertment In Houston Texas',
-      title2: 'Amsterdam Lifestyle in Houston',
-      title3: '1 queen bed Individual Host',
-      title4: 'night',
-      price: '$230 USD',
-    },
-  ];
   return (
     <SafeAreaView style={{height: '100%', backgroundColor: 'white'}}>
       <View style={{backgroundColor: 'white', padding: 20}}>
@@ -84,8 +72,13 @@ const WishList = ({}) => {
             </View> */}
         {userData && (
           <FlatList
+            contentContainerStyle={{
+              paddingBottom: 100,
+              flexGrow: 1,
+              justifyContent: 'center',
+            }}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{paddingBottom: 100, minHeight: '100%'}}
+            // contentContainerStyle={{paddingBottom: 100, minHeight: '100%'}}
             showsHorizontalScrollIndicator={false}
             data={userData?.userFavourites?.map(x => x.property)}
             renderItem={({item}) => {

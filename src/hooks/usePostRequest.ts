@@ -19,9 +19,7 @@ const usePostRequest = <T>({url}: UsePostRequestProps) => {
     try {
       setLoading(true);
       const response: AxiosResponse<any> = await axios.post(url, data, {
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
+        headers: {'Content-Type': 'multipart/form-data'},
       });
       setResponseData(response.data);
       setLoading(false);
