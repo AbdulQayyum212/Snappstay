@@ -24,7 +24,8 @@ interface UpdateProfileRequestAction {
 
 interface UpdateProfileSuccessAction {
   type: typeof UPDATE_PROFILE_SUCCESS;
-  payload: {id: number; username: string};
+  payload: User;
+  message: string;
 }
 
 interface UpdateProfileFailureAction {

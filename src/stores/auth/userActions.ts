@@ -6,31 +6,35 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
   CLEAR_USER,
-} from './userReducer'; // Import action types
+} from '../reducers/userReducer'; // Import action types
 import {User} from '@type/user';
 import {setUser} from './authActions';
-import {UserProfileResponse} from '@type/userProfileResponse';
+import {UserData, UserProfileResponse} from '@type/userProfileResponse';
+import {AuthActionTypes} from '@stores/reducers/authReducer';
 
-export const updateUserRequest = () => ({
+export const updateUserRequest = (): UserActionTypes => ({
   type: UPDATE_USER_REQUEST,
 });
 
-export const updateUserSuccess = (user: User, message: string) => ({
+export const updateUserSuccess = (
+  user: UserData,
+  message: string,
+): UserActionTypes => ({
   type: UPDATE_USER_SUCCESS,
   payload: user,
   message: message,
 });
 
-export const updateUserFailure = (error: string) => ({
+export const updateUserFailure = (error: string): UserActionTypes => ({
   type: UPDATE_USER_FAILURE,
   payload: error,
 });
-export const ClearUser = () => ({
+export const ClearUser = (): UserActionTypes => ({
   type: CLEAR_USER,
 });
 
 export const getUserData = (updatedUser: User) => {
-  return async (dispatch: Dispatch<UserActionTypes>) => {
+  return async (dispatch: Dispatch<UserActionTypes | AuthActionTypes>) => {
     try {
       // Simulate an API call for updating the user's user (replace with your actual API call)
       dispatch(updateUserRequest());

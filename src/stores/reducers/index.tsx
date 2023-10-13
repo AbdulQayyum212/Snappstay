@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import authReducer, {AuthState} from '../auth/authReducer'; // Import the authReducer and its state type
-import signupReducer, {SignupState} from '@stores/auth/signupReducer';
-import profileReducer, {ProfileState} from '@stores/auth/profileReducer';
-import userReducer, {UserState} from '@stores/auth/userReducer';
+import authReducer, {AuthState} from './authReducer'; // Import the authReducer and its state type
+import signupReducer, {SignupState} from '@stores/reducers/signupReducer';
+import profileReducer, {ProfileState} from '@stores/reducers/profileReducer';
+import userReducer, {UserState} from '@stores/reducers/userReducer';
 
 // Define the RootState type, which combines all the individual reducer states
 export interface RootState {

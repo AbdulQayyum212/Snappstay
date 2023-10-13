@@ -27,7 +27,7 @@ interface LoginRequestAction {
 
 interface LoginSuccessAction {
   type: typeof LOGIN_SUCCESS;
-  payload: {id: number; username: string};
+  payload: User;
 }
 
 interface LoginFailureAction {

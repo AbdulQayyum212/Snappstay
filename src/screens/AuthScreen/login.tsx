@@ -5,6 +5,7 @@ import {
   Image,
   Platform,
   SafeAreaView,
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -18,6 +19,8 @@ import tw from 'twrnc';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectAuthState} from '@stores/store';
 import {login} from '@stores/auth/authActions';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const data = {
   email: 'ubaid@snapp.com',
@@ -32,8 +35,9 @@ const Login = () => {
     'Ireland (+353)',
   ];
   const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
   const [selectCode, setSelectCode] = useState('Pakistan (+92)');
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const {isAuthenticated, user, error, isLoggingIn} =
     useSelector(selectAuthState);
 
@@ -46,11 +50,20 @@ const Login = () => {
   });
 
   const handleLogin = () => {
-    dispatch(login(credentials));
+    const formData = new FormData();
+    formData.append('email', credentials.email);
+    formData.append('password', credentials.password);
+
+    dispatch(login(formData));
   };
   return (
     <SafeAreaView style={{height: '100%', backgroundColor: 'white'}}>
-      <View style={{flex: 1, backgroundColor: 'white', padding: 20}}>
+      <ScrollView style={tw`gap-2 p-4`}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={tw` items-center justify-center shadow-md bg-white px-2 w-10 h-10 left-1  p-2 rounded-full z-10`}>
+          <EvilIcons name={'chevron-left'} size={20} color="black" />
+        </TouchableOpacity>
         <View>
           <View style={tw`gap-2`}>
             <Text style={{color: 'black', fontSize: 35, fontWeight: 'bold'}}>
@@ -280,7 +293,7 @@ const Login = () => {
             <View />
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

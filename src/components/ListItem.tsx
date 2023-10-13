@@ -36,7 +36,7 @@ export default function ListItem({item}: {item: Property}) {
   return (
     <View
       key={item.id + 'list-item'}
-      style={tw`shadow-xl bg-white border border-gray-200 rounded-xl  my-2 overflow-hidden`}>
+      style={tw`shadow-lg bg-white border border-gray-200 rounded-xl  my-2 overflow-hidden`}>
       <Carousel
         containerStyle={
           {

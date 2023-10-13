@@ -13,7 +13,13 @@ const useGetRequest = <T>({url}: UseGetRequestProps<T>) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response: AxiosResponse<T> = await axios.get(url);
+        const response: AxiosResponse<T> = await axios.get(url, {
+          headers: {
+            // Accept: 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json; charset=utf-8',
+          },
+        });
         setData(response.data);
         setLoading(false);
         setError(null);
