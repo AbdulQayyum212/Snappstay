@@ -17,7 +17,7 @@ import {User} from '@type/user';
 import {Button} from '@components/Button';
 import {updateProfile} from '@stores/auth/profileActions';
 const PersonalInfo = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
   const {user} = useSelector(selectAuthState);
   const {error, isUpdatingProfile} = useSelector(selectProfileState);
@@ -31,12 +31,8 @@ const PersonalInfo = () => {
     (_, a, b, c) => a + b.replace(/./g, '*') + c,
   );
   var maskedNumber = credentials.phone
-    .replace(/\D/g, '')
-    .replace(/(^[^5])/, '')
-    .replace(/(\d{3})(\d)/, '$1 $2')
-    .replace(/(\d{3}\s\d{3})(\d{1,2})/, '$1 $2')
-    .replace(/(\d{3}\s\d{3}\s\d{2})(\d{1,2})/, '$1 $2')
-    .replace(/(\d{3}\s\d{3}\s\d{2}\s\d{2})\d+?$/, '$1');
+    .slice(-4)
+    .padStart(credentials.phone.length, '*');
 
   const handleProfileInfo = () => {
     dispatch(updateProfile(credentials));

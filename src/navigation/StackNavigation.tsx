@@ -52,6 +52,7 @@ import {
 } from '@stores/store';
 import SplashScreen from 'react-native-splash-screen';
 import {getUserData} from '@stores/auth/userActions';
+import VerifyScreen from '@screens/VerifyScreen';
 const Stack = createStackNavigator<RootStackParamList>();
 const StackNavigation = () => {
   const {isAuthenticated, user, isLoggingIn} = useSelector(selectAuthState);
@@ -127,6 +128,7 @@ const StackNavigation = () => {
       <Stack.Screen name="Notifications" component={Notifications} />
       <Stack.Screen name="HelpCenter" component={HelpCenter} />
       <Stack.Screen name="AddListing" component={AddListing} />
+      <Stack.Screen name="Verify" component={VerifyScreen} />
       {isAuthenticated || (
         <Stack.Group>
           <Stack.Screen name="Login" component={Login} />

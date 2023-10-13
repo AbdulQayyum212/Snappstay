@@ -100,7 +100,7 @@ const ProfileStep2 = () => {
 
           <Button
             style={{marginTop: 20, width: 170, paddingVertical: 15}}
-            // onPress={() => navigation.navigate('Login')}
+            onPress={() => navigation.navigate('Verify')}
             title={'Get the badge'}
           />
           <Text style={{marginTop: 10}}>

@@ -1,17 +1,15 @@
 // auth/authActions.tsx
+import {LoginResponse} from '@type/login';
+import {User} from '@type/user';
 import {Dispatch} from 'redux';
 import {
   AuthActionTypes,
+  LOGIN_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE,
   LOGOUT,
   SET_USER,
 } from '../reducers/authReducer'; // Import action types
-import {LoginResponse} from '@type/login';
-import {User} from '@type/user';
-import {UserActionTypes} from '@stores/reducers/userReducer';
-import {ProfileActionTypes} from '@stores/reducers/profileReducer';
 
 export const loginRequest = (): AuthActionTypes => ({
   type: LOGIN_REQUEST,

@@ -17,15 +17,36 @@ const usePostRequest = <T>({url}: UsePostRequestProps) => {
 
   const makePostRequest = async (data: FormData) => {
     try {
+      // data.append('id', user?.id);
+      console.log(data);
       setLoading(true);
-      const response: AxiosResponse<any> = await axios.post(url, data, {
-        headers: {'Content-Type': 'multipart/form-data'},
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        body: data,
       });
-      setResponseData(response.data);
-      setLoading(false);
-      setError(null);
+      console.log(response);
+      // const response: AxiosResponse<any> = await axios.post(url, data, {
+      //   headers: {'Content-Type': 'multipart/form-data'},
+      // });
+      if (response.ok) {
+        const data = await response.json();
+        setResponseData(data);
+        setLoading(false);
+        setError(null);
+      } else {
+        const data = await response.json();
+        console.log(data);
+        setLoading(false);
+        setError(null);
+      }
+
       if (user) dispatch(getUserData(user));
     } catch (error) {
+      console.log(error);
       setError(error);
       setLoading(false);
     }

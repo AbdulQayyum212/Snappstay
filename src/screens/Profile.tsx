@@ -21,6 +21,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {connect, useDispatch, useSelector} from 'react-redux';
 import {logout} from '@stores/auth/authActions';
 import {ClearUser} from '@stores/auth/userActions';
+import tw from 'twrnc';
+
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const Profile = () => {
   const {isAuthenticated, user, error, isLoggingIn} =
@@ -329,7 +331,7 @@ const Profile = () => {
                 title={'Log In'}
               />
             )}
-            {isAuthenticated ? null : (
+            {!isAuthenticated && (
               <View
                 style={{
                   flexDirection: 'row',
@@ -351,31 +353,11 @@ const Profile = () => {
                 </TouchableOpacity>
               </View>
             )}
-            <TouchableWithoutFeedback
-              onPress={() => navigation.navigate('StartEarning')}>
-              <View
-                style={{
-                  shadowColor: '#000',
-                  shadowOffset: {
-                    width: 0,
-                    height: 2,
-                  },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-
-                  elevation: 5,
-                  backgroundColor: 'white',
-                  paddingHorizontal: 20,
-                  width: '100%',
-                  borderRadius: 10,
-                  marginTop: 20,
-                  padding: 20,
-                  paddingVertical: 30,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}>
-                <View>
+            {isAuthenticated && (
+              <TouchableOpacity
+                style={tw`flex-row items-center justify-center border border-gray-200 bg-white shadow-md rounded-lg p-6`}
+                onPress={() => navigation.navigate('StartEarning')}>
+                <View style={tw`flex-2 gap-2`}>
                   <Text style={{color: 'black', fontWeight: 'bold'}}>
                     SnappStay your place
                   </Text>
@@ -387,8 +369,8 @@ const Profile = () => {
                   style={{width: 50, height: 50}}
                   source={require('@assets/Rectangle2.png')}
                 />
-              </View>
-            </TouchableWithoutFeedback>
+              </TouchableOpacity>
+            )}
             <View style={{marginTop: 20}}>
               <Text style={{fontSize: 20, color: 'black', fontWeight: 'bold'}}>
                 Account settings

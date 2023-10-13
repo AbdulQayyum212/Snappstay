@@ -70,23 +70,27 @@ const WishList = ({}) => {
                 </View>
               )}
             </View> */}
-        {userData && (
-          <FlatList
-            contentContainerStyle={{
-              paddingBottom: 100,
-              flexGrow: 1,
-              justifyContent: 'center',
-            }}
-            showsVerticalScrollIndicator={false}
-            // contentContainerStyle={{paddingBottom: 100, minHeight: '100%'}}
-            showsHorizontalScrollIndicator={false}
-            data={userData?.userFavourites?.map(x => x.property)}
-            renderItem={({item}) => {
-              return <ListItem item={item} />;
-            }}
-            keyExtractor={item => item.id.toString()}
-          />
-        )}
+
+        <FlatList
+          contentContainerStyle={{
+            paddingBottom: 100,
+            flexGrow: 1,
+            justifyContent: 'center',
+          }}
+          ListEmptyComponent={
+            <Text>
+              Your Dream Destination are waiting for You add you wishlist here
+            </Text>
+          }
+          showsVerticalScrollIndicator={false}
+          // contentContainerStyle={{paddingBottom: 100, minHeight: '100%'}}
+          showsHorizontalScrollIndicator={false}
+          data={userData?.userFavourites?.map(x => x.property)}
+          renderItem={({item}) => {
+            return <ListItem item={item} />;
+          }}
+          keyExtractor={item => item.id.toString()}
+        />
         {/* <Text
           style={{
             color: 'black',

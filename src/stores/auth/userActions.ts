@@ -54,10 +54,10 @@ export const getUserData = (updatedUser: User) => {
           body: formData,
         },
       );
-      console.log(updatedUser);
+      // console.log(updatedUser);
       if (response.ok) {
         const updatedUser: UserProfileResponse = await response.json();
-        console.log(updatedUser.userData.users);
+        // console.log(updatedUser.userData.users);
         dispatch(updateUserSuccess(updatedUser.userData, 'Data is here'));
         dispatch(setUser(updatedUser.userData.users));
       } else {
