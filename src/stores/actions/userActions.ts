@@ -1,5 +1,6 @@
 // auth/userActions.ts
 import {Dispatch} from 'redux';
+import {RootState} from '../reducers';
 import {
   UserActionTypes,
   UPDATE_USER_REQUEST,
@@ -33,25 +34,26 @@ export const ClearUser = (): UserActionTypes => ({
   type: CLEAR_USER,
 });
 
-export const getUserData = (updatedUser: User) => {
-  return async (dispatch: Dispatch<UserActionTypes | AuthActionTypes>) => {
+export const getUserData = () => {
+  return async (
+    dispatch: Dispatch<UserActionTypes | AuthActionTypes>,
+    getState: () => RootState,
+  ) => {
     try {
       // Simulate an API call for updating the user's user (replace with your actual API call)
       dispatch(updateUserRequest());
 
-      //   Make the API call to update the user's user
-      //   Example:
-      var formData = new FormData();
+      const token = getState().auth.token; // Adjust this based on your actual state structure
 
-      formData.append('user_id', updatedUser.id);
       const response = await fetch(
         'https://www.snappstay.com/api/user/profile',
         {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
           },
-          body: formData,
+          // body: formData,
         },
       );
       // console.log(updatedUser);

@@ -21,6 +21,7 @@ import {Property} from '@type/property';
 import tw from 'twrnc';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import AddToFavorite from '@components/AddToFavorite';
+import {RootStackScreenProps} from '@type/navigation';
 const width = Dimensions.get('window').width;
 const Max_Header_Height = 200;
 const Min_Header_Height = 70;
@@ -29,8 +30,8 @@ const Scroll_Distance = Max_Header_Height - Min_Header_Height;
 const SnappCover = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
-  const route = useRoute();
-  const property = route.params.property as Property;
+  const route = useRoute<RootStackScreenProps<'SnappCover'>['route']>();
+  const property = route.params?.property as Property;
   let scrollOffsetY = useRef(new Animated.Value(0)).current;
 
   // const animateHeaderBackgroundColor = scrollOffsetY.interpolate({
@@ -67,7 +68,7 @@ const SnappCover = () => {
         console.log('Dismissed');
       }
     } catch (error) {
-      console.log('error.message', error.message);
+      if (error instanceof Error) console.log('error.message', error.message);
     }
   };
   return (

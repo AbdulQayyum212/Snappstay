@@ -1,16 +1,17 @@
+import FormData from 'form-data';
 // auth/profileActions.ts
+import {AuthActionTypes} from '@stores/reducers/authReducer';
+import {UpdateUserResponse} from '@type/updateUser';
+import {User} from '@type/user';
 import {Dispatch} from 'redux';
+import {RootState} from '../reducers';
 import {
   ProfileActionTypes,
+  UPDATE_PROFILE_FAILURE,
   UPDATE_PROFILE_REQUEST,
   UPDATE_PROFILE_SUCCESS,
-  UPDATE_PROFILE_FAILURE,
 } from '../reducers/profileReducer'; // Import action types
-import {User} from '@type/user';
-import {UpdateUserResponse} from '@type/updateUser';
 import {setUser} from './authActions';
-import {UserActionTypes} from '@stores/reducers/userReducer';
-import {AuthActionTypes} from '@stores/reducers/authReducer';
 
 export const updateProfileRequest = (): ProfileActionTypes => ({
   type: UPDATE_PROFILE_REQUEST,
@@ -30,31 +31,29 @@ export const updateProfileFailure = (error: string): ProfileActionTypes => ({
   payload: error,
 });
 
-export const updateProfile = (updatedProfile: User) => {
-  return async (dispatch: Dispatch<ProfileActionTypes | AuthActionTypes>) => {
+export const updateProfile = (formData: FormData) => {
+  return async (
+    dispatch: Dispatch<ProfileActionTypes | AuthActionTypes>,
+    getState: () => RootState,
+  ) => {
     try {
       // Simulate an API call for updating the user's profile (replace with your actual API call)
       dispatch(updateProfileRequest());
+      console.log(formData);
 
-      //   Make the API call to update the user's profile
-      //   Example:
-      var formData = new FormData();
-
-      Object.entries(updatedProfile).forEach(([key, value]) => {
-        if (value != null) formData.append(key, value);
-      });
-      formData.append('user_id', updatedProfile.id);
+      // Get the token from your Redux state
+      const token = getState().auth.token; // Adjust this based on your actual state structure
       const response = await fetch(
         'https://www.snappstay.com/api/user/update',
         {
           method: 'POST',
           headers: {
             'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
           },
           body: formData,
         },
       );
-      console.log(updatedProfile);
       if (response.ok) {
         const updatedUser: UpdateUserResponse = await response.json();
         console.log(updatedUser);

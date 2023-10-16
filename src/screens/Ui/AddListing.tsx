@@ -1,44 +1,31 @@
-import Bedroom from '@components/Bedroom';
-import {Button, LeftIconBtn} from '@components/Button';
-import CheckBoxBtn from '@components/CheckBoxBtn';
+import AddPhotos from '@components/AddPhotos';
+import Amenities from '@components/Amenities';
 import BedTypes from '@components/BedTypes';
+import {Button} from '@components/Button';
+import DescribeYourHouse from '@components/DescribeYourHouse';
+import FirstReservation from '@components/FirstReservation';
 import {Header} from '@components/Header';
 import Information from '@components/Information';
-import Amenities from '@components/Amenities';
-import PlaceType from '@components/PlaceType';
 import Location from '@components/Location';
-import RadioBtn from '@components/RadioBtn';
-import TermsRules from '@components/TermsRules';
-import {useNavigation} from '@react-navigation/native';
-import Calender from '@components/Calender';
-import React, {useRef, useState} from 'react';
-import {
-  FlatList,
-  Image,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {Calendar} from 'react-native-calendars';
-import ImagePicker, {ImageOrVideo} from 'react-native-image-crop-picker';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-import SelectDropdown from 'react-native-select-dropdown';
-import {ProgressBar, TextField} from 'react-native-ui-lib';
-import AddPhotos from '@components/AddPhotos';
+import PlaceType from '@components/PlaceType';
 import YourHouseTitle from '@components/YourHouseTitle';
-import DescribeYourHouse from '@components/DescribeYourHouse';
 import YourHousedescription from '@components/YourHousedescription';
-import FirstReservation from '@components/FirstReservation';
-import FormData from 'form-data';
+import {useNavigation} from '@react-navigation/native';
 import CreatePrice from '@screens/CreatePrice';
 import LastStep from '@screens/LastStep';
-import Toast from 'react-native-toast-message';
-import {ToastError, ToastSuccess} from '../../Config/Constants';
-import {selectAddListingState, selectAuthState} from '@stores/store';
-import {useDispatch, useSelector} from 'react-redux';
 import {Add_Listing, setId, setStep} from '@stores/actions/AddListingActions';
+import {selectAddListingState, selectAuthState} from '@stores/store';
+import FormData from 'form-data';
+import React, {useRef, useState} from 'react';
+import {SafeAreaView, ScrollView, View} from 'react-native';
+import ImagePicker, {ImageOrVideo} from 'react-native-image-crop-picker';
+import Toast from 'react-native-toast-message';
+import {ProgressBar} from 'react-native-ui-lib';
+import {useDispatch, useSelector} from 'react-redux';
+import {ToastError, ToastSuccess} from '../../Config/Constants';
+import tw from 'twrnc';
+import {addListingType} from '@type/addListingType';
+
 const AddListing = () => {
   const countries = [
     'None',
@@ -60,51 +47,14 @@ const AddListing = () => {
     'Per Guest',
     'Per Night Per Guest',
   ];
-  const policy = ['Select Cancellation Policy'];
   const navigation = useNavigation();
-  const [selectCode, setSelectCode] = useState('None');
-  const [selectPolicy, setSelectPolicy] = useState(
-    'Select Cancellation Policy',
-  );
-  const {isAuthenticated, user, error, isLoggingIn} =
-    useSelector(selectAuthState);
-  const [selectGuestType, setSelectGuestType] = useState('Single Fee');
-  const [selectWeekend, setSelectWeekend] = useState('Saturday and Sunday');
-  const [selected, setSelected] = useState<string>('');
   const [progress, setProgress] = useState(0);
   //   const [condition, setCondition] = useState('');
   const [condition, setCondition] = useState('Information');
   const {id, step} = useSelector(selectAddListingState);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   // const [image, setImage] = useState([]);
-  const [input, setInput] = useState<{
-    title: string;
-    description: string;
-    unitOfMeasure: string;
-    booking: string;
-    name: string;
-    price: number;
-    image: ImageOrVideo[];
-    address: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    area: string;
-    country: string;
-    property_type: string;
-    place_type: string;
-    guests: string;
-    Bedrooms: string;
-    beds: string;
-    bathrooms: string;
-    pets: string;
-    guest_type: string;
-    security_camera: string;
-    animals: string;
-    weapon: string;
-    lat: number;
-    lng: number;
-  }>({
+  const [input, setInput] = useState<addListingType>({
     title: '',
     description: '',
     unitOfMeasure: '',
@@ -132,7 +82,9 @@ const AddListing = () => {
     lat: 0.12,
     lng: -0.12,
   });
-  const [informationState, setInformationState] = useState({
+  const [informationState, setInformationState] = useState<{
+    [key: string]: {image: any; title: string; selected: boolean};
+  }>({
     House: {
       image: require('@assets/home.png'),
       title: 'House',
@@ -154,27 +106,75 @@ const AddListing = () => {
       title: 'Cabin',
       selected: false,
     },
-    'Camper/RV': {image: require('@assets/camper-van.png'), selected: false},
-    Farm: {image: require('@assets/field.png'), selected: false},
-    Resorts: {image: require('@assets/guesthouse.png'), selected: false},
-    Cottages: {image: require('@assets/cottagess.png'), selected: false},
-    Glamping: {image: require('@assets/glampingg.png'), selected: false},
-    Service: {image: require('@assets/servicess.png'), selected: false},
-    Villas: {image: require('@assets/housess.png'), selected: false},
-    'Artistic Retreats': {image: require('@assets/artis.png'), selected: false},
-    Design: {image: require('@assets/des.png'), selected: false},
-    Dome: {image: require('@assets/dom.png'), selected: false},
-    Golfing: {image: require('@assets/golf.png'), selected: false},
-    Island: {image: require('@assets/isl.png'), selected: false},
-    Mansions: {image: require('@assets/mans.png'), selected: false},
-    'National Parks': {image: require('@assets/natio.png'), selected: false},
-    New: {image: require('@assets/ne.png'), selected: false},
-    'Private Rooms': {image: require('@assets/pri.png'), selected: false},
-    'Top of the world': {image: require('@assets/top.png'), selected: false},
-    Tower: {image: require('@assets/tow.png'), selected: false},
-    Treehouses: {image: require('@assets/tree.png'), selected: false},
-    Trending: {image: require('@assets/tren.png'), selected: false},
-    Windmills: {image: require('@assets/wind.png'), selected: false},
+    'Camper/RV': {
+      image: require('@assets/camper-van.png'),
+      title: 'Camper/RV',
+      selected: false,
+    },
+    Farm: {image: require('@assets/field.png'), title: 'Farm', selected: false},
+    Resorts: {
+      image: require('@assets/guesthouse.png'),
+      title: 'Resorts',
+      selected: false,
+    },
+    Cottages: {
+      image: require('@assets/cottagess.png'),
+      title: 'Cottages',
+      selected: false,
+    },
+    Glamping: {
+      image: require('@assets/glampingg.png'),
+      title: 'Glamping',
+      selected: false,
+    },
+    Service: {
+      image: require('@assets/servicess.png'),
+      title: '',
+      selected: false,
+    },
+    Villas: {image: require('@assets/housess.png'), title: '', selected: false},
+    'Artistic Retreats': {
+      image: require('@assets/artis.png'),
+      title: '',
+      selected: false,
+    },
+    Design: {image: require('@assets/des.png'), title: '', selected: false},
+    Dome: {image: require('@assets/dom.png'), title: '', selected: false},
+    Golfing: {image: require('@assets/golf.png'), title: '', selected: false},
+    Island: {image: require('@assets/isl.png'), title: '', selected: false},
+    Mansions: {image: require('@assets/mans.png'), title: '', selected: false},
+    'National Parks': {
+      image: require('@assets/natio.png'),
+      title: '',
+      selected: false,
+    },
+    New: {image: require('@assets/ne.png'), title: '', selected: false},
+    'Private Rooms': {
+      image: require('@assets/pri.png'),
+      title: 'Private Rooms',
+      selected: false,
+    },
+    'Top of the world': {
+      image: require('@assets/top.png'),
+      title: 'Top of the world',
+      selected: false,
+    },
+    Tower: {image: require('@assets/tow.png'), title: 'Tower', selected: false},
+    Treehouses: {
+      image: require('@assets/tree.png'),
+      title: '',
+      selected: false,
+    },
+    Trending: {
+      image: require('@assets/tren.png'),
+      title: 'Treehouses',
+      selected: false,
+    },
+    Windmills: {
+      image: require('@assets/wind.png'),
+      title: 'Windmills',
+      selected: false,
+    },
   });
   const [describeYourHouse, setDescribeYourHouse] = useState({
     Peaceful: {
@@ -354,7 +354,6 @@ const AddListing = () => {
     },
   });
   console.log('step ==><><', step);
-  const map = useRef();
   const pickImg = async () => {
     ImagePicker.openPicker({
       width: 300,
@@ -374,15 +373,15 @@ const AddListing = () => {
           navigation.goBack();
         }}
       />
-      <ScrollView keyboardShouldPersistTaps="always">
+      <ScrollView
+        keyboardShouldPersistTaps="always"
+        contentContainerStyle={tw`justify-center p-2`}>
         <View>
           {step === '2' ? (
             <Information
               setInformationState={setInformationState}
               setInput={setInput}
               informationState={informationState}
-              countries={countries}
-              selectCode={selectCode}
             />
           ) : step === '3' ? (
             <Location setInput={setInput} input={input} />
@@ -443,7 +442,7 @@ const AddListing = () => {
                   return Toast.show(ToastError('Address is Required'));
                 const formData = new FormData();
                 formData.append('id', id);
-                formData.append('address', input?.address);
+                formData.append('address', input.address);
                 formData.append('city', input.city);
                 formData.append('state', input.state);
                 formData.append('country', input.country);
@@ -523,19 +522,17 @@ const AddListing = () => {
                 const formData = new FormData();
                 formData.append('id', id);
                 // formData.append('photos', input.image);
-                {
-                  input.image.map((Img, i) => {
-                    let spirit_uri = Img.path.split('/');
-                    let name = spirit_uri[spirit_uri.length - 1];
-                    let imageObj = {
-                      name,
-                      uri: Img.path,
-                      type: Img.mime,
-                      size: Img.size,
-                    };
-                    formData.append(`photos[${i}]`, imageObj, `${name}.jpg`);
-                  });
-                }
+                input.image.map((Img, i) => {
+                  let spirit_uri = Img.path.split('/');
+                  let name = spirit_uri[spirit_uri.length - 1];
+                  let imageObj = {
+                    name,
+                    uri: Img.path,
+                    type: Img.mime,
+                    size: Img.size,
+                  };
+                  formData.append(`photos[${i}]`, imageObj, `${name}.jpg`);
+                });
                 dispatch(Add_Listing(formData));
                 setProgress(20);
 
@@ -571,7 +568,7 @@ const AddListing = () => {
                 dispatch(Add_Listing(formData));
                 setProgress(35);
 
-                setCondition('First Reservationn');
+                setCondition('First Reservation');
                 console.log('input', input);
               } else if (step === '12') {
                 if (input.guest_type === '')
@@ -600,7 +597,6 @@ const AddListing = () => {
                   const formData = new FormData();
                   formData.append('id', id);
                   formData.append('publish', '');
-                  formData.append('user_id', user?.id);
                   formData.append('security_camera', input.security_camera);
                   formData.append('weapon', input.weapon);
                   formData.append('animals', input.animals);

@@ -1,7 +1,7 @@
 import {Button, LeftIconBtn} from '@components/Button';
 import {Header} from '@components/Header';
-import {useNavigation} from '@react-navigation/native';
-import {Add_Listing} from '@stores/actions/AddListingActions';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {Add_Listing, setId, setStep} from '@stores/actions/AddListingActions';
 import {selectAddListingState, selectAuthState} from '@stores/store';
 import {useEffect, useState} from 'react';
 import {Image, SafeAreaView, ScrollView, Text, View} from 'react-native';
@@ -10,20 +10,46 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FormData from 'form-data';
 import {useDispatch, useSelector} from 'react-redux';
+import usePostRequest from '@hooks/usePostRequest';
+import {RootStackScreenProps} from '@type/navigation';
 const StartEarning = () => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<RootStackScreenProps<'StartEarning'>['navigation']>();
   const [expanded, setExpanded] = useState(false);
-  const {isAuthenticated, user, error, isLoggingIn} =
-    useSelector(selectAuthState);
+
+  const route = useRoute<RootStackScreenProps<'StartEarning'>['route']>();
+  const property = route?.params?.property;
+
   const [expanded1, setExpanded1] = useState(false);
   const [top, setTop] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const {id, step} = useSelector(selectAddListingState);
+  const {responseData, loading, error, makePostRequest} = usePostRequest<{
+    step: number;
+  }>('https://www.snappstay.com/api/create/property/step');
+
   useEffect(() => {
     if (step) {
-      navigation.navigate('Addlisting');
+      navigation.replace('Addlisting');
     }
-  }, [step]);
+
+    if (responseData?.step != undefined) {
+      console.log(responseData.step);
+      console.log('animal', property.amenities);
+      if (responseData?.step == 18 && property.amenities != null)
+        navigation.replace('SnappCover', {property: property});
+      else {
+        if (property.amenities == null) {
+          dispatch(setStep('2'));
+        } else {
+          dispatch(setStep(responseData.step));
+        }
+        // dispatch(setStep(responseData.step));
+        dispatch(setId(property.id));
+      }
+    }
+  }, [responseData, step]);
+
   const Body = () => {
     return (
       <View>
@@ -597,17 +623,15 @@ const StartEarning = () => {
       <View style={{width: '100%', padding: 10}}>
         <LeftIconBtn
           onPress={() => {
-            // const formData = new FormData();
-            // formData.append('step', 2);
-            // formData.append('user_id', user?.id);
-            // const formData = {
-            //   step: 2,
-            //   user_id: user?.id,
-            // };
-            const formData = new FormData();
-            formData.append('step', 2);
-            formData.append('user_id', user?.id);
-            dispatch(Add_Listing(formData));
+            if (property) {
+              const formData = new FormData();
+              formData.append('id', property.id);
+              makePostRequest(formData);
+            } else {
+              const formData = new FormData();
+              formData.append('step', 2);
+              dispatch(Add_Listing(formData));
+            }
           }}
           style={{
             width: '100%',

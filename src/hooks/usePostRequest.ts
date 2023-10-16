@@ -1,15 +1,14 @@
-import {useState} from 'react';
-import axios, {AxiosResponse} from 'axios';
-import {useDispatch, useSelector} from 'react-redux';
-import {selectAuthState} from '@stores/store';
 import {getUserData} from '@stores/actions/userActions';
+import {selectAuthState} from '@stores/store';
+import {useState} from 'react';
+import Toast from 'react-native-toast-message';
+import {useDispatch, useSelector} from 'react-redux';
+import {ToastError} from '../Config/Constants';
+import FormData from 'form-data';
 
-interface UsePostRequestProps {
-  url: string;
-}
-
-const usePostRequest = <T>({url}: UsePostRequestProps) => {
-  const {isAuthenticated, user, isLoggingIn} = useSelector(selectAuthState);
+const usePostRequest = <T>(url: string) => {
+  const {isAuthenticated, user, isLoggingIn, token} =
+    useSelector(selectAuthState);
   const dispatch = useDispatch<any>();
   const [responseData, setResponseData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -26,6 +25,7 @@ const usePostRequest = <T>({url}: UsePostRequestProps) => {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
         },
         body: data,
       });
@@ -40,15 +40,26 @@ const usePostRequest = <T>({url}: UsePostRequestProps) => {
         setError(null);
       } else {
         const data = await response.json();
+
         console.log(data);
+        if (data.error) {
+          Toast.show(ToastError(data.error));
+        }
+
         setLoading(false);
         setError(null);
       }
 
-      if (user) dispatch(getUserData(user));
+      if (user) dispatch(getUserData());
     } catch (error) {
-      console.log(error);
-      setError(error);
+      if (error instanceof Error) {
+        setError(error);
+        Toast.show(ToastError(error.message));
+        console.log(error);
+      } else {
+        Toast.show(ToastError('error post request'));
+        console.log('error post request');
+      }
       setLoading(false);
     }
   };

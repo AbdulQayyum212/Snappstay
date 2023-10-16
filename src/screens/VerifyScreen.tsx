@@ -50,9 +50,9 @@ const VerifyScreen = () => {
   const navigation = useNavigation();
   const {isSigningUp} = useSelector(selectSignupState);
 
-  const {responseData, loading, error, makePostRequest} = usePostRequest({
-    url: 'https://www.snappstay.com/api/user/verify',
-  });
+  const {responseData, loading, error, makePostRequest} = usePostRequest(
+    'https://www.snappstay.com/api/user/verify',
+  );
 
   const [credentials, setCredentials] = useState<verifyState>({
     utility: null,

@@ -391,6 +391,18 @@ const Profile = () => {
                   />
                   <CustomBtn
                     rightIcon={
+                      <Ionicons
+                        name="map"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      />
+                    }
+                    onPress={() => navigation.navigate('UserListing')}
+                    centerText="Your Properties"
+                  />
+                  <CustomBtn
+                    rightIcon={
                       <MaterialIcons
                         name="payments"
                         size={20}

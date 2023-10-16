@@ -57,6 +57,8 @@ import {getUserData} from '@stores/actions/userActions';
 import VerifyScreen from '@screens/VerifyScreen';
 import {signup} from '@stores/actions/signupActions';
 import {ActivityIndicator, View} from 'react-native';
+import {loaderFalse} from '@stores/actions/LoaderAction';
+import UserListing from '@screens/UserListing';
 const Stack = createStackNavigator<RootStackParamList>();
 const StackNavigation = () => {
   const {isAuthenticated, user} = useSelector(selectAuthState);
@@ -64,7 +66,7 @@ const StackNavigation = () => {
   const dispatch = useDispatch<any>();
   useEffect(() => {
     if (isAuthenticated) {
-      if (user) dispatch(getUserData(user));
+      if (user) dispatch(getUserData());
       if (isLoadingUser) SplashScreen.show();
       if (error) SplashScreen.hide();
       if (!isLoadingUser && userData) SplashScreen.hide();
@@ -72,14 +74,14 @@ const StackNavigation = () => {
     } else {
       SplashScreen.hide();
     }
+    // dispatch(loaderFalse());
   }, [isAuthenticated]);
 
-  console.log(userData);
   const {id, step} = useSelector(selectAddListingState);
   const {loading} = useSelector(selectLoaderState);
   return (
     <>
-      {loading && (
+      {/* {loading && (
         <View
           style={{
             flex: 1,
@@ -100,7 +102,7 @@ const StackNavigation = () => {
             <ActivityIndicator size="large" color={'white'} />
           </View>
         </View>
-      )}
+      )} */}
 
       <Stack.Navigator
         screenOptions={{
@@ -153,6 +155,7 @@ const StackNavigation = () => {
         <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="HelpCenter" component={HelpCenter} />
         <Stack.Screen name="Verify" component={VerifyScreen} />
+        <Stack.Screen name="UserListing" component={UserListing} />
         {step === '18' || (
           <Stack.Screen name="Addlisting" component={AddListing} />
         )}

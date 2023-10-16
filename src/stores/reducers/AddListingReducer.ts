@@ -11,18 +11,17 @@ export const SET_ID = 'SET_Id';
 export const SET_STEP = 'SET_step';
 interface SetIdAction {
   type: typeof SET_ID;
-  payload: number;
+  payload: number | null;
 }
 interface SetStepAction {
   type: typeof SET_STEP;
-  payload: number;
+  payload: number | null;
 }
 export type AddListingActionTypes = SetIdAction | SetStepAction;
 const AddListing = (
   state = initialState,
   action: AddListingActionTypes,
 ): AddListingState => {
-  console.log('action.payload', action.payload);
   switch (action.type) {
     case SET_ID:
       return {

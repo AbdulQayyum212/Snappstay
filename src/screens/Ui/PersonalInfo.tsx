@@ -16,6 +16,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {User} from '@type/user';
 import {Button} from '@components/Button';
 import {updateProfile} from '@stores/actions/profileActions';
+import FormData from 'form-data';
 const PersonalInfo = () => {
   const dispatch = useDispatch<any>();
 
@@ -35,7 +36,15 @@ const PersonalInfo = () => {
     .padStart(credentials.phone.length, '*');
 
   const handleProfileInfo = () => {
-    dispatch(updateProfile(credentials));
+    const formData = new FormData();
+    formData.append('first_name', credentials.first_name);
+    formData.append('last_name', credentials.last_name);
+    formData.append('user_name', credentials.user_name);
+    formData.append('email', credentials.email);
+    formData.append('phone', credentials.phone);
+    formData.append('full_address', credentials.full_address);
+    formData.append('mailing_address', credentials.mailing_address);
+    dispatch(updateProfile(formData));
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>

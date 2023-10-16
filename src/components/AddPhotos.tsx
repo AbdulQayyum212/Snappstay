@@ -10,8 +10,17 @@ import React from 'react';
 import {LeftIconBtn} from './Button';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import {addListingType} from '@type/addListingType';
 
-const AddPhotos = ({pickImg, setInput, input}: any) => {
+const AddPhotos = ({
+  pickImg,
+  setInput,
+  input,
+}: {
+  input: addListingType;
+  setInput: React.Dispatch<React.SetStateAction<addListingType>>;
+  pickImg: () => Promise<void>;
+}) => {
   return (
     <SafeAreaView>
       <View style={{padding: 20}}>
@@ -72,14 +81,10 @@ const AddPhotos = ({pickImg, setInput, input}: any) => {
                 />
                 <TouchableOpacity
                   onPress={() => {
-                    const img = input?.image?.filter(function (i: any) {
-                      return i !== index;
-                    });
-                    const myState = {...input};
-
-                    [...input?.image, (myState.image = img)];
-
-                    setInput(myState);
+                    setInput(prev => ({
+                      ...prev,
+                      image: prev.image.filter((x, i) => i !== index),
+                    }));
                     // setImage(img);
                   }}
                   style={{

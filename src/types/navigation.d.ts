@@ -4,6 +4,7 @@ import type {
 } from '@react-navigation/native';
 import type {StackScreenProps} from '@react-navigation/stack';
 import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {Property} from './property';
 
 export type RootStackParamList = {
   Home: NavigatorScreenParams<HomeTabParamList>;
@@ -34,7 +35,7 @@ export type RootStackParamList = {
   Notifi: undefined;
   Map: undefined;
   WhereTo: undefined;
-  SnappCover: undefined;
+  SnappCover: {property: Property};
   ConfirmPay: undefined;
   Guest: undefined;
   DateEdit: undefined;
@@ -44,7 +45,7 @@ export type RootStackParamList = {
   PersonalInfo: undefined;
   EditPayment: undefined;
   PrivacyAndSharing: undefined;
-  StartEarning: undefined;
+  StartEarning: {property: Property};
   Reviews: undefined;
   Done: undefined;
   Translation: undefined;
@@ -52,6 +53,7 @@ export type RootStackParamList = {
   HelpCenter: undefined;
   Addlisting: undefined;
   Verify: undefined;
+  UserListing: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

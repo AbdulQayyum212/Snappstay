@@ -1,4 +1,5 @@
 import {Property} from './property';
+import {Properties} from './properyListResponse';
 import {UserFavourite} from './useFavourite';
 import {User} from './user';
 
@@ -7,7 +8,7 @@ export interface UserProfileResponse {
 }
 
 export interface UserData {
-  properties: any[];
+  properties: Property[];
   users: User;
   bookings: any[];
   user_earnings: any[];

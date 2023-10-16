@@ -24,7 +24,7 @@ export let ToastSuccess = (message: string) => {
     bottomOffset: 30,
     onShow: () => {},
     onHide: () => {},
-  };
+  } as ToastShowParams;
 };
 
 export const emailValidityCheck = (email: string) => {

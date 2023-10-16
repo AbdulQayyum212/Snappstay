@@ -1,10 +1,8 @@
-import {Button} from '@components/Button';
-import {Header, ModalHeader} from '@components/Header';
+import {ModalHeader} from '@components/Header';
 import {useNavigation} from '@react-navigation/native';
 import {selectAuthState} from '@stores/store';
 import React, {useRef, useState} from 'react';
 import {
-  Image,
   Modal,
   SafeAreaView,
   StyleSheet,
@@ -148,7 +146,7 @@ export default function EditProfileModel() {
                 <Avatar
                   size={220}
                   source={
-                    img == undefined
+                    img != undefined
                       ? {uri: img?.path}
                       : require('@assets/bgimage.png')
                   }

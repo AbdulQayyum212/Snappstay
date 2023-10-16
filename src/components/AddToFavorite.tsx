@@ -1,16 +1,14 @@
-import {View, Text, TouchableOpacity, Modal, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
-import {Property} from '@type/property';
-import Entypo from 'react-native-vector-icons/Entypo';
-import {TextField} from 'react-native-ui-lib';
-import {ModalHeader} from './Header';
-import {Button} from './Button';
-import {useNavigation} from '@react-navigation/native';
 import usePostRequest from '@hooks/usePostRequest';
-import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 import {selectAuthState, selectUserState} from '@stores/store';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {Property} from '@type/property';
+import React, {useState} from 'react';
+import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {TextField} from 'react-native-ui-lib';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useSelector} from 'react-redux';
+import {Button} from './Button';
+import {ModalHeader} from './Header';
 
 interface PostData {
   user_id: number;
@@ -26,9 +24,7 @@ export default function AddToFavorite({item}: {item: Property}) {
 
   const {responseData, loading, error, makePostRequest} = usePostRequest<{
     favorited: boolean;
-  }>({
-    url: 'https://www.snappstay.com/api/add/wishlist',
-  });
+  }>('https://www.snappstay.com/api/add/wishlist');
 
   const handlePostRequest = () => {
     if (!user) return;
