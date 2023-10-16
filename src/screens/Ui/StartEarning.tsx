@@ -1,16 +1,29 @@
 import {Button, LeftIconBtn} from '@components/Button';
 import {Header} from '@components/Header';
 import {useNavigation} from '@react-navigation/native';
-import {useState} from 'react';
+import {Add_Listing} from '@stores/HomeAction/AddListingActions';
+import {selectAddListingState, selectAuthState} from '@stores/store';
+import {useEffect, useState} from 'react';
 import {Image, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import {ExpandableSection, ProgressBar} from 'react-native-ui-lib';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FormData from 'form-data';
+import {useDispatch, useSelector} from 'react-redux';
 const StartEarning = () => {
   const navigation = useNavigation();
   const [expanded, setExpanded] = useState(false);
+  const {isAuthenticated, user, error, isLoggingIn} =
+    useSelector(selectAuthState);
   const [expanded1, setExpanded1] = useState(false);
   const [top, setTop] = useState(false);
+  const dispatch = useDispatch();
+  const {id, step} = useSelector(selectAddListingState);
+  useEffect(() => {
+    if (step) {
+      navigation.navigate('Addlisting');
+    }
+  }, [step]);
   const Body = () => {
     return (
       <View>
@@ -60,7 +73,11 @@ const StartEarning = () => {
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <Header onPress={() => navigation.goBack()} />
+      <Header
+        onPress={() => {
+          navigation.goBack();
+        }}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{padding: 20}}>
           <Text
@@ -579,7 +596,19 @@ const StartEarning = () => {
       </ScrollView>
       <View style={{width: '100%', padding: 10}}>
         <LeftIconBtn
-          onPress={() => navigation.navigate('AddListing')}
+          onPress={() => {
+            // const formData = new FormData();
+            // formData.append('step', 2);
+            // formData.append('user_id', user?.id);
+            // const formData = {
+            //   step: 2,
+            //   user_id: user?.id,
+            // };
+            const formData = new FormData();
+            formData.append('step', 2);
+            formData.append('user_id', user?.id);
+            dispatch(Add_Listing(formData));
+          }}
           style={{
             width: '100%',
             alignItems: 'center',

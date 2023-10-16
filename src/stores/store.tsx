@@ -10,6 +10,7 @@ import rootReducer, {RootState} from './reducers';
 const selectAuthState = (state: RootState) => state.auth;
 const selectSignupState = (state: RootState) => state.signup;
 const selectProfileState = (state: RootState) => state.profile;
+const selectAddListingState = (state: RootState) => state.AddListing;
 const selectUserState = (state: RootState) => state.userData;
 
 const persistConfig = {
@@ -29,5 +30,6 @@ export {
   selectAuthState,
   selectSignupState,
   selectProfileState,
+  selectAddListingState,
   selectUserState,
 };

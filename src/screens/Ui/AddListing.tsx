@@ -1,8 +1,16 @@
+import Bedroom from '@components/Bedroom';
 import {Button, LeftIconBtn} from '@components/Button';
 import CheckBoxBtn from '@components/CheckBoxBtn';
+import BedTypes from '@components/BedTypes';
 import {Header} from '@components/Header';
+import Information from '@components/Information';
+import Amenities from '@components/Amenities';
+import PlaceType from '@components/PlaceType';
+import Location from '@components/Location';
 import RadioBtn from '@components/RadioBtn';
+import TermsRules from '@components/TermsRules';
 import {useNavigation} from '@react-navigation/native';
+import Calender from '@components/Calender';
 import React, {useRef, useState} from 'react';
 import {
   FlatList,
@@ -18,8 +26,23 @@ import ImagePicker, {ImageOrVideo} from 'react-native-image-crop-picker';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import SelectDropdown from 'react-native-select-dropdown';
 import {ProgressBar, TextField} from 'react-native-ui-lib';
-import Feather from 'react-native-vector-icons/Feather';
-import Fontisto from 'react-native-vector-icons/Fontisto';
+import AddPhotos from '@components/AddPhotos';
+import YourHouseTitle from '@components/YourHouseTitle';
+import DescribeYourHouse from '@components/DescribeYourHouse';
+import YourHousedescription from '@components/YourHousedescription';
+import FirstReservation from '@components/FirstReservation';
+import FormData from 'form-data';
+import CreatePrice from '@screens/CreatePrice';
+import LastStep from '@screens/LastStep';
+import Toast from 'react-native-toast-message';
+import {ToastError, ToastSuccess} from '../../Config/Constants';
+import {selectAddListingState, selectAuthState} from '@stores/store';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  Add_Listing,
+  setId,
+  setStep,
+} from '@stores/HomeAction/AddListingActions';
 const AddListing = () => {
   const countries = [
     'None',
@@ -47,92 +70,294 @@ const AddListing = () => {
   const [selectPolicy, setSelectPolicy] = useState(
     'Select Cancellation Policy',
   );
+  const {isAuthenticated, user, error, isLoggingIn} =
+    useSelector(selectAuthState);
   const [selectGuestType, setSelectGuestType] = useState('Single Fee');
   const [selectWeekend, setSelectWeekend] = useState('Saturday and Sunday');
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState<string>('');
   const [progress, setProgress] = useState(0);
   //   const [condition, setCondition] = useState('');
   const [condition, setCondition] = useState('Information');
+  const {id, step} = useSelector(selectAddListingState);
+  const dispatch = useDispatch();
   // const [image, setImage] = useState([]);
   const [input, setInput] = useState<{
     title: string;
     description: string;
-    bedrooms: string;
-    guest: string;
-    beds: string;
-    bathrooms: string;
-    room: string;
-    size: string;
     unitOfMeasure: string;
     booking: string;
     name: string;
-    price: string;
-    additionalGuest: string;
-    noOfGuest: string;
-    CleaningFee: string;
-    cityFee: string;
-    securityDeposit: string;
-    startDate: string;
-    EndDate: string;
-    nightly: string;
-    additionalGuest2: string;
-    weekEnds: string;
+    price: number;
     image: ImageOrVideo[];
     address: string;
-    aptSuite: string;
     city: string;
     state: string;
     zipCode: string;
     area: string;
     country: string;
-    bedroomName: string;
-    numberOfGuest: string;
-    numberOfBed: string;
-    bedType: string;
-    minimumDayOfABooking: string;
-    maximumDayOfABooking: string;
-    additionalRulesInformation: string;
-    calender: string;
+    property_type: string;
+    place_type: string;
+    guests: string;
+    Bedrooms: string;
+    beds: string;
+    bathrooms: string;
+    pets: string;
+    guest_type: string;
+    security_camera: string;
+    animals: string;
+    weapon: string;
+    lat: number;
+    lng: number;
   }>({
     title: '',
     description: '',
-    bedrooms: '',
-    guest: '',
-    beds: '',
-    bathrooms: '',
-    room: '',
-    size: '',
     unitOfMeasure: '',
     booking: '',
     name: '',
-    price: '',
-    additionalGuest: '',
-    noOfGuest: '',
-    CleaningFee: '',
-    cityFee: '',
-    securityDeposit: '',
-    startDate: '',
-    EndDate: '',
-    nightly: '',
-    additionalGuest2: '',
-    weekEnds: '',
+    price: 0,
     image: [],
     address: '',
-    aptSuite: '',
     city: '',
     state: '',
     zipCode: '',
     area: '',
     country: '',
-    bedroomName: '',
-    numberOfGuest: '',
-    numberOfBed: '',
-    bedType: '',
-    minimumDayOfABooking: '',
-    maximumDayOfABooking: '',
-    additionalRulesInformation: '',
-    calender: '',
+    property_type: '',
+    place_type: '',
+    guests: '',
+    Bedrooms: '',
+    beds: '',
+    bathrooms: '',
+    guest_type: '',
+    security_camera: '',
+    weapon: '',
+    animals: '',
+    pets: 'No',
+    lat: 0.12,
+    lng: -0.12,
   });
+  const [informationState, setInformationState] = useState({
+    House: {
+      image: require('@assets/home.png'),
+      title: 'House',
+      selected: false,
+    },
+    Apartment: {
+      image: require('@assets/apartment.png'),
+      title: 'Apartment',
+      selected: false,
+    },
+    Barn: {image: require('@assets/barn.png'), title: 'Barn', selected: false},
+    Boat: {
+      image: require('@assets/houseboat.png'),
+      title: 'Boat',
+      selected: false,
+    },
+    Cabin: {
+      image: require('@assets/cabin.png'),
+      title: 'Cabin',
+      selected: false,
+    },
+    'Camper/RV': {image: require('@assets/camper-van.png'), selected: false},
+    Farm: {image: require('@assets/field.png'), selected: false},
+    Resorts: {image: require('@assets/guesthouse.png'), selected: false},
+    Cottages: {image: require('@assets/cottagess.png'), selected: false},
+    Glamping: {image: require('@assets/glampingg.png'), selected: false},
+    Service: {image: require('@assets/servicess.png'), selected: false},
+    Villas: {image: require('@assets/housess.png'), selected: false},
+    'Artistic Retreats': {image: require('@assets/artis.png'), selected: false},
+    Design: {image: require('@assets/des.png'), selected: false},
+    Dome: {image: require('@assets/dom.png'), selected: false},
+    Golfing: {image: require('@assets/golf.png'), selected: false},
+    Island: {image: require('@assets/isl.png'), selected: false},
+    Mansions: {image: require('@assets/mans.png'), selected: false},
+    'National Parks': {image: require('@assets/natio.png'), selected: false},
+    New: {image: require('@assets/ne.png'), selected: false},
+    'Private Rooms': {image: require('@assets/pri.png'), selected: false},
+    'Top of the world': {image: require('@assets/top.png'), selected: false},
+    Tower: {image: require('@assets/tow.png'), selected: false},
+    Treehouses: {image: require('@assets/tree.png'), selected: false},
+    Trending: {image: require('@assets/tren.png'), selected: false},
+    Windmills: {image: require('@assets/wind.png'), selected: false},
+  });
+  const [describeYourHouse, setDescribeYourHouse] = useState({
+    Peaceful: {
+      image: require('@assets/desc-your-house-icon.png'),
+      title: 'Peaceful',
+      selected: false,
+    },
+    Unique: {
+      image: require('@assets/desc-your-house-icon-02.png'),
+      title: 'Unique',
+      selected: false,
+    },
+    'Family-friendly': {
+      image: require('@assets/desc-your-house-icon-03.png'),
+      title: 'Family-friendly',
+      selected: false,
+    },
+    Stylish: {
+      image: require('@assets/desc-your-house-icon-04.png'),
+      title: 'Stylish',
+      selected: false,
+    },
+    Central: {
+      image: require('@assets/desc-your-house-icon-05.png'),
+      title: 'Central',
+      selected: false,
+    },
+    Spacious: {
+      image: require('@assets/desc-your-house-icon-06.png'),
+      title: 'Spacious',
+      selected: false,
+    },
+  });
+  const [publishListing, setPublishListing] = useState({
+    'Tell guests what your House has to offer': {
+      WIFI: {
+        title: 'You can add more amenities after you publish your listing',
+        selected: false,
+        key: 'wifi',
+        image: require('../../assets/wifi.png'),
+      },
+      TV: {
+        selected: false,
+        key: 'tv',
+        image: require('../../assets/tv.png'),
+      },
+      Kitchen: {
+        selected: false,
+        key: 'kitchen',
+        image: require('../../assets/kitchen1.png'),
+      },
+      Washer: {
+        selected: false,
+        key: 'washer',
+        image: require('../../assets/washer1.png'),
+      },
+      'Free parking': {
+        selected: false,
+        key: 'free parking',
+        image: require('../../assets/parking.png'),
+      },
+      'Paid parking': {
+        selected: false,
+        key: 'paid parking',
+        image: require('../../assets/paid-parking.png'),
+      },
+      'Air conditioning': {
+        selected: false,
+        key: 'air conditioning',
+        image: require('../../assets/air-conditioning.png'),
+      },
+      'Dedicated workspace': {
+        selected: false,
+        key: 'dedicated workspace',
+        image: require('../../assets/dedicated-workspace.png'),
+      },
+    },
+    'Do you have any standout amenities?': {
+      Pool: {
+        title: 'You can add more amenities after you publish your listing',
+        selected: false,
+        key: 'pool',
+        image: require('../../assets/pool.png'),
+      },
+      'Hot tub': {
+        selected: false,
+        key: 'hot tub',
+        image: require('../../assets/hot-tub.png'),
+      },
+      Patio: {
+        selected: false,
+        key: 'patio',
+        image: require('../../assets/patio.png'),
+      },
+      'BBQ grill': {
+        selected: false,
+        key: 'BBQ grill',
+        image: require('../../assets/bbq-grill.png'),
+      },
+      'Outdoor dining area': {
+        selected: false,
+        key: 'Outdoor dining area',
+        image: require('../../assets/outdoor-dining-area.png'),
+      },
+      'Fire pit': {
+        selected: false,
+        key: 'Fire pit',
+        image: require('../../assets/fire-pit.png'),
+      },
+      'Pool table': {
+        selected: false,
+        key: 'Pool table',
+        image: require('../../assets/pool-table.png'),
+      },
+      'Indoor fireplace': {
+        selected: false,
+        key: 'Indoor fireplace',
+        image: require('../../assets/indoor-fireplace.png'),
+      },
+      Piano: {
+        selected: false,
+        key: 'Piano',
+        image: require('../../assets/piano.png'),
+      },
+      'Exercise equipment': {
+        selected: false,
+        key: 'Exercise equipment',
+        image: require('../../assets/exercise-equipment.png'),
+      },
+      'Lake access': {
+        selected: false,
+        key: 'Lake access',
+        image: require('../../assets/lake-access.png'),
+      },
+      'Beach access': {
+        selected: false,
+        key: 'Beach access',
+        image: require('../../assets/beach-access.png'),
+      },
+      'Ski-in/Ski-out': {
+        selected: false,
+        key: 'Ski-in/Ski-out',
+        image: require('../../assets/ski-in-and-ski-out.png'),
+      },
+      'Outdoor shower': {
+        selected: false,
+        key: 'Outdoor shower',
+        image: require('../../assets/outdoor-shower.png'),
+      },
+      'Indoor Cinema': {
+        selected: false,
+        key: 'Indoor Cinema',
+        image: require('../../assets/indoor-cinema.png'),
+      },
+    },
+    'Do you have any of these safety items?': {
+      'Smoke alarm': {
+        selected: false,
+        key: 'Smoke alarm',
+        image: require('../../assets/smoke-alarm.png'),
+      },
+      'First aid kit': {
+        selected: false,
+        key: 'First aid kit',
+        image: require('../../assets/first-aid-kit.png'),
+      },
+      'Fire extinguisher': {
+        selected: false,
+        key: 'Fire extinguisher',
+        image: require('../../assets/fire-extinguisher.png'),
+      },
+      'Carbon monoxide alarm': {
+        selected: false,
+        key: 'Carbon monoxide alarm',
+        image: require('../../assets/carbon-monoxide-alarm.png'),
+      },
+    },
+  });
+  console.log('step ==><><', step);
   const map = useRef();
   const pickImg = async () => {
     ImagePicker.openPicker({
@@ -145,2135 +370,52 @@ const AddListing = () => {
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <Header centerText={condition} onPress={() => navigation.goBack()} />
-      <ScrollView>
+      <Header
+        centerText={condition}
+        onPress={() => {
+          dispatch(setId(null));
+          dispatch(setStep(null));
+          navigation.goBack();
+        }}
+      />
+      <ScrollView keyboardShouldPersistTaps="always">
         <View>
-          {condition == 'Information' ? (
-            <View style={{padding: 20}}>
-              <View>
-                <Text
-                  style={{color: 'black', fontWeight: '500', marginBottom: 20}}>
-                  What kind of place do you want to list?
-                </Text>
-                <RadioBtn
-                  containerStyle={{marginBottom: 10}}
-                  label="Entire Place"
-                />
-                <RadioBtn
-                  containerStyle={{marginBottom: 10}}
-                  label="Private Room"
-                />
-                <RadioBtn
-                  containerStyle={{marginBottom: 10}}
-                  label="Shared Room"
-                />
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Title*
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.title}
-                    onChangeText={t => {
-                      console.log('text', t);
-                      const myState = {...input};
-                      {
-                        myState.title = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Title"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Description
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 200,
-                  }}>
-                  <TextField
-                    value={input.description}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.description = t;
-                      }
-                      setInput(myState);
-                    }}
-                    multiline
-                    placeholder="Description"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Type of listing
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    // paddingHorizontal: 10,
-                    borderRadius: 10,
-                  }}>
-                  <SelectDropdown
-                    data={countries}
-                    renderCustomizedButtonChild={() => {
-                      return (
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            paddingVertical: 15,
-                            width: '100%',
-                          }}>
-                          <View>
-                            {/* <Text style={{fontSize: 10}}>Country/Region</Text> */}
-                            <Text style={{color: 'black'}}>{selectCode}</Text>
-                          </View>
-                          <Feather name="chevron-down" size={20} />
-                        </View>
-                      );
-                    }}
-                    buttonStyle={{
-                      width: '100%',
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      backgroundColor: 'white',
-                      borderRadius: 10,
-                      //   marginTop: 10,
-                    }}
-                    dropdownStyle={{borderRadius: 10}}
-                    buttonTextStyle={{color: 'lightgrey'}}
-                    onSelect={(selectedItem, index) => {
-                      setSelectCode(selectedItem);
-                      console.log(selectedItem, 'selectedItem');
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                      return selectedItem;
-                    }}
-                    rowTextForSelection={(item, index) => {
-                      return item;
-                    }}
-                  />
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Number of bedrooms
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.bedrooms = t;
-                        }
-                        setInput(myState);
-                      }}
-                      value={input?.bedrooms}
-                      placeholder="Enter Number of bedrooms"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Number of guest
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.guest = t;
-                        }
-                        setInput(myState);
-                      }}
-                      value={input?.guest}
-                      placeholder="Enter Number of guest"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Number of beds
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.beds = t;
-                        }
-                        setInput(myState);
-                      }}
-                      value={input?.beds}
-                      placeholder="Enter Number of beds"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Number of bathrooms
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.bathrooms = t;
-                        }
-                        setInput(myState);
-                      }}
-                      value={input?.bathrooms}
-                      placeholder="Enter Number of bathrooms"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Number of Room
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.room = t;
-                        }
-                        setInput(myState);
-                      }}
-                      value={input?.room}
-                      placeholder="Enter Number of Room"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Size
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.size = t;
-                        }
-                        setInput(myState);
-                      }}
-                      value={input?.size}
-                      placeholder="Enter the Size:Only number"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Unit of measure
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.unitOfMeasure = t;
-                        }
-                        setInput(myState);
-                      }}
-                      value={input?.unitOfMeasure}
-                      placeholder="Enter the Unit of measure, Ex:SqFt"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Affiliate Booking Link
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.booking = t;
-                        }
-                        setInput(myState);
-                      }}
-                      value={input?.booking}
-                      placeholder="Enter Affiliate Booking Link"
-                    />
-                  </View>
-                </View>
-              </View>
-            </View>
-          ) : condition == 'Pricing' ? (
-            <View style={{padding: 20}}>
-              <View>
-                <Text
-                  style={{color: 'black', fontWeight: '500', marginBottom: 20}}>
-                  Instance booking
-                </Text>
-                <RadioBtn
-                  containerStyle={{marginBottom: 10}}
-                  label="Allow instant booking for this place."
-                />
-                {/* <Checkbox
-                  label={'Allow instant booking for this place.'}
-                  value={false}
-                  color="lightgrey"
-                  onValueChange={() => console.log('value changed')}
-                /> */}
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Nightly*
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    placeholder="Enter price for 1 night"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  After Price Label
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    placeholder="Enter after price label Eg: Night/Hr"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Weekends
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    placeholder="Enter the unit price for a single day"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Select the days to apply weekend pricing
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    // paddingHorizontal: 10,
-                    borderRadius: 10,
-                  }}>
-                  <SelectDropdown
-                    data={weekend}
-                    renderCustomizedButtonChild={() => {
-                      return (
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            paddingVertical: 15,
-                            width: '100%',
-                          }}>
-                          <View>
-                            {/* <Text style={{fontSize: 10}}>Country/Region</Text> */}
-                            <Text style={{color: 'black'}}>
-                              {selectWeekend}
-                            </Text>
-                          </View>
-                          <Feather name="chevron-down" size={20} />
-                        </View>
-                      );
-                    }}
-                    buttonStyle={{
-                      width: '100%',
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      backgroundColor: 'white',
-                      borderRadius: 10,
-                      //   marginTop: 10,
-                    }}
-                    dropdownStyle={{borderRadius: 10}}
-                    buttonTextStyle={{color: 'lightgrey'}}
-                    onSelect={(selectedItem, index) => {
-                      setSelectWeekend(selectedItem);
-                      console.log(selectedItem, 'selectedItem');
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                      return selectedItem;
-                    }}
-                    rowTextForSelection={(item, index) => {
-                      return item;
-                    }}
-                  />
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      fontSize: 20,
-                      marginTop: 10,
-                    }}>
-                    Long-term pricing
-                  </Text>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Weekly - 7+ nights
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      placeholder="Enter the unit price for a single day"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Monthly - 30+ nights
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      placeholder="Enter the unit price for a single day"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      fontSize: 20,
-                      marginTop: 10,
-                    }}>
-                    Setup Extra Services Price
-                  </Text>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Name
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.name = t;
-                        }
-                        setInput(myState);
-                      }}
-                      value={input?.name}
-                      placeholder="Enter service name"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Price
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.price = t;
-                        }
-                        setInput(myState);
-                      }}
-                      value={input?.price}
-                      placeholder="Enter price - only digits"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Type
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-
-                      borderRadius: 10,
-                    }}>
-                    <SelectDropdown
-                      data={guestType}
-                      renderCustomizedButtonChild={() => {
-                        return (
-                          <View
-                            style={{
-                              flexDirection: 'row',
-                              alignItems: 'center',
-                              justifyContent: 'space-between',
-                              paddingVertical: 15,
-                              width: '100%',
-                            }}>
-                            <View>
-                              {/* <Text style={{fontSize: 10}}>Country/Region</Text> */}
-                              <Text style={{color: 'black'}}>
-                                {selectGuestType}
-                              </Text>
-                            </View>
-                            <Feather name="chevron-down" size={20} />
-                          </View>
-                        );
-                      }}
-                      buttonStyle={{
-                        width: '100%',
-                        borderWidth: 1,
-                        borderColor: 'lightgrey',
-                        backgroundColor: 'white',
-                        borderRadius: 10,
-                        //   marginTop: 10,
-                      }}
-                      dropdownStyle={{borderRadius: 10}}
-                      buttonTextStyle={{color: 'lightgrey'}}
-                      onSelect={(selectedItem, index) => {
-                        setSelectGuestType(selectedItem);
-                        console.log(selectedItem, 'selectedItem');
-                      }}
-                      buttonTextAfterSelection={(selectedItem, index) => {
-                        return selectedItem;
-                      }}
-                      rowTextForSelection={(item, index) => {
-                        return item;
-                      }}
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      fontSize: 20,
-                      marginTop: 10,
-                    }}>
-                    Additional costs
-                  </Text>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Allow additional guests
-                  </Text>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}>
-                    <RadioBtn
-                      containerStyle={{marginBottom: 10, marginRight: 10}}
-                      label="Yes"
-                    />
-                    <RadioBtn containerStyle={{marginBottom: 10}} label="No" />
-                    {/* <RadioButton
-                      containerStyle={{marginBottom: 10, marginRight: 10}}
-                      value={null}
-                      color="lightgrey"
-                      label={'Yes'}
-                    />
-                    <RadioButton
-                      containerStyle={{marginBottom: 10}}
-                      value={null}
-                      color="lightgrey"
-                      label={'No'}
-                    /> */}
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Additional guests
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      value={input?.additionalGuest}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.additionalGuest = t;
-                        }
-                        setInput(myState);
-                      }}
-                      placeholder="Enter the price for 1 additional guest"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    No of Guests
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.noOfGuest = t;
-                        }
-                        setInput(myState);
-                      }}
-                      value={input?.noOfGuest}
-                      placeholder="Number of additional guests allowed"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Cleaning fee
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.CleaningFee = t;
-                        }
-                        setInput(myState);
-                      }}
-                      value={input?.CleaningFee}
-                      placeholder="Enter the price for cleaning fee"
-                    />
-                  </View>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: 10,
-                  }}>
-                  <RadioBtn
-                    containerStyle={{marginBottom: 10, marginRight: 10}}
-                    label="Daily"
-                  />
-                  <RadioBtn
-                    containerStyle={{marginBottom: 10}}
-                    label="Per stay"
-                  />
-                  {/* <RadioButton
-                    containerStyle={{marginBottom: 10, marginRight: 10}}
-                    value={null}
-                    color="lightgrey"
-                    label={'Daily'}
-                  />
-                  <RadioButton
-                    containerStyle={{marginBottom: 10}}
-                    value={null}
-                    color="lightgrey"
-                    label={'Per stay'}
-                  /> */}
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    City fee
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      value={input?.cityFee}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.cityFee = t;
-                        }
-                        setInput(myState);
-                      }}
-                      placeholder="Enter the price for city fee"
-                    />
-                  </View>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: 10,
-                  }}>
-                  <RadioBtn
-                    containerStyle={{marginBottom: 10, marginRight: 10}}
-                    label="Daily"
-                  />
-                  <RadioBtn
-                    containerStyle={{marginBottom: 10}}
-                    label="Per stay"
-                  />
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      marginTop: 10,
-                    }}>
-                    Security deposit
-                  </Text>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      width: '100%',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 50,
-                    }}>
-                    <TextField
-                      style={{height: 50}}
-                      value={input?.securityDeposit}
-                      onChangeText={t => {
-                        const myState = {...input};
-                        {
-                          myState.securityDeposit = t;
-                        }
-                        setInput(myState);
-                      }}
-                      placeholder="Enter price for security deposit"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: '500',
-                      marginBottom: 20,
-                      fontSize: 20,
-                      marginTop: 10,
-                    }}>
-                    Setup Custom Period Prices
-                  </Text>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      //   backgroundColor: 'red',
-                      width: '100%',
-                    }}>
-                    <View style={{width: '45%'}}>
-                      <Text
-                        style={{
-                          color: 'black',
-                          fontWeight: '500',
-                          marginBottom: 20,
-                          marginTop: 10,
-                        }}>
-                        Start Date
-                      </Text>
-                      <View
-                        style={{
-                          borderWidth: 1,
-                          borderColor: 'lightgrey',
-                          width: '100%',
-                          paddingHorizontal: 10,
-                          paddingVertical: 13,
-                          borderRadius: 10,
-                        }}>
-                        <Text>Enter Start Date</Text>
-                      </View>
-                    </View>
-                    <View style={{width: '45%'}}>
-                      <Text
-                        style={{
-                          color: 'black',
-                          fontWeight: '500',
-                          marginBottom: 20,
-                          marginTop: 10,
-                        }}>
-                        End Date
-                      </Text>
-                      <View
-                        style={{
-                          borderWidth: 1,
-                          borderColor: 'lightgrey',
-                          width: '100%',
-                          paddingHorizontal: 10,
-                          paddingVertical: 13,
-                          borderRadius: 10,
-                        }}>
-                        <Text>Enter End Date</Text>
-                      </View>
-                    </View>
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontWeight: '500',
-                        marginBottom: 20,
-                        marginTop: 10,
-                      }}>
-                      Nightly
-                    </Text>
-                    <View
-                      style={{
-                        borderWidth: 1,
-                        borderColor: 'lightgrey',
-                        width: '100%',
-                        paddingHorizontal: 10,
-                        borderRadius: 10,
-                        height: 50,
-                      }}>
-                      <TextField
-                        style={{height: 50}}
-                        value={input?.nightly}
-                        onChangeText={t => {
-                          const myState = {...input};
-                          {
-                            myState.nightly = t;
-                          }
-                          setInput(myState);
-                        }}
-                        placeholder="Enter price for 1 night"
-                      />
-                    </View>
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontWeight: '500',
-                        marginBottom: 20,
-                        marginTop: 10,
-                      }}>
-                      Additional guests
-                    </Text>
-                    <View
-                      style={{
-                        borderWidth: 1,
-                        borderColor: 'lightgrey',
-                        width: '100%',
-                        paddingHorizontal: 10,
-                        borderRadius: 10,
-                        height: 50,
-                      }}>
-                      <TextField
-                        style={{height: 50}}
-                        value={input?.additionalGuest2}
-                        onChangeText={t => {
-                          const myState = {...input};
-                          {
-                            myState.additionalGuest2 = t;
-                          }
-                          setInput(myState);
-                        }}
-                        placeholder="Enter the price for 1 additional guest"
-                      />
-                    </View>
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontWeight: '500',
-                        marginBottom: 20,
-                        marginTop: 10,
-                      }}>
-                      Weekends
-                    </Text>
-                    <View
-                      style={{
-                        borderWidth: 1,
-                        borderColor: 'lightgrey',
-                        width: '100%',
-                        paddingHorizontal: 10,
-                        borderRadius: 10,
-                        height: 50,
-                      }}>
-                      <TextField
-                        style={{height: 50}}
-                        value={input?.weekEnds}
-                        onChangeText={t => {
-                          const myState = {...input};
-                          {
-                            myState.weekEnds = t;
-                          }
-                          setInput(myState);
-                        }}
-                        placeholder="Enter the unit price for a single day"
-                      />
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-          ) : condition == 'Media' ? (
-            <View style={{padding: 20}}>
-              <View
-                style={{
-                  borderWidth: 1,
-                  height: 250,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  paddingHorizontal: 20,
-                  borderStyle: 'dashed',
-                }}>
-                <Feather name="image" size={50} color={'black'} />
-                <Text style={{textAlign: 'center', marginTop: 30}}>
-                  Drag and drop the images to customize the gallery order. Click
-                  on the star icon to set the featured image
-                </Text>
-                <Text>(Minimum size 1440 x 900 px)</Text>
-                <LeftIconBtn
-                  onPress={pickImg}
-                  style={{
-                    width: '60%',
-                    alignItems: 'center',
-                    marginTop: 10,
-                    justifyContent: 'center',
-                    paddingVertical: 15,
-                  }}
-                  Lefticon={
-                    <Feather
-                      name="upload"
-                      size={20}
-                      style={{marginRight: 10}}
-                      color="white"
-                    />
-                  }
-                  title={'Select and upload'}
-                />
-              </View>
-              <FlatList
-                numColumns={3}
-                data={input?.image}
-                renderItem={({item, index}) => {
-                  return (
-                    <View
-                      style={{
-                        marginTop: 20,
-                        borderRadius: 5,
-                        overflow: 'hidden',
-                        marginRight: 12,
-                        borderWidth: 1,
-                        borderColor: 'lightgrey',
-                        width: 115,
-                        height: 115,
-                      }}>
-                      <Image
-                        style={{width: 115, height: 115}}
-                        source={{uri: item?.path}}
-                      />
-                      <TouchableOpacity
-                        onPress={() => {
-                          const img = input.image.filter(function (item, i) {
-                            return i !== index;
-                          });
-                          const myState = {...input};
-
-                          [...input?.image, (myState.image = img)];
-
-                          setInput(myState);
-                          // setImage(img);
-                        }}
-                        style={{
-                          position: 'absolute',
-                          top: 3,
-                          right: 3,
-                          width: 12,
-                          height: 12,
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          backgroundColor: 'white',
-                          borderRadius: 50,
-                        }}>
-                        <Fontisto name="close-a" size={5} color={'red'} />
-                      </TouchableOpacity>
-                    </View>
-                  );
-                }}
-              />
-            </View>
-          ) : condition == 'Features' ? (
-            <View style={{padding: 20}}>
-              <View>
-                <Text
-                  style={{color: 'black', fontWeight: '500', marginBottom: 20}}>
-                  Amenities
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingHorizontal: 5,
-                    marginBottom: 10,
-                  }}>
-                  <CheckBoxBtn label="Air Conditioning" />
-                  <CheckBoxBtn label="Barbecue Area" />
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingHorizontal: 5,
-                    marginTop: 10,
-                    marginBottom: 10,
-                  }}>
-                  <CheckBoxBtn label="Dishwasher" />
-                  <CheckBoxBtn label="Gym" />
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingHorizontal: 5,
-                    marginTop: 10,
-                    marginBottom: 10,
-                  }}>
-                  <CheckBoxBtn label="Laundry" />
-                  <CheckBoxBtn label="Microwave" />
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingHorizontal: 5,
-                    marginTop: 10,
-                    marginBottom: 10,
-                  }}>
-                  <CheckBoxBtn label="Sauna" />
-                  <CheckBoxBtn label="Swimming Pool" />
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingHorizontal: 5,
-                    marginTop: 10,
-                  }}>
-                  <CheckBoxBtn label="TV Cable" />
-                  <CheckBoxBtn label="Wi-Fi" />
-                </View>
-              </View>
-              <View style={{marginTop: 20}}>
-                <Text
-                  style={{color: 'black', fontWeight: '500', marginBottom: 20}}>
-                  Facilities
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingHorizontal: 5,
-                    marginBottom: 10,
-                  }}>
-                  <CheckBoxBtn label="Beachside" />
-                  <CheckBoxBtn label="Farmacy" />
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingHorizontal: 5,
-                    marginTop: 10,
-                    marginBottom: 10,
-                  }}>
-                  <CheckBoxBtn label="Free Parking" />
-                  <CheckBoxBtn label="Markets" />
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingHorizontal: 5,
-                    marginTop: 10,
-                    marginBottom: 10,
-                  }}>
-                  <CheckBoxBtn label="Playground" />
-                  <CheckBoxBtn label="Reception" />
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    //   alignItems: 'center',
-                    //   justifyContent: 'flex-start',
-                    paddingHorizontal: 5,
-                    marginTop: 10,
-                  }}>
-                  <CheckBoxBtn label="Security" />
-                </View>
-              </View>
-            </View>
-          ) : condition == 'Location' ? (
-            <View style={{padding: 20}}>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Address*
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.address}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.address = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Enter the listing address"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Apt, Suite (Optional)
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.aptSuite}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.aptSuite = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Ex. #123"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  City
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.city}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.city = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Enter the City"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  State
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.state}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.state = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Enter the State"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Zip Code
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.zipCode}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.zipCode = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Enter your Zip Code"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Area
-                </Text>
-                <View
-                  style={{
-                    height: 50,
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.area}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.area = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Enter the Area"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Country
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.country}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.country = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Enter the Country"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Drag and drop the pin on map to find exact Location
-                </Text>
-                <MapView
-                  ref={map}
-                  style={{width: '100%', height: 300}}
-                  provider={PROVIDER_GOOGLE}
-                  initialRegion={{
-                    latitude: 28.3279822,
-                    longitude: -16.5124847,
-                    latitudeDelta: 0.8,
-                    longitudeDelta: 0.8,
-                  }}>
-                  {/* {posts.map(place => (
-            <CustomMarker
-              coordinate={{
-                latitude: place.coordinate.latitude,
-                longitude: place.coordinate.longitude,
-              }}
-              key={place.id}
-              price={place.newPrice}
-              isSelected={place.id === selectedPlaceId}
-              onPress={() => setSelectedPlaceId(place.id)}
+          {step === '2' ? (
+            <Information
+              setInformationState={setInformationState}
+              setInput={setInput}
+              informationState={informationState}
+              countries={countries}
+              selectCode={selectCode}
             />
-          ))} */}
-                </MapView>
-                {/* <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                  }}>
-                  <TextField placeholder="Enter the Country" />
-                </View> */}
-              </View>
-            </View>
-          ) : condition == 'Bedroom' ? (
-            <View style={{padding: 20}}>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Bedroom name
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.bedroomName}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.bedroomName = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Ex. Master Room or Room 1"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Number of guests
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.numberOfGuest}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.numberOfGuest = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Enter the number of guests for this room"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Number of beds
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.numberOfBed}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.numberOfBed = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Enter the number of beds"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Bed type
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.bedType}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.bedType = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Enter the bed type"
-                  />
-                </View>
-              </View>
-            </View>
-          ) : condition === 'Terms&rules' ? (
-            <View style={{padding: 20}}>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Cancellation Policy
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    // paddingHorizontal: 10,
-                    borderRadius: 10,
-                  }}>
-                  <SelectDropdown
-                    data={policy}
-                    renderCustomizedButtonChild={() => {
-                      return (
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            paddingVertical: 15,
-                            width: '100%',
-                          }}>
-                          <View>
-                            {/* <Text style={{fontSize: 10}}>Country/Region</Text> */}
-                            <Text style={{color: 'black'}}>{selectPolicy}</Text>
-                          </View>
-                          <Feather name="chevron-down" size={20} />
-                        </View>
-                      );
-                    }}
-                    buttonStyle={{
-                      width: '100%',
-                      borderWidth: 1,
-                      borderColor: 'lightgrey',
-                      backgroundColor: 'white',
-                      borderRadius: 10,
-                      //   marginTop: 10,
-                    }}
-                    dropdownStyle={{borderRadius: 10}}
-                    buttonTextStyle={{color: 'lightgrey'}}
-                    onSelect={(selectedItem, index) => {
-                      setSelectPolicy(selectedItem);
-                      console.log(selectedItem, 'selectedItem');
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                      return selectedItem;
-                    }}
-                    rowTextForSelection={(item, index) => {
-                      return item;
-                    }}
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Minimum days of a booking
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.minimumDayOfABooking}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.minimumDayOfABooking = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Enter the minimum days of a booking (Only number)"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Maximum days of a booking
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 50,
-                  }}>
-                  <TextField
-                    style={{height: 50}}
-                    value={input?.maximumDayOfABooking}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.maximumDayOfABooking = t;
-                      }
-                      setInput(myState);
-                    }}
-                    placeholder="Enter the maximum days of booking (Only number)"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Smoking allowed?
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <RadioBtn
-                    containerStyle={{marginBottom: 10, marginRight: 10}}
-                    label="Yes"
-                  />
-                  <RadioBtn containerStyle={{marginBottom: 10}} label="No" />
-                  {/* <RadioButton
-                    containerStyle={{marginBottom: 10, marginRight: 10}}
-                    value={null}
-                    color="lightgrey"
-                    label={'Yes'}
-                  />
-                  <RadioButton
-                    containerStyle={{marginBottom: 10}}
-                    value={null}
-                    color="lightgrey"
-                    label={'No'}
-                  /> */}
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Pets allowed?
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <RadioBtn
-                    containerStyle={{marginBottom: 10, marginRight: 10}}
-                    label="Yes"
-                  />
-                  <RadioBtn containerStyle={{marginBottom: 10}} label="No" />
-                  {/* <RadioButton
-                    containerStyle={{marginBottom: 10, marginRight: 10}}
-                    value={null}
-                    color="lightgrey"
-                    label={'No'}
-                  />
-                  <RadioButton
-                    containerStyle={{marginBottom: 10}}
-                    value={null}
-                    color="lightgrey"
-                    label={'No'}
-                  /> */}
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Party allowed?
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <RadioBtn
-                    containerStyle={{marginBottom: 10, marginRight: 10}}
-                    label="Yes"
-                  />
-                  <RadioBtn containerStyle={{marginBottom: 10}} label="No" />
-                  {/* <RadioButton
-                    containerStyle={{marginBottom: 10, marginRight: 10}}
-                    value={null}
-                    color="lightgrey"
-                    label={'Yes'}
-                  />
-                  <RadioButton
-                    containerStyle={{marginBottom: 10}}
-                    value={null}
-                    color="lightgrey"
-                    label={'No'}
-                  /> */}
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Children allowed?
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <RadioBtn
-                    containerStyle={{marginBottom: 10, marginRight: 10}}
-                    label="Yes"
-                  />
-                  <RadioBtn containerStyle={{marginBottom: 10}} label="No" />
-                  {/* <RadioButton
-                    containerStyle={{marginBottom: 10, marginRight: 10}}
-                    value={null}
-                    color="lightgrey"
-                    label={'Yes'}
-                  />
-                  <RadioButton
-                    containerStyle={{marginBottom: 10}}
-                    value={null}
-                    color="lightgrey"
-                    label={'No'}
-                  /> */}
-                </View>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: '500',
-                    marginBottom: 20,
-                    marginTop: 10,
-                  }}>
-                  Additional rules information (Optional)
-                </Text>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'lightgrey',
-                    width: '100%',
-                    paddingHorizontal: 10,
-                    borderRadius: 10,
-                    height: 200,
-                  }}>
-                  <TextField
-                    value={input?.additionalRulesInformation}
-                    onChangeText={t => {
-                      const myState = {...input};
-                      {
-                        myState.additionalRulesInformation = t;
-                      }
-                      setInput(myState);
-                    }}
-                    multiline
-                    placeholder="Additional rules information (Optional)"
-                  />
-                </View>
-              </View>
-            </View>
-          ) : condition === 'Calender' ? (
-            <View style={{padding: 20}}>
-              <Calendar
-                onDayPress={day => {
-                  console.log(
-                    '====================================',
-                    day.dateString,
-                  );
-                  setSelected(day.dateString);
-                  const myState = {...input};
-                  {
-                    myState.calender = day.dateString;
-                  }
-                  setInput(myState);
-                }}
-                showWeekNumbers
-                markedDates={{
-                  [input?.calender]: {
-                    selected: true,
-                    disableTouchEvent: true,
-                    selectedDotColor: 'orange',
-                  },
-                }}
-              />
-            </View>
+          ) : step === '3' ? (
+            <Location setInput={setInput} input={input} />
+          ) : step === '4' ? (
+            <PlaceType pickImg={pickImg} setInput={setInput} input={input} />
+          ) : step === '5' ? (
+            <BedTypes input={input} setInput={setInput} />
+          ) : step === '6' ? (
+            <Amenities
+              publishListing={publishListing}
+              setPublishListing={setPublishListing}
+            />
+          ) : step === '8' ? (
+            <AddPhotos input={input} pickImg={pickImg} setInput={setInput} />
+          ) : step === '9' ? (
+            <YourHouseTitle setInput={setInput} input={input} />
+          ) : step === '10' ? (
+            <DescribeYourHouse
+              describeYourHouse={describeYourHouse}
+              setDescribeYourHouse={setDescribeYourHouse}
+            />
+          ) : step === '11' ? (
+            <YourHousedescription setInput={setInput} input={input} />
+          ) : step === '12' ? (
+            <FirstReservation setInput={setInput} input={input} />
+          ) : step === '14' ? (
+            <CreatePrice setInput={setInput} input={input} />
+          ) : step === '15' ? (
+            <LastStep setInput={setInput} />
           ) : null}
         </View>
       </ScrollView>
@@ -2289,30 +431,186 @@ const AddListing = () => {
           }}>
           <Button
             onPress={() => {
-              if (condition === 'Information') {
-                setProgress(5);
+              if (step === '2') {
+                if (input.property_type === '')
+                  return Toast.show(ToastError('Property Type is Required'));
+                console.log('step', step);
+
+                const formData = new FormData();
+                formData.append('id', Number(id));
+                formData.append('property_type', input?.property_type);
+                dispatch(Add_Listing(formData));
+                setProgress(0);
                 setCondition('Pricing');
-              } else if (condition === 'Pricing') {
-                setProgress(10);
-                setCondition('Media');
-              } else if (condition === 'Media') {
-                setProgress(20);
+              } else if (step === '3') {
+                if (input.country === '')
+                  return Toast.show(ToastError('Address is Required'));
+                const formData = new FormData();
+                formData.append('id', id);
+                formData.append('address', input?.address);
+                formData.append('city', input.city);
+                formData.append('state', input.state);
+                formData.append('country', input.country);
+                formData.append('zip', input.zipCode);
+                formData.append('lat', input.lat);
+                formData.append('long', input.lng);
+                dispatch(Add_Listing(formData));
+                console.log('input', input);
+                setProgress(5);
+                setCondition('Place Type');
+              } else if (step === '4') {
+                if (input.place_type === '')
+                  return Toast.show(ToastError('Place Type is Required'));
+                const formData = new FormData();
+                formData.append('id', id);
+                formData.append('place_type', input.place_type);
+                dispatch(Add_Listing(formData));
+                setProgress(7);
                 setCondition('Features');
-              } else if (condition === 'Features') {
-                setProgress(40);
+              } else if (step === '5') {
+                if (input.guests === '')
+                  return Toast.show(ToastError('guests is Required'));
+                else if (input.Bedrooms === '')
+                  return Toast.show(ToastError('Bedroom is Required'));
+                else if (input?.beds === '')
+                  return Toast.show(ToastError('Beds is Required'));
+                else if (input?.bathrooms === '')
+                  return Toast.show(ToastError('Bathrooms is Required'));
+                const formData = new FormData();
+                formData.append('id', id);
+                formData.append('guests', input.guests);
+                formData.append('bedrooms', input.Bedrooms);
+                formData.append('beds', input.beds);
+                formData.append('bathrooms', input.bathrooms);
+                formData.append('pets', input.pets);
+                dispatch(Add_Listing(formData));
+                setProgress(10);
                 setCondition('Location');
-              } else if (condition === 'Location') {
+                console.log('input', input);
+              } else if (step === '6') {
+                // const formData = {
+                //   id: id,
+
+                // };
+                const formData = new FormData();
+                formData.append('id', id);
+                formData.append(
+                  'amenities',
+                  Object.values(
+                    publishListing['Tell guests what your House has to offer'],
+                  )
+                    .filter(x => x.selected)
+                    .map(x => x.key),
+                );
+                formData.append(
+                  'standout_amenities',
+                  Object.values(
+                    publishListing['Do you have any standout amenities?'],
+                  )
+                    .filter(x => x.selected)
+                    .map(x => x.key),
+                );
+                formData.append(
+                  'safety_items',
+                  Object.values(
+                    publishListing['Do you have any of these safety items?'],
+                  )
+                    .filter(x => x.selected)
+                    .map(x => x.key),
+                );
+                dispatch(Add_Listing(formData));
+                setProgress(15);
+                setCondition('Add Photos');
+              } else if (step === '8') {
+                if (input.image.length === 0)
+                  return Toast.show(ToastError('Image is Required'));
+                const formData = new FormData();
+                formData.append('id', id);
+                // formData.append('photos', input.image);
+                {
+                  input.image.map((Img, i) => {
+                    let spirit_uri = Img.path.split('/');
+                    let name = spirit_uri[spirit_uri.length - 1];
+                    let imageObj = {
+                      name,
+                      uri: Img.path,
+                      type: Img.mime,
+                      size: Img.size,
+                    };
+                    formData.append(`photos[${i}]`, imageObj, `${name}.jpg`);
+                  });
+                }
+                dispatch(Add_Listing(formData));
+                setProgress(20);
+
+                setCondition('Add Title');
+              } else if (step === '9') {
+                if (input.title === '')
+                  return Toast.show(ToastError('Title is Required'));
+                const formData = new FormData();
+                formData.append('id', id);
+                formData.append('house_title', input.title);
+                dispatch(Add_Listing(formData));
+                setProgress(25);
+                setCondition('Describe Your House');
+              } else if (step === '10') {
+                const formData = new FormData();
+                formData.append('id', id);
+                // barn[]
+                formData.append(
+                  'barn',
+                  Object.values(describeYourHouse)
+                    .filter(x => x.selected)
+                    .map(x => x.title),
+                );
+                dispatch(Add_Listing(formData));
+                setProgress(30);
+                setCondition('Your House Description');
+              } else if (step === '11') {
+                if (input.description === '')
+                  return Toast.show(ToastError('Description is Required'));
+                const formData = new FormData();
+                formData.append('id', id);
+                formData.append('description', input.description);
+                dispatch(Add_Listing(formData));
+                setProgress(35);
+
+                setCondition('First Reservationn');
+                console.log('input', input);
+              } else if (step === '12') {
+                if (input.guest_type === '')
+                  return Toast.show(ToastError('Guest Type is Required'));
+                const formData = new FormData();
+                formData.append('id', id);
+                formData.append('guest_type', input.guest_type);
+                dispatch(Add_Listing(formData));
                 setProgress(80);
-                setCondition('Bedroom');
-              } else if (condition === 'Bedroom') {
-                setProgress(90);
-                setCondition('Terms&rules');
-              } else if (condition === 'Terms&rules') {
+                setCondition('Your Price');
+              } else if (step === '14') {
+                if (input.price === 0)
+                  return Toast.show(ToastError('Price is Required'));
+                const formData = new FormData();
+                formData.append('id', id);
+                formData.append('price', input.price);
+                dispatch(Add_Listing(formData));
                 setProgress(100);
-                setCondition('Calender');
+                setCondition('Last Step');
               } else {
-                // console.log(input);
-                navigation.goBack();
+                if (step === '18') {
+                  Toast.show(ToastSuccess('Property Create Successfully'));
+                  dispatch(setId(null));
+                  dispatch(setStep(null));
+                } else {
+                  const formData = new FormData();
+                  formData.append('id', id);
+                  formData.append('publish', '');
+                  formData.append('user_id', user?.id);
+                  formData.append('security_camera', input.security_camera);
+                  formData.append('weapon', input.weapon);
+                  formData.append('animals', input.animals);
+                  formData.append('step', 18);
+                  dispatch(Add_Listing(formData));
+                }
               }
             }}
             title={'Continue'}

@@ -45,6 +45,7 @@ import {RootStackParamList} from '@type/navigation';
 import SignupScreen from '@screens/SignupScreen';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  selectAddListingState,
   persistor,
   selectAuthState,
   selectUserState,
@@ -57,7 +58,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 const StackNavigation = () => {
   const {isAuthenticated, user, isLoggingIn} = useSelector(selectAuthState);
   const {isLoadingUser, userData, error} = useSelector(selectUserState);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   useEffect(() => {
     if (isAuthenticated) {
       if (user) dispatch(getUserData(user));
@@ -82,6 +83,7 @@ const StackNavigation = () => {
   }, [isAuthenticated]);
 
   console.log(userData);
+  const {id, step} = useSelector(selectAddListingState);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -127,13 +129,9 @@ const StackNavigation = () => {
       <Stack.Screen name="Translation" component={Translation} />
       <Stack.Screen name="Notifications" component={Notifications} />
       <Stack.Screen name="HelpCenter" component={HelpCenter} />
-      <Stack.Screen name="AddListing" component={AddListing} />
       <Stack.Screen name="Verify" component={VerifyScreen} />
-      {isAuthenticated || (
-        <Stack.Group>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signup" component={SignupScreen} />
-        </Stack.Group>
+      {step === '18' || (
+        <Stack.Screen name="Addlisting" component={AddListing} />
       )}
     </Stack.Navigator>
   );

@@ -50,7 +50,7 @@ export type RootStackParamList = {
   Translation: undefined;
   Notifications: undefined;
   HelpCenter: undefined;
-  AddListing: undefined;
+  Addlisting: undefined;
   Verify: undefined;
 };
 
