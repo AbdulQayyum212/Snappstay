@@ -2,7 +2,7 @@ import {useState} from 'react';
 import axios, {AxiosResponse} from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectAuthState} from '@stores/store';
-import {getUserData} from '@stores/auth/userActions';
+import {getUserData} from '@stores/actions/userActions';
 
 interface UsePostRequestProps {
   url: string;
@@ -10,7 +10,7 @@ interface UsePostRequestProps {
 
 const usePostRequest = <T>({url}: UsePostRequestProps) => {
   const {isAuthenticated, user, isLoggingIn} = useSelector(selectAuthState);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const [responseData, setResponseData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
@@ -18,7 +18,8 @@ const usePostRequest = <T>({url}: UsePostRequestProps) => {
   const makePostRequest = async (data: FormData) => {
     try {
       // data.append('id', user?.id);
-      console.log(data);
+      console.log(JSON.stringify(data));
+
       setLoading(true);
 
       const response = await fetch(url, {

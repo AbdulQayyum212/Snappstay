@@ -4,6 +4,7 @@ import {User} from '@type/user';
 export interface AuthState {
   isAuthenticated: boolean;
   user: null | User;
+  token: null | string;
   error: null | string;
   isLoggingIn: boolean; // Add the isLoggingIn flag
 }
@@ -11,6 +12,7 @@ export interface AuthState {
 const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
+  token: null,
   error: null,
   isLoggingIn: false, // Initialize isLoggingIn as false
 };
@@ -28,6 +30,7 @@ interface LoginRequestAction {
 interface LoginSuccessAction {
   type: typeof LOGIN_SUCCESS;
   payload: User;
+  token: string;
 }
 
 interface LoginFailureAction {
@@ -65,6 +68,7 @@ const authReducer = (
         ...state,
         isAuthenticated: true,
         user: action.payload,
+        token: action.token,
         error: null,
         isLoggingIn: false, // Set isLoggingIn to false on login success
       };
@@ -73,6 +77,7 @@ const authReducer = (
         ...state,
         isAuthenticated: false,
         user: null,
+        token: null,
         error: action.payload,
         isLoggingIn: false, // Set isLoggingIn to false on login failure
       };
@@ -81,6 +86,7 @@ const authReducer = (
         ...state,
         isAuthenticated: false,
         user: null,
+        token: null,
         error: null, // Reset error on logout
       };
     case SET_USER:

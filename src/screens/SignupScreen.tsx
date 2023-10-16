@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {signup} from '@stores/auth/signupActions'; // Import the signup action
+import {signup} from '@stores/actions/signupActions'; // Import the signup action
 import {selectSignupState} from '@stores/store'; // Import the signup state selector
 
 import {useNavigation} from '@react-navigation/native';

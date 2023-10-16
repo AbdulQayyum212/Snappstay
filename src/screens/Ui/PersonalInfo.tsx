@@ -15,7 +15,7 @@ import {selectAuthState, selectProfileState} from '@stores/store';
 import {useDispatch, useSelector} from 'react-redux';
 import {User} from '@type/user';
 import {Button} from '@components/Button';
-import {updateProfile} from '@stores/auth/profileActions';
+import {updateProfile} from '@stores/actions/profileActions';
 const PersonalInfo = () => {
   const dispatch = useDispatch<any>();
 

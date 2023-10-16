@@ -18,7 +18,7 @@ import {Button} from '../../components/Button';
 import tw from 'twrnc';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectAuthState} from '@stores/store';
-import {login} from '@stores/auth/authActions';
+import {login} from '@stores/actions/authActions';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 

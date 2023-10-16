@@ -19,8 +19,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {connect, useDispatch, useSelector} from 'react-redux';
-import {logout} from '@stores/auth/authActions';
-import {ClearUser} from '@stores/auth/userActions';
+import {logout} from '@stores/actions/authActions';
+import {ClearUser} from '@stores/actions/userActions';
 import tw from 'twrnc';
 
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';

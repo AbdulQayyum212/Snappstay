@@ -9,7 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {signup} from '@stores/auth/signupActions'; // Import the signup action
+import {signup} from '@stores/actions/signupActions'; // Import the signup action
 import {selectSignupState} from '@stores/store'; // Import the signup state selector
 
 import {useNavigation} from '@react-navigation/native';
@@ -96,21 +96,27 @@ const VerifyScreen = () => {
     // if (credentials.photo_back == null) return;
     // if (credentials.utility == null) return;
     const formData = new FormData();
-    formData.append('utility', {
-      uri: credentials.utility?.path,
-      type: credentials.utility?.mime,
-      name: credentials.utility?.path.split('/').pop(),
-    });
-    formData.append('photo_front', {
-      uri: credentials.photo_front?.path,
-      type: credentials.photo_front?.mime,
-      name: credentials.photo_front?.path.split('/').pop(),
-    });
-    formData.append('photo_back', {
-      uri: credentials.photo_back?.path,
-      type: credentials.photo_back?.mime,
-      name: credentials.photo_back?.path.split('/').pop(),
-    });
+    if (credentials.utility != null) {
+      formData.append('utility', {
+        uri: credentials.utility.path,
+        type: credentials.utility.mime,
+        name: credentials.utility.path.split('/').pop(),
+      });
+    }
+    if (credentials.photo_front != null) {
+      formData.append('photo_front', {
+        uri: credentials.photo_front.path,
+        type: credentials.photo_front.mime,
+        name: credentials.photo_front.path.split('/').pop(),
+      });
+    }
+
+    if (credentials.photo_back != null)
+      formData.append('photo_back', {
+        uri: credentials.photo_back.path,
+        type: credentials.photo_back.mime,
+        name: credentials.photo_back.path.split('/').pop(),
+      });
     formData.append('ssn', credentials.ssn);
     formData.append('dob', credentials.dob);
     formData.append('tax_id', credentials.tax_id);

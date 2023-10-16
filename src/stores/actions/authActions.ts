@@ -15,9 +15,12 @@ export const loginRequest = (): AuthActionTypes => ({
   type: LOGIN_REQUEST,
 });
 
-export const loginSuccess = (user: User): AuthActionTypes => ({
+export const loginSuccess = (
+  loginResponse: LoginResponse,
+): AuthActionTypes => ({
   type: LOGIN_SUCCESS,
-  payload: user,
+  payload: loginResponse.user,
+  token: loginResponse.token,
 });
 
 export const loginFailure = (error: string): AuthActionTypes => ({
@@ -52,7 +55,7 @@ export const login = (fromData: FormData) => {
       if (response.ok) {
         const user: LoginResponse = await response.json();
         console.log(user);
-        dispatch(loginSuccess(user.user));
+        dispatch(loginSuccess(user));
       } else {
         const errorData = await response.json();
         console.log(errorData);

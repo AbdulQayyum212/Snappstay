@@ -51,7 +51,7 @@ import {
   store,
 } from '@stores/store';
 import SplashScreen from 'react-native-splash-screen';
-import {getUserData} from '@stores/auth/userActions';
+import {getUserData} from '@stores/actions/userActions';
 import VerifyScreen from '@screens/VerifyScreen';
 const Stack = createStackNavigator<RootStackParamList>();
 const StackNavigation = () => {
