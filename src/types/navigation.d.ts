@@ -51,6 +51,7 @@ export type RootStackParamList = {
   Notifications: undefined;
   HelpCenter: undefined;
   Addlisting: undefined;
+  Verify: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

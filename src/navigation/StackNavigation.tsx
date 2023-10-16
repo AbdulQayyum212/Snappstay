@@ -39,30 +39,56 @@ import Translation from '@screens/Ui/Translation';
 import TripDetail from '@screens/Ui/TripDetail';
 import WhereTo from '@screens/Ui/WhereTo';
 import Welcome from '@screens/Welcom';
-import React from 'react';
+import React, {useEffect} from 'react';
 import MyTabs from './BottomNavigation';
 import {RootStackParamList} from '@type/navigation';
 import SignupScreen from '@screens/SignupScreen';
-import {useSelector} from 'react-redux';
-import {selectAddListingState, selectAuthState} from '@stores/store';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  selectAddListingState,
+  persistor,
+  selectAuthState,
+  selectUserState,
+  store,
+} from '@stores/store';
+import SplashScreen from 'react-native-splash-screen';
+import {getUserData} from '@stores/auth/userActions';
+import VerifyScreen from '@screens/VerifyScreen';
 const Stack = createStackNavigator<RootStackParamList>();
 const StackNavigation = () => {
-  const {isAuthenticated, user, error, isLoggingIn} =
-    useSelector(selectAuthState);
+  const {isAuthenticated, user, isLoggingIn} = useSelector(selectAuthState);
+  const {isLoadingUser, userData, error} = useSelector(selectUserState);
+  const dispatch = useDispatch<any>();
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (user) dispatch(getUserData(user));
+      if (isLoadingUser) SplashScreen.show();
+      if (error) SplashScreen.hide();
+      if (!isLoadingUser && userData) SplashScreen.hide();
+      if (!isLoadingUser && !userData) SplashScreen.hide();
+      if (isLoggingIn) SplashScreen.show();
+      if (!isLoggingIn) SplashScreen.hide();
+      if (isLoggingIn && !isLoadingUser) SplashScreen.hide();
+      if (isLoggingIn && isLoadingUser) SplashScreen.show();
+      if (isLoggingIn && error) SplashScreen.hide();
+      if (!isLoggingIn && !isLoadingUser && !error) SplashScreen.hide();
+      if (!isLoggingIn && isLoadingUser && !error) SplashScreen.show();
+      if (!isLoggingIn && isLoadingUser && error) SplashScreen.hide();
+      if (!isLoggingIn && !isLoadingUser && error) SplashScreen.hide();
+      if (!isLoggingIn && !isLoadingUser && !error) SplashScreen.hide();
+      if (!isLoggingIn && !isLoadingUser && !error) SplashScreen.hide();
+    } else {
+      SplashScreen.hide();
+    }
+  }, [isAuthenticated]);
+
+  console.log(userData);
   const {id, step} = useSelector(selectAddListingState);
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}>
-      {isAuthenticated || (
-        <Stack.Group>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signup" component={SignupScreen} />
-        </Stack.Group>
-      )}
-
       <Stack.Screen name="MyTabs" component={MyTabs} />
       <Stack.Screen name="Property" component={Property} />
       <Stack.Screen name="MapScreen" component={MapScreen} />
@@ -103,6 +129,7 @@ const StackNavigation = () => {
       <Stack.Screen name="Translation" component={Translation} />
       <Stack.Screen name="Notifications" component={Notifications} />
       <Stack.Screen name="HelpCenter" component={HelpCenter} />
+      <Stack.Screen name="Verify" component={VerifyScreen} />
       {step === '18' || (
         <Stack.Screen name="Addlisting" component={AddListing} />
       )}

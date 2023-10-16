@@ -1,4 +1,6 @@
+import ListItem from '@components/ListItem';
 import {useNavigation} from '@react-navigation/native';
+import {selectUserState} from '@stores/store';
 import {useState} from 'react';
 import {
   Dimensions,
@@ -16,168 +18,80 @@ import {Calendar} from 'react-native-calendars';
 import {Carousel, Chip, Stepper} from 'react-native-ui-lib';
 import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import {useSelector} from 'react-redux';
+import tw from 'twrnc';
 const width = Dimensions.get('window').width;
 
 const WishList = ({}) => {
+  const {userData, isLoadingUser, error} = useSelector(selectUserState);
   const [modalVisible, setModalVisible] = useState(false);
   const [selected, setSelected] = useState('');
   const [adults, setAdults] = useState(0);
   const [date, setDate] = useState(false);
   const navigation = useNavigation();
-  const data = [
-    {
-      id: 1,
-      img: require('@assets/3.jpg'),
-      title1: 'Apertment In Houston Texas',
-      title2: 'Amsterdam Lifestyle in Houston',
-      title3: '1 queen bed Individual Host',
-      title4: 'night',
-      price: '$230 USD',
-    },
-  ];
+
   return (
     <SafeAreaView style={{height: '100%', backgroundColor: 'white'}}>
-      <View style={{flex: 1, backgroundColor: 'white', padding: 20}}>
-        <View>
-          <Text style={{color: 'black', fontSize: 25, fontWeight: '700'}}>
-            Wishlists
-          </Text>
-          <View style={{flexDirection: 'row', marginTop: 10}}>
-            <Chip
-              size={{width: 20, height: 30}}
-              label={'Date'}
-              labelStyle={{color: selected ? 'white' : 'grey'}}
-              onPress={() => setDate(true)}
-              containerStyle={{
-                marginRight: 20,
-                borderColor: 'lightgrey',
-                backgroundColor: selected ? 'black' : 'white',
-              }}
-            />
-            <Chip
-              size={{width: 20, height: 30}}
-              labelStyle={{color: adults ? 'white' : 'grey'}}
-              label={'Guest'}
-              onPress={() => setModalVisible(true)}
-              containerStyle={{
-                marginRight: 20,
-                borderColor: 'lightgrey',
-                backgroundColor: adults ? 'black' : 'white',
-              }}
-            />
-          </View>
-          <View>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={data}
-              renderItem={({item}: any) => {
-                return (
-                  <TouchableWithoutFeedback
-                    onPress={() => navigation.navigate('SnappCover')}>
-                    <View
-                      // onPress={() => navigation.navigate('SnappCover')}
-                      style={{
-                        marginBottom: 10,
-                        marginTop: 20,
-                        // backgroundColor: 'red',
-                      }}>
-                      <Carousel
-                        containerStyle={{
-                          height: 300,
-                        }}
-                        // onChangePage={() => console.log('page changed')}
-                        loop
-                        pageControlProps={{
-                          size: 10,
-                          containerStyle: {
-                            position: 'absolute',
-                            bottom: 15,
-                            left: '35%',
-                          },
-                        }}
-                        pageControlPosition={Carousel.pageControlPositions.OVER}
-                        showCounter>
-                        {new Array(5).fill(null).map((element, index) => (
-                          <Image
-                            style={{
-                              width: width,
-                              height: 300,
-                              // borderRadius: 20,
-                            }}
-                            source={item?.img}
-                          />
-                        ))}
-                      </Carousel>
-                      {/* <Image
-                  style={{
-                    width: 370,
-                    height: 370,
-                    borderRadius: 20,
-                  }}
-                  source={item?.img}
-                /> */}
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          // alignItems: 'center',
-                          justifyContent: 'space-between',
-                          marginTop: 10,
-                          paddingHorizontal: 10,
-                        }}>
-                        <View>
-                          <Text style={{fontSize: 15, color: 'black'}}>
-                            {item?.title1}
-                          </Text>
-                          <Text style={{color: '#999999'}}>{item?.title2}</Text>
-                          <Text style={{color: '#999999'}}>{item?.title3}</Text>
-                          <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-                            {item?.price}{' '}
-                            <Text style={{color: '#999999'}}>
-                              {item?.title4}
-                            </Text>
-                          </Text>
-                        </View>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            alignSelf: 'flex-start',
-                          }}>
-                          <Image
-                            style={{width: 20, height: 20}}
-                            source={require('@assets/u_star.png')}
-                          />
-                          <Text>4.94</Text>
-                        </View>
-                      </View>
-                      <View style={{position: 'absolute', top: 20, left: 20}}>
-                        <TouchableOpacity
-                        // onPress={() => {
-                        //   if (heart != item?.id) {
-                        //     setHeart(item?.id);
-                        //     setModalVisible(true);
-                        //   } else {
-                        //     setHeart(item?.id);
-                        //   }
-                        // }}
-                        >
-                          <Entypo
-                            name={'heart-outlined'}
-                            // name={heart === item?.id ? 'heart' : 'heart-outlined'}
-                            size={20}
-                            color={'white'}
-                            // color={heart === item?.id ? 'red' : 'white'}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </TouchableWithoutFeedback>
-                );
-              }}
-              keyExtractor={item => item.id.toString()}
-            />
-          </View>
-          {/* <Text
+      <View style={{backgroundColor: 'white', padding: 20}}>
+        <Text style={{color: 'black', fontSize: 25, fontWeight: '700'}}>
+          Wishlists
+        </Text>
+        <View style={{flexDirection: 'row', marginTop: 10}}>
+          <Chip
+            size={{width: 20, height: 30}}
+            label={'Date'}
+            labelStyle={{color: selected ? 'white' : 'grey'}}
+            onPress={() => setDate(true)}
+            containerStyle={{
+              marginRight: 20,
+              borderColor: 'lightgrey',
+              backgroundColor: selected ? 'black' : 'white',
+            }}
+          />
+          <Chip
+            size={{width: 20, height: 30}}
+            labelStyle={{color: adults ? 'white' : 'grey'}}
+            label={'Guest'}
+            onPress={() => setModalVisible(true)}
+            containerStyle={{
+              marginRight: 20,
+              borderColor: 'lightgrey',
+              backgroundColor: adults ? 'black' : 'white',
+            }}
+          />
+        </View>
+        {/* <View>
+              {isLoadingUser && <Text>Loading...</Text>}
+              {error && <Text>Error: {error}</Text>}
+              {userData && (
+                <View>
+                  <Text>Response Data:</Text>
+                  <Text>{JSON.stringify(userData)}</Text>
+                </View>
+              )}
+            </View> */}
+
+        <FlatList
+          contentContainerStyle={{
+            paddingBottom: 100,
+            flexGrow: 1,
+            justifyContent: 'center',
+          }}
+          ListEmptyComponent={
+            <Text>
+              Your Dream Destination are waiting for You add you wishlist here
+            </Text>
+          }
+          showsVerticalScrollIndicator={false}
+          // contentContainerStyle={{paddingBottom: 100, minHeight: '100%'}}
+          showsHorizontalScrollIndicator={false}
+          data={userData?.userFavourites?.map(x => x.property)}
+          renderItem={({item}) => {
+            return <ListItem item={item} />;
+          }}
+          keyExtractor={item => item.id.toString()}
+        />
+        {/* <Text
           style={{
             color: 'black',
             marginTop: 50,
@@ -190,7 +104,6 @@ const WishList = ({}) => {
           As you search, tab the heart icon to save your favorite places to stay
           or things to do to a wishlist{' '}
         </Text> */}
-        </View>
         <Modal
           animationType="slide"
           transparent={true}

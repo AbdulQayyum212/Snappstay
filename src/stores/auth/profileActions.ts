@@ -5,28 +5,33 @@ import {
   UPDATE_PROFILE_REQUEST,
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAILURE,
-} from './profileReducer'; // Import action types
+} from '../reducers/profileReducer'; // Import action types
 import {User} from '@type/user';
 import {UpdateUserResponse} from '@type/updateUser';
 import {setUser} from './authActions';
+import {UserActionTypes} from '@stores/reducers/userReducer';
+import {AuthActionTypes} from '@stores/reducers/authReducer';
 
-export const updateProfileRequest = () => ({
+export const updateProfileRequest = (): ProfileActionTypes => ({
   type: UPDATE_PROFILE_REQUEST,
 });
 
-export const updateProfileSuccess = (user: User, message: string) => ({
+export const updateProfileSuccess = (
+  user: User,
+  message: string,
+): ProfileActionTypes => ({
   type: UPDATE_PROFILE_SUCCESS,
   payload: user,
   message: message,
 });
 
-export const updateProfileFailure = (error: string) => ({
+export const updateProfileFailure = (error: string): ProfileActionTypes => ({
   type: UPDATE_PROFILE_FAILURE,
   payload: error,
 });
 
 export const updateProfile = (updatedProfile: User) => {
-  return async (dispatch: Dispatch<ProfileActionTypes>) => {
+  return async (dispatch: Dispatch<ProfileActionTypes | AuthActionTypes>) => {
     try {
       // Simulate an API call for updating the user's profile (replace with your actual API call)
       dispatch(updateProfileRequest());
@@ -44,7 +49,7 @@ export const updateProfile = (updatedProfile: User) => {
         {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
           },
           body: formData,
         },

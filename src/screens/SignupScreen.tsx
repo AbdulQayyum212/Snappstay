@@ -20,6 +20,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Button} from '@components/Button';
 import tw from 'twrnc';
 import {SignUpCredentials} from '@type/auth';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 const value = {
   first_name: 'Ubaid Ur Rehma',
@@ -31,7 +32,7 @@ const value = {
 };
 
 const SignupScreen = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const navigation = useNavigation();
   const {isSigningUp, user, error} = useSelector(selectSignupState);
 
@@ -52,6 +53,11 @@ const SignupScreen = () => {
     <SafeAreaView style={{height: '100%', backgroundColor: 'white'}}>
       <ScrollView>
         <View style={{flex: 1, backgroundColor: 'white', padding: 20}}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={tw` items-center justify-center shadow-md bg-white px-2 w-10 h-10 left-1  p-2 rounded-full z-10`}>
+            <EvilIcons name={'chevron-left'} size={20} color="black" />
+          </TouchableOpacity>
           <View>
             <View style={tw`gap-2`}>
               <Text style={{color: 'black', fontSize: 35, fontWeight: 'bold'}}>

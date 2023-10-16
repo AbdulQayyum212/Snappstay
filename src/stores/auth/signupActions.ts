@@ -5,19 +5,19 @@ import {
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
-} from './signupReducer'; // Import action types
+} from '../reducers/signupReducer'; // Import action types
 import {SignUpCredentials} from '@type/auth';
 
-export const signupRequest = () => ({
+export const signupRequest = (): SignupActionTypes => ({
   type: SIGNUP_REQUEST,
 });
 
-export const signupSuccess = (user: {message: string}) => ({
+export const signupSuccess = (user: {message: string}): SignupActionTypes => ({
   type: SIGNUP_SUCCESS,
   payload: user,
 });
 
-export const signupFailure = (error: string) => ({
+export const signupFailure = (error: string): SignupActionTypes => ({
   type: SIGNUP_FAILURE,
   payload: error,
 });
@@ -37,7 +37,7 @@ export const signup = (credentials: SignUpCredentials) => {
         {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
           },
           body: formData,
         },

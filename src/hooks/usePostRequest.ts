@@ -1,34 +1,58 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import axios, {AxiosResponse} from 'axios';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectAuthState} from '@stores/store';
+import {getUserData} from '@stores/auth/userActions';
 
-interface UsePostRequestProps<T> {
+interface UsePostRequestProps {
   url: string;
-  data: T;
 }
 
-const usePostRequest = <T>({url, data}: UsePostRequestProps<T>) => {
+const usePostRequest = <T>({url}: UsePostRequestProps) => {
+  const {isAuthenticated, user, isLoggingIn} = useSelector(selectAuthState);
+  const dispatch = useDispatch();
   const [responseData, setResponseData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    const postData = async () => {
-      try {
-        setLoading(true);
-        const response: AxiosResponse<T> = await axios.post(url, data);
-        setResponseData(response.data);
+  const makePostRequest = async (data: FormData) => {
+    try {
+      // data.append('id', user?.id);
+      console.log(data);
+      setLoading(true);
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        body: data,
+      });
+      console.log(response);
+      // const response: AxiosResponse<any> = await axios.post(url, data, {
+      //   headers: {'Content-Type': 'multipart/form-data'},
+      // });
+      if (response.ok) {
+        const data = await response.json();
+        setResponseData(data);
         setLoading(false);
         setError(null);
-      } catch (error) {
-        setError(error);
+      } else {
+        const data = await response.json();
+        console.log(data);
         setLoading(false);
+        setError(null);
       }
-    };
 
-    postData();
-  }, [url, data]);
+      if (user) dispatch(getUserData(user));
+    } catch (error) {
+      console.log(error);
+      setError(error);
+      setLoading(false);
+    }
+  };
 
-  return {responseData, loading, error};
+  return {responseData, loading, error, makePostRequest};
 };
 
 export default usePostRequest;
