@@ -7,7 +7,13 @@
 
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {KeyboardAvoidingView, Platform, StyleSheet} from 'react-native';
+import {
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  View,
+} from 'react-native';
 import {applyMiddleware, createStore} from 'redux';
 
 import StackNavigation from '@navigation/StackNavigation';
@@ -18,7 +24,7 @@ import {Provider, useDispatch, useSelector} from 'react-redux';
 import {persistReducer, persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import thunk from 'redux-thunk';
-import {persistor, store} from '@stores/store';
+import {persistor, selectLoaderState, store} from '@stores/store';
 const App = () => {
   return (
     // <SafeAreaView style={styles.container}>

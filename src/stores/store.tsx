@@ -12,6 +12,7 @@ const selectSignupState = (state: RootState) => state.signup;
 const selectProfileState = (state: RootState) => state.profile;
 const selectAddListingState = (state: RootState) => state.AddListing;
 const selectUserState = (state: RootState) => state.userData;
+const selectLoaderState = (state: RootState) => state.loading;
 
 const persistConfig = {
   key: 'root',
@@ -32,4 +33,5 @@ export {
   selectProfileState,
   selectAddListingState,
   selectUserState,
+  selectLoaderState,
 };

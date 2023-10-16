@@ -10,6 +10,8 @@ import {
   LOGOUT,
   SET_USER,
 } from '../reducers/authReducer'; // Import action types
+import {LoaderActionType} from '@stores/reducers/LoaderReducers';
+import {loaderFalse, loaderTrue} from './LoaderAction';
 
 export const loginRequest = (): AuthActionTypes => ({
   type: LOGIN_REQUEST,
@@ -37,11 +39,11 @@ export const setUser = (user: User): AuthActionTypes => ({
 });
 
 export const login = (fromData: FormData) => {
-  return async (dispatch: Dispatch<AuthActionTypes>) => {
+  return async (dispatch: Dispatch<AuthActionTypes | LoaderActionType>) => {
     try {
       // Simulate an API call for login (replace with your actual API call)
       dispatch(loginRequest());
-
+      dispatch(loaderTrue());
       console.log(fromData);
       const response = await fetch('https://www.snappstay.com/api/user/login', {
         method: 'POST',
@@ -56,13 +58,16 @@ export const login = (fromData: FormData) => {
         const user: LoginResponse = await response.json();
         console.log(user);
         dispatch(loginSuccess(user));
+        dispatch(loaderFalse());
       } else {
         const errorData = await response.json();
         console.log(errorData);
         dispatch(loginFailure(errorData.error));
+        dispatch(loaderFalse());
       }
     } catch (error) {
       dispatch(loginFailure('An error occurred while logging in.'));
+      dispatch(loaderFalse());
     }
   };
 };

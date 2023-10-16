@@ -50,13 +50,16 @@ import {
   selectAuthState,
   selectUserState,
   store,
+  selectLoaderState,
 } from '@stores/store';
 import SplashScreen from 'react-native-splash-screen';
 import {getUserData} from '@stores/actions/userActions';
 import VerifyScreen from '@screens/VerifyScreen';
+import {signup} from '@stores/actions/signupActions';
+import {ActivityIndicator, View} from 'react-native';
 const Stack = createStackNavigator<RootStackParamList>();
 const StackNavigation = () => {
-  const {isAuthenticated, user, isLoggingIn} = useSelector(selectAuthState);
+  const {isAuthenticated, user} = useSelector(selectAuthState);
   const {isLoadingUser, userData, error} = useSelector(selectUserState);
   const dispatch = useDispatch<any>();
   useEffect(() => {
@@ -66,17 +69,6 @@ const StackNavigation = () => {
       if (error) SplashScreen.hide();
       if (!isLoadingUser && userData) SplashScreen.hide();
       if (!isLoadingUser && !userData) SplashScreen.hide();
-      if (isLoggingIn) SplashScreen.show();
-      if (!isLoggingIn) SplashScreen.hide();
-      if (isLoggingIn && !isLoadingUser) SplashScreen.hide();
-      if (isLoggingIn && isLoadingUser) SplashScreen.show();
-      if (isLoggingIn && error) SplashScreen.hide();
-      if (!isLoggingIn && !isLoadingUser && !error) SplashScreen.hide();
-      if (!isLoggingIn && isLoadingUser && !error) SplashScreen.show();
-      if (!isLoggingIn && isLoadingUser && error) SplashScreen.hide();
-      if (!isLoggingIn && !isLoadingUser && error) SplashScreen.hide();
-      if (!isLoggingIn && !isLoadingUser && !error) SplashScreen.hide();
-      if (!isLoggingIn && !isLoadingUser && !error) SplashScreen.hide();
     } else {
       SplashScreen.hide();
     }
@@ -84,56 +76,88 @@ const StackNavigation = () => {
 
   console.log(userData);
   const {id, step} = useSelector(selectAddListingState);
+  const {loading} = useSelector(selectLoaderState);
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Stack.Screen name="MyTabs" component={MyTabs} />
-      <Stack.Screen name="Property" component={Property} />
-      <Stack.Screen name="MapScreen" component={MapScreen} />
-      <Stack.Screen name="PrivatePlace" component={PrivatePlace} />
-      <Stack.Screen name="SharePlace" component={SharePlace} />
-      <Stack.Screen name="GuestPlaceOffer" component={GuestPlaceholder} />
-      <Stack.Screen name="AddHouse" component={AddHouse} />
-      <Stack.Screen name="AddHouseTitle" component={AddHouseTitle} />
-      <Stack.Screen name="Describe" component={Describe} />
-      <Stack.Screen name="CreateDescription" component={CreateDescription} />
-      <Stack.Screen name="ChooseReservation" component={ChooseReservation} />
-      <Stack.Screen name="CreatePrice" component={CreatePrice} />
-      <Stack.Screen name="ReviewListing" component={ReviewListing} />
-      <Stack.Screen name="LastStep" component={LastStep} />
-      <Stack.Screen name="Care" component={Care} />
-      <Stack.Screen name="HouseRules" component={HouseRules} />
-      <Stack.Screen name="Calender" component={Calender} />
-      <Stack.Screen name="Policy" component={Policy} />
-      <Stack.Screen name="Welcome" component={Welcome} />
-
-      <Stack.Screen name="ConfirmNumber" component={ConfirmNumber} />
-      <Stack.Screen name="Notifi" component={Notifi} />
-      <Stack.Screen name="Map" component={Map} />
-      <Stack.Screen name="WhereTo" component={WhereTo} />
-      <Stack.Screen name="SnappCover" component={SnappCover} />
-      <Stack.Screen name="ConfirmPay" component={ConfirmPay} />
-      <Stack.Screen name="Guest" component={Guest} />
-      <Stack.Screen name="DateEdit" component={DateEdit} />
-      <Stack.Screen name="ConfirmPaystep2" component={ConfirmPaystep2} />
-      <Stack.Screen name="TripDetail" component={TripDetail} />
-      <Stack.Screen name="ProfileStep2" component={ProfileStep2} />
-      <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
-      <Stack.Screen name="EditPayment" component={EditPayment} />
-      <Stack.Screen name="PrivacyAndSharing" component={PrivacyAndSharing} />
-      <Stack.Screen name="StartEarning" component={StartEarning} />
-      <Stack.Screen name="Reviews" component={Reviews} />
-      <Stack.Screen name="Done" component={Done} />
-      <Stack.Screen name="Translation" component={Translation} />
-      <Stack.Screen name="Notifications" component={Notifications} />
-      <Stack.Screen name="HelpCenter" component={HelpCenter} />
-      <Stack.Screen name="Verify" component={VerifyScreen} />
-      {step === '18' || (
-        <Stack.Screen name="Addlisting" component={AddListing} />
+    <>
+      {loading && (
+        <View
+          style={{
+            flex: 1,
+            height: '100%',
+            width: '100%',
+            position: 'absolute',
+            zIndex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <View
+            style={{
+              paddingHorizontal: 30,
+              paddingVertical: 30,
+              borderRadius: 10,
+              backgroundColor: 'black',
+            }}>
+            <ActivityIndicator size="large" color={'white'} />
+          </View>
+        </View>
       )}
-    </Stack.Navigator>
+
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        {!isAuthenticated && (
+          <Stack.Group>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+          </Stack.Group>
+        )}
+        <Stack.Screen name="MyTabs" component={MyTabs} />
+        <Stack.Screen name="Property" component={Property} />
+        <Stack.Screen name="MapScreen" component={MapScreen} />
+        <Stack.Screen name="PrivatePlace" component={PrivatePlace} />
+        <Stack.Screen name="SharePlace" component={SharePlace} />
+        <Stack.Screen name="GuestPlaceOffer" component={GuestPlaceholder} />
+        <Stack.Screen name="AddHouse" component={AddHouse} />
+        <Stack.Screen name="AddHouseTitle" component={AddHouseTitle} />
+        <Stack.Screen name="Describe" component={Describe} />
+        <Stack.Screen name="CreateDescription" component={CreateDescription} />
+        <Stack.Screen name="ChooseReservation" component={ChooseReservation} />
+        <Stack.Screen name="CreatePrice" component={CreatePrice} />
+        <Stack.Screen name="ReviewListing" component={ReviewListing} />
+        <Stack.Screen name="LastStep" component={LastStep} />
+        <Stack.Screen name="Care" component={Care} />
+        <Stack.Screen name="HouseRules" component={HouseRules} />
+        <Stack.Screen name="Calender" component={Calender} />
+        <Stack.Screen name="Policy" component={Policy} />
+        <Stack.Screen name="Welcome" component={Welcome} />
+
+        <Stack.Screen name="ConfirmNumber" component={ConfirmNumber} />
+        <Stack.Screen name="Notifi" component={Notifi} />
+        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="WhereTo" component={WhereTo} />
+        <Stack.Screen name="SnappCover" component={SnappCover} />
+        <Stack.Screen name="ConfirmPay" component={ConfirmPay} />
+        <Stack.Screen name="Guest" component={Guest} />
+        <Stack.Screen name="DateEdit" component={DateEdit} />
+        <Stack.Screen name="ConfirmPaystep2" component={ConfirmPaystep2} />
+        <Stack.Screen name="TripDetail" component={TripDetail} />
+        <Stack.Screen name="ProfileStep2" component={ProfileStep2} />
+        <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
+        <Stack.Screen name="EditPayment" component={EditPayment} />
+        <Stack.Screen name="PrivacyAndSharing" component={PrivacyAndSharing} />
+        <Stack.Screen name="StartEarning" component={StartEarning} />
+        <Stack.Screen name="Reviews" component={Reviews} />
+        <Stack.Screen name="Done" component={Done} />
+        <Stack.Screen name="Translation" component={Translation} />
+        <Stack.Screen name="Notifications" component={Notifications} />
+        <Stack.Screen name="HelpCenter" component={HelpCenter} />
+        <Stack.Screen name="Verify" component={VerifyScreen} />
+        {step === '18' || (
+          <Stack.Screen name="Addlisting" component={AddListing} />
+        )}
+      </Stack.Navigator>
+    </>
   );
 };
 export default StackNavigation;

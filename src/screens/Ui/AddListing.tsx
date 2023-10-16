@@ -38,11 +38,7 @@ import Toast from 'react-native-toast-message';
 import {ToastError, ToastSuccess} from '../../Config/Constants';
 import {selectAddListingState, selectAuthState} from '@stores/store';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  Add_Listing,
-  setId,
-  setStep,
-} from '@stores/HomeAction/AddListingActions';
+import {Add_Listing, setId, setStep} from '@stores/actions/AddListingActions';
 const AddListing = () => {
   const countries = [
     'None',

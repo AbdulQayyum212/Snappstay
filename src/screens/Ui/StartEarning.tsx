@@ -1,7 +1,7 @@
 import {Button, LeftIconBtn} from '@components/Button';
 import {Header} from '@components/Header';
 import {useNavigation} from '@react-navigation/native';
-import {Add_Listing} from '@stores/HomeAction/AddListingActions';
+import {Add_Listing} from '@stores/actions/AddListingActions';
 import {selectAddListingState, selectAuthState} from '@stores/store';
 import {useEffect, useState} from 'react';
 import {Image, SafeAreaView, ScrollView, Text, View} from 'react-native';
