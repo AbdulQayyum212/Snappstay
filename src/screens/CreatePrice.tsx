@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 
-const CreatePrice = () => {
+const CreatePrice = ({setInput, input}: any) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [price, setPrice] = useState(31);
   const navigation = useNavigation();
@@ -18,13 +18,13 @@ const CreatePrice = () => {
           <Text
             style={{
               color: 'black',
-              fontSize: 35,
+              fontSize: 20,
               fontWeight: 'bold',
               width: 200,
             }}>
             Now, set your price
           </Text>
-          <Text style={{marginTop: 20, fontSize: 20, width: 200}}>
+          <Text style={{marginTop: 20, fontSize: 17, width: 200}}>
             You can change it anytime.
           </Text>
           <View>
@@ -36,10 +36,10 @@ const CreatePrice = () => {
               }}>
               <TouchableOpacity
                 onPress={() => {
-                  var pr = price;
+                  var pr = input.price;
                   if (pr > 23) {
                     --pr;
-                    setPrice(pr);
+                    setInput((prev: any) => ({...prev, price: pr}));
                   }
                 }}
                 style={{
@@ -66,15 +66,15 @@ const CreatePrice = () => {
                 }}>
                 <Text
                   style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>
-                  {`$${price}`}
+                  {`$${input.price}`}
                 </Text>
               </View>
               <TouchableOpacity
                 onPress={() => {
-                  var pr = price;
+                  var pr = input.price;
                   if (pr < 38) {
                     ++pr;
-                    setPrice(pr);
+                    setInput((prev: any) => ({...prev, price: pr}));
                   }
                 }}
                 style={{
@@ -99,6 +99,28 @@ const CreatePrice = () => {
                 }}>
                 <Text
                   style={{color: 'black', fontWeight: 'bold', fontSize: 17}}>
+                  Terms & Conditions
+                </Text>
+                <CheckBox
+                  tintColor="black"
+                  disabled={false}
+                  value={toggleCheckBox}
+                  onValueChange={newValue => setToggleCheckBox(newValue)}
+                />
+              </View>
+              <Text style={{width: 250}}>
+                I accept Snappstay.com Terms & Conditions
+              </Text>
+            </View>
+            <View style={{marginTop: 20}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <Text
+                  style={{color: 'black', fontWeight: 'bold', fontSize: 17}}>
                   Get booked faster
                 </Text>
                 <CheckBox
@@ -112,56 +134,10 @@ const CreatePrice = () => {
                 Offer 20% off on your first 3 bookings to help your place stand
                 out.
               </Text>
-              <Text
-                style={{
-                  textDecorationLine: 'underline',
-                  marginTop: 10,
-                  color: 'BLACK',
-                }}>
-                Get details
-              </Text>
             </View>
           </View>
         </View>
         <View />
-        <View
-          style={{
-            width: '100%',
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-          }}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{
-              backgroundColor: 'white',
-              paddingHorizontal: 5,
-              width: 60,
-              alignItems: 'center',
-              borderRadius: 7,
-              paddingVertical: 5,
-              marginTop: 40,
-              alignSelf: 'flex-end',
-              justifyContent: 'flex-end',
-            }}>
-            <Text style={{color: 'black'}}>Back</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('LastStep')}
-            style={{
-              backgroundColor: 'black',
-              paddingHorizontal: 5,
-              width: 60,
-              alignItems: 'center',
-              borderRadius: 7,
-              paddingVertical: 5,
-              marginTop: 40,
-              alignSelf: 'flex-end',
-              justifyContent: 'flex-end',
-            }}>
-            <Text style={{color: 'white'}}>Next</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </View>
   );

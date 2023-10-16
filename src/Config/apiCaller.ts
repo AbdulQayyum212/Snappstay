@@ -4,7 +4,7 @@ import {ToastError} from './Constants';
 
 export var baseUrl = '';
 export const Img_url = '';
-export const GOOGLE_API = 'AIzaSyClYAkI28o4JC8de56LH0xpNWtX-TWIKr4';
+export const GOOGLE_API = 'AIzaSyCSEEKrvzM3-vFcLEoOUf256gzLG7tyWWc';
 
 const CancelToken = Axios.CancelToken.source();
 // create the source

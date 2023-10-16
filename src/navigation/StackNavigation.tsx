@@ -44,12 +44,13 @@ import MyTabs from './BottomNavigation';
 import {RootStackParamList} from '@type/navigation';
 import SignupScreen from '@screens/SignupScreen';
 import {useSelector} from 'react-redux';
-import {selectAuthState} from '@stores/store';
+import {selectAddListingState, selectAuthState} from '@stores/store';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const StackNavigation = () => {
   const {isAuthenticated, user, error, isLoggingIn} =
     useSelector(selectAuthState);
+  const {id, step} = useSelector(selectAddListingState);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -102,7 +103,9 @@ const StackNavigation = () => {
       <Stack.Screen name="Translation" component={Translation} />
       <Stack.Screen name="Notifications" component={Notifications} />
       <Stack.Screen name="HelpCenter" component={HelpCenter} />
-      <Stack.Screen name="AddListing" component={AddListing} />
+      {step === '18' || (
+        <Stack.Screen name="Addlisting" component={AddListing} />
+      )}
     </Stack.Navigator>
   );
 };

@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 
-const LastStep = () => {
+const LastStep = ({setInput}: any) => {
   const [toggleCheckBox, setToggleCheckBox] = useState<number>(0);
   const navigation = useNavigation();
   const data = [
@@ -31,13 +31,13 @@ const LastStep = () => {
           <Text
             style={{
               color: 'black',
-              fontSize: 35,
+              fontSize: 20,
               fontWeight: 'bold',
               width: 200,
             }}>
             Just one last step!
           </Text>
-          <Text style={{marginTop: 20, fontSize: 20}}>
+          <Text style={{marginTop: 20, fontSize: 17}}>
             Does your place have any of these?
           </Text>
           <View>
@@ -66,9 +66,27 @@ const LastStep = () => {
                           tintColor="black"
                           disabled={false}
                           value={toggleCheckBox == item?.id ? true : false}
-                          onValueChange={newValue =>
-                            setToggleCheckBox(item?.id)
-                          }
+                          onValueChange={newValue => {
+                            if (item.id === 1) {
+                              setInput((prev: any) => ({
+                                ...prev,
+                                security_camera: 'Yes',
+                              }));
+                              setToggleCheckBox(item?.id);
+                            } else if (item.id === 2) {
+                              setInput((prev: any) => ({
+                                ...prev,
+                                weapon: 'Yes',
+                              }));
+                              setToggleCheckBox(item?.id);
+                            } else {
+                              setInput((prev: any) => ({
+                                ...prev,
+                                animals: 'Yes',
+                              }));
+                              setToggleCheckBox(item?.id);
+                            }
+                          }}
                         />
                       </View>
                     );
@@ -100,7 +118,7 @@ const LastStep = () => {
                     Important things to know
                   </Text>
                 </View>
-                <Text style={{width: 250}}>
+                <Text style={{width: 350}}>
                   Be sure to comply with your local laws and review Snapp
                   nondiscrimination policy and guest and Host fees.
                 </Text>
@@ -109,44 +127,6 @@ const LastStep = () => {
           </View>
         </View>
         <View />
-        <View
-          style={{
-            width: '100%',
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-          }}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{
-              backgroundColor: 'white',
-              paddingHorizontal: 5,
-              width: 60,
-              alignItems: 'center',
-              borderRadius: 7,
-              paddingVertical: 5,
-              marginTop: 40,
-              alignSelf: 'flex-end',
-              justifyContent: 'flex-end',
-            }}>
-            <Text style={{color: 'black'}}>Back</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('ReviewListing')}
-            style={{
-              backgroundColor: 'black',
-              paddingHorizontal: 5,
-              width: 60,
-              alignItems: 'center',
-              borderRadius: 7,
-              paddingVertical: 5,
-              marginTop: 40,
-              alignSelf: 'flex-end',
-              justifyContent: 'flex-end',
-            }}>
-            <Text style={{color: 'white'}}>Next</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </View>
   );
