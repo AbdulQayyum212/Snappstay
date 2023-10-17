@@ -1,3 +1,5 @@
+import {Booking} from './booking';
+import {Earning} from './earning';
 import {Property} from './property';
 import {Properties} from './properyListResponse';
 import {UserFavourite} from './useFavourite';
@@ -10,8 +12,8 @@ export interface UserProfileResponse {
 export interface UserData {
   properties: Property[];
   users: User;
-  bookings: any[];
-  user_earnings: any[];
+  bookings: Booking[];
+  user_earnings: Earning[];
   guest_bookings: any[];
   host_claims: any[];
   guest_claims: any[];

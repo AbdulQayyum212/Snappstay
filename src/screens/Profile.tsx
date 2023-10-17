@@ -404,6 +404,18 @@ const Profile = () => {
                   <CustomBtn
                     rightIcon={
                       <MaterialIcons
+                        name="attach-money"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      />
+                    }
+                    onPress={() => navigation.navigate('EarningListing')}
+                    centerText="Your Earning"
+                  />
+                  <CustomBtn
+                    rightIcon={
+                      <MaterialIcons
                         name="payments"
                         size={20}
                         color="black"

@@ -3,7 +3,7 @@ import {selectAuthState} from '@stores/store';
 import {useState} from 'react';
 import Toast from 'react-native-toast-message';
 import {useDispatch, useSelector} from 'react-redux';
-import {ToastError} from '../Config/Constants';
+import {ToastError, ToastSuccess} from '../Config/Constants';
 import FormData from 'form-data';
 
 const usePostRequest = <T>(url: string) => {
@@ -38,6 +38,7 @@ const usePostRequest = <T>(url: string) => {
         setResponseData(data);
         setLoading(false);
         setError(null);
+        Toast.show(ToastSuccess(data.message));
       } else {
         const data = await response.json();
 

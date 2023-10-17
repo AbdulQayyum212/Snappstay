@@ -59,6 +59,8 @@ import {signup} from '@stores/actions/signupActions';
 import {ActivityIndicator, View} from 'react-native';
 import {loaderFalse} from '@stores/actions/LoaderAction';
 import UserListing from '@screens/UserListing';
+import EarningListing from '@screens/EarningListing';
+import EarningDetails from '@screens/EarningDetails';
 const Stack = createStackNavigator<RootStackParamList>();
 const StackNavigation = () => {
   const {isAuthenticated, user} = useSelector(selectAuthState);
@@ -156,6 +158,8 @@ const StackNavigation = () => {
         <Stack.Screen name="HelpCenter" component={HelpCenter} />
         <Stack.Screen name="Verify" component={VerifyScreen} />
         <Stack.Screen name="UserListing" component={UserListing} />
+        <Stack.Screen name="EarningListing" component={EarningListing} />
+        <Stack.Screen name="EarningDetails" component={EarningDetails} />
         {step === '18' || (
           <Stack.Screen name="Addlisting" component={AddListing} />
         )}

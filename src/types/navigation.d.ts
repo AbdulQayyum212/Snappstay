@@ -1,3 +1,4 @@
+import {Earning} from './earning.d';
 import type {
   CompositeScreenProps,
   NavigatorScreenParams,
@@ -5,6 +6,7 @@ import type {
 import type {StackScreenProps} from '@react-navigation/stack';
 import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {Property} from './property';
+import {Booking} from './booking';
 
 export type RootStackParamList = {
   Home: NavigatorScreenParams<HomeTabParamList>;
@@ -40,7 +42,7 @@ export type RootStackParamList = {
   Guest: undefined;
   DateEdit: undefined;
   ConfirmPaystep2: undefined;
-  TripDetail: undefined;
+  TripDetail: {Booking: Booking};
   ProfileStep2: undefined;
   PersonalInfo: undefined;
   EditPayment: undefined;
@@ -54,6 +56,8 @@ export type RootStackParamList = {
   Addlisting: undefined;
   Verify: undefined;
   UserListing: undefined;
+  EarningListing: undefined;
+  EarningDetails: {Earning: Earning};
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

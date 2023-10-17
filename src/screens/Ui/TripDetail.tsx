@@ -1,11 +1,13 @@
 import {Button} from '@components/Button';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {RootStackScreenProps} from '@type/navigation';
+import moment from 'moment';
 import React, {useRef, useState} from 'react';
 import {
+  ActivityIndicator,
   Animated,
   Dimensions,
   FlatList,
-  Image,
   Modal,
   ScrollView,
   Share,
@@ -15,7 +17,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import {Carousel, TextField} from 'react-native-ui-lib';
+import {AnimatedImage, Carousel, TextField, Image} from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -28,12 +30,16 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
+import tw from 'twrnc';
+
 const width = Dimensions.get('window').width;
 const Max_Header_Height = 200;
 const Min_Header_Height = 70;
 const Scroll_Distance = Max_Header_Height - Min_Header_Height;
 const TripDetail = () => {
   const navigation = useNavigation();
+  const route = useRoute<RootStackScreenProps<'TripDetail'>['route']>();
+  const booking = route.params.Booking;
   const [gettingThere, setGettingThere] = useState(false);
   const [thingToKnow, setThingToKnow] = useState(false);
   const [messageModal, setMessageModal] = useState(false);
@@ -115,7 +121,7 @@ const TripDetail = () => {
         )}
         // contentContainerStyle={{padding: 20}}
       >
-        <View style={{height: 400}}>
+        <View style={{height: 300}}>
           {/* <View
         style={{
           zIndex: 1,
@@ -138,8 +144,7 @@ const TripDetail = () => {
       </View> */}
           <Carousel
             // onChangePage={() => console.log('page changed')}
-            loop
-            autoplay
+            // autoplay
             // animated
             // counterStyle={{
             //   position: 'absolute',
@@ -158,16 +163,22 @@ const TripDetail = () => {
             pageControlPosition={Carousel.pageControlPositions.OVER}
             // showCounter
           >
-            {new Array(5).fill(null).map((element, index) => (
-              <Image
-                style={{
-                  width: width,
-                  height: 400,
-                  // borderRadius: 20,
-                }}
-                source={require('@assets/bgimage.png')}
-              />
-            ))}
+            {booking.property_details[0].property_photos.map(
+              (element, index) => (
+                <AnimatedImage
+                  key={element.id + 'image'}
+                  style={{height: 300}}
+                  loader={<ActivityIndicator />}
+                  overlayType={Image.overlayTypes.BOTTOM}
+                  // style={{flex: 1}}
+                  source={{
+                    uri:
+                      'https://www.snappstay.com/public/images/' +
+                      element.photo,
+                  }}
+                />
+              ),
+            )}
           </Carousel>
           {/* <FlatList
         data={data}
@@ -217,24 +228,27 @@ const TripDetail = () => {
                 //   justifyContent: 'space-between',
               }}>
               <View
-                style={{
-                  borderRightWidth: 1,
-                  borderRightColor: 'lightgrey',
-                  width: '40%',
-                }}>
+                style={[
+                  tw`w-1/2`,
+                  {
+                    borderRightWidth: 1,
+                    borderRightColor: 'lightgrey',
+                  },
+                ]}>
                 <Text style={{color: 'black'}}>Check-in</Text>
-                <Text style={{color: 'black'}}>Fri, Feb 17</Text>
+                <Text style={{color: 'black'}}>
+                  {moment(booking.check_in).format('ddd, MMM yyyy')}
+                </Text>
                 <Text>1:00 PM</Text>
               </View>
               <View
                 style={{
-                  // borderRightWidth: 1,
-                  // borderRightColor: 'lightgrey',
-                  width: '40%',
                   marginLeft: 20,
                 }}>
                 <Text style={{color: 'black'}}>Check-out</Text>
-                <Text style={{color: 'black'}}>Sat, Feb 18</Text>
+                <Text style={{color: 'black'}}>
+                  {moment(booking.check_out).format('ddd, MMM yyyy')}
+                </Text>
                 <Text>11:00 AM</Text>
               </View>
             </View>
@@ -269,7 +283,9 @@ const TripDetail = () => {
                     />
                     <View style={{marginLeft: 10}}>
                       <Text style={{color: 'black'}}>Getting there</Text>
-                      <Text style={{color: 'grey'}}>Addrees</Text>
+                      <Text style={{color: 'grey'}}>
+                        {booking.property_details[0].address}
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -394,11 +410,17 @@ const TripDetail = () => {
                 <View style={{width: 40, height: 40, borderRadius: 50}}>
                   <Image
                     style={{width: 40, height: 40, borderRadius: 50}}
-                    source={require('@assets/profile.png')}
+                    source={{
+                      uri:
+                        'https://www.snappstay.com/public/images/' +
+                        booking.guest_details.photo,
+                    }}
                   />
                 </View>
               </View>
-              <Text style={{width: '52%', color: '#999999'}}>1 guests</Text>
+              <Text style={{width: '52%', color: '#999999'}}>
+                {booking.guests} guests
+              </Text>
             </TouchableOpacity>
             <View
               style={{
@@ -418,7 +440,9 @@ const TripDetail = () => {
                   Confirmation Code
                 </Text>
               </View>
-              <Text style={{width: '52%', color: '#999999'}}>*******</Text>
+              <Text style={{width: '52%', color: '#999999'}}>
+                {booking.confirm_code}
+              </Text>
             </View>
             <View
               style={{

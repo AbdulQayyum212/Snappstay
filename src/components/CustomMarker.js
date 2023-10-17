@@ -6,27 +6,12 @@ import tw from 'twrnc';
 const CustomMarker = props => {
   const {coordinate, price, onPress, isSelected} = props;
   return (
-    <Marker
-      coordinate={coordinate}
-      onPress={onPress}
-      style={[
-        tw`w-8 h-8 bg-yellow-200 shadow-lg rotate-45 p-1`,
-        {transform: 'rotate(45deg)'},
-      ]}>
+    <Marker coordinate={coordinate} onPress={onPress}>
       <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: isSelected ? 'black' : 'white',
-          // padding: 5,
-          // height: 50,
-          // width: 50,
-          // borderRadius: 20,
-          // transform: 'rotate(45deg)',
-          borderColor: 'grey',
-          // borderWidth: 1,
-        }}>
+        style={[
+          tw`w-10 h-10 border-2 border-yellow-500 shadow-lg bg-black rotate-45 items-center justify-center m-2`,
+          {transform: 'rotate(45deg)'},
+        ]}>
         <Text
           style={{
             color: isSelected ? 'white' : 'black',
