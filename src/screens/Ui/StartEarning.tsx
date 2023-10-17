@@ -36,15 +36,15 @@ const StartEarning = () => {
     if (responseData?.step != undefined) {
       console.log(responseData.step);
       console.log('animal', property.amenities);
-      if (responseData?.step == 18 && property.amenities != null)
+      if (responseData?.step == 18)
         navigation.replace('SnappCover', {property: property});
       else {
-        if (property.amenities == null) {
-          dispatch(setStep('2'));
-        } else {
-          dispatch(setStep(responseData.step));
-        }
-        // dispatch(setStep(responseData.step));
+        // if (property.amenities == null) {
+        //   dispatch(setStep('2'));
+        // } else {
+        //   dispatch(setStep(responseData.step));
+        // }
+        dispatch(setStep(responseData.step));
         dispatch(setId(property.id));
       }
     }
@@ -506,7 +506,7 @@ const StartEarning = () => {
             </View>
             <View style={{marginTop: 20}}>
               <Text>
-                comperison is based on public information and free offering by
+                comparison is based on public information and free offering by
                 to competitors of 10/22. Find details and exclusions
                 <Text
                   style={{

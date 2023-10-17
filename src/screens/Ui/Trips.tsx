@@ -232,7 +232,7 @@ const Trips = () => {
                     marginTop: 30,
                   }}
                 />
-                <View style={tw`flex-row items-center`}>
+                <View style={tw`flex-row items-center p-2`}>
                   <Text style={tw`text-xs`}>
                     Can't find your reservation here?{' '}
                   </Text>
