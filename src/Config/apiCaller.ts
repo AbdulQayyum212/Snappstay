@@ -2,7 +2,7 @@ import Axios, {AxiosRequestConfig} from 'axios';
 import Toast from 'react-native-toast-message';
 import {ToastError} from './Constants';
 
-export var baseUrl = '';
+export var baseUrl = 'https://www.snappstay.com/api/';
 export const Img_url = '';
 export const GOOGLE_API = 'AIzaSyCSEEKrvzM3-vFcLEoOUf256gzLG7tyWWc';
 

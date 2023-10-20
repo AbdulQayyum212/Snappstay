@@ -19,15 +19,23 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {Button} from '../components/Button';
 import {Property} from '@type/property';
 import tw from 'twrnc';
+import FormData from 'form-data';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import AddToFavorite from '@components/AddToFavorite';
 import {RootStackScreenProps} from '@type/navigation';
+import {loaderFalse, loaderTrue} from '@stores/actions/LoaderAction';
+import {selectAuthState} from '@stores/store';
+import {useDispatch, useSelector} from 'react-redux';
+import axios from 'axios';
+import {baseUrl} from '../Config/apiCaller';
 const width = Dimensions.get('window').width;
 const Max_Header_Height = 200;
 const Min_Header_Height = 70;
 const Scroll_Distance = Max_Header_Height - Min_Header_Height;
 
 const SnappCover = () => {
+  const dispatch = useDispatch();
+  const {token} = useSelector(selectAuthState);
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const route = useRoute<RootStackScreenProps<'SnappCover'>['route']>();
@@ -70,6 +78,32 @@ const SnappCover = () => {
     } catch (error) {
       if (error instanceof Error) console.log('error.message', error.message);
     }
+  };
+  const CheckOut = async () => {
+    console.log('token', token);
+
+    const formData = new FormData();
+    formData.append('property_id', property.id);
+    formData.append('days', 7);
+    const obj = {
+      property_id: property.id,
+      days: 7,
+    };
+    dispatch(loaderTrue());
+    axios
+      .post(baseUrl + 'check/amount', obj, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(async response => {
+        console.log('res', response);
+      })
+      .catch(error => {
+        dispatch(loaderFalse());
+        console.error('Fetch error:', error);
+        // Handle other types of errors, like network issues
+      });
   };
   return (
     <>
@@ -347,8 +381,11 @@ const SnappCover = () => {
               </View>
             </View>
             <Button
+              // onPress={CheckOut}
               style={{marginTop: 20, width: 150, paddingVertical: 10}}
-              onPress={() => navigation.navigate('ConfirmPay')}
+              onPress={() =>
+                navigation.navigate('ConfirmPay', {property: property})
+              }
               title={'Check availability'}
             />
           </View>
@@ -370,3 +407,6 @@ const style = StyleSheet.create({
   },
 });
 export default SnappCover;
+// function dispatch(arg0: any) {
+//   throw new Error('Function not implemented.');
+// }

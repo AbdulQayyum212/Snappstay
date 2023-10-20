@@ -21,6 +21,8 @@ const Trips = () => {
   const navigation = useNavigation();
   const [rating, setRating] = useState(0);
   const {userData} = useSelector(selectUserState);
+  console.log('userData', userData);
+
   // const userData = null;
 
   if (userData == null)
