@@ -57,6 +57,7 @@ export type RootStackParamList = {
   Verify: undefined;
   UserListing: undefined;
   EarningListing: undefined;
+  stripe: undefined;
   EarningDetails: {Earning: Earning};
 };
 

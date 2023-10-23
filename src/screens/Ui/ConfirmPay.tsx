@@ -23,6 +23,7 @@ import {Stepper} from 'react-native-ui-lib';
 import {ToastError} from '../../Config/Constants';
 import Toast, {ErrorToast} from 'react-native-toast-message';
 import moment from 'moment';
+import tw from 'twrnc';
 const ConfirmPay = ({route}: any) => {
   const dispatch = useDispatch();
   const property = route?.params?.property;
@@ -36,6 +37,8 @@ const ConfirmPay = ({route}: any) => {
   const [adults, setAdults] = useState(0);
   const [selectedToDate, setSelectedToDate] = useState('');
   const [calculation, setCalculation] = useState('');
+  console.log('property', property);
+
   useEffect(() => {
     if (done) {
       confetti.current?.startConfetti();
@@ -165,7 +168,11 @@ const ConfirmPay = ({route}: any) => {
                     }}>
                     {property.house_title}
                   </Text>
-                  <Text>Romanium St. Barcelona</Text>
+                  <Text
+                    // numberOfLines={1}
+                    style={{color: 'grey', width: 230}}>
+                    {property?.address}
+                  </Text>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -294,13 +301,20 @@ const ConfirmPay = ({route}: any) => {
                       fontSize: 17,
                       width: 200,
                     }}>
-                    ${calculation?.total_amount ?? '63.97 '} x 1 night
+                    ${calculation?.total_amount ?? property?.price} x 1 night
                   </Text>
-                  <Text style={{width: 300, fontSize: 13}}>
-                    Service charges
-                  </Text>
+                  <View style={tw`flex-row items-center justify-center w-full`}>
+                    <Text style={{width: 300, fontSize: 13}}>
+                      Service charges
+                    </Text>
+                    <Text>
+                      {calculation?.service_charges
+                        ? `$${calculation?.service_charges}`
+                        : '$10.66'}
+                    </Text>
+                  </View>
                 </View>
-                <View style={{alignItems: 'center'}}>
+                {/* <View style={{alignItems: 'center'}}>
                   <Text>
                     {calculation?.total_amount
                       ? `$${calculation?.total_amount}`
@@ -311,7 +325,7 @@ const ConfirmPay = ({route}: any) => {
                       ? `$${calculation?.service_charges}`
                       : '$10.66'}
                   </Text>
-                </View>
+                </View> */}
               </View>
               <View
                 style={{

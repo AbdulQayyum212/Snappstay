@@ -61,6 +61,7 @@ import {loaderFalse} from '@stores/actions/LoaderAction';
 import UserListing from '@screens/UserListing';
 import EarningListing from '@screens/EarningListing';
 import EarningDetails from '@screens/EarningDetails';
+import stripe from '@screens/Ui/stripe';
 const Stack = createStackNavigator<RootStackParamList>();
 const StackNavigation = () => {
   const {isAuthenticated, user} = useSelector(selectAuthState);
@@ -160,6 +161,7 @@ const StackNavigation = () => {
         <Stack.Screen name="UserListing" component={UserListing} />
         <Stack.Screen name="EarningListing" component={EarningListing} />
         <Stack.Screen name="EarningDetails" component={EarningDetails} />
+        <Stack.Screen name="stripe" component={stripe} />
         {step === '18' || (
           <Stack.Screen name="Addlisting" component={AddListing} />
         )}

@@ -383,8 +383,9 @@ const SnappCover = () => {
             <Button
               // onPress={CheckOut}
               style={{marginTop: 20, width: 150, paddingVertical: 10}}
-              onPress={() =>
-                navigation.navigate('ConfirmPay', {property: property})
+              onPress={
+                () => navigation.navigate('stripe')
+                // navigation.navigate('ConfirmPay', {property: property})
               }
               title={'Check availability'}
             />
