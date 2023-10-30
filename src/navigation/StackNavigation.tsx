@@ -111,12 +111,6 @@ const StackNavigation = () => {
         screenOptions={{
           headerShown: false,
         }}>
-        {!isAuthenticated && (
-          <Stack.Group>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Signup" component={SignupScreen} />
-          </Stack.Group>
-        )}
         <Stack.Screen name="MyTabs" component={MyTabs} />
         <Stack.Screen name="Property" component={Property} />
         <Stack.Screen name="MapScreen" component={MapScreen} />
@@ -162,6 +156,12 @@ const StackNavigation = () => {
         <Stack.Screen name="EarningListing" component={EarningListing} />
         <Stack.Screen name="EarningDetails" component={EarningDetails} />
         <Stack.Screen name="stripe" component={stripe} />
+        {!isAuthenticated && (
+          <Stack.Group>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+          </Stack.Group>
+        )}
         {step === '18' || (
           <Stack.Screen name="Addlisting" component={AddListing} />
         )}

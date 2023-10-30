@@ -2,7 +2,7 @@ import {View, Text, SafeAreaView} from 'react-native';
 import React from 'react';
 import {StripeProvider} from '@stripe/stripe-react-native';
 import PaymentScreen from './PaymentScreen';
-const stripe = () => {
+const Stripe = () => {
   return (
     <StripeProvider
       publishableKey={'abx'}
@@ -14,4 +14,4 @@ const stripe = () => {
   );
 };
 
-export default stripe;
+export default Stripe;
