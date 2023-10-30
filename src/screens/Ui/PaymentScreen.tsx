@@ -3,7 +3,7 @@ import React from 'react';
 import {CardField, useStripe} from '@stripe/stripe-react-native';
 import tw from 'twrnc';
 const PaymentScreen = () => {
-  const {confirmPayment} = useStripe();
+  const {confirmPayment, retrievePaymentIntent} = useStripe();
   return (
     <SafeAreaView style={tw`bg-white flex-1`}>
       <CardField
