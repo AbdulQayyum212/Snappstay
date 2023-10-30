@@ -6,10 +6,10 @@ const Stripe = () => {
   return (
     <StripeProvider
       publishableKey={
-        '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'
+        'pk_test_51HGKPqIWIZ8VIh8kpJyb9bSxJA2c2oNdFoxomZnk1NM86avP5UG5sVgjgd9t2yCKym7iDQt3UB359ur6qn43pGrQ00h602PHCZ'
       }
-      merchantIdentifier="merchant.identifier" // required for Apple Pay
-      urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+      // merchantIdentifier="merchant.identifier" // required for Apple Pay
+      // urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
     >
       <PaymentScreen />
     </StripeProvider>
