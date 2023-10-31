@@ -37,7 +37,7 @@ const SnappCover = () => {
   const dispatch = useDispatch();
   const {token} = useSelector(selectAuthState);
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const route = useRoute<RootStackScreenProps<'SnappCover'>['route']>();
   const property = route.params?.property as Property;
   let scrollOffsetY = useRef(new Animated.Value(0)).current;
@@ -383,9 +383,8 @@ const SnappCover = () => {
             <Button
               // onPress={CheckOut}
               style={{marginTop: 20, width: 150, paddingVertical: 10}}
-              onPress={
-                () => navigation.navigate('stripe')
-                // navigation.navigate('ConfirmPay', {property: property})
+              onPress={() =>
+                navigation.navigate('ConfirmPay', {property: property})
               }
               title={'Check availability'}
             />

@@ -44,6 +44,7 @@ import MyTabs from './BottomNavigation';
 import {RootStackParamList} from '@type/navigation';
 import SignupScreen from '@screens/SignupScreen';
 import {useDispatch, useSelector} from 'react-redux';
+import {StripeProvider} from '@stripe/stripe-react-native';
 import {
   selectAddListingState,
   persistor,
@@ -106,66 +107,82 @@ const StackNavigation = () => {
           </View>
         </View>
       )} */}
+      <StripeProvider
+        publishableKey={
+          'pk_test_51HGKPqIWIZ8VIh8kpJyb9bSxJA2c2oNdFoxomZnk1NM86avP5UG5sVgjgd9t2yCKym7iDQt3UB359ur6qn43pGrQ00h602PHCZ'
+        }
+        // merchantIdentifier="merchant.identifier" // required for Apple Pay
+        // urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+      >
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="MyTabs" component={MyTabs} />
+          <Stack.Screen name="Property" component={Property} />
+          <Stack.Screen name="MapScreen" component={MapScreen} />
+          <Stack.Screen name="PrivatePlace" component={PrivatePlace} />
+          <Stack.Screen name="SharePlace" component={SharePlace} />
+          <Stack.Screen name="GuestPlaceOffer" component={GuestPlaceholder} />
+          <Stack.Screen name="AddHouse" component={AddHouse} />
+          <Stack.Screen name="AddHouseTitle" component={AddHouseTitle} />
+          <Stack.Screen name="Describe" component={Describe} />
+          <Stack.Screen
+            name="CreateDescription"
+            component={CreateDescription}
+          />
+          <Stack.Screen
+            name="ChooseReservation"
+            component={ChooseReservation}
+          />
+          <Stack.Screen name="CreatePrice" component={CreatePrice} />
+          <Stack.Screen name="ReviewListing" component={ReviewListing} />
+          <Stack.Screen name="LastStep" component={LastStep} />
+          <Stack.Screen name="Care" component={Care} />
+          <Stack.Screen name="HouseRules" component={HouseRules} />
+          <Stack.Screen name="Calender" component={Calender} />
+          <Stack.Screen name="Policy" component={Policy} />
+          <Stack.Screen name="Welcome" component={Welcome} />
 
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="MyTabs" component={MyTabs} />
-        <Stack.Screen name="Property" component={Property} />
-        <Stack.Screen name="MapScreen" component={MapScreen} />
-        <Stack.Screen name="PrivatePlace" component={PrivatePlace} />
-        <Stack.Screen name="SharePlace" component={SharePlace} />
-        <Stack.Screen name="GuestPlaceOffer" component={GuestPlaceholder} />
-        <Stack.Screen name="AddHouse" component={AddHouse} />
-        <Stack.Screen name="AddHouseTitle" component={AddHouseTitle} />
-        <Stack.Screen name="Describe" component={Describe} />
-        <Stack.Screen name="CreateDescription" component={CreateDescription} />
-        <Stack.Screen name="ChooseReservation" component={ChooseReservation} />
-        <Stack.Screen name="CreatePrice" component={CreatePrice} />
-        <Stack.Screen name="ReviewListing" component={ReviewListing} />
-        <Stack.Screen name="LastStep" component={LastStep} />
-        <Stack.Screen name="Care" component={Care} />
-        <Stack.Screen name="HouseRules" component={HouseRules} />
-        <Stack.Screen name="Calender" component={Calender} />
-        <Stack.Screen name="Policy" component={Policy} />
-        <Stack.Screen name="Welcome" component={Welcome} />
-
-        <Stack.Screen name="ConfirmNumber" component={ConfirmNumber} />
-        <Stack.Screen name="Notifi" component={Notifi} />
-        <Stack.Screen name="Map" component={Map} />
-        <Stack.Screen name="WhereTo" component={WhereTo} />
-        <Stack.Screen name="SnappCover" component={SnappCover} />
-        <Stack.Screen name="ConfirmPay" component={ConfirmPay} />
-        <Stack.Screen name="Guest" component={Guest} />
-        <Stack.Screen name="DateEdit" component={DateEdit} />
-        <Stack.Screen name="ConfirmPaystep2" component={ConfirmPaystep2} />
-        <Stack.Screen name="TripDetail" component={TripDetail} />
-        <Stack.Screen name="ProfileStep2" component={ProfileStep2} />
-        <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
-        <Stack.Screen name="EditPayment" component={EditPayment} />
-        <Stack.Screen name="PrivacyAndSharing" component={PrivacyAndSharing} />
-        <Stack.Screen name="StartEarning" component={StartEarning} />
-        <Stack.Screen name="Reviews" component={Reviews} />
-        <Stack.Screen name="Done" component={Done} />
-        <Stack.Screen name="Translation" component={Translation} />
-        <Stack.Screen name="Notifications" component={Notifications} />
-        <Stack.Screen name="HelpCenter" component={HelpCenter} />
-        <Stack.Screen name="Verify" component={VerifyScreen} />
-        <Stack.Screen name="UserListing" component={UserListing} />
-        <Stack.Screen name="EarningListing" component={EarningListing} />
-        <Stack.Screen name="EarningDetails" component={EarningDetails} />
-        <Stack.Screen name="stripe" component={stripe} />
-        {!isAuthenticated && (
-          <Stack.Group>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Signup" component={SignupScreen} />
-          </Stack.Group>
-        )}
-        {step === '18' || (
-          <Stack.Screen name="Addlisting" component={AddListing} />
-        )}
-      </Stack.Navigator>
+          <Stack.Screen name="ConfirmNumber" component={ConfirmNumber} />
+          <Stack.Screen name="Notifi" component={Notifi} />
+          <Stack.Screen name="Map" component={Map} />
+          <Stack.Screen name="WhereTo" component={WhereTo} />
+          <Stack.Screen name="SnappCover" component={SnappCover} />
+          <Stack.Screen name="ConfirmPay" component={ConfirmPay} />
+          <Stack.Screen name="Guest" component={Guest} />
+          <Stack.Screen name="DateEdit" component={DateEdit} />
+          <Stack.Screen name="ConfirmPaystep2" component={ConfirmPaystep2} />
+          <Stack.Screen name="TripDetail" component={TripDetail} />
+          <Stack.Screen name="ProfileStep2" component={ProfileStep2} />
+          <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
+          <Stack.Screen name="EditPayment" component={EditPayment} />
+          <Stack.Screen
+            name="PrivacyAndSharing"
+            component={PrivacyAndSharing}
+          />
+          <Stack.Screen name="StartEarning" component={StartEarning} />
+          <Stack.Screen name="Reviews" component={Reviews} />
+          <Stack.Screen name="Done" component={Done} />
+          <Stack.Screen name="Translation" component={Translation} />
+          <Stack.Screen name="Notifications" component={Notifications} />
+          <Stack.Screen name="HelpCenter" component={HelpCenter} />
+          <Stack.Screen name="Verify" component={VerifyScreen} />
+          <Stack.Screen name="UserListing" component={UserListing} />
+          <Stack.Screen name="EarningListing" component={EarningListing} />
+          <Stack.Screen name="EarningDetails" component={EarningDetails} />
+          <Stack.Screen name="stripe" component={stripe} />
+          {!isAuthenticated && (
+            <Stack.Group>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Signup" component={SignupScreen} />
+            </Stack.Group>
+          )}
+          {step === '18' || (
+            <Stack.Screen name="Addlisting" component={AddListing} />
+          )}
+        </Stack.Navigator>
+      </StripeProvider>
     </>
   );
 };

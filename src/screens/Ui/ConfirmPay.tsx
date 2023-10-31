@@ -5,6 +5,7 @@ import {selectAuthState} from '@stores/store';
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
 import {
+  Alert,
   Image,
   Modal,
   SafeAreaView,
@@ -23,6 +24,13 @@ import {Stepper} from 'react-native-ui-lib';
 import {ToastError} from '../../Config/Constants';
 import Toast, {ErrorToast} from 'react-native-toast-message';
 import moment from 'moment';
+import {
+  BillingDetails,
+  CardField,
+  PaymentSheetError,
+  useConfirmPayment,
+  useStripe,
+} from '@stripe/stripe-react-native';
 import tw from 'twrnc';
 const ConfirmPay = ({route}: any) => {
   const dispatch = useDispatch();
@@ -36,19 +44,86 @@ const ConfirmPay = ({route}: any) => {
   const [selectedFromDate, setSelectedFromDate] = useState('');
   const [adults, setAdults] = useState(0);
   const [selectedToDate, setSelectedToDate] = useState('');
-  const [calculation, setCalculation] = useState('');
-  console.log('property', property);
+  const [calculation, setCalculation] = useState<any>('');
+  const {initPaymentSheet, presentPaymentSheet} = useStripe();
+  const [loading, setLoading] = useState(false);
+  console.log('property', token);
 
+  const fetchPaymentSheetParams = async () => {
+    var formdata = new FormData();
+    formdata.append(
+      'amount',
+      Number(calculation?.total_amount?.split(/[,\.]/).join('')),
+    );
+    const response = await fetch(
+      `https://www.snappstay.com/api/payment-sheet`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+        body: formdata,
+      },
+    );
+    const data = await response.json();
+    console.log('data', data);
+
+    const {paymentIntent, ephemeralKey, customer} = data.Details;
+    return {
+      paymentIntent,
+      ephemeralKey,
+      customer,
+    };
+  };
+
+  const initializePaymentSheet = async () => {
+    const {paymentIntent, ephemeralKey, customer} =
+      await fetchPaymentSheetParams();
+
+    const {error} = await initPaymentSheet({
+      merchantDisplayName: 'Example, Inc.',
+      customerId: customer,
+      customerEphemeralKeySecret: ephemeralKey,
+      paymentIntentClientSecret: paymentIntent,
+      // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
+      //methods that complete payment after a delay, like SEPA Debit and Sofort.
+      allowsDelayedPaymentMethods: true,
+      defaultBillingDetails: {
+        name: 'Jane Doe',
+      },
+    });
+    if (!error) {
+      setLoading(true);
+    }
+  };
+
+  const openPaymentSheet = async () => {
+    const {error} = await presentPaymentSheet();
+    // Alert.alert('error', JSON.stringify(error));
+    if (error) {
+      Alert.alert(`Error code: ${error.code}`, error.message);
+    } else {
+      Alert.alert('Success', 'Your order is confirmed!');
+    }
+  };
+
+  useEffect(() => {
+    if (calculation) {
+      initializePaymentSheet();
+    }
+  }, [calculation]);
   useEffect(() => {
     if (done) {
       confetti.current?.startConfetti();
     }
   }, [done]);
-  if (done) {
-    setTimeout(() => {
-      navigation.navigate('ConfirmPaystep2');
-    }, 5000);
-  }
+  // if (done) {
+  //   setTimeout(() => {
+  //     navigation.navigate('ConfirmPaystep2');
+  //   }, 5000);
+  // }
+  // if (calculation) return initializePaymentSheet();
   const CheckOut = async () => {
     var fromDate = moment(selectedFromDate);
     var toDate = moment(selectedToDate);
@@ -531,7 +606,11 @@ const ConfirmPay = ({route}: any) => {
                 <Text style={{color: 'white'}}>Confirm and pay</Text>
               </TouchableOpacity> */}
               <Button
-                onPress={() => setDone(true)}
+                onPress={() => {
+                  if (calculation === '')
+                    return Toast.show(ToastError('Date is Required'));
+                  openPaymentSheet();
+                }}
                 style={{marginTop: 20, paddingVertical: 10}}
                 title={'Confirm and pay'}
               />
