@@ -5,9 +5,7 @@ import PaymentScreen from './PaymentScreen';
 const Stripe = () => {
   return (
     <StripeProvider
-      publishableKey={
-        'pk_test_51HGKPqIWIZ8VIh8kpJyb9bSxJA2c2oNdFoxomZnk1NM86avP5UG5sVgjgd9t2yCKym7iDQt3UB359ur6qn43pGrQ00h602PHCZ'
-      }
+      publishableKey={'pk_test_TYooMQauvdEDq54NiTphI7jx'}
       // merchantIdentifier="merchant.identifier" // required for Apple Pay
       // urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
     >

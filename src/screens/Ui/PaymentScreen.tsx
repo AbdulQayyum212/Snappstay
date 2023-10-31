@@ -1,11 +1,12 @@
 import {
   BillingDetails,
   CardField,
+  PaymentSheetError,
   useConfirmPayment,
   useStripe,
 } from '@stripe/stripe-react-native';
 import tw from 'twrnc';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
 import {
   Alert,
@@ -16,143 +17,76 @@ import {
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import CreditCardForm, {Button, FormModel} from 'rn-credit-card';
+import {useSelector} from 'react-redux';
+import {selectAuthState} from '@stores/store';
 const PaymentScreen = () => {
-  const {confirmPayment} = useStripe();
-  const formMethods = useForm<FormModel>({
-    // to trigger the validation on the blur event
-    mode: 'onBlur',
-    defaultValues: {
-      holderName: '',
-      cardNumber: '',
-      expiration: '',
-      cvv: '',
-    },
-  });
-  const {handleSubmit, formState} = formMethods;
-  const [email, setEmail] = useState('');
-  const [saveCard, setSaveCard] = useState(false);
-  const [isComplete, setComplete] = useState(false);
-  const [inputDisabled, setInputDisabled] = useState(false);
+  const {initPaymentSheet, presentPaymentSheet} = useStripe();
+  const [loading, setLoading] = useState(false);
+  const {token} = useSelector(selectAuthState);
 
-  // const {confirmPayment, loading} = useConfirmPayment();
-  const submit = async () => {
-    // const { error, paymentIntent } = await confirmPayment(secret, {
-    //   paymentMethodType: 'USBankAccount',
-    // });
-  };
-  const onSubmit = async (model: FormModel) => {
-    // const { error, paymentIntent } = await confirmPayment(secret,model )
-    Alert.alert('Success: ' + JSON.stringify(model, null, 2));
-  };
-  const fetchPaymentIntentClientSecret = async () => {
-    const response = await fetch(`${API_URL}/create-payment-intent`, {
+  const fetchPaymentSheetParams = async () => {
+    var formdata = new FormData();
+    formdata.append('amount', '123');
+    const response = await fetch(`https://docudash.net/api/payment-sheet`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
+        Authorization: 'Bearer 64|d0fTkjpOVVsJteHUiZ3VhzPpyd0ieweo7TE17feO',
       },
-      body: JSON.stringify({
-        email,
-        currency: 'usd',
-        items: ['id-1'],
-        // request_three_d_secure: 'any',
-      }),
+      body: formdata,
     });
-    const {clientSecret} = await response.json();
-
-    return clientSecret;
+    const data = await response.json();
+    const {paymentIntent, ephemeralKey, customer} = data.Details;
+    return {
+      paymentIntent,
+      ephemeralKey,
+      customer,
+    };
   };
 
-  const handlePayPress = async () => {
-    setComplete(false);
-    setInputDisabled(true);
-    // 1. fetch Intent Client Secret from backend
-    const clientSecret = await fetchPaymentIntentClientSecret();
+  const initializePaymentSheet = async () => {
+    const {paymentIntent, ephemeralKey, customer, publishableKey} =
+      await fetchPaymentSheetParams();
 
-    // 2. Gather customer billing information (ex. email)
-    const billingDetails: BillingDetails = {
-      email: 'email@stripe.com',
-      phone: '+48888000888',
-      address: {
-        city: 'Houston',
-        country: 'US',
-        line1: '1459  Circle Drive',
-        line2: 'Texas',
-        postalCode: '77063',
+    const {error} = await initPaymentSheet({
+      merchantDisplayName: 'Example, Inc.',
+      customerId: customer,
+      customerEphemeralKeySecret: ephemeralKey,
+      paymentIntentClientSecret: paymentIntent,
+      // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
+      //methods that complete payment after a delay, like SEPA Debit and Sofort.
+      allowsDelayedPaymentMethods: true,
+      defaultBillingDetails: {
+        name: 'Jane Doe',
       },
-    }; // mocked data for tests
+    });
+    if (!error) {
+      setLoading(true);
+    }
+  };
 
-    // 3. Confirm payment with card details
-    // The rest will be done automatically using webhooks
-    const {error, paymentIntent} = await confirmPayment(
-      clientSecret,
-      {
-        paymentMethodType: 'Card',
-        paymentMethodData: {billingDetails},
-      },
-      {setupFutureUsage: saveCard ? 'OffSession' : undefined},
-    );
+  const openPaymentSheet = async () => {
+    const {error} = await presentPaymentSheet();
 
     if (error) {
       Alert.alert(`Error code: ${error.code}`, error.message);
-      console.log('Payment confirmation error', error.message);
-    } else if (paymentIntent) {
-      Alert.alert(
-        'Success',
-        `The payment was confirmed successfully! currency: ${paymentIntent.currency}`,
-      );
-      console.log('Success from promise', paymentIntent);
+    } else {
+      Alert.alert('Success', 'Your order is confirmed!');
     }
-    setComplete(true);
-    setInputDisabled(false);
   };
+
+  useEffect(() => {
+    initializePaymentSheet();
+  }, []);
+
   return (
     <SafeAreaView style={tw`bg-white flex-1`}>
-      <CardField
-        postalCodeEnabled={true}
-        placeholders={{
-          number: '4242 4242 4242 4242',
-        }}
-        cardStyle={{
-          backgroundColor: '#FFFFFF',
-          textColor: '#000000',
-          placeholderColor: '#000000',
-        }}
-        style={{
-          width: '100%',
-          height: 50,
-          marginVertical: 30,
-        }}
-        onCardChange={cardDetails => {
-          console.log('cardDetails', cardDetails);
-        }}
-        onFocus={focusedField => {
-          console.log('focusField', focusedField);
-        }}
+      <Button
+        // variant="primary"
+        disabled={!loading}
+        title="Checkout"
+        onPress={openPaymentSheet}
       />
-      <FormProvider {...formMethods}>
-        <SafeAreaView style={styles.container}>
-          <KeyboardAvoidingView
-            style={styles.avoider}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <CreditCardForm
-              LottieView={LottieView}
-              horizontalStart
-              overrides={{
-                labelText: {
-                  marginTop: 16,
-                },
-              }}
-            />
-          </KeyboardAvoidingView>
-          {formState.isValid && (
-            <Button
-              style={styles.button}
-              title={'CONFIRM PAYMENT'}
-              onPress={handleSubmit(handlePayPress)}
-            />
-          )}
-        </SafeAreaView>
-      </FormProvider>
     </SafeAreaView>
   );
 };
