@@ -3,9 +3,15 @@ import React, {useState} from 'react';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import tw from 'twrnc';
 import {Stepper} from 'react-native-ui-lib';
-const GuestSelector = () => {
+import {Property} from '@type/property';
+const GuestSelector = ({property}: {property: Property}) => {
   const [guestModal, setGuestModal] = useState(false);
-  const [adults, setAdults] = useState(0);
+  const [guests, setGuests] = useState({
+    adults: 0,
+    children: 0,
+    infants: 0,
+    pets: 0,
+  });
 
   return (
     <>
@@ -13,7 +19,9 @@ const GuestSelector = () => {
         <View style={tw`flex-row justify-between items-center py-2`}>
           <View style={tw`gap-1`}>
             <Text style={tw`text-black font-bold text-lg`}>Guests</Text>
-            <Text style={tw`text-xs font-semibold`}>1 guest</Text>
+            <Text style={tw`text-xs font-semibold`}>
+              {Object.values(guests).reduce((x, i) => i + x, 0)} guest
+            </Text>
           </View>
           <View style={tw`flex-row`}>
             <Text style={tw`underline text-black font-bold`}>Edit</Text>
@@ -44,89 +52,89 @@ const GuestSelector = () => {
                 </Text>
               </View>
             </View>
-            <View style={{padding: 20}}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: 10,
-                  paddingVertical: 10,
-                }}>
+            <View style={tw`gap-8 w-full`}>
+              <View style={tw`flex-row justify-between items-center`}>
                 <View>
-                  <Text style={{color: 'black'}}>Adults</Text>
-                  <Text style={{fontSize: 12}}>ages 13 or above</Text>
+                  <Text style={tw`text-black text-lg`}>Adults</Text>
+                  <Text style={tw`text-xs text-black`}>ages 13 or above</Text>
                 </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Stepper
-                      onValueChange={(v: number) => {
-                        console.log('Stepper', v);
-                        setAdults(v);
-                      }}
-                      value={adults}
-                      minValue={0}
-                      small={true}
-                    />
+                <Stepper
+                  onValueChange={(v: number) => {
+                    setGuests(prev => ({...prev, adults: v}));
+                  }}
+                  value={guests.adults}
+                  maxValue={
+                    property.guests -
+                    (guests.children + guests.infants + guests.pets)
+                  }
+                  minValue={0}
+                  small={true}
+                />
+              </View>
+              <View style={tw`flex-row justify-between items-center`}>
+                <View>
+                  <Text style={tw`text-black text-lg`}>Children</Text>
+                  <Text style={tw`text-xs text-black`}>ages 2-12</Text>
+                </View>
+                <Stepper
+                  minValue={0}
+                  small={true}
+                  maxValue={
+                    property.guests -
+                    (guests.adults + guests.infants + guests.pets)
+                  }
+                  value={guests.children}
+                  onValueChange={(v: number) => {
+                    setGuests(prev => ({...prev, children: v}));
+                  }}
+                />
+              </View>
+              <View style={tw`flex-row justify-between items-center`}>
+                <View>
+                  <Text style={tw`text-black text-lg`}>Infants</Text>
+                  <Text style={tw`text-xs text-black`}>under 2</Text>
+                </View>
+                <Stepper
+                  minValue={0}
+                  small={true}
+                  value={guests.infants}
+                  maxValue={
+                    property.guests -
+                    (guests.adults + guests.children + guests.pets)
+                  }
+                  onValueChange={(v: number) => {
+                    setGuests(prev => ({...prev, infants: v}));
+                  }}
+                />
+              </View>
+              {property.animals != 'No' && (
+                <View style={tw`flex-row justify-between items-center`}>
+                  <View>
+                    <Text style={tw`text-black text-lg`}>Pets</Text>
+                    <Text style={tw`text-xs text-black`}>
+                      Bringing a services animal
+                    </Text>
                   </View>
+                  <Stepper
+                    minValue={0}
+                    small={true}
+                    maxValue={
+                      property.guests -
+                      guests.adults +
+                      guests.children +
+                      guests.infants
+                    }
+                    value={guests.pets}
+                    onValueChange={(v: number) => {
+                      setGuests(prev => ({...prev, pets: v}));
+                    }}
+                  />
                 </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: 20,
-                  paddingVertical: 10,
-                }}>
-                <View>
-                  <Text style={{color: 'black'}}>Children</Text>
-                  <Text style={{fontSize: 12}}>ages 2-12</Text>
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Stepper minValue={0} small={true} />
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: 20,
-                  paddingVertical: 10,
-                }}>
-                <View>
-                  <Text style={{color: 'black'}}>Infants</Text>
-                  <Text style={{fontSize: 12}}>under 2</Text>
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Stepper minValue={0} small={true} />
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: 20,
-                  paddingVertical: 10,
-                }}>
-                <View>
-                  <Text style={{color: 'black'}}>Pets</Text>
-                  <Text style={{fontSize: 12}}>Bringing a services animal</Text>
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Stepper minValue={0} small={true} />
-                </View>
-              </View>
+              )}
             </View>
             <TouchableOpacity
               // onPress={CheckOut}
-              //   onPress={}
+              onPress={() => setGuestModal(false)}
               style={{
                 backgroundColor: 'black',
                 paddingVertical: 15,
@@ -135,7 +143,7 @@ const GuestSelector = () => {
                 borderRadius: 10,
                 paddingHorizontal: 10,
               }}>
-              <Text style={{color: 'white'}}>Check Out</Text>
+              <Text style={{color: 'white'}}>Save</Text>
             </TouchableOpacity>
           </View>
         </View>

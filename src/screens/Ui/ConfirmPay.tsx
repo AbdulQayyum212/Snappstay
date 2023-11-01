@@ -1,13 +1,14 @@
 import {Button} from '@components/Button';
+import DateSelector from '@components/DateSelector';
+import GuestSelector from '@components/GuestSelector';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {loaderFalse, loaderTrue} from '@stores/actions/LoaderAction';
 import {selectAuthState} from '@stores/store';
+import {RootStackScreenProps} from '@type/navigation';
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
 import {
-  Alert,
   Image,
-  Modal,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -16,25 +17,12 @@ import {
   View,
 } from 'react-native';
 import Confetti from 'react-native-confetti';
+import Toast from 'react-native-toast-message';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {useDispatch, useSelector} from 'react-redux';
-import {baseUrl} from '../../Config/apiCaller';
-import {Calendar} from 'react-native-calendars';
-import {Stepper} from 'react-native-ui-lib';
-import {ToastError} from '../../Config/Constants';
-import Toast, {ErrorToast} from 'react-native-toast-message';
-import moment from 'moment';
-import {
-  BillingDetails,
-  CardField,
-  PaymentSheetError,
-  useConfirmPayment,
-  useStripe,
-} from '@stripe/stripe-react-native';
 import tw from 'twrnc';
-import DateSelector from '@components/DateSelector';
-import GuestSelector from '@components/GuestSelector';
-import {RootStackScreenProps} from '@type/navigation';
+import {ToastError} from '../../Config/Constants';
+import {baseUrl} from '../../Config/apiCaller';
 const ConfirmPay = () => {
   const dispatch = useDispatch();
   const {token} = useSelector(selectAuthState);
@@ -47,6 +35,7 @@ const ConfirmPay = () => {
   const [adults, setAdults] = useState(0);
   const [selectedToDate, setSelectedToDate] = useState('');
   const [calculation, setCalculation] = useState<any>('');
+  const [showMore, setShowMore] = useState(false);
 
   const [state, setState] = useState<{
     selectedStartDate: Date;
@@ -128,13 +117,6 @@ const ConfirmPay = () => {
           onPress={() => navigation.goBack()}
           style={{
             flex: 1,
-            // borderWidth: 1,
-            // width: 30,
-            // height: 30,
-            // alignItems: 'center',
-            // justifyContent: 'center',
-            // borderRadius: 50,
-            // borderColor: 'lightgrey',
           }}>
           <EvilIcons name={'chevron-left'} size={25} color="black" />
         </TouchableOpacity>
@@ -204,7 +186,7 @@ const ConfirmPay = () => {
           <Text style={{color: 'black'}}>
             Your booking is protected by{' '}
             <Text style={{color: 'red', fontWeight: 'bold'}}>
-              Snapp{' '}
+              Snapp
               <Text style={{color: 'black', fontWeight: 'bold'}}>Stay</Text>
             </Text>
           </Text>
@@ -212,7 +194,7 @@ const ConfirmPay = () => {
             Your Trips
           </Text>
           <DateSelector state={state} setState={setState} />
-          <GuestSelector />
+          <GuestSelector property={property} />
           <Text style={tw`text-black text-xl font-bold capitalize `}>
             Price details:
           </Text>
@@ -221,24 +203,33 @@ const ConfirmPay = () => {
               <Text style={tw`text-black font-bold text-lg`}>
                 ${property?.price} x {state.days} night
               </Text>
-              <Text style={tw`text-sm`}>Service charges</Text>
-              <Text style={tw`text-sm`}>Total Tax</Text>
+
+              {showMore && (
+                <>
+                  <Text style={tw`text-sm`}>Service charges</Text>
+                  <Text style={tw`text-sm`}>Total Tax</Text>
+                </>
+              )}
             </View>
             <View style={tw`items-end gap-2`}>
               <Text style={tw`text-black font-bold text-lg`}>
                 ${calculation?.room_charges ?? '00.00'}
               </Text>
-              <Text>
-                {calculation?.service_charges
-                  ? `$${calculation?.service_charges}`
-                  : '$00.00'}
-              </Text>
 
-              <Text>
-                {calculation?.total_tax
-                  ? `$${calculation?.total_tax}`
-                  : '$00.00'}
-              </Text>
+              {showMore && (
+                <>
+                  <Text>
+                    {calculation?.service_charges
+                      ? `$${calculation?.service_charges}`
+                      : '$00.00'}
+                  </Text>
+                  <Text>
+                    {calculation?.total_tax
+                      ? `$${calculation?.total_tax}`
+                      : '$00.00'}
+                  </Text>
+                </>
+              )}
             </View>
           </View>
           <View
@@ -257,9 +248,9 @@ const ConfirmPay = () => {
                   ? `$${calculation?.total_amount}`
                   : '$00.00'}
               </Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => setShowMore(prev => !prev)}>
                 <Text style={tw`underline text-black font-semibold`}>
-                  More info
+                  {showMore ? 'Less info' : 'More info'}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -358,6 +349,7 @@ const ConfirmPay = () => {
             </Text>
           </Text>
           <Button
+            style={tw`mb-10`}
             onPress={() => {
               if (calculation === '')
                 return Toast.show(ToastError('Date is Required'));
