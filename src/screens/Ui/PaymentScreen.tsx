@@ -1,40 +1,28 @@
-import {
-  BillingDetails,
-  CardField,
-  PaymentSheetError,
-  useConfirmPayment,
-  useStripe,
-} from '@stripe/stripe-react-native';
-import tw from 'twrnc';
-import React, {useEffect, useState} from 'react';
-import {FormProvider, useForm} from 'react-hook-form';
-import {
-  Alert,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-  SafeAreaView,
-} from 'react-native';
-import LottieView from 'lottie-react-native';
-import CreditCardForm, {Button, FormModel} from 'rn-credit-card';
-import {useSelector} from 'react-redux';
 import {selectAuthState} from '@stores/store';
+import {useStripe} from '@stripe/stripe-react-native';
+import React, {useEffect, useState} from 'react';
+import {Alert, StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
+import {Button} from 'rn-credit-card';
 const PaymentScreen = () => {
   const {initPaymentSheet, presentPaymentSheet} = useStripe();
   const [loading, setLoading] = useState(false);
   const {token} = useSelector(selectAuthState);
 
   const fetchPaymentSheetParams = async () => {
-    var formdata = new FormData();
-    formdata.append('amount', '123');
-    const response = await fetch(`https://docudash.net/api/payment-sheet`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: 'Bearer 64|d0fTkjpOVVsJteHUiZ3VhzPpyd0ieweo7TE17feO',
+    var formData = new FormData();
+    formData.append('amount', '123');
+    const response = await fetch(
+      `https://www.snappstay.com/api/payment-sheet`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
       },
-      body: formdata,
-    });
+    );
     const data = await response.json();
     const {paymentIntent, ephemeralKey, customer} = data.Details;
     return {
@@ -80,14 +68,12 @@ const PaymentScreen = () => {
   }, []);
 
   return (
-    <SafeAreaView style={tw`bg-white flex-1`}>
-      <Button
-        // variant="primary"
-        disabled={!loading}
-        title="Checkout"
-        onPress={openPaymentSheet}
-      />
-    </SafeAreaView>
+    <Button
+      // variant="primary"
+      disabled={!loading}
+      title="Checkout"
+      onPress={openPaymentSheet}
+    />
   );
 };
 const styles = StyleSheet.create({

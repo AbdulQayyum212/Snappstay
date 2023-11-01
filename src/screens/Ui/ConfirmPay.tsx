@@ -32,6 +32,7 @@ import {
   useStripe,
 } from '@stripe/stripe-react-native';
 import tw from 'twrnc';
+import DateSelector from '@components/DateSelector';
 const ConfirmPay = ({route}: any) => {
   const dispatch = useDispatch();
   const property = route?.params?.property;
@@ -47,72 +48,7 @@ const ConfirmPay = ({route}: any) => {
   const [calculation, setCalculation] = useState<any>('');
   const {initPaymentSheet, presentPaymentSheet} = useStripe();
   const [loading, setLoading] = useState(false);
-  console.log('property', token);
 
-  const fetchPaymentSheetParams = async () => {
-    var formdata = new FormData();
-    formdata.append(
-      'amount',
-      Number(calculation?.total_amount?.split(/[,\.]/).join('')),
-    );
-    const response = await fetch(
-      `https://www.snappstay.com/api/payment-sheet`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-        body: formdata,
-      },
-    );
-    const data = await response.json();
-    console.log('data', data);
-
-    const {paymentIntent, ephemeralKey, customer} = data.Details;
-    return {
-      paymentIntent,
-      ephemeralKey,
-      customer,
-    };
-  };
-
-  const initializePaymentSheet = async () => {
-    const {paymentIntent, ephemeralKey, customer} =
-      await fetchPaymentSheetParams();
-
-    const {error} = await initPaymentSheet({
-      merchantDisplayName: 'Example, Inc.',
-      customerId: customer,
-      customerEphemeralKeySecret: ephemeralKey,
-      paymentIntentClientSecret: paymentIntent,
-      // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
-      //methods that complete payment after a delay, like SEPA Debit and Sofort.
-      allowsDelayedPaymentMethods: true,
-      defaultBillingDetails: {
-        name: 'Jane Doe',
-      },
-    });
-    if (!error) {
-      setLoading(true);
-    }
-  };
-
-  const openPaymentSheet = async () => {
-    const {error} = await presentPaymentSheet();
-    // Alert.alert('error', JSON.stringify(error));
-    if (error) {
-      Alert.alert(`Error code: ${error.code}`, error.message);
-    } else {
-      Alert.alert('Success', 'Your order is confirmed!');
-    }
-  };
-
-  useEffect(() => {
-    if (calculation) {
-      initializePaymentSheet();
-    }
-  }, [calculation]);
   useEffect(() => {
     if (done) {
       confetti.current?.startConfetti();
@@ -159,7 +95,7 @@ const ConfirmPay = ({route}: any) => {
       });
   };
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={tw`h-full bg-white`}>
       {done ? (
         <View
           style={{
@@ -211,14 +147,11 @@ const ConfirmPay = ({route}: any) => {
             </View>
             <View style={{flex: 1}} />
           </View>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={{paddingHorizontal: 20, backgroundColor: 'white'}}>
-              <View
-                style={{
-                  marginTop: 20,
-                  flexDirection: 'row',
-                  width: '100%',
-                }}>
+          <ScrollView
+            style={tw`p-4 my-4 `}
+            showsVerticalScrollIndicator={false}>
+            <View style={tw`bg-white gap-4`}>
+              <View style={tw`flex-row gap-2`}>
                 <Image
                   style={{width: 130, height: 100, borderRadius: 10}}
                   source={
@@ -231,30 +164,28 @@ const ConfirmPay = ({route}: any) => {
                       : require('@assets/Rectangle.png')
                   }
                 />
-                <View style={{marginLeft: 10}}>
-                  <Text
-                    numberOfLines={1}
-                    style={{
-                      fontSize: 20,
-                      color: 'black',
-                      fontWeight: 'bold',
-                      marginBottom: 5,
-                      width: 230,
-                    }}>
-                    {property.house_title}
-                  </Text>
-                  <Text
-                    // numberOfLines={1}
-                    style={{color: 'grey', width: 230}}>
-                    {property?.address}
-                  </Text>
+                <View style={tw`flex-1`}>
+                  <View style={tw`flex-1`}>
+                    <Text
+                      numberOfLines={1}
+                      style={{
+                        fontSize: 20,
+                        color: 'black',
+                        fontWeight: 'bold',
+                        marginBottom: 5,
+                      }}>
+                      {property.house_title}
+                    </Text>
+                    <Text
+                      // numberOfLines={1}
+                      style={{color: 'grey', width: 230}}>
+                      {property?.address}
+                    </Text>
+                  </View>
                   <View
                     style={{
                       flexDirection: 'row',
                       alignItems: 'flex-end',
-                      marginTop: 25,
-                      // alignSelf: 'flex-start',
-                      // justifyContent: 'flex-end',
                     }}>
                     <Image
                       style={{width: 20, height: 20}}
@@ -268,172 +199,60 @@ const ConfirmPay = ({route}: any) => {
                 style={{
                   borderWidth: 1,
                   borderColor: 'lightgrey',
-                  marginTop: 30,
                 }}
               />
-              <View
-                style={{
-                  paddingVertical: 10,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Text style={{color: 'black'}}>
-                  Your booking is protected by{' '}
-                </Text>
+              <Text style={{color: 'black'}}>
+                Your booking is protected by{' '}
                 <Text style={{color: 'red', fontWeight: 'bold'}}>
                   Snapp{' '}
                   <Text style={{color: 'black', fontWeight: 'bold'}}>Stay</Text>
                 </Text>
-              </View>
-            </View>
-            <View
-              style={{marginTop: 10, backgroundColor: 'white', padding: 20}}>
+              </Text>
               <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
                 Your Trips
               </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: 30,
-                  marginBottom: 20,
-                }}>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: 'bold',
-                      fontSize: 17,
-                      width: 200,
-                    }}>
-                    Dates
-                  </Text>
-                  <Text style={{width: 300, fontSize: 13}}>feb 17-18</Text>
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <TouchableOpacity onPress={() => setDateModal(true)}>
-                    <Text
-                      style={{
-                        textDecorationLine: 'underline',
-                        color: 'black',
-                        fontWeight: 'bold',
-                      }}>
-                      Edit
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: 30,
-                  marginBottom: 20,
-                }}>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: 'bold',
-                      fontSize: 17,
-                      width: 200,
-                    }}>
-                    Guests
-                  </Text>
-                  <Text style={{width: 300, fontSize: 13}}>1 guest</Text>
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <TouchableOpacity onPress={() => setGuestModal(true)}>
-                    <Text
-                      style={{
-                        textDecorationLine: 'underline',
-                        color: 'black',
-                        fontWeight: 'bold',
-                      }}>
-                      Edit
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-            <View
-              style={{marginTop: 10, backgroundColor: 'white', padding: 20}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
-                Price details
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: 30,
-                  marginBottom: 20,
-                }}>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: 'bold',
-                      fontSize: 17,
-                      width: 200,
-                    }}>
-                    ${calculation?.total_amount ?? property?.price} x 1 night
-                  </Text>
-                  <View style={tw`flex-row items-center justify-center w-full`}>
-                    <Text style={{width: 300, fontSize: 13}}>
-                      Service charges
-                    </Text>
-                    <Text>
-                      {calculation?.service_charges
-                        ? `$${calculation?.service_charges}`
-                        : '$10.66'}
-                    </Text>
+              <DateSelector />
+              <TouchableOpacity onPress={() => setGuestModal(true)}>
+                <View style={tw`flex-row justify-between items-center py-2`}>
+                  <View style={tw`gap-1`}>
+                    <Text style={tw`text-black font-bold text-lg`}>Guests</Text>
+                    <Text style={tw`text-xs font-semibold`}>1 guest</Text>
+                  </View>
+                  <View style={tw`flex-row`}>
+                    <Text style={tw`underline text-black font-bold`}>Edit</Text>
                   </View>
                 </View>
-                {/* <View style={{alignItems: 'center'}}>
-                  <Text>
-                    {calculation?.total_amount
-                      ? `$${calculation?.total_amount}`
-                      : '$63.97'}
+              </TouchableOpacity>
+              <Text style={tw`text-black text-xl font-bold capitalize `}>
+                Price details:
+              </Text>
+              <View style={tw`flex-row items-center`}>
+                <View style={tw`flex-1 gap-2`}>
+                  <Text style={tw`text-black font-bold text-lg`}>
+                    ${property?.price} x 1 night
+                  </Text>
+                  <Text style={tw`text-sm`}>Service charges</Text>
+                  <Text style={tw`text-sm`}>Room Charges</Text>
+                  <Text style={tw`text-sm`}>Total Tax</Text>
+                </View>
+                <View style={tw`items-end gap-2`}>
+                  <Text style={tw`text-black font-bold text-lg`}>
+                    ${calculation?.total_amount ?? '00.00'}
                   </Text>
                   <Text>
                     {calculation?.service_charges
                       ? `$${calculation?.service_charges}`
-                      : '$10.66'}
+                      : '$00.00'}
                   </Text>
-                </View> */}
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: 30,
-                  marginBottom: 10,
-                }}>
-                <View>
-                  <Text style={{width: 300, fontSize: 13}}>Room Charges</Text>
-                </View>
-                <View style={{alignItems: 'center'}}>
                   <Text>
                     {calculation?.room_charges
                       ? `$${calculation?.room_charges}`
-                      : '$10.66'}
+                      : '$00.00'}
                   </Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginBottom: 20,
-                }}>
-                <View>
-                  <Text style={{width: 300, fontSize: 13}}>Total Tax</Text>
-                </View>
-                <View style={{alignItems: 'center'}}>
                   <Text>
                     {calculation?.total_tax
                       ? `$${calculation?.total_tax}`
-                      : '$10.66'}
+                      : '$00.00'}
                   </Text>
                 </View>
               </View>
@@ -441,50 +260,28 @@ const ConfirmPay = ({route}: any) => {
                 style={{
                   borderWidth: 1,
                   borderColor: 'lightgrey',
-                  marginTop: 20,
-                  marginBottom: 20,
                 }}
               />
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: 5,
-                  marginBottom: 10,
-                }}>
-                <View>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontWeight: 'bold',
-                      fontSize: 17,
-                      width: 200,
-                    }}>
+              <View style={tw`flex-row`}>
+                <View style={tw`flex-1`}>
+                  <Text style={tw`font-bold text-black text-lg`}>
                     Total (USD)
                   </Text>
                 </View>
-                <View style={{alignItems: 'center'}}>
-                  <Text>
+                <View style={tw`items-end gap-2`}>
+                  <Text style={tw`font-bold text-black text-lg`}>
                     {calculation?.total_amount
                       ? `$${calculation?.total_amount}`
-                      : '$74.63'}
+                      : '$00.00'}
                   </Text>
                   <TouchableOpacity>
-                    <Text
-                      style={{
-                        textDecorationLine: 'underline',
-                        color: 'black',
-                        fontWeight: 'bold',
-                        marginTop: 10,
-                      }}>
+                    <Text style={tw`underline text-black font-semibold`}>
                       More info
                     </Text>
                   </TouchableOpacity>
                 </View>
               </View>
-            </View>
-            <View
-              style={{marginTop: 10, backgroundColor: 'white', padding: 20}}>
+
               <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
                 Pay with
               </Text>
@@ -492,8 +289,6 @@ const ConfirmPay = ({route}: any) => {
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  marginTop: 30,
-                  marginBottom: 20,
                 }}>
                 <View>
                   <Image
@@ -518,8 +313,6 @@ const ConfirmPay = ({route}: any) => {
                 style={{
                   borderWidth: 1,
                   borderColor: 'lightgrey',
-                  marginTop: 15,
-                  marginBottom: 20,
                 }}
               />
               <TouchableOpacity>
@@ -532,9 +325,6 @@ const ConfirmPay = ({route}: any) => {
                   Enter a coupon
                 </Text>
               </TouchableOpacity>
-            </View>
-            <View
-              style={{marginTop: 10, backgroundColor: 'white', padding: 20}}>
               <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
                 Cancellation Policy
               </Text>
@@ -550,9 +340,7 @@ const ConfirmPay = ({route}: any) => {
                   Learn more
                 </Text>
               </Text>
-            </View>
-            <View
-              style={{marginTop: 10, backgroundColor: 'white', padding: 20}}>
+
               <Text
                 style={{
                   fontSize: 20,
@@ -560,19 +348,17 @@ const ConfirmPay = ({route}: any) => {
                   color: 'black',
                   marginBottom: 5,
                 }}>
-                Grount Rule
+                Ground Rule
               </Text>
               <Text>
-                we ask every guest to rememeber a few simple things about what
+                we ask every guest to remember a few simple things about what
                 makes a great guest.
               </Text>
-            </View>
-            <View
-              style={{marginTop: 10, backgroundColor: 'white', padding: 20}}>
+
               <Text>
                 By selecting the button below , i agree to the{' '}
                 <Text style={{color: 'black', textDecorationLine: 'underline'}}>
-                  Host's House Rule, Ground Rule for Guests, Snappstay Rebooking
+                  Host's House Rule, Ground Rule for Guests, Snappstay ReBooking
                   And Refund Policy
                 </Text>{' '}
                 and the snappstay can{' '}
@@ -591,158 +377,18 @@ const ConfirmPay = ({route}: any) => {
                   Privacy Policy
                 </Text>
               </Text>
-              {/* <TouchableOpacity
-                onPress={() => setDone(true)}
-                style={{
-                  backgroundColor: 'rgb(183, 43, 95)',
-                  paddingVertical: 10,
-                  alignItems: 'center',
-                  borderRadius: 10,
-                  width: '100%',
-                  paddingHorizontal: 20,
-                  justifyContent: 'center',
-                  marginTop: 20,
-                }}>
-                <Text style={{color: 'white'}}>Confirm and pay</Text>
-              </TouchableOpacity> */}
               <Button
                 onPress={() => {
                   if (calculation === '')
                     return Toast.show(ToastError('Date is Required'));
                   openPaymentSheet();
                 }}
-                style={{marginTop: 20, paddingVertical: 10}}
                 title={'Confirm and pay'}
               />
             </View>
           </ScrollView>
         </>
       )}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={dateModal}
-        // onRequestClose={() => {
-        //   Alert.alert('Modal has been closed.');
-        //   setModalVisible(!modalVisible);
-        // }}
-      >
-        <View style={styles.centeredView}>
-          <View style={[styles.modalView, {height: 500}]}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                borderBottomColor: 'lightgrey',
-                borderBottomWidth: 1,
-                paddingVertical: 6,
-              }}>
-              <View style={{width: '20%'}}>
-                <TouchableOpacity
-                  onPress={() => {
-                    setSelectedFromDate('');
-                    setSelectedToDate('');
-                    setDateModal(false);
-                  }}
-                  style={{
-                    width: 30,
-                    height: 30,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 50,
-                  }}>
-                  <EvilIcons name={'close'} size={20} color="black" />
-                </TouchableOpacity>
-              </View>
-              <Text
-                style={{
-                  width: '60%',
-                  textAlign: 'center',
-                  color: 'black',
-                  fontWeight: 'bold',
-                }}>
-                Sected Date
-              </Text>
-              <View style={{width: '20%'}} />
-            </View>
-            <ScrollView>
-              <Calendar
-                onDayPress={day => {
-                  console.log(
-                    '====================================',
-                    day.dateString,
-                  );
-                  if (selectedFromDate) {
-                    setSelectedToDate(day.dateString);
-                  } else {
-                    setSelectedFromDate(day.dateString);
-                  }
-                }}
-                showWeekNumbers
-                markedDates={{
-                  [selectedFromDate]: {
-                    selected: true,
-                    disableTouchEvent: true,
-                    selectedDotColor: 'orange',
-                  },
-                  [selectedToDate]: {
-                    selected: true,
-                    disableTouchEvent: true,
-                    selectedDotColor: 'orange',
-                  },
-                }}
-              />
-              <View
-                style={{
-                  borderColor: 'lightgrey',
-                  borderWidth: 1,
-                  marginTop: 20,
-                }}
-              />
-              {/* <Calendar
-                onDayPress={day => {
-                  console.log(
-                    '====================================',
-                    day.dateString,
-                  );
-                  setSelectedToDate(day.dateString);
-                }}
-                showWeekNumbers
-                markedDates={{
-                  [selectedToDate]: {
-                    selected: true,
-                    disableTouchEvent: true,
-                    selectedDotColor: 'orange',
-                  },
-                }}
-              />
-              <View
-                style={{
-                  borderColor: 'lightgrey',
-                  borderWidth: 1,
-                  marginTop: 20,
-                }}
-              /> */}
-
-              <TouchableOpacity
-                // onPress={CheckOut}
-                onPress={() => setDateModal(false)}
-                style={{
-                  backgroundColor: 'black',
-                  marginTop: 20,
-                  paddingVertical: 15,
-                  alignItems: 'center',
-                  borderRadius: 10,
-                  width: '100%',
-                  paddingHorizontal: 10,
-                }}>
-                <Text style={{color: 'white'}}>Save</Text>
-              </TouchableOpacity>
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
 
       <Modal
         animationType="slide"
