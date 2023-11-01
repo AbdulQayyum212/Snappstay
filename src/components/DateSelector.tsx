@@ -18,7 +18,7 @@ export default function DateSelector() {
     : '';
   const endDate = state.selectedEndDate ? state.selectedEndDate.toString() : '';
 
-  const onDateChange = (date, type) => {
+  const onDateChange = (date: any, type: string) => {
     if (type === 'END_DATE') {
       setState(prev => ({...prev, selectedEndDate: date}));
     } else {
