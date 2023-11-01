@@ -23,6 +23,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import tw from 'twrnc';
 import {ToastError} from '../../Config/Constants';
 import {baseUrl} from '../../Config/apiCaller';
+import PaymentScreen from './PaymentScreen';
 const ConfirmPay = () => {
   const dispatch = useDispatch();
   const {token} = useSelector(selectAuthState);
@@ -348,14 +349,7 @@ const ConfirmPay = () => {
               Privacy Policy
             </Text>
           </Text>
-          <Button
-            style={tw`mb-10`}
-            onPress={() => {
-              if (calculation === '')
-                return Toast.show(ToastError('Date is Required'));
-            }}
-            title={'Confirm and pay'}
-          />
+          <PaymentScreen price={calculation?.total_amount} />
         </View>
       </ScrollView>
     </SafeAreaView>
