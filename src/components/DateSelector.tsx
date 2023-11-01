@@ -78,7 +78,11 @@ export default function DateSelector() {
             />
             <TouchableOpacity
               // onPress={CheckOut}
-              onPress={() => setDateModal(false)}
+              onPress={() => {
+                console.log('state', state);
+
+                setDateModal(false);
+              }}
               style={{
                 backgroundColor: 'black',
                 paddingVertical: 15,

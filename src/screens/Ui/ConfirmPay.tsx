@@ -33,6 +33,7 @@ import {
 } from '@stripe/stripe-react-native';
 import tw from 'twrnc';
 import DateSelector from '@components/DateSelector';
+import GuestSelector from '@components/GuestSelector';
 const ConfirmPay = ({route}: any) => {
   const dispatch = useDispatch();
   const property = route?.params?.property;
@@ -83,8 +84,6 @@ const ConfirmPay = ({route}: any) => {
       .then(async response => {
         console.log('res', response);
         if (response.status === 200) {
-          setSelectedFromDate('');
-          setSelectedToDate('');
           setCalculation(response.data);
         }
       })
@@ -211,18 +210,11 @@ const ConfirmPay = ({route}: any) => {
               <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
                 Your Trips
               </Text>
-              <DateSelector />
-              <TouchableOpacity onPress={() => setGuestModal(true)}>
-                <View style={tw`flex-row justify-between items-center py-2`}>
-                  <View style={tw`gap-1`}>
-                    <Text style={tw`text-black font-bold text-lg`}>Guests</Text>
-                    <Text style={tw`text-xs font-semibold`}>1 guest</Text>
-                  </View>
-                  <View style={tw`flex-row`}>
-                    <Text style={tw`underline text-black font-bold`}>Edit</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
+              <DateSelector
+                setCalculation={setCalculation}
+                property={property}
+              />
+              <GuestSelector />
               <Text style={tw`text-black text-xl font-bold capitalize `}>
                 Price details:
               </Text>
@@ -389,166 +381,6 @@ const ConfirmPay = ({route}: any) => {
           </ScrollView>
         </>
       )}
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={guestModal}
-        // onRequestClose={() => {
-        //   Alert.alert('Modal has been closed.');
-        //   setModalVisible(!modalVisible);
-        // }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                borderBottomColor: 'lightgrey',
-                borderBottomWidth: 1,
-                paddingVertical: 6,
-              }}>
-              <View style={{width: '20%'}}>
-                <TouchableOpacity
-                  onPress={() => setGuestModal(false)}
-                  style={{
-                    width: 30,
-                    height: 30,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 50,
-                  }}>
-                  <EvilIcons name={'close'} size={20} color="black" />
-                </TouchableOpacity>
-              </View>
-              <Text
-                style={{
-                  width: '60%',
-                  textAlign: 'center',
-                  color: 'black',
-                  fontWeight: 'bold',
-                }}>
-                Guest
-              </Text>
-              <View style={{width: '20%'}} />
-            </View>
-            <View style={{padding: 20}}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: 10,
-                  paddingVertical: 10,
-                }}>
-                <View>
-                  <Text style={{color: 'black'}}>Adults</Text>
-                  <Text style={{fontSize: 12}}>ages 13 or above</Text>
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Stepper
-                      onValueChange={v => {
-                        console.log('Stepper', v);
-                        setAdults(v);
-                      }}
-                      value={adults}
-                      minValue={0}
-                      small={true}
-                    />
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: 20,
-                  paddingVertical: 10,
-                }}>
-                <View>
-                  <Text style={{color: 'black'}}>Children</Text>
-                  <Text style={{fontSize: 12}}>ages 2-12</Text>
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Stepper minValue={0} small={true} />
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: 20,
-                  paddingVertical: 10,
-                }}>
-                <View>
-                  <Text style={{color: 'black'}}>Infants</Text>
-                  <Text style={{fontSize: 12}}>under 2</Text>
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Stepper minValue={0} small={true} />
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: 20,
-                  paddingVertical: 10,
-                }}>
-                <View>
-                  <Text style={{color: 'black'}}>Pets</Text>
-                  <Text style={{fontSize: 12}}>Bringing a services animal</Text>
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Stepper minValue={0} small={true} />
-                </View>
-              </View>
-            </View>
-            <View
-              style={{
-                borderColor: 'lightgrey',
-                borderWidth: 1,
-                marginTop: 20,
-              }}
-            />
-            <TouchableOpacity
-              // onPress={CheckOut}
-              onPress={CheckOut}
-              style={{
-                backgroundColor: 'black',
-                marginTop: 20,
-                paddingVertical: 15,
-                alignItems: 'center',
-                borderRadius: 10,
-                width: '100%',
-                paddingHorizontal: 10,
-              }}>
-              <Text style={{color: 'white'}}>Check Out</Text>
-            </TouchableOpacity>
-          </View>
-          <Toast
-            config={{
-              error: props => (
-                <ErrorToast
-                  {...props}
-                  text1NumberOfLines={2}
-                  text2NumberOfLines={2}
-                />
-              ),
-            }}
-          />
-        </View>
-      </Modal>
     </SafeAreaView>
   );
 };
