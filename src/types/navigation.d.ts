@@ -38,7 +38,7 @@ export type RootStackParamList = {
   Map: undefined;
   WhereTo: undefined;
   SnappCover: {property: Property};
-  ConfirmPay: undefined;
+  ConfirmPay: {property: Property};
   Guest: undefined;
   DateEdit: undefined;
   ConfirmPaystep2: undefined;

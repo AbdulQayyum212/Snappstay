@@ -1,22 +1,31 @@
-import React, {useState} from 'react';
+import moment from 'moment';
+import React, {useEffect, useState} from 'react';
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import tw from 'twrnc';
 
-export default function DateSelector() {
+export default function DateSelector({
+  state,
+  setState,
+}: {
+  state: {
+    selectedStartDate: Date;
+    selectedEndDate: Date | null;
+    days: number;
+  };
+  setState: React.Dispatch<
+    React.SetStateAction<{
+      selectedStartDate: Date;
+      selectedEndDate: Date | null;
+      days: number;
+    }>
+  >;
+}) {
   const [dateModal, setDateModal] = useState(false);
 
-  const [state, setState] = useState({
-    selectedStartDate: null,
-    selectedEndDate: null,
-  });
   const minDate = new Date(); // Today
   const maxDate = new Date(2017, 6, 3);
-  const startDate = state.selectedStartDate
-    ? state.selectedStartDate.toString()
-    : '';
-  const endDate = state.selectedEndDate ? state.selectedEndDate.toString() : '';
 
   const onDateChange = (date: any, type: string) => {
     if (type === 'END_DATE') {
@@ -29,13 +38,37 @@ export default function DateSelector() {
       }));
     }
   };
+
+  const removeSecondMonth = () => {
+    const startDate = state.selectedStartDate
+      ? moment(state.selectedStartDate).format('MMM D')
+      : '';
+    const endDate = state.selectedEndDate
+      ? moment(state.selectedEndDate).format('MMM D')
+      : '';
+
+    const inputString = `${startDate}-${endDate}`;
+    const word = inputString.substring(0, 3);
+    const firstIndex = inputString.indexOf(word);
+    if (firstIndex !== -1) {
+      const secondIndex = inputString.indexOf(word, firstIndex + 1);
+      if (secondIndex !== -1) {
+        // Remove the second occurrence of the specified word
+        return (
+          inputString.slice(0, secondIndex) +
+          inputString.slice(secondIndex + word.length)
+        );
+      }
+    }
+    return inputString;
+  };
   return (
     <>
       <TouchableOpacity onPress={() => setDateModal(true)}>
         <View style={tw`flex-row justify-between items-center py-2`}>
           <View style={tw`gap-1`}>
             <Text style={tw`text-black font-bold text-lg`}>Dates</Text>
-            <Text style={tw`text-xs font-semibold`}>feb 17-18</Text>
+            <Text style={tw`text-xs font-semibold`}>{removeSecondMonth()}</Text>
           </View>
           <View style={tw`flex-row`}>
             <Text style={tw`underline text-black font-bold`}>Edit</Text>
@@ -49,6 +82,11 @@ export default function DateSelector() {
               style={tw`flex-row items-center border-gray-300 py-2 border-b-2`}>
               <TouchableOpacity
                 onPress={() => {
+                  var fromDate = moment(state.selectedStartDate);
+                  var toDate = moment(state.selectedEndDate);
+                  let days = toDate.diff(fromDate, 'days');
+                  if (!state.selectedEndDate) return;
+                  setState(prev => ({...prev, days: days == 0 ? 1 : days}));
                   setDateModal(false);
                 }}
                 style={{
@@ -69,6 +107,8 @@ export default function DateSelector() {
             <CalendarPicker
               startFromMonday={true}
               allowRangeSelection={true}
+              selectedStartDate={state.selectedStartDate}
+              selectedEndDate={state.selectedEndDate}
               minDate={minDate}
               // maxDate={maxDate}
               todayBackgroundColor="#f2e6ff"
@@ -78,7 +118,14 @@ export default function DateSelector() {
             />
             <TouchableOpacity
               // onPress={CheckOut}
-              onPress={() => setDateModal(false)}
+              onPress={() => {
+                var fromDate = moment(state.selectedStartDate);
+                var toDate = moment(state.selectedEndDate);
+                let days = toDate.diff(fromDate, 'days');
+                if (!state.selectedEndDate) return;
+                setState(prev => ({...prev, days: days == 0 ? 1 : days}));
+                setDateModal(false);
+              }}
               style={{
                 backgroundColor: 'black',
                 paddingVertical: 15,
