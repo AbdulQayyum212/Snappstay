@@ -17,6 +17,7 @@ import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 import {Chip, ExpandableSection, Stepper, TextField} from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import CalendarPicker from 'react-native-calendar-picker';
 import tw from 'twrnc';
 
 const WhereTo = () => {
@@ -28,6 +29,29 @@ const WhereTo = () => {
   const [expanded2, setExpanded2] = useState(true);
   const [selected, setSelected] = useState('');
   const [conditionState, setConditionState] = useState('Choose dates');
+  const minDate = new Date(); // Today
+  const maxDate = new Date(2017, 6, 3);
+  const [state, setState] = useState<{
+    selectedStartDate: Date;
+    selectedEndDate: Date | null;
+    days: number;
+  }>({
+    selectedStartDate: new Date(),
+    selectedEndDate: new Date(),
+    days: 1,
+  });
+  const onDateChange = (date: any, type: string) => {
+    if (type === 'END_DATE') {
+      setState(prev => ({...prev, selectedEndDate: date}));
+    } else {
+      setState(prev => ({
+        ...prev,
+        selectedStartDate: date,
+        selectedEndDate: null,
+      }));
+    }
+  };
+
   const data1 = [
     {
       name: "I'm Flexible",
@@ -123,22 +147,17 @@ const WhereTo = () => {
         </View>
         {conditionState === 'Choose dates' ? (
           <>
-            <Calendar
-              onDayPress={day => {
-                console.log(
-                  '====================================',
-                  day.dateString,
-                );
-                setSelected(day.dateString);
-              }}
-              showWeekNumbers
-              markedDates={{
-                [selected]: {
-                  selected: true,
-                  disableTouchEvent: true,
-                  selectedDotColor: 'orange',
-                },
-              }}
+            <CalendarPicker
+              startFromMonday={true}
+              allowRangeSelection={true}
+              selectedStartDate={state.selectedStartDate}
+              selectedEndDate={state.selectedEndDate}
+              minDate={minDate}
+              // maxDate={maxDate}
+              todayBackgroundColor="#f2e6ff"
+              selectedDayColor="black"
+              selectedDayTextColor="#FFFFFF"
+              onDateChange={onDateChange}
             />
             <View
               style={{

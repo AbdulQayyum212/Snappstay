@@ -20,7 +20,7 @@ import {PropertyListResponse} from '@type/properyListResponse';
 import ListItem from '@components/ListItem';
 const width = Dimensions.get('window').width;
 const Explore = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const [select, setSelect] = useState<number>(1);
   const [heart, setHeart] = useState<number>();
   const [modalVisible, setModalVisible] = useState(false);
@@ -159,7 +159,7 @@ const Explore = () => {
         </TouchableWithoutFeedback>
       </View>
       <View style={{flex: 1, padding: 10, backgroundColor: 'white'}}>
-        <View style={{paddingHorizontal: 10, marginBottom: 20}}>
+        <View style={{paddingHorizontal: 10}}>
           <FlatList
             horizontal
             data={FlatListData}
@@ -186,8 +186,8 @@ const Explore = () => {
                     <Image
                       source={item?.img}
                       style={{
-                        width: 30,
-                        height: 30,
+                        width: 25,
+                        height: 25,
                         marginBottom: 6,
                         tintColor: 'black',
                       }}
@@ -196,8 +196,7 @@ const Explore = () => {
                       numberOfLines={1}
                       style={{
                         color: select === item?.id ? 'black' : 'grey',
-                        fontWeight: 'bold',
-                        width: 70,
+                        fontSize: 10,
                         textAlign: 'center',
                       }}>
                       {item?.name}
