@@ -103,25 +103,11 @@ const ConfirmPay = () => {
 
   return (
     <SafeAreaView style={tw`h-full bg-white`}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: 20,
-          paddingVertical: 15,
-          borderBottomWidth: 1,
-          borderBottomColor: 'lightgrey',
-          backgroundColor: 'white',
-        }}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{
-            flex: 1,
-          }}>
+      <View style={tw`flex-row items-center border-b-2 border-gray-200 p-2`}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <EvilIcons name={'chevron-left'} size={25} color="black" />
         </TouchableOpacity>
-        <View style={{flex: 1}}>
+        <View style={tw`flex-1 items-center`}>
           <Text
             style={{
               color: 'black',
@@ -130,9 +116,8 @@ const ConfirmPay = () => {
             Confirm and pay
           </Text>
         </View>
-        <View style={{flex: 1}} />
       </View>
-      <ScrollView style={tw`p-4 my-4 `} showsVerticalScrollIndicator={false}>
+      <ScrollView style={tw`p-4 `} showsVerticalScrollIndicator={false}>
         <View style={tw`bg-white gap-4`}>
           <View style={tw`flex-row gap-2`}>
             <Image
