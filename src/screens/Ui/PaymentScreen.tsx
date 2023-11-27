@@ -1,6 +1,6 @@
 import {Button} from '@components/Button';
 import {selectAuthState} from '@stores/store';
-import {useStripe} from '@stripe/stripe-react-native';
+import {StripeProvider, useStripe} from '@stripe/stripe-react-native';
 import React, {useEffect, useState} from 'react';
 import {Alert, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
@@ -13,39 +13,52 @@ const PaymentScreen = ({price}: {price: number}) => {
   const {token} = useSelector(selectAuthState);
   const [amount, setAmount] = useState(0);
 
+  // useEffect(() => {
+  //   initializePaymentSheet();
+  // }, [price]);
+
   useEffect(() => {
-    setAmount(price);
-    initializePaymentSheet();
+    if (price) {
+      setAmount(price);
+      setLoading(true);
+    }
   }, [price]);
 
   const fetchPaymentSheetParams = async () => {
-    console.log(parseFloat(amount), 'amount');
+    console.log(String(amount).replace(/[^\d.]/g, ''), 'amount');
+
     var formData = new FormData();
-    formData.append('amount', parseFloat(amount));
+    formData.append('amount', String(amount).replace(/[^\d.]/g, ''));
+    formData.append('description', amount);
     const response = await fetch(
-      `https://www.snappstay.com/api/payment-sheet`,
+      // `https://www.snappstay.com/api/payment-sheet`,
+      `https://docudash.net/api/payment-sheet`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
+          Authorization: 'Bearer 64|d0fTkjpOVVsJteHUiZ3VhzPpyd0ieweo7TE17feO',
         },
         body: formData,
       },
     );
-    console.log(response);
+
     const data = await response.json();
-    const {paymentIntent, ephemeralKey, customer} = data.Details;
+    console.log(data);
+    const {paymentIntent, ephemeralKey, customer, publishableKey} =
+      data.Details;
     return {
       paymentIntent,
       ephemeralKey,
       customer,
+      publishableKey,
     };
   };
 
   const initializePaymentSheet = async () => {
     setLoading(true);
-    const {paymentIntent, ephemeralKey, customer} =
+    const {paymentIntent, ephemeralKey, customer, publishableKey} =
       await fetchPaymentSheetParams();
 
     const {error} = await initPaymentSheet({
@@ -53,6 +66,7 @@ const PaymentScreen = ({price}: {price: number}) => {
       customerId: customer,
       customerEphemeralKeySecret: ephemeralKey,
       paymentIntentClientSecret: paymentIntent,
+
       // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
       //methods that complete payment after a delay, like SEPA Debit and Sofort.
       allowsDelayedPaymentMethods: true,
@@ -62,6 +76,7 @@ const PaymentScreen = ({price}: {price: number}) => {
     });
     if (!error) {
       setLoading(true);
+      openPaymentSheet();
     }
   };
 
@@ -76,12 +91,20 @@ const PaymentScreen = ({price}: {price: number}) => {
   };
 
   return (
-    <Button
-      disabled={!loading}
-      style={tw`mb-10`}
-      onPress={openPaymentSheet}
-      title={'Confirm and pay'}
-    />
+    <StripeProvider
+      publishableKey={
+        'pk_test_51NGLKgENH01nEXEQS9Gnq8NlhNxD5nZ6rXpa9Fr1q5DOyupUahN1k22hE4y9azhfErdmPoMyn6oZzItFyMexZBnl00gAWDSY7G'
+      }
+      merchantIdentifier="merchant.identifier" // required for Apple Pay
+      urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+    >
+      <Button
+        disabled={!loading}
+        style={tw`mb-10`}
+        onPress={initializePaymentSheet}
+        title={'Confirm and pay'}
+      />
+    </StripeProvider>
   );
 };
 const styles = StyleSheet.create({

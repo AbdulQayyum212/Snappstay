@@ -248,7 +248,8 @@ const Trips = () => {
             </View>
           ) : (
             <View style={tw`h-full items-center justify-center`}>
-              <Text style={tw` bg-red-200`}>No trips</Text>
+              <Text style={tw`text-black`}>No trips </Text>
+              <Text style={tw`text-black`}> Find Your trips here</Text>
             </View>
           )}
 

@@ -334,7 +334,7 @@ const ConfirmPay = () => {
               Privacy Policy
             </Text>
           </Text>
-          <PaymentScreen price={calculation?.total_amount} />
+          <PaymentScreen price={calculation.total_amount} />
         </View>
       </ScrollView>
     </SafeAreaView>

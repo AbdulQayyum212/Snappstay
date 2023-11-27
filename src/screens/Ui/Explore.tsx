@@ -159,7 +159,7 @@ const Explore = () => {
         </TouchableWithoutFeedback>
       </View>
       <View style={{flex: 1, padding: 10, backgroundColor: 'white'}}>
-        <View style={{paddingHorizontal: 10, marginBottom: 20}}>
+        <View style={{paddingHorizontal: 10}}>
           <FlatList
             horizontal
             data={FlatListData}
