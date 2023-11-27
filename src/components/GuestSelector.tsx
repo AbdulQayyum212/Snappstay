@@ -47,7 +47,8 @@ const GuestSelector = ({property}: {property: Property}) => {
                 <EvilIcons name={'close'} size={20} color="black" />
               </TouchableOpacity>
               <View style={tw`flex-1 items-center`}>
-                <Text style={tw`text-lg  text-centers font-semibold`}>
+                <Text
+                  style={tw`text-lg  text-centers font-semibold text-black`}>
                   Guest
                 </Text>
               </View>

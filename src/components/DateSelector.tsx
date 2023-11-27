@@ -99,7 +99,8 @@ export default function DateSelector({
                 <EvilIcons name={'close'} size={20} color="black" />
               </TouchableOpacity>
               <View style={tw`flex-1 items-center`}>
-                <Text style={tw`text-lg  text-centers font-semibold`}>
+                <Text
+                  style={tw`text-lg  text-centers font-semibold text-black`}>
                   Selected Date
                 </Text>
               </View>
@@ -112,7 +113,7 @@ export default function DateSelector({
               minDate={minDate}
               // maxDate={maxDate}
               todayBackgroundColor="#f2e6ff"
-              selectedDayColor="#7300e6"
+              selectedDayColor="black"
               selectedDayTextColor="#FFFFFF"
               onDateChange={onDateChange}
             />

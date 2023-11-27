@@ -63,7 +63,7 @@ const SnappCover = () => {
   const onShare = async () => {
     try {
       const result = await Share.share({
-        url: '',
+        url: `https://www.snappstay.com/property-detail/${property.id}`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
