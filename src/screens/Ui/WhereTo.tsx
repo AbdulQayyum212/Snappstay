@@ -13,15 +13,29 @@ import {
   View,
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {
+  GooglePlaceData,
+  GooglePlaceDetail,
+  GooglePlacesAutocomplete,
+} from 'react-native-google-places-autocomplete';
 import {Chip, ExpandableSection, Stepper, TextField} from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import CalendarPicker from 'react-native-calendar-picker';
 import tw from 'twrnc';
+import axios from 'axios';
+import {GOOGLE_API, baseUrl} from '../../Config/apiCaller';
+import {loaderFalse, loaderTrue} from '@stores/actions/LoaderAction';
+import {useDispatch, useSelector} from 'react-redux';
+import moment from 'moment';
+import SetProperties from '@stores/reducers/Properties';
+import {setProperties} from '@stores/actions/AddListingAction';
+import {setProperty} from '@stores/store';
 
 const WhereTo = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const properties = useSelector(setProperty);
   const [modalVisible, setModalVisible] = useState(false);
   const [top, setTop] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -35,10 +49,14 @@ const WhereTo = () => {
     selectedStartDate: Date;
     selectedEndDate: Date | null;
     days: number;
+    guests: number;
+    address: string;
   }>({
     selectedStartDate: new Date(),
     selectedEndDate: new Date(),
     days: 1,
+    guests: 0,
+    address: '',
   });
   const onDateChange = (date: any, type: string) => {
     if (type === 'END_DATE') {
@@ -91,6 +109,37 @@ const WhereTo = () => {
       year: 2023,
     },
   ];
+  const Search = () => {
+    console.log('properties', properties.properties);
+
+    const obj = {
+      address: state.address,
+      check_in: moment(state.selectedStartDate).format('L'),
+      check_out: moment(state.selectedEndDate).format('L'),
+      guests: state.guests,
+      // property_type:'Apartment'
+    };
+    console.log('obj', obj);
+
+    dispatch(loaderTrue());
+    axios
+      .post(baseUrl + 'property/search', obj, {
+        // headers: {
+        //   Authorization: `Bearer ${token}`,
+        // },
+      })
+      .then(async response => {
+        console.log('res', response.data);
+        dispatch(setProperties(response.data.properties));
+        navigation.goBack();
+      })
+      .catch(error => {
+        dispatch(loaderFalse());
+
+        console.error('Fetch error:', error);
+        // Handle other types of errors, like network issues
+      });
+  };
   const getBodyElement = () => {
     return (
       <View style={{padding: 10}}>
@@ -229,7 +278,11 @@ const WhereTo = () => {
                 borderTopColor: 'lightgrey',
                 borderTopWidth: 1,
               }}>
-              <TouchableOpacity onPress={() => setExpanded(false)}>
+              <TouchableOpacity
+                onPress={() => {
+                  setExpanded(false);
+                  setExpanded1(true);
+                }}>
                 <Text style={{textDecorationLine: 'underline', color: 'black'}}>
                   Skip
                 </Text>
@@ -247,7 +300,10 @@ const WhereTo = () => {
                 <Text style={{color: 'white'}}>Next</Text>
               </TouchableOpacity> */}
               <Button
-                // onPress={() => navigation.navigate('MyTabs')}
+                onPress={() => {
+                  setExpanded(false);
+                  setExpanded1(true);
+                }}
                 style={{marginTop: 20, paddingVertical: 10, width: 100}}
                 title={'Next'}
               />
@@ -403,7 +459,13 @@ const WhereTo = () => {
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Stepper minValue={0} small={true} />
+              <Stepper
+                onValueChange={(v: number) =>
+                  setState((prev: any) => ({...prev, guests: prev.guests + v}))
+                }
+                minValue={0}
+                small={true}
+              />
             </View>
           </View>
         </View>
@@ -421,7 +483,13 @@ const WhereTo = () => {
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Stepper minValue={0} small={true} />
+              <Stepper
+                onValueChange={(v: number) =>
+                  setState((prev: any) => ({...prev, guests: prev.guests + v}))
+                }
+                minValue={0}
+                small={true}
+              />
             </View>
           </View>
         </View>
@@ -439,7 +507,13 @@ const WhereTo = () => {
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Stepper minValue={0} small={true} />
+              <Stepper
+                onValueChange={(v: number) =>
+                  setState((prev: any) => ({...prev, guests: prev.guests + v}))
+                }
+                minValue={0}
+                small={true}
+              />
             </View>
           </View>
         </View>
@@ -456,7 +530,13 @@ const WhereTo = () => {
             <Text style={{fontSize: 12}}>Bringing a services animal</Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Stepper minValue={0} small={true} />
+            <Stepper
+              onValueChange={(v: number) =>
+                setState((prev: any) => ({...prev, guests: prev.guests + v}))
+              }
+              minValue={0}
+              small={true}
+            />
           </View>
         </View>
       </View>
@@ -482,44 +562,120 @@ const WhereTo = () => {
 
               // elevation: 5,
             }}>
-            <View
+            {/* <View
               style={{
                 width: '100%',
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-              }}>
-              <TouchableOpacity
+              }}> */}
+            {/* <View
                 // disabled={true}
-                onPress={() => setModalVisible(true)}
+                // onPress={() => setModalVisible(true)}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
+                  overflow: 'hidden',
                   flex: 1,
                   height: 48,
                   borderColor: 'lightgrey',
                   borderWidth: 1,
                   borderRadius: 10,
                   paddingHorizontal: 12,
-                  backgroundColor: '#FBFBFB',
-                }}>
-                <Image
+                  // backgroundColor: '#FBFBFB',
+                }}> */}
+            {/* <Image
                   style={{width: 20, height: 20, marginRight: 10}}
                   source={require('@assets/icon.png')}
-                />
-                <TextField
-                  editable={false}
-                  style={{
-                    height: 35,
-                    width: '92%',
-                    borderTopRightRadius: 20,
-                    borderBottomRightRadius: 20,
-                  }}
-                  placeholder="search..."
-                />
-              </TouchableOpacity>
+                /> */}
+            <View>
+              <GooglePlacesAutocomplete
+                textInputProps={{
+                  onChangeText: text =>
+                    setState((prev: any) => ({
+                      ...prev,
+                      address: text,
+                    })),
+                  value: state?.address,
+                }}
+                fetchDetails={true}
+                debounce={500}
+                renderLeftButton={() => {
+                  return (
+                    <Image
+                      resizeMode="center"
+                      style={{
+                        width: 20,
+                        height: 20,
+                        marginTop: 15,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                      source={require('@assets/icon.png')}
+                    />
+                  );
+                }}
+                styles={{
+                  container: {
+                    justifyContent: 'center',
+                    borderColor: 'lightgrey',
+                    borderWidth: 1,
+                    borderRadius: 10,
+                    paddingHorizontal: 12,
+                    alignItems: 'center',
+                    flex: 1,
+                    // backgroundColor: 'red',
+                    width: '100%',
+                  },
+                  // TextFieldContainer: {
+                  //   width: '100%',
+                  //   // borderColor: 'lightgrey',
+                  //   // borderWidth: 1,
+                  //   // justifyContent: 'center',
+                  //   // borderRadius: 10,
+                  //   // alignItems: 'center',
+                  //   // borderColor: 'lightgrey',
+                  //   // borderWidth: 1,
+                  // },
+                  TextField: {
+                    width: '80%',
+                    // height: 40,
+                    // borderColor: 'lightgrey',
+                    // borderWidth: 1,
+                    // backgroundColor: 'blue',
+                    // alignItems: 'center',/
+                  },
+                }}
+                onPress={(
+                  data: GooglePlaceData,
+                  details: GooglePlaceDetail | null,
+                ) => {
+                  console.log(
+                    'details.geometry.location',
+                    details?.formatted_address,
+                  );
+                  setState((prev: any) => ({
+                    ...prev,
+                    address: details?.formatted_address,
+                  }));
+                  setExpanded(true);
+                }}
+                placeholder="Search..."
+                // TextFieldProps={{autoFocus: true}}
+                // onPress={(data, details = null) => {
+                //   // 'details' is provided when fetchDetails = true
+                //   console.log(data, details);
+                // }}
+                query={{
+                  key: GOOGLE_API,
+                  // key: 'AIzaSyClYAkI28o4JC8de56LH0xpNWtX-TWIKr4',
+                  language: 'en',
+                }}
+              />
             </View>
-            <FlatList
+            {/* </View> */}
+            {/* </View> */}
+            {/* <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
               data={data1}
@@ -551,7 +707,7 @@ const WhereTo = () => {
                   </View>
                 );
               }}
-            />
+            /> */}
           </View>
         </View>
       </View>
@@ -839,6 +995,7 @@ const WhereTo = () => {
             <Text style={{color: 'white'}}>Search</Text>
           </TouchableOpacity> */}
           <LeftIconBtn
+            onPress={Search}
             Lefticon={
               <EvilIcons
                 name="search"
@@ -851,7 +1008,7 @@ const WhereTo = () => {
           />
         </View>
       </View>
-      <Modal
+      {/* <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -896,9 +1053,6 @@ const WhereTo = () => {
                 }}>
                 <Text style={{color: 'black'}}>Stays</Text>
               </TouchableOpacity>
-              {/* <TouchableOpacity style={{marginRight: 20}}>
-                <Text>Experiences</Text>
-              </TouchableOpacity> */}
             </View>
             <View />
           </View>
@@ -923,19 +1077,7 @@ const WhereTo = () => {
                   backgroundColor: '#FBFBFB',
                   overflow: 'hidden',
                 }}>
-                {/* <Image
-                  style={{width: 20, height: 20, marginRight: 10}}
-                  source={require('@assets/icon.png')}
-                /> */}
-                {/* <TextField
-                  style={{
-                    height: 35,
-                    width: '92%',
-                    borderTopRightRadius: 20,
-                    borderBottomRightRadius: 20,
-                  }}
-                  placeholder="search..."
-                /> */}
+
                 <GooglePlacesAutocomplete
                   fetchDetails={true}
                   debounce={400}
@@ -1004,7 +1146,7 @@ const WhereTo = () => {
             </View>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
     </SafeAreaView>
   );
 };

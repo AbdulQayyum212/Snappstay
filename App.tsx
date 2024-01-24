@@ -25,6 +25,8 @@ import {persistReducer, persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import thunk from 'redux-thunk';
 import {persistor, selectLoaderState, store} from '@stores/store';
+import LoaderReducer from '@stores/reducers/LoaderReducers';
+import Root from './Root';
 const App = () => {
   return (
     // <SafeAreaView style={styles.container}>

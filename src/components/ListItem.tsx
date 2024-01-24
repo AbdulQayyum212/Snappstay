@@ -33,6 +33,8 @@ const width = Dimensions.get('window').width;
 
 export default function ListItem({item}: {item: Property}) {
   const navigation = useNavigation();
+  console.log('item?.house_title', item?.house_title);
+
   return (
     <View
       key={item.id + 'list-item'}

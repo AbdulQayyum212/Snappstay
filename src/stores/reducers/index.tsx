@@ -5,6 +5,8 @@ import profileReducer, {ProfileState} from '@stores/reducers/profileReducer';
 import userReducer, {UserState} from '@stores/reducers/userReducer';
 import AddListing, {AddListingState} from './AddListingReducer';
 import LoaderReducer, {LoaderState} from './LoaderReducers';
+import SetProperties from './Properties';
+import {PropertiesType} from '@type/PropertiesType';
 // Define the RootState type, which combines all the individual reducer states
 export interface RootState {
   auth: AuthState;
@@ -12,6 +14,7 @@ export interface RootState {
   profile: ProfileState;
   userData: UserState;
   AddListing: AddListingState;
+  setProperty: PropertiesType;
   loading: LoaderState;
   // Add more state types for other reducers if needed
 }
@@ -21,6 +24,7 @@ const rootReducer = combineReducers<RootState>({
   signup: signupReducer,
   profile: profileReducer,
   AddListing: AddListing,
+  setProperty: SetProperties,
   userData: userReducer,
   loading: LoaderReducer,
   // Add more reducers and their state types if needed

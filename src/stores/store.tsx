@@ -11,6 +11,8 @@ const selectAuthState = (state: RootState) => state.auth;
 const selectSignupState = (state: RootState) => state.signup;
 const selectProfileState = (state: RootState) => state.profile;
 const selectAddListingState = (state: RootState) => state.AddListing;
+const Loading = (state: RootState) => state.loading;
+const setProperty = (state: RootState) => state.setProperty;
 const selectUserState = (state: RootState) => state.userData;
 const selectLoaderState = (state: RootState) => state.loading;
 
@@ -34,4 +36,6 @@ export {
   selectAddListingState,
   selectUserState,
   selectLoaderState,
+  setProperty,
+  Loading,
 };

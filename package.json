@@ -24,7 +24,7 @@
     "@stripe/stripe-react-native": "^0.33.0",
     "axios": "^1.4.0",
     "link": "^1.5.1",
-    "lottie-react-native": "^6.4.0",
+    "lottie-react-native": "^6.5.1",
     "moment": "^2.29.4",
     "react": "18.2.0",
     "react-hook-form": "^7.47.0",
