@@ -198,11 +198,11 @@ const PersonalInfo = () => {
               marginTop: 20,
             }}>
             <View>
-              <Text style={{color: 'black'}}>Phone Number</Text>
-              <Text style={{color: 'grey', marginTop: 5}}>
+              <Text style={{color: 'black', marginTop: 10}}>Phone Number</Text>
+              <Text style={{color: 'grey', marginTop: 5, width: 200}}>
                 For notification, reminders, and help logging in.
               </Text>
-              <Text style={{color: 'grey', marginTop: 20}}>{maskedNumber}</Text>
+              <Text style={{color: 'grey', marginTop: 10}}>{maskedNumber}</Text>
             </View>
             <TouchableOpacity>
               <Text

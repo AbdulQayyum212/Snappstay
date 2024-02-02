@@ -59,7 +59,7 @@ export const getUserData = () => {
       // console.log(updatedUser);
       if (response.ok) {
         const updatedUser: UserProfileResponse = await response.json();
-        // console.log(updatedUser.userData.users);
+        console.log('update ==><><', updatedUser);
         dispatch(updateUserSuccess(updatedUser.userData, 'Data is here'));
         dispatch(setUser(updatedUser.userData.users));
       } else {

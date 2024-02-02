@@ -108,7 +108,7 @@ const Category = ({setSelect, select}: any) => {
     };
   }
   useEffect(() => {
-    if (properties?.properties?.data.length > 0 && data)
+    if (properties?.properties?.data?.length > 0 && data)
       setSelect(data[0]?.category_name);
   }, [data]);
   return (
