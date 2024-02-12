@@ -38,6 +38,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = snappstay/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-snappstay-snappstayTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-snappstay-snappstayTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-snappstay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snappstay.debug.xcconfig"; path = "Target Support Files/Pods-snappstay/Pods-snappstay.debug.xcconfig"; sourceTree = "<group>"; };
+		52DD738C2B7A95C500886C3D /* snappstay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = snappstay.entitlements; path = snappstay/snappstay.entitlements; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-snappstay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snappstay.release.xcconfig"; path = "Target Support Files/Pods-snappstay/Pods-snappstay.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-snappstay-snappstayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snappstay-snappstayTests.debug.xcconfig"; path = "Target Support Files/Pods-snappstay-snappstayTests/Pods-snappstay-snappstayTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-snappstay.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-snappstay.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +87,7 @@
 		13B07FAE1A68108700A75B9A /* snappstay */ = {
 			isa = PBXGroup;
 			children = (
+				52DD738C2B7A95C500886C3D /* snappstay.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -485,6 +487,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = snappstay/snappstay.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DUL3675ATK;
 				ENABLE_BITCODE = NO;
@@ -513,6 +516,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = snappstay/snappstay.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DUL3675ATK;
 				INFOPLIST_FILE = snappstay/Info.plist;

@@ -27,6 +27,29 @@ import thunk from 'redux-thunk';
 import {persistor, selectLoaderState, store} from '@stores/store';
 import LoaderReducer from '@stores/reducers/LoaderReducers';
 import Root from './Root';
+
+const config = {
+  initialRouteName: 'MyTabs',
+  screens: {
+    SnappCover: {
+      path: 'property-detail/:item',
+      parse: {
+        item: (item: string) => {
+          return {id: parseInt(item, 10)};
+        },
+      },
+      stringify: {
+        item: (item: string) => {
+          return {id: item.toString()};
+        },
+      },
+    },
+  },
+};
+const linking = {
+  prefixes: ['https://www.snappstay.com'], // replace with your website URL
+  config,
+};
 const App = () => {
   return (
     // <SafeAreaView style={styles.container}>
@@ -48,13 +71,13 @@ const App = () => {
       ) : ( */}
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <NavigationContainer>
+          <NavigationContainer linking={linking}>
             {Platform.OS == 'ios' ? (
               <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
                 <StackNavigation />
               </KeyboardAvoidingView>
             ) : (
-              <StackNavigation />
+              <StackNavigation linking={linking} />
             )}
           </NavigationContainer>
         </PersistGate>
