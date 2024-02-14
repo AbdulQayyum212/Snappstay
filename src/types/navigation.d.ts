@@ -1,3 +1,4 @@
+import {Review} from './review.d';
 import {Earning} from './earning.d';
 import type {
   CompositeScreenProps,
@@ -59,6 +60,7 @@ export type RootStackParamList = {
   EarningListing: undefined;
   stripe: undefined;
   EarningDetails: {Earning: Earning};
+  ReviewsDetails: {Review: Review};
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

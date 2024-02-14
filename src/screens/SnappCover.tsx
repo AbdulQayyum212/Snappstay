@@ -156,7 +156,7 @@ const SnappCover = () => {
             loop
             autoplay
             pageControlPosition={Carousel.pageControlPositions.OVER}>
-            {property.property_photos.map((element, index) => (
+            {property?.property_photos?.map((element, index) => (
               <AnimatedImage
                 key={element.id + 'image'}
                 style={{height: 300}}
@@ -203,7 +203,7 @@ const SnappCover = () => {
                   source={{
                     uri:
                       'https://www.snappstay.com/public/images/' +
-                      property.user_details.photo,
+                      property.user_details?.photo,
                   }}
                 />
               </View>

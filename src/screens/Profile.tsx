@@ -428,6 +428,18 @@ const Profile = () => {
                   <CustomBtn
                     rightIcon={
                       <MaterialIcons
+                        name="reviews"
+                        size={20}
+                        color="black"
+                        style={{marginRight: 10}}
+                      />
+                    }
+                    onPress={() => navigation.navigate('ReviewListing')}
+                    centerText="Reviews"
+                  />
+                  <CustomBtn
+                    rightIcon={
+                      <MaterialIcons
                         name="translate"
                         size={20}
                         color="black"

@@ -34,6 +34,7 @@ import PersonalInfo from '@screens/Ui/PersonalInfo';
 import PrivacyAndSharing from '@screens/Ui/PrivacyAndSharing';
 import ProfileStep2 from '@screens/Ui/ProfileStep2';
 import Reviews from '@screens/Ui/Reviews';
+import ReviewsDetails from '@screens/ReviewDetails';
 import StartEarning from '@screens/Ui/StartEarning';
 import Translation from '@screens/Ui/Translation';
 import TripDetail from '@screens/Ui/TripDetail';
@@ -147,6 +148,7 @@ const StackNavigation = () => {
         <Stack.Screen name="PrivacyAndSharing" component={PrivacyAndSharing} />
         <Stack.Screen name="StartEarning" component={StartEarning} />
         <Stack.Screen name="Reviews" component={Reviews} />
+        <Stack.Screen name="ReviewsDetails" component={ReviewsDetails} />
         <Stack.Screen name="Done" component={Done} />
         <Stack.Screen name="Translation" component={Translation} />
         <Stack.Screen name="Notifications" component={Notifications} />

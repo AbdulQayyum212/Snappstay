@@ -2,6 +2,7 @@ import {Booking} from './booking';
 import {Earning} from './earning';
 import {Property} from './property';
 import {Properties} from './properyListResponse';
+import {Review} from './review';
 import {UserFavourite} from './useFavourite';
 import {User} from './user';
 
@@ -21,4 +22,5 @@ export interface UserData {
   user_notifications: any[];
   new_notification: any[];
   count_notificaion: number;
+  guestReviews: Review[];
 }
