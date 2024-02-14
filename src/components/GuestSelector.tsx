@@ -7,7 +7,7 @@ import {Property} from '@type/property';
 const GuestSelector = ({property}: {property: Property}) => {
   const [guestModal, setGuestModal] = useState(false);
   const [guests, setGuests] = useState({
-    adults: 0,
+    adults: 1,
     children: 0,
     infants: 0,
     pets: 0,
