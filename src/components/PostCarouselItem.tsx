@@ -47,11 +47,11 @@ const PostCarouselItem = props => {
             {/* Bed & Bedroom  */}
             <View style={tw`flex-row items-center gap-2 my-2`}>
               <View style={tw`flex-row items-center gap-1`}>
-                <Ionicons name="bed" size={20} />
+                <Ionicons color={'black'} name="bed" size={20} />
                 <Text style={tw`text-black`}> {post.bedrooms || 0} Beds</Text>
               </View>
               <View style={tw`flex-row items-center gap-1`}>
-                <FontAwesome5Icon name="bath" size={15} />
+                <FontAwesome5Icon color={'black'} name="bath" size={15} />
                 <Text style={tw`text-black`}>{post.bathrooms || 0} Baths</Text>
               </View>
             </View>
@@ -62,7 +62,7 @@ const PostCarouselItem = props => {
             </Text>
 
             {/*  Old price & new price */}
-            <Text style={tw`text-sm my-2`}>
+            <Text style={tw`text-sm my-2 text-black`}>
               <Text style={tw`font-bold text-black`}>${post.price} </Text>/
               night
             </Text>
