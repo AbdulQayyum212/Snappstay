@@ -225,12 +225,19 @@ const Map = () => {
               backgroundColor: '#f7f7f7',
             }}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <AntDesign name="search1" size={20} style={{marginRight: 20}} />
+              <AntDesign
+                color={'black'}
+                name="search1"
+                size={20}
+                style={{marginRight: 20}}
+              />
               <View>
                 <Text style={{fontWeight: 'bold', color: 'black'}}>
                   Where to?
                 </Text>
-                <Text>AnyWhere , AnyWhere , Add guest </Text>
+                <Text style={tw`text-black`}>
+                  AnyWhere , AnyWhere , Add guest{' '}
+                </Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -246,7 +253,7 @@ const Map = () => {
             latitudeDelta: 0.8,
             longitudeDelta: 0.8,
           }}>
-          {posts.map(place => (
+          {posts?.map(place => (
             <CustomMarker
               coordinate={{
                 latitude: parseFloat(place.lat),

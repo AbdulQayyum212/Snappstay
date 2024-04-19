@@ -76,12 +76,19 @@ const Explore = () => {
               backgroundColor: '#f7f7f7',
             }}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <AntDesign name="search1" size={20} style={{marginRight: 20}} />
+              <AntDesign
+                color={'black'}
+                name="search1"
+                size={20}
+                style={{marginRight: 20}}
+              />
               <View>
                 <Text style={{fontWeight: 'bold', color: 'black'}}>
                   Where to?
                 </Text>
-                <Text>AnyWhere , AnyWhere , Add guest </Text>
+                <Text style={tw`text-black`}>
+                  AnyWhere , AnyWhere , Add guest{' '}
+                </Text>
               </View>
             </View>
             {/* <AntDesign name="menu-fold" size={20} /> */}
@@ -143,8 +150,9 @@ const Explore = () => {
         {/* </View> */}
         {properties.properties?.data?.length > 0 && (
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('Map', {posts: data.properties.data})
+            onPress={
+              () => navigation.navigate('Map', {posts: data?.properties?.data})
+              // console.log('data', data)
             }
             style={{
               width: 90,

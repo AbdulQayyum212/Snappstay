@@ -82,21 +82,25 @@ export default function ListItem({item}: {item: Property}) {
           </Text>
           <View style={tw`flex-row items-center gap-2`}>
             <View style={tw`flex-row items-center gap-1`}>
-              <Ionicons name="bed" size={20} />
-              <Text>{item.bedrooms || 0} Beds</Text>
+              <Ionicons color={'black'} name="bed" size={20} />
+              <Text style={tw`text-black`}>{item.bedrooms || 0} Beds</Text>
             </View>
             <View style={tw`flex-row items-center gap-1`}>
               <FontAwesome5Icon
                 name="bath"
                 size={20}
+                color={'black'}
                 style={{marginLeft: 10}}
               />
-              <Text>{item.bathrooms || 0} Baths</Text>
+              <Text style={tw`text-black`}>{item.bathrooms || 0} Baths</Text>
             </View>
           </View>
 
-          <Text style={{fontSize: 15}}>
-            <Text style={tw`font-bold`}>Price : ${item?.price} </Text>/ night
+          <Text style={{fontSize: 15, color: 'black'}}>
+            <Text style={tw`font-bold text-black`}>
+              Price : ${item?.price}{' '}
+            </Text>
+            / night
           </Text>
         </View>
         <View
@@ -110,7 +114,7 @@ export default function ListItem({item}: {item: Property}) {
             source={require('@assets/u_star.png')}
           />
 
-          <Text>4.94</Text>
+          <Text style={tw`text-black`}>4.94</Text>
         </View>
       </View>
       <View style={{position: 'absolute', top: 10, left: 10}}>

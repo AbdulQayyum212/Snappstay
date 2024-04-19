@@ -623,6 +623,7 @@ const WhereTo = () => {
                     borderRadius: 10,
                     paddingHorizontal: 12,
                     alignItems: 'center',
+                    color: 'black',
                     flex: 1,
                     // backgroundColor: 'red',
                     width: '100%',

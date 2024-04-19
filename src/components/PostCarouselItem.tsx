@@ -48,22 +48,23 @@ const PostCarouselItem = props => {
             <View style={tw`flex-row items-center gap-2 my-2`}>
               <View style={tw`flex-row items-center gap-1`}>
                 <Ionicons name="bed" size={20} />
-                <Text>{post.bedrooms || 0} Beds</Text>
+                <Text style={tw`text-black`}> {post.bedrooms || 0} Beds</Text>
               </View>
               <View style={tw`flex-row items-center gap-1`}>
                 <FontAwesome5Icon name="bath" size={15} />
-                <Text>{post.bathrooms || 0} Baths</Text>
+                <Text style={tw`text-black`}>{post.bathrooms || 0} Baths</Text>
               </View>
             </View>
 
             {/* Type & Description */}
-            <Text style={tw`text-sm`} numberOfLines={2}>
+            <Text style={tw`text-sm text-black`} numberOfLines={2}>
               {post.place_type}. {post.house_title}
             </Text>
 
             {/*  Old price & new price */}
             <Text style={tw`text-sm my-2`}>
-              <Text style={tw`font-bold`}>${post.price} </Text>/ night
+              <Text style={tw`font-bold text-black`}>${post.price} </Text>/
+              night
             </Text>
           </View>
         </View>
